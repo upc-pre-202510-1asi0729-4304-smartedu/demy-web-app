@@ -13,6 +13,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(),
+    provideRouter(routes),
     provideTranslateService({
       loader: {
         provide: TranslateLoader,
@@ -20,6 +21,5 @@ export const appConfig: ApplicationConfig = {
         deps: [HttpClient]
       },
       defaultLanguage: 'en',
-    }),
-    provideRouter(routes)]
+    })]
 };
