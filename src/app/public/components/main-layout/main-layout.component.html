@@ -1,0 +1,17 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()" fixedInViewport>
+
+    <app-side-navigation-bar (logout)="logout()" />
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <app-header-content
+      [isMobile]="isMobile()"
+      (menuToggle)="drawer.toggle()"
+      (logout)="logout()" />
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
