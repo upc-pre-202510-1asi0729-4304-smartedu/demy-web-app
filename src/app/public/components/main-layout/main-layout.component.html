@@ -2,6 +2,7 @@
   <mat-sidenav #drawer [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()" fixedInViewport>
 
     <app-side-navigation-bar (logout)="logout()" />
+
   </mat-sidenav>
 
   <mat-sidenav-content>
