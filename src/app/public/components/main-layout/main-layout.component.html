@@ -1,19 +1,17 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()" fixedInViewport>
+<app-header-content
+        [isMobile]="isMobile()"
+        (menuToggle)="drawer.toggle()"
+        (logout)="logout()" />
 
-    <app-side-navigation-bar (logout)="logout()" />
+<mat-drawer-container class="drawer-container">
+    <mat-drawer #drawer class="drawer" [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()">
+        <app-side-navigation-bar (logout)="logout()" />
+    </mat-drawer>
 
-  </mat-sidenav>
+    <div class="main-content">
+        <div class="content-wrapper">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 
-  <mat-sidenav-content>
-
-    <app-header-content
-      [isMobile]="isMobile()"
-      (menuToggle)="drawer.toggle()"
-      (logout)="logout()" />
-
-    <router-outlet></router-outlet>
-
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
+</mat-drawer-container>

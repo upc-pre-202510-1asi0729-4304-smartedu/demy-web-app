@@ -17,7 +17,10 @@ export class SideNavigationBarComponent {
   navOptions = [
     { icon: 'assignment', label: 'Matrícula', route: '/enrollment' },
     { icon: 'group', label: 'Alumnos', route: '/students' },
-    { icon: 'payments', label: 'Pagos', route: '/payments' }
+    { icon: 'payments', label: 'Pagos', route: '/payments' },
+    { icon: 'schedule', label: 'Horarios', route: '/schedules' },
+    { icon: 'check_circle', label: 'Asistencia', route: '/attendance' },
+    { icon: 'account_balance', label: 'Finanzas', route: '/finance' }
   ];
 
   @Output() logout = new EventEmitter<void>();
