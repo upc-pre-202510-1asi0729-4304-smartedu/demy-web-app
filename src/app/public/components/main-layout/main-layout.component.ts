@@ -3,13 +3,15 @@ import { HeaderContentComponent } from '../header-content/header-content.compone
 import { SideNavigationBarComponent } from '../side-navigation-bar/side-navigation-bar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main-layout',
   imports: [
     HeaderContentComponent,
     SideNavigationBarComponent,
-    MatSidenavModule
+    MatSidenavModule,
+    RouterOutlet
   ],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css'

@@ -1,26 +1,17 @@
 <mat-nav-list class="side-nav">
 
-  <a mat-list-item >
-    <mat-icon>assignment</mat-icon>
-    <span>Matrícula</span>
-  </a>
+  @for (option of navOptions; track option.label) {
+    <a mat-list-item [routerLink]="option.route">
+      <mat-icon>{{ option.icon }}</mat-icon>
+      <span>{{ option.label }}</span>
+    </a>
+  }
+    <mat-divider />
 
-  <a mat-list-item>
-    <mat-icon>group</mat-icon>
-    <span>Alumnos</span>
-  </a>
-
-  <a mat-list-item>
-    <mat-icon>payments</mat-icon>
-    <span>Pagos</span>
-  </a>
-
-  <mat-divider />
-
-  <button mat-list-item (click)="logout.emit()">
+  <a mat-list-item (click)="logout.emit()">
     <mat-icon>logout</mat-icon>
     <span>Salir</span>
-  </button>
+  </a>
 
   <mat-divider />
 

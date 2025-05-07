@@ -1,0 +1,6 @@
+/* main-layout.component.css */
+.sidenav-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
