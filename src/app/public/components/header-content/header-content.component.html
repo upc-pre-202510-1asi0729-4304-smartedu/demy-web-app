@@ -1,23 +1,23 @@
-<mat-toolbar class="header-toolbar" color="primary">
+<mat-toolbar class="header-toolbar">
 
-  @if (isMobile) {
-    <button mat-icon-button (click)="menuToggle.emit()" aria-label="Menu">
-      <mat-icon>menu</mat-icon>
-    </button>
-  }
+    @if (isMobile) {
+        <button mat-icon-button (click)="menuToggle.emit()" aria-label="Menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+    }
 
-  <span class="logo">Demy</span>
+    <span class="logo">Demy</span>
 
-  @if (!isMobile) {
-    <nav class="nav-links">
-      <a mat-button>Hola</a>
-      <a mat-button>Adios</a>
-    </nav>
-  }
+    @if (!isMobile) {
+        <nav class="nav-links">
+            <a mat-button>Mi organización</a>
+            <a mat-button>Panel de control</a>
+        </nav>
+    }
 
-  <span class="spacer"></span>
+    <span class="spacer"></span>
 
-  <button mat-button (click)="logout.emit()">Salir</button>
+    <button mat-button (click)="logout.emit()">Salir</button>
 
   <app-language-switcher/>
 
