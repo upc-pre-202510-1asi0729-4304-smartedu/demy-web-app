@@ -1,0 +1,16 @@
+<div class="toggle-scroll-wrapper">
+  <mat-button-toggle-group
+    [value]="selected"
+    [hideSingleSelectionIndicator]="true"
+    (change)="onSelectionChange($event.value)"
+    class="toggle-nav-group"
+    appearance="standard">
+
+    @for (option of options; track option.value) {
+      <mat-button-toggle [value]="option.value">
+        {{ option.label }}
+      </mat-button-toggle>
+    }
+
+  </mat-button-toggle-group>
+</div>

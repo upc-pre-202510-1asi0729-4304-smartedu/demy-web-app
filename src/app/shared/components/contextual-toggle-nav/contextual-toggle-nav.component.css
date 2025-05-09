@@ -1,0 +1,33 @@
+.toggle-scroll-wrapper {
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.toggle-scroll-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.toggle-scroll-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.toggle-nav-group {
+  flex-wrap: nowrap;
+  min-width: max-content;
+}
+
+mat-button-toggle {
+  min-width: 120px;
+  justify-content: center;
+  text-transform: none;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  mat-button-toggle {
+    min-width: 90px;
+    font-size: 0.8rem;
+  }
+}

@@ -4,6 +4,7 @@ import { SideNavigationBarComponent } from '../side-navigation-bar/side-navigati
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { RouterOutlet } from '@angular/router';
+import {ContentWrapperComponent} from '../content-wrapper/content-wrapper.component';
 
 @Component({
   selector: 'app-main-layout',
@@ -11,7 +12,8 @@ import { RouterOutlet } from '@angular/router';
     HeaderContentComponent,
     SideNavigationBarComponent,
     MatSidenavModule,
-    RouterOutlet
+    RouterOutlet,
+    ContentWrapperComponent
   ],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css'
