@@ -6,8 +6,7 @@
 
     <app-header-content
       [isMobile]="true"
-      (menuToggle)="drawer.toggle()"
-      (logout)="logout()" />
+      (menuToggle)="drawer.toggle()" />
 
     <div class="main-content">
       <app-content-wrapper>
@@ -17,8 +16,7 @@
   </mat-drawer-container>
 } @else {
   <app-header-content
-    [isMobile]="false"
-    (logout)="logout()" />
+    [isMobile]="false" />
 
   <div class="layout-with-sidebar">
     <app-side-navigation-bar (logout)="logout()" />
