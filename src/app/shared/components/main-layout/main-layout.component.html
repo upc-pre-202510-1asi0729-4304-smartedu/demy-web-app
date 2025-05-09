@@ -1,17 +1,17 @@
 <app-header-content
-        [isMobile]="isMobile()"
-        (menuToggle)="drawer.toggle()"
-        (logout)="logout()" />
+  [isMobile]="isMobile()"
+  (menuToggle)="drawer.toggle()"
+  (logout)="logout()" />
 
 <mat-drawer-container class="drawer-container">
-    <mat-drawer #drawer class="drawer" [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()">
-        <app-side-navigation-bar (logout)="logout()" />
-    </mat-drawer>
+  <mat-drawer #drawer class="drawer" [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()">
+    <app-side-navigation-bar (logout)="logout()" />
+  </mat-drawer>
 
-    <div class="main-content">
-        <div class="content-wrapper">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
+  <div class="main-content">
+    <app-content-wrapper>
+      <router-outlet></router-outlet>
+    </app-content-wrapper>
+  </div>
 
 </mat-drawer-container>

@@ -5,6 +5,7 @@ import { MainLayoutComponent } from './shared/components/main-layout/main-layout
 import { HeaderContentComponent } from './shared/components/header-content/header-content.component';
 import { OrganizationComponent } from './dashboard/pages/organization/organization.component';
 import { FinanceOverviewComponent } from './finance/pages/finance-overview/finance-overview.component';
+import { LoginComponent } from './public/pages/login/login.component';
 
 export const routes: Routes = [
   {
@@ -21,7 +22,8 @@ export const routes: Routes = [
     path: '',
     component: HeaderContentComponent,
     children: [
-      { path: 'organization', component: OrganizationComponent }
+      { path: 'organization', component: OrganizationComponent },
+      { path: 'login', component: LoginComponent },
     ]
   }
 ];
