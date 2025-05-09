@@ -33,7 +33,9 @@ export const routes: Routes = [
     component: HeaderContentComponent,
     children: [
       { path: 'organization', component: OrganizationComponent },
-      { path: 'login', component: LoginComponent },
     ]
+  },
+  { path: 'login',
+    component: LoginComponent
   }
 ];
