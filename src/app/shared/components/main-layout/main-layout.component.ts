@@ -4,7 +4,7 @@ import { SideNavigationBarComponent } from '../side-navigation-bar/side-navigati
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { RouterOutlet } from '@angular/router';
-import {ContentWrapperComponent} from '../content-wrapper/content-wrapper.component';
+import { ContentWrapperComponent } from '../content-wrapper/content-wrapper.component';
 
 @Component({
   selector: 'app-main-layout',
@@ -19,7 +19,7 @@ import {ContentWrapperComponent} from '../content-wrapper/content-wrapper.compon
   styleUrl: './main-layout.component.css'
 })
 export class MainLayoutComponent {
-  readonly isMobile = signal(false);
+  readonly isMobile = signal<boolean>(false);
 
   constructor(private observer: BreakpointObserver) {
     this.observer.observe([Breakpoints.Handset]).subscribe(result => {

@@ -21,6 +21,4 @@ export class HeaderContentComponent {
 
   @Output() menuToggle = new EventEmitter<void>();
 
-  @Output() logout = new EventEmitter<void>();
-
 }
