@@ -2,6 +2,7 @@
   text-decoration: none;
   color: inherit;
   display: block;
+  height: 100%;
 }
 
 .option-card {
@@ -11,7 +12,10 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  background-color: var(--bg-light-gray);
+  color: black;
+  text-align: center;
 }
 
 .option-card:hover {
@@ -19,14 +23,26 @@
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
-mat-card-title {
-  text-align: center;
-  font-size: 1.25rem;
-  font-weight: 600;
+.card-image {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 }
 
-mat-card-image {
-  height: 150px;
-  object-fit: contain;
+.card-text {
   padding: 1rem;
 }
+
+mat-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+mat-card-content {
+  font-size: 0.95rem;
+}
+

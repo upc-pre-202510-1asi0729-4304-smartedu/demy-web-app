@@ -1,8 +1,14 @@
 <a [routerLink]="route" class="card-link">
   <mat-card class="option-card">
-    <mat-card-header>
+    @if (image) {
+      <img [src]="image" alt="{{ title }}" class="card-image" />
+    }
+
+    <div class="card-text">
       <mat-card-title>{{ title }}</mat-card-title>
-    </mat-card-header>
-    <img mat-card-image src="assets/logos/demy-white-logo.png" [alt]="title" />
+      @if (description) {
+        <mat-card-content>{{ description }}</mat-card-content>
+      }
+    </div>
   </mat-card>
 </a>

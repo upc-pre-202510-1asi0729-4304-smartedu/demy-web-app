@@ -1,25 +1,9 @@
-<div class="organization-grid">
-  <app-organization-profile class="profile-card" />
-
-  <div class="organization-options">
+<div class="grid-container">
+  @for (option of options; track option.route) {
     <app-organization-option
-      title="Cursos"
-      image="assets/images/courses.png"
-      route="/courses" />
-
-    <app-organization-option
-      title="Periodos"
-      image="assets/images/periods.png"
-      route="/periods" />
-
-    <app-organization-option
-      title="Aulas"
-      image="assets/images/classrooms.png"
-      route="/classrooms" />
-
-    <app-organization-option
-      title="Profesores"
-      image="assets/images/teachers.png"
-      route="/teachers" />
-  </div>
+      [title]="option.title"
+      [description]="option.description"
+      [image]="option.image"
+      [route]="option.route" />
+  }
 </div>

@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class OrganizationOptionComponent {
   @Input() title!: string;
+  @Input() description?: string;
   @Input() image!: string;
   @Input() route!: string;
 }
