@@ -1,0 +1,54 @@
+<h2 mat-dialog-title class="dialog-title">{{ dialogTitle }}</h2>
+
+<div mat-dialog-content>
+  <!-- Form for add/edit -->
+  @if (mode === 'add' || mode === 'edit') {
+    <form #classroomForm="ngForm" class="form-row">
+      <!-- Campo para el codigo del salon -->
+      <mat-form-field appearance="outline">
+        <mat-label>Code</mat-label>
+        <input [(ngModel)]="classroom.code" matInput name="code" placeholder="Enter classroom code" required #codeInput="ngModel">
+        @if (codeInput.invalid && (codeInput.dirty || codeInput.touched)) {
+          <mat-error>Code is required</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Campo para la capacidad del salon -->
+      <mat-form-field appearance="outline">
+        <mat-label>Capacity</mat-label>
+        <input [(ngModel)]="classroom.capacity" matInput name="capacity" placeholder="Enter classroom capacity" required #capacityInput="ngModel">
+        @if (capacityInput.invalid && (capacityInput.dirty || capacityInput.touched)) {
+          <mat-error>Capacity is required</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Campo para la sede del salon -->
+      <mat-form-field appearance="outline">
+        <mat-label>Campus</mat-label>
+        <input [(ngModel)]="classroom.campus" matInput name="campus" placeholder="Enter classroom campus" required #campusInput="ngModel">
+        @if (campusInput.invalid && (campusInput.dirty || campusInput.touched)) {
+          <mat-error>Campus is required</mat-error>
+        }
+      </mat-form-field>
+    </form>
+  }
+
+  <!-- Confirmation for delete -->
+  @if (mode === 'delete') {
+    <p>Are you sure you want to delete the classroom with code:  "{{ classroom.code }}"?</p>
+    <p>This action cannot be undone.</p>
+  }
+</div>
+
+<div mat-dialog-actions align="end" class="dialog-actions">
+
+  <button mat-button (click)="onCancel()">Cancel</button>
+
+  @if (mode === 'add' || mode === 'edit') {
+    <button mat-raised-button class="save-button" (click)="onSubmit()">Save</button>
+  }
+
+  @if (mode === 'delete') {
+    <button mat-raised-button class="delete-button" (click)="onConfirmDelete()">Delete</button>
+  }
+</div>

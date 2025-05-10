@@ -5,11 +5,22 @@
       "name": "Nombre",
       "code": "Código",
       "description": "Descripción",
-      "actions": "Acciones",
-      "items-page": "Artículos por página"
+      "actions": "Acciones"
     },
     "button":{
       "new-course": "Nuevo Curso"
+    }
+  },
+  "view-classrooms": {
+    "title": "Salones",
+    "table": {
+      "code": "Codigo",
+      "capacity": "Capacidad",
+      "campus": "Sede",
+      "actions": "Acciones"
+    },
+    "button":{
+      "new-classroom": "Nuevo Salón"
     }
   }
 }

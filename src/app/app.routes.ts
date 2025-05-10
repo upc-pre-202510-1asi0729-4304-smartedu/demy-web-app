@@ -8,6 +8,7 @@ import { FinanceLayoutComponent } from './finance/components/finance-layout/fina
 import { ExpensesComponent } from './finance/pages/expenses/expenses.component';
 import { ReportsComponent } from './finance/pages/reports/reports.component';
 import { CoursesOverviewComponent} from './scheduling/pages/courses-overview/courses-overview.component';
+import { ClassroomOverviewComponent} from './scheduling/pages/classroom-overview/classroom-overview.component';
 
 
 export const routes: Routes = [
@@ -17,6 +18,7 @@ export const routes: Routes = [
     children: [
       { path: 'organization', component: OrganizationComponent},
       { path: 'organization/courses', component: CoursesOverviewComponent},
+      { path: 'organization/classrooms', component: ClassroomOverviewComponent},
       { path: 'workspace', component: DashboardComponent },
       { path: 'payments', component: PaymentsComponent },
       {
