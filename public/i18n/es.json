@@ -1,3 +1,11 @@
 {
-
+  "login": {
+    "title": "Iniciar sesión",
+    "subtitle": "Ingresa tu información personal",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "rememberMe": "Recuérdame",
+    "signIn": "Ingresar",
+    "forgotPassword": "¿Olvidaste tu contraseña?"
+  }
 }

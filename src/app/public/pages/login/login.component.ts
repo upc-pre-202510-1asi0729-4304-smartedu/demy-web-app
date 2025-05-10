@@ -6,21 +6,27 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
+
 
 
 @Component({
   selector: 'app-login',
   imports: [
+    LanguageSwitcherComponent,
     RouterModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatCardModule,
+    TranslateModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent {
   loginForm: FormGroup;
 
@@ -31,6 +37,7 @@ export class LoginComponent {
       remember: [false]
     });
   }
+
 
   onSubmit() {
     if (this.loginForm.valid) {

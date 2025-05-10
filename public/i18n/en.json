@@ -1,3 +1,12 @@
 {
+  "login": {
+    "title": "Log In",
+    "subtitle": "Enter your personal information",
+    "email": "Email",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "signIn": "Sign In",
+    "forgotPassword": "Forgot my password?"
+  }
 
 }

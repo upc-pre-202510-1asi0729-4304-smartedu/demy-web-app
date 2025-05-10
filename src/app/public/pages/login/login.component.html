@@ -4,23 +4,28 @@
   </div>
   <div class="right-side">
     <div class="form-box">
+      <div class="top-bar">
+        <app-language-switcher></app-language-switcher>
+      </div>
+
       <img class="logo" src="/assets/logos/demy-blue-logo.png" alt="Imagen de bienvenida" />
-      <p class="title">Log In</p>
-      <p class="sub-tittle">Enter your personal information</p>
+      <p class="title">{{ 'login.title' | translate }}</p>
+      <p class="sub-tittle">{{ 'login.subtitle' | translate }}</p>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
-        <input type="email" formControlName="email" placeholder="Email" required />
-        <input type="password" formControlName="password" placeholder="Password" required />
+        <input type="email" formControlName="email" [placeholder]="'login.email' | translate"  required />
+        <input type="password" formControlName="password" [placeholder]="'login.password' | translate" required />
         <div class="remember-me">
           <label class="remember-label">
             <input type="checkbox" formControlName="remember" />
-            <span>Remember me</span>
+            <span>{{ 'login.rememberMe' | translate }}</span>
           </label>
         </div>
-        <button mat-raised-button type="submit"  >Sign In</button>
+        <button mat-flat-button class="button-color" type="submit"  >{{ 'login.signIn' | translate }}</button>
       </form>
       <p class="register-text">
-        <a routerLink="/signup">Forgot my password?</a>
+        <a routerLink="/signup">{{ 'login.forgotPassword' | translate }}</a>
       </p>
     </div>
+
   </div>
 </div>
