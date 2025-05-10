@@ -7,10 +7,9 @@ export class Student {
   sex: Sex;
   age: number;
   address: string;
-  studentPhoneNumber?: string;
-  parentPhoneNumber: string;
+  phoneNumber: string;
 
-  constructor(id = '', firstName = '', lastName =' ', dni = '', sex = Sex.MALE, age = 0, address = '', studentPhoneNumber = '', parentPhoneNumber = '') {
+  constructor(id = '', firstName = '', lastName =' ', dni = '', sex = Sex.MALE, age = 0, address = '', phoneNumber = '') {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName
@@ -18,8 +17,7 @@ export class Student {
     this.sex = sex;
     this.age = age;
     this.address = address;
-    this.parentPhoneNumber = parentPhoneNumber;
-    this.studentPhoneNumber = studentPhoneNumber;
+    this.phoneNumber = phoneNumber;
   }
 }
 
