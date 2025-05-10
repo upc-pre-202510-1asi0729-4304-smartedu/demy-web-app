@@ -1,0 +1,117 @@
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.left-side {
+  flex: 1;
+  background-color: #f0f0f0;
+}
+
+.left-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.right-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #D0E3EE;
+}
+.logo{
+  display: block;
+  margin:0 auto;
+  width: 300px;
+}
+
+.title{
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 9%;
+}
+
+.sub-tittle{
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  padding-top: 0;
+  padding-bottom: 15px;
+  margin-top: 0;
+
+}
+
+.form-box {
+  width: 80%;
+  max-width: 400px;
+  padding: 30px;
+  text-align: left;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+
+.form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  box-sizing: border-box;
+  text-align: left;
+  border: 2px solid #E8E8EA;
+  border-radius: 4px;
+
+}
+
+.remember-me {
+  margin-bottom: 10px;
+  text-align: left;
+  padding-top: 10px;
+}
+
+.remember-me label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  cursor: pointer;
+  justify-content: flex-start;
+  white-space: nowrap;
+}
+.remember-me input[type="checkbox"] {
+  margin: 0;
+  vertical-align: middle;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+}
+
+.register-text {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.register-text a {
+  color: #282828;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.register-text a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}

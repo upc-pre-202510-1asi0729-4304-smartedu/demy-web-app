@@ -1,1 +1,26 @@
-<h2>login works!</h2>
+<div class="container">
+  <div class="left-side">
+    <img src="/assets/img/login-image.jpg" alt="Imagen de bienvenida" />
+  </div>
+  <div class="right-side">
+    <div class="form-box">
+      <img class="logo" src="/assets/logos/demy-blue-logo.png" alt="Imagen de bienvenida" />
+      <p class="title">Log In</p>
+      <p class="sub-tittle">Enter your personal information</p>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+        <input type="email" formControlName="email" placeholder="Email" required />
+        <input type="password" formControlName="password" placeholder="Password" required />
+        <div class="remember-me">
+          <label class="remember-label">
+            <input type="checkbox" formControlName="remember" />
+            <span>Remember me</span>
+          </label>
+        </div>
+        <button mat-button type="submit"  >Sign In</button>
+      </form>
+      <p class="register-text">
+        <a routerLink="/signup">Forgot my password?</a>
+      </p>
+    </div>
+  </div>
+</div>
