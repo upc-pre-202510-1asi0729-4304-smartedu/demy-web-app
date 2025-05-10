@@ -5,9 +5,9 @@
       <p class="title">Sign up</p>
       <p class="sub-tittle">Enter your personal information</p>
       <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="form">
-        <input type="name" formControlName="name" placeholder="Name" required />
-        <input type="academyName" formControlName="academyName" placeholder="AcademyName" required />
-        <input type="ruc" formControlName="ruc" placeholder="RUC" required />
+        <input type="text" formControlName="name" placeholder="Name" required />
+        <input type="text" formControlName="academyName" placeholder="AcademyName" required />
+        <input type="number" formControlName="ruc" placeholder="RUC" required />
         <input type="email" formControlName="email" placeholder="Email" required />
         <input type="password" formControlName="password" placeholder="Password" required />
 

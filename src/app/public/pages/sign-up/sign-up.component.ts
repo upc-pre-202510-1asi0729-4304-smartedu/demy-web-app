@@ -33,7 +33,7 @@ export class SignUpComponent {
       ruc:['', [Validators.required, Validators.minLength(11)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      remember: [false]
+      terms: [false]
     });
   }
 
