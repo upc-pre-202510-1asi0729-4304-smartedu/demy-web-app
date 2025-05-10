@@ -9,6 +9,12 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 
+/**
+ * Component representing the sign-up (registration) page of the application.
+ * It provides a form to collect user and academy information with validations.
+ * Includes language switching functionality and redirects to the login page on successful submission.
+ *
+ */
 
 @Component({
   selector: 'app-sign-up',
@@ -28,6 +34,12 @@ import { LanguageSwitcherComponent } from '../../../shared/components/language-s
 export class SignUpComponent {
   signUpForm: FormGroup;
 
+  /**
+   * Constructor initializes the form using FormBuilder with proper validations.
+   * @param fb - FormBuilder for creating the form
+   * @param router - Router for navigation after successful sign-up
+   */
+
   constructor(private fb: FormBuilder, private router: Router) {
     this.signUpForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -38,6 +50,12 @@ export class SignUpComponent {
       terms: [false]
     });
   }
+
+  /**
+   * Handles form submission.
+   * If the form is valid, logs the form data and navigates to the login page.
+   * Otherwise, marks all fields as touched to show validation errors.
+   */
 
   onSubmit() {
     if (this.signUpForm.valid) {

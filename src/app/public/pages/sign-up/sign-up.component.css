@@ -29,8 +29,8 @@
 
 .logo {
   display: block;
-  width: 450px;
-  margin-bottom: 50px;
+  width: 500px;
+  margin: 0 auto 50px auto;
 }
 
 .title {
@@ -104,7 +104,6 @@ button {
   padding: 30px;
   font-size: 24px;
   margin-bottom: 30px;
-  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
   color: #ffffff;
@@ -121,6 +120,11 @@ button:hover {
   display: flex;
   justify-content: flex-end;
   padding: 10px;
+
+}
+.custom-color{
+  background-color: var(--color-primary-1);
+  border-radius: 50px;
 }
 
 
