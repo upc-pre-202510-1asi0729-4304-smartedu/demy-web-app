@@ -2,20 +2,16 @@ import {Student} from './student.entity';
 import {AcademicPeriod} from './academic-period.entity';
 
 export class Enrollment {
-  id?: string
-  student: Student
+  id: string
   studentId: string;
   periodId: string;
-  period: AcademicPeriod
   amount: number;
   enrollmentStatus: EnrollmentStatus;
   paymentStatus: PaymentStatus;
-  constructor(id = '', student = new Student(), studentId = '', periodId = '', period = new AcademicPeriod(), enrollmentStatus = EnrollmentStatus.ACTIVE, amount = 0, paymentStatus = PaymentStatus.PENDING) {
+  constructor(id = '', studentId = '', periodId = '', enrollmentStatus = EnrollmentStatus.ACTIVE, amount = 0, paymentStatus = PaymentStatus.PENDING) {
     this.id = id;
-    this.student = student;
     this.studentId = studentId;
     this.periodId = periodId;
-    this.period = period;
     this.enrollmentStatus = enrollmentStatus;
     this.amount = amount;
     this.paymentStatus = paymentStatus;
