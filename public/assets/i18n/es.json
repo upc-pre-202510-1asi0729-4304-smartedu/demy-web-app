@@ -1,0 +1,24 @@
+{
+  "organization": {
+    "profile": {
+      "title": "Perfil",
+      "description": "Gestiona los miembros de tu organización"
+    },
+    "courses": {
+      "title": "Cursos",
+      "description": "Administra los cursos disponibles"
+    },
+    "periods": {
+      "title": "Periodos",
+      "description": "Modifica los periodos académicos"
+    },
+    "rooms": {
+      "title": "Aulas",
+      "description": "Gestiona las aulas disponibles"
+    },
+    "teachers": {
+      "title": "Profesores",
+      "description": "Gestiona el personal docente"
+    }
+  }
+}

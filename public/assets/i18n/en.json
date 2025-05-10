@@ -1,0 +1,24 @@
+{
+  "organization": {
+    "profile": {
+      "title": "Profile",
+      "description": "Manage your organization's profile"
+    },
+    "courses": {
+      "title": "Courses",
+      "description": "Manage your course offerings"
+    },
+    "periods": {
+      "title": "Periods",
+      "description": "Edit academic terms"
+    },
+    "rooms": {
+      "title": "Rooms",
+      "description": "Manage your classrooms"
+    },
+    "teachers": {
+      "title": "Teachers",
+      "description": "Manage your teaching staff"
+    }
+  }
+}
