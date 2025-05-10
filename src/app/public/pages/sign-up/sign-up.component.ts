@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {RouterOutlet} from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,7 +11,6 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-up',
   imports: [
-    RouterOutlet,
     RouterModule,
     ReactiveFormsModule,
     MatFormFieldModule,
