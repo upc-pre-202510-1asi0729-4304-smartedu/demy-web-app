@@ -1,3 +1,15 @@
 {
-
+  "view-courses": {
+    "title": "Courses",
+    "table": {
+      "name": "Name",
+      "code": "Code",
+      "description": "Description",
+      "actions": "Actions",
+      "items-page": "Items per page"
+    },
+    "button":{
+      "new-course": "New Course"
+    }
+  }
 }

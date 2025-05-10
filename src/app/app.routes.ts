@@ -7,13 +7,16 @@ import { LoginComponent } from './public/pages/login/login.component';
 import { FinanceLayoutComponent } from './finance/components/finance-layout/finance-layout.component';
 import { ExpensesComponent } from './finance/pages/expenses/expenses.component';
 import { ReportsComponent } from './finance/pages/reports/reports.component';
+import { CoursesOverviewComponent} from './scheduling/pages/courses-overview/courses-overview.component';
+
 
 export const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
     children: [
-      { path: 'organization', component: OrganizationComponent },
+      { path: 'organization', component: OrganizationComponent},
+      { path: 'organization/courses', component: CoursesOverviewComponent},
       { path: 'workspace', component: DashboardComponent },
       { path: 'payments', component: PaymentsComponent },
       {
