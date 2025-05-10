@@ -5,17 +5,17 @@ export class Student {
   lastName: string;
   dni: string
   sex: Sex;
-  age: number;
+  birthDate: Date;
   address: string;
   phoneNumber: string;
 
-  constructor(id = '', firstName = '', lastName =' ', dni = '', sex = Sex.MALE, age = 0, address = '', phoneNumber = '') {
+  constructor(id = '', firstName = '', lastName =' ', dni = '', sex = Sex.MALE, birthDate = new Date(), address = '', phoneNumber = '') {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName
     this.dni = dni;
     this.sex = sex;
-    this.age = age;
+    this.birthDate = birthDate;
     this.address = address;
     this.phoneNumber = phoneNumber;
   }
