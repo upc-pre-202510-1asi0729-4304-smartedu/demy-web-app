@@ -1,1 +1,29 @@
-<p>sign-up works!</p>
+<div class="container">
+  <div class="left-side">
+    <div class="form-box">
+      <img class="logo" src="/assets/logos/demy-blue-logo.png" alt="Imagen de bienvenida" />
+      <p class="title">Sign up</p>
+      <p class="sub-tittle">Enter your personal information</p>
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="form">
+        <input type="name" formControlName="name" placeholder="Name" required />
+        <input type="academyName" formControlName="academyName" placeholder="AcademyName" required />
+        <input type="ruc" formControlName="ruc" placeholder="RUC" required />
+        <input type="email" formControlName="email" placeholder="Email" required />
+        <input type="password" formControlName="password" placeholder="Password" required />
+
+
+        <div class="terms-me">
+          <label class="terms-label">
+            <input type="checkbox" formControlName="terms" />
+            <span>Accept the terms and conditions</span>
+          </label>
+        </div>
+        <button mat-button type="submit" routerLink="/login" >Sign In</button>
+      </form>
+
+    </div>
+  </div>
+  <div class="right-side">
+    <img src="/assets/img/sign-up-image.jpg" alt="Imagen de bienvenida" />
+  </div>
+</div>
