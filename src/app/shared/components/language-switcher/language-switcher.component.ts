@@ -39,7 +39,7 @@ export class LanguageSwitcherComponent {
    * @param translate - The translation service for handling language changes
    */
   constructor(private translate: TranslateService) {
-    this.currentLang = this.translate.currentLang;
+    this.currentLang = this.translate.currentLang || 'en';
   }
 
   /**
@@ -51,5 +51,6 @@ export class LanguageSwitcherComponent {
   useLanguage(language: string) {
     this.translate.use(language);
     this.currentLang = language;
+    localStorage.setItem('app-lang', language);
   }
 }

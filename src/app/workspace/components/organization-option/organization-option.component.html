@@ -5,9 +5,9 @@
     }
 
     <div class="card-text">
-      <mat-card-title>{{ title }}</mat-card-title>
+      <mat-card-title>{{ title | translate }}</mat-card-title>
       @if (description) {
-        <mat-card-content>{{ description }}</mat-card-content>
+        <mat-card-content>{{ description | translate }}</mat-card-content>
       }
     </div>
   </mat-card>
