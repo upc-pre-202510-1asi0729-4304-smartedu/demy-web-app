@@ -107,11 +107,20 @@ button {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+  color: #ffffff;
 }
 
 button:hover {
-  background-color: #004080;
-  color: #ffffff;
+  background-color: var(--color-primary-3);
+}
+.button-color {
+  background-color: var(--color-primary-1);
+}
+
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
 }
 
 
@@ -151,8 +160,9 @@ button:hover {
 
   .logo {
     width: 250px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
+
 
 }
 

@@ -7,5 +7,16 @@
     "rememberMe": "Recuérdame",
     "signIn": "Ingresar",
     "forgotPassword": "¿Olvidaste tu contraseña?"
+  },
+  "signUp": {
+    "title": "Incribirse",
+    "subTitle": "Ingresa tu información personal",
+    "name": "Nombre",
+    "academyName": "Nombre de academia",
+    "ruc": "RUC",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "termsMe": "Acepta los terminos y condiciones",
+    "register": "Registrarse"
   }
 }
