@@ -1,0 +1,41 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+app-header-content {
+  height: 64px;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ----- MOBILE ----- */
+
+.drawer-container {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-accent-4);
+}
+
+.drawer {
+  width: 260px;
+  background-color: var(--color-accent-4);
+  border-radius: 0 12px 12px 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* ----- DESKTOP ----- */
+
+.layout-with-sidebar {
+  display: flex;
+  height: calc(100vh - 64px);
+  background-color: var(--color-accent-4);
+}
+
+.main-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: var(--color-accent-4);
+}

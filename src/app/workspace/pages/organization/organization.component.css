@@ -1,0 +1,17 @@
+.organization-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.profile-card {
+  grid-row: span 2;
+  align-self: start;
+}
+
+.organization-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
