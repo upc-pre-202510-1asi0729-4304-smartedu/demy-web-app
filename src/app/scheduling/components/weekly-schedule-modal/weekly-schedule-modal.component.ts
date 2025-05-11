@@ -9,7 +9,7 @@ import {
 import { ScheduleWeekly } from '../../model/weekly-schedule.entity';
 import { Course } from '../../model/course.entity';
 import { Classroom } from '../../model/classroom.entity';
-import { Schedule, TimeRange } from '../../model/schedule.entity';
+import { Schedule } from '../../model/schedule.entity';
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';

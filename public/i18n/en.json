@@ -22,5 +22,16 @@
     "button":{
       "new-classroom": "New Classroom"
     }
+  },
+  "view-weekly-schedules": {
+    "title": "Weekly Schedules",
+    "table": {
+      "name": "Name",
+      "number": "Number of Schedules",
+      "actions": "Actions"
+    },
+    "button":{
+      "new": "New Weekly Schedule"
+    }
   }
 }

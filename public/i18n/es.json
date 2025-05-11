@@ -22,5 +22,16 @@
     "button":{
       "new-classroom": "Nuevo Salón"
     }
+  },
+  "view-weekly-schedules": {
+    "title": "Horarios Semanales",
+    "table": {
+      "name": "Nombre",
+      "number": "Numero de bloques",
+      "actions": "Acciones"
+    },
+    "button":{
+      "new": "Nuevo Horario Semanal"
+    }
   }
 }
