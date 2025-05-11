@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Component representing the application's login page.
@@ -47,7 +48,7 @@ export class LoginComponent {
    * @param router - Router service for handling navigation
    */
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router,private http: HttpClient) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -63,10 +64,27 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Formulario enviado:', this.loginForm.value);
-      this.router.navigate(['/dashboard']); // Redirige solo si es válido
+      const { email, password } = this.loginForm.value;
+
+      // Hacer una solicitud GET al endpoint de usuarios para verificar si existe un usuario con ese email
+      this.http.get<any[]>(`http://localhost:3000/users?email=${email}`).subscribe({
+        next: (users) => {
+          if (users.length === 1 && users[0].password === password) {
+            console.log('Login exitoso');
+            this.router.navigate(['/dashboard']); // Redirigir al dashboard
+          } else {
+            console.error('Credenciales incorrectas');
+            alert('Credenciales incorrectas');
+          }
+        },
+        error: (error) => {
+          console.error('Ocurrió un error al hacer login', error);
+          alert('Ocurrió un error al hacer login');
+        }
+      });
     } else {
       this.loginForm.markAllAsTouched(); // Marca todos los campos con error
     }
   }
+
 }

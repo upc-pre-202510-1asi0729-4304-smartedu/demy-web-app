@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Component representing the sign-up (registration) page of the application.
@@ -40,11 +41,11 @@ export class SignUpComponent {
    * @param router - Router for navigation after successful sign-up
    */
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient) {
     this.signUpForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       academyName: ['', Validators.required],
-      ruc:['', [Validators.required, Validators.minLength(11)]],
+      ruc: ['', [Validators.required, Validators.minLength(11)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       terms: [false]
@@ -59,8 +60,16 @@ export class SignUpComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
-      console.log('Formulario enviado:', this.signUpForm.value);
-      this.router.navigate(['/login']);
+      this.http.post('http://localhost:3000/users', this.signUpForm.value).subscribe({
+        next: (response) => {
+          console.log('Registro exitoso:', response);
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          console.error('Ocurrió un error al registrarse', error);
+          alert('Ocurrió un error al registrarse');
+        }
+      });
     } else {
       this.signUpForm.markAllAsTouched();
     }

@@ -1,3 +1,22 @@
 {
-
+  "users": [
+    {
+      "id": "27ec",
+      "name": "rafae",
+      "academyName": "afva",
+      "ruc": 12345678901,
+      "email": "erasf@gmail.com",
+      "password": "123456",
+      "terms": true
+    },
+    {
+      "id": "56c9",
+      "name": "Rafa",
+      "academyName": "Vonex",
+      "ruc": 1243543253,
+      "email": "radv@gmail.com",
+      "password": "1234",
+      "terms": true
+    }
+  ]
 }
