@@ -20,5 +20,18 @@
       "title": "Teachers",
       "description": "Manage your teaching staff"
     }
+  },
+  "payments": {
+    "title": "Payments",
+    "subtitle": "Check a student's payment status",
+    "dni-input": "Enter DNI",
+    "search-button": "Search",
+    "table-first-name": "First Name",
+    "table-last-name": "Last Name",
+    "table-sex": "Sex",
+    "sex": {
+      "MALE": "Male",
+      "FEMALE": "Female"
+    }
   }
 }

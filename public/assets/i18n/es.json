@@ -20,5 +20,18 @@
       "title": "Profesores",
       "description": "Gestiona el personal docente"
     }
+  },
+  "payments": {
+    "title": "Pagos",
+    "subtitle": "Buscar el estado de pago de un alumno",
+    "dni-input": "Ingresar DNI",
+    "search-button": "Buscar",
+    "table-first-name": "Nombre",
+    "table-last-name": "Apellido",
+    "table-sex": "Sexo",
+    "sex": {
+      "MALE": "Masculino",
+      "FEMALE": "Femenino"
+    }
   }
 }
