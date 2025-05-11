@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrlBase: "https://681e66f4c1c291fa6633fb5e.mockapi.io/api/v1/",
+  apiBaseUrl: "https://6820406072e59f922ef8198b.mockapi.io/api/v1",
   studentsEndpointPath: "/students"
 };
