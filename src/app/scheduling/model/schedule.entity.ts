@@ -17,7 +17,7 @@ export class Schedule {
 
   constructor(schedule: {
     id?: number,
-    dayOfWeek?: string,
+    dayOfWeek?: string, //DayOfWeek
     timeRange?: TimeRange,
     course?: Course,
     classroom?: Classroom
@@ -29,4 +29,14 @@ export class Schedule {
     this.course = schedule.course || new Course({});
     this.classroom = schedule.classroom || new Classroom({});
   }
+}
+
+enum DayOfWeek {
+  Monday = 'Monday',
+  Tuesday = 'Tuesday',
+  Wednesday = 'Wednesday',
+  Thursday = 'Thursday',
+  Friday = 'Friday',
+  Saturday = 'Saturday',
+  Sunday = 'Sunday'
 }

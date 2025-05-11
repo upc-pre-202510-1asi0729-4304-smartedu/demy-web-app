@@ -1,0 +1,124 @@
+<h2 mat-dialog-title class="dialog-title">{{ dialogTitle }}</h2>
+
+<div mat-dialog-content>
+  <!-- Form for add/edit -->
+  @if (mode === 'add' || mode === 'edit') {
+    <form #scheduleForm="ngForm" class="form-row">
+
+      <!-- Nombre del horario semanal -->
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input [(ngModel)]="weeklySchedule.name" matInput name="name" placeholder="Enter weekly schedule name" required #nameInput="ngModel">
+        @if (nameInput.invalid && (nameInput.dirty || nameInput.touched)) {
+          <mat-error>Name is required</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Section for adding schedules -->
+      <div class="schedule-section">
+        <h3>Add Schedule</h3>
+
+        <!-- Day of Week -->
+        <mat-form-field appearance="outline">
+          <mat-label>Day of Week</mat-label>
+          <mat-select [(ngModel)]="currentSchedule.dayOfWeek" name="dayOfWeek" required>
+            @for (day of dayOptions; track day) {
+              <mat-option [value]="day">{{ day }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Time Range - Start -->
+        <mat-form-field appearance="outline">
+          <mat-label>Start Time</mat-label>
+          <input [(ngModel)]="currentSchedule.timeRange.start" matInput name="startTime" type="time" required>
+        </mat-form-field>
+
+        <!-- Time Range - End -->
+        <mat-form-field appearance="outline">
+          <mat-label>End Time</mat-label>
+          <input [(ngModel)]="currentSchedule.timeRange.end" matInput name="endTime" type="time" required>
+        </mat-form-field>
+
+        <!-- Course Selection -->
+        <mat-form-field appearance="outline">
+          <mat-label>Course</mat-label>
+          <mat-select [(ngModel)]="currentSchedule.course.id" name="course" required>
+            @for (course of availableCourses; track course.id) {
+              <mat-option [value]="course.id">{{ course.name }} ({{ course.code }})</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+
+        <!-- Teacher Selection
+
+      <mat-form-field appearance="outline">
+        <mat-label>Teacher</mat-label>
+        <mat-select [(ngModel)]="currentSchedule.teacher.id" name="teacher" required>
+          @for (teacher of availableTeachers; track teacher.id) {
+            <mat-option [value]="teacher.id">{{ teacher.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      -->
+
+        <!-- Classroom Selection -->
+        <mat-form-field appearance="outline">
+          <mat-label>Classroom</mat-label>
+          <mat-select [(ngModel)]="currentSchedule.classroom.id" name="classroom" required>
+            @for (classroom of availableClassrooms; track classroom.id) {
+              <mat-option [value]="classroom.id">{{ classroom.code }} (Capacity: {{ classroom.capacity }})</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="addSchedule()">Add Schedule</button>
+      </div>
+
+      <!-- Mostrar Shedules creados -->
+      @if (weeklySchedule.weekSchedule.length > 0) {
+        <div class="schedules-list">
+          <h3>Current Schedules</h3>
+          @for (schedule of weeklySchedule.weekSchedule; track $index) {
+            <div class="schedule-item">
+              <div>
+                <strong>{{ schedule.dayOfWeek }}</strong>: {{ schedule.timeRange.start }} - {{ schedule.timeRange.end }}
+                <br>
+                Course: {{ schedule.course.name }} ({{ schedule.course.code }})
+                <br>
+                Classroom: {{ schedule.classroom.code }} ({{ schedule.classroom.campus }})
+                <!--
+                <br>
+                Teacher: {{ schedule.teacher.name }}
+                -->
+              </div>
+              <button mat-icon-button color="warn" (click)="removeSchedule($index)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          }
+        </div>
+      }
+
+    </form>
+  }
+
+  <!-- Confirmation for delete -->
+  @if (mode === 'delete') {
+    <p>Are you sure you want to delete this weekly schedule "{{ weeklySchedule.name }}"?</p>
+    <p>This action cannot be undone.</p>
+  }
+</div>
+
+<div mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button (click)="onCancel()">Cancel</button>
+
+  @if (mode === 'add' || mode === 'edit') {
+    <button mat-raised-button  class="save-button"  (click)="onSubmit()">Save</button>
+  }
+
+  @if (mode === 'delete') {
+    <button mat-raised-button class="delete-button"  (click)="onConfirmDelete()">Delete</button>
+  }
+</div>
