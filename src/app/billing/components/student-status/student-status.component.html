@@ -1,0 +1,33 @@
+<div class="table-container">
+  <table mat-table [dataSource]="students" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let student">{{ student.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef>{{ 'payments.table-first-name' | translate }}</th>
+      <td mat-cell *matCellDef="let student">{{ student.firstName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef>{{ 'payments.table-last-name' | translate }}</th>
+      <td mat-cell *matCellDef="let student">{{ student.lastName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dni">
+      <th mat-header-cell *matHeaderCellDef>DNI</th>
+      <td mat-cell *matCellDef="let student">{{ student.dni }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="sex">
+      <th mat-header-cell *matHeaderCellDef>{{ 'payments.table-sex' | translate }}</th>
+      <td mat-cell *matCellDef="let student">{{ ('payments.sex.' + student.sex) | translate }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+</div>
