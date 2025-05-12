@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Academy } from '../model/academy.entity';
+import { environment } from '../../../environments/environment';
 
 /**
  * Service responsible for managing academy-related operations.
@@ -15,7 +16,7 @@ import { Academy } from '../model/academy.entity';
   providedIn: 'root'
 })
 export class AcademyService {
-  private apiUrl = 'http://localhost:3000/academies';
+  private apiUrl = `${environment.serverBaseUrl}${environment.academyEndpointPath}`;
 
   /**
    * Injects Angular's HttpClient to handle API requests related to academies.
@@ -32,7 +33,7 @@ export class AcademyService {
    */
   createAcademy(academy: Academy): Observable<Academy> {
     return this.http.post<Academy>(this.apiUrl, {
-      academyName: academy.academyName,
+      academy_name: academy.academy_name,
       ruc: academy.ruc,
       userId: academy.userId,
       periods: academy.periods || []

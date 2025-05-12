@@ -61,7 +61,7 @@ export class SignUpComponent {
   ) {
     this.signUpForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      academyName: ['', Validators.required],
+      academy_name: ['', Validators.required],
       ruc: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -95,7 +95,7 @@ export class SignUpComponent {
             id: 0,
             userId: userResponse.id.toString(),
             periods: [],
-            academyName: formData.academyName,
+            academy_name: formData.academy_name,
             ruc: formData.ruc
           };
 

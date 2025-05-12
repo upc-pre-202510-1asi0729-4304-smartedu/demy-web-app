@@ -13,7 +13,7 @@
       <p class="sub-tittle">{{ 'sign-up.sub-title' | translate }}</p>
       <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="form">
         <input type="text" formControlName="name" [placeholder] = "'sign-up.name' | translate" required />
-        <input type="text" formControlName="academyName" [placeholder] = "'sign-up.academy-name' | translate" required />
+        <input type="text" formControlName="academy_name" [placeholder] = "'sign-up.academy-name' | translate" required />
         <input type="number" formControlName="ruc" [placeholder] = "'sign-up.ruc' | translate" required />
         <input type="email" formControlName="email" [placeholder] = "'sign-up.email' | translate" required />
         <input type="password" formControlName="password" [placeholder] = "'sign-up.password' | translate" required />

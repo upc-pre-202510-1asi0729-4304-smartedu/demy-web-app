@@ -1,12 +1,5 @@
 {
   "users": [],
   "academies": [
-    {
-      "id": "f4eb",
-      "academyName": "Vonex",
-      "ruc": 12345678912,
-      "userId": "1",
-      "periods": []
-    }
   ]
 }
