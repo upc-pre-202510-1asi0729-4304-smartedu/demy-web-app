@@ -12,7 +12,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
 
-
+/**
+ * Component that shows an overview of the teachers in a table.
+ * Allows adding, editing, and deleting teachers through a modal.
+ * The table includes pagination, sorting, and the ability to interact with teacher data.
+ *
+ * @remarks
+ * This component uses the TeacherService to fetch and manage teacher data.
+ */
 @Component({
   selector: 'app-teacher-overview',
   standalone: true,
@@ -38,15 +45,27 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
   private teacherService = inject(TeacherService);
   private dialog = inject(MatDialog);
 
+  /**
+   * Method that runs when the component is initialized.
+   * Responsible for loading the list of teachers.
+   */
   ngOnInit(): void {
     this.getAllTeachers();
   }
 
+  /**
+   * Method that runs after the view has been fully initialized.
+   * Sets up pagination and sorting for the table.
+   */
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
+  /**
+   * Opens the modal to add a new teacher.
+   * When the modal is closed successfully, the new teacher is saved, and the list is updated.
+   */
   onNewTeacher(): void {
     const dialogRef = this.dialog.open(TeacherModalComponent, {
       width: '500px',
@@ -63,6 +82,12 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * Opens the modal to edit an existing teacher.
+   * When the modal is closed successfully, the teacher is updated, and the list is refreshed.
+   *
+   * @param teacher - The teacher to edit
+   */
   protected onEditItem(teacher: UserAccount): void {
     const dialogRef = this.dialog.open(TeacherModalComponent, {
       data: {
@@ -81,6 +106,12 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * Opens the modal to confirm the deletion of a teacher.
+   * If the deletion is confirmed, the teacher is deleted, and the list is updated.
+   *
+   * @param teacher - The teacher to delete
+   */
   protected onDeleteItem(teacher: UserAccount): void {
     const dialogRef = this.dialog.open(TeacherModalComponent, {
       data: {
@@ -101,6 +132,10 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * Fetches all teachers from the backend.
+   * Filters the teachers based on their role to only show those with the role 'TEACHER'.
+   */
   private getAllTeachers() {
     this.teacherService.getTeachers().subscribe({
       next: (teachers: any[]) => {

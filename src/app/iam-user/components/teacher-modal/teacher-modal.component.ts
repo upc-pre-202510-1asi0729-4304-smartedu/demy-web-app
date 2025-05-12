@@ -19,6 +19,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserAccount } from '../../model/user.entity';
 import { Role } from '../../model/role.model';
 
+/**
+ * Component for managing teacher-related actions via a modal dialog.
+ * It can be used to add, edit, or delete a teacher.
+ *
+ * @remarks
+ * The modal allows creating a new teacher, editing an existing one, or confirming deletion.
+ */
+
 @Component({
   selector: 'app-teacher-modal',
   standalone: true,
@@ -45,6 +53,13 @@ export class TeacherModalComponent {
   teacher: UserAccount;
   mode: 'add' | 'edit' | 'delete';
 
+  /**
+   * Constructor to initialize the modal with passed data (mode, teacher data).
+   *
+   * @param dialogRef - Reference to the dialog
+   * @param data - Data passed to the dialog (mode, teacher)
+   */
+
   constructor(
     public dialogRef: MatDialogRef<TeacherModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -60,10 +75,17 @@ export class TeacherModalComponent {
         'Delete Teacher';
   }
 
+  /**
+   * Closes the dialog without saving any changes.
+   */
   onCancel(): void {
     this.dialogRef.close(null);
   }
 
+  /**
+   * Submits the form and closes the dialog with the teacher data if the form is valid.
+   * For 'edit' mode, the teacher ID is also included in the result.
+   */
   onSubmit(): void {
     if (this.teacherForm.valid) {
       const result = {
@@ -78,6 +100,9 @@ export class TeacherModalComponent {
     }
   }
 
+  /**
+   * Confirms the deletion of the teacher and closes the dialog with a 'true' value.
+   */
   onConfirmDelete(): void {
     this.dialogRef.close(true);
   }

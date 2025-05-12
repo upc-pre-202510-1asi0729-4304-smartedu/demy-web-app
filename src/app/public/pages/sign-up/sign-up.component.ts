@@ -16,6 +16,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 
+/**
+ * Component representing the application's sign-up (registration) page.
+ * Contains a reactive registration form with validation, and handles navigation
+ * to the login page after successful account and academy creation.
+ *
+ * @remarks
+ * This component also includes a language switcher for the app,
+ * and is designed with Material Design.
+ */
+
 @Component({
   selector: 'app-sign-up',
   standalone: true,
@@ -38,6 +48,11 @@ export class SignUpComponent {
   signUpForm: FormGroup;
   isLoading: boolean = false;
 
+  /**
+   * Constructor initializes the form and injects required services.
+   * It sets up form controls and validation rules.
+   */
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -54,12 +69,17 @@ export class SignUpComponent {
     });
   }
 
+  /**
+   * Handles form submission when the user attempts to register.
+   * If valid, it registers the user and creates the associated academy.
+   */
+
   onSubmit() {
     if (this.signUpForm.valid && !this.isLoading) {
       this.isLoading = true;
       const formData = this.signUpForm.value;
 
-      // 1. Crear el usuario primero
+
       const newUser = new UserAccount({
         fullName: formData.name,
         email: formData.email,
@@ -70,11 +90,11 @@ export class SignUpComponent {
 
       this.userService.registerUser(newUser).subscribe({
         next: (userResponse: UserAccount) => {
-          // 2. Si el usuario se crea correctamente, crear la academia
+
           const newAcademy: Academy = {
-            id: 0, // El backend asignará el ID
-            userId: userResponse.id.toString(), // Convertir a string si es necesario
-            periods: [], // Inicializar como array vacío
+            id: 0,
+            userId: userResponse.id.toString(),
+            periods: [],
             academyName: formData.academyName,
             ruc: formData.ruc
           };
@@ -99,31 +119,44 @@ export class SignUpComponent {
     }
   }
 
+  /**
+   * Handles the scenario where the user is registered but the academy fails to be created.
+   * Deletes the user to maintain consistency and not leave orphaned records.
+   *
+   * @param userId - The ID of the user to delete
+   * @param error - The error object from the failed academy creation
+   */
+
   private handlePartialRegistration(userId: string, error: any) {
     this.isLoading = false;
 
-    // Eliminar el usuario si falla la creación de la academia
     this.userService.deleteUser(userId).subscribe({
       next: () => {
-        alert('Error: No se pudo crear la academia. Tu cuenta de usuario ha sido eliminada. Por favor inténtalo nuevamente.');
+        alert('Error: The academy could not be created. Your user account has been deleted. Please try again.');
       },
       error: (deleteError) => {
-        console.error('Error al eliminar usuario:', deleteError);
-        alert(`Error parcial: Tu cuenta (ID: ${userId}) fue creada pero la academia no. Contacta al soporte técnico.`);
+        console.error('Error deleting user:', deleteError);
+        alert(`Error partial: Your account (ID: ${userId}) was created, but the academy hasn't. Contact technical support.`);
       }
     });
   }
 
+  /**
+   * Displays an appropriate error message to the user if registration fails.
+   *
+   * @param error - The error response from the registration service
+   */
+
   private handleRegistrationError(error: any) {
     this.isLoading = false;
-    console.error('Error en el registro:', error);
+    console.error('Registration error:', error);
 
-    let errorMessage = 'Error durante el registro. Por favor verifica tus datos e inténtalo nuevamente.';
+    let errorMessage = 'An error occurred during registration. Please verify your information and try again.';
 
     if (error.status === 409) {
-      errorMessage = 'El correo electrónico ya está registrado. Por favor usa otro.';
+      errorMessage = 'This email address is already registered. Please use another one.';
     } else if (error.status === 400) {
-      errorMessage = 'Datos inválidos. Por favor verifica la información ingresada.';
+      errorMessage = 'Invalid data. Please verify the information entered.';
     }
 
     alert(errorMessage);

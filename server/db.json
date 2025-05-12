@@ -1,28 +1,11 @@
 {
-  "users": [
-    {
-      "id": 0,
-      "fullName": "Rafael",
-      "email": "radv@gmail.com",
-      "passwordHash": "P@ssw0rdRADV",
-      "role": "ADMIN",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 0,
-      "fullName": "rafael",
-      "email": "radv@gmail.com",
-      "passwordHash": "P@ssw0rdRADV",
-      "role": "ADMIN",
-      "status": "ACTIVE"
-    }
-  ],
+  "users": [],
   "academies": [
     {
-      "id": "9f95",
-      "academyName": "Vonex Academy",
-      "ruc": 12345678956,
-      "userId": "0",
+      "id": "f4eb",
+      "academyName": "Vonex",
+      "ruc": 12345678912,
+      "userId": "1",
       "periods": []
     }
   ]

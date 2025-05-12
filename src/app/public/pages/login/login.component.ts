@@ -72,19 +72,21 @@ export class LoginComponent {
 
       this.userService.getUserByEmail(email).subscribe({
         next: (users) => {
+          console.log(users); // Verifica la respuesta de la API
           if (users.length === 1 && users[0].passwordHash === password) {
             console.log('Login exitoso');
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/workspace']);
           } else {
             console.error('Credenciales incorrectas');
             alert('Credenciales incorrectas');
           }
         },
         error: (error) => {
-          console.error('Ocurrió un error al hacer login', error);
-          alert('Ocurrió un error al hacer login');
+          console.error('Ocurrió un error al iniciar sesión.', error);
+          alert('Ocurrió un error al iniciar sesión.');
         }
       });
+
     } else {
       this.loginForm.markAllAsTouched();
     }
