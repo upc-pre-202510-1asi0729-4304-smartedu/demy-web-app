@@ -16,7 +16,7 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: 'organization', component: OrganizationComponent },
-      { path: 'organization/teacher', component: TeacherOverviewComponent },
+      { path: 'organization/teachers', component: TeacherOverviewComponent },
       { path: 'workspace', component: DashboardComponent },
       { path: 'payments', component: PaymentsComponent },
       {
