@@ -8,7 +8,6 @@ import {
   MatDialogTitle,
   MatDialogContent,
   MatDialogActions,
-
 } from '@angular/material/dialog';
 import {
   MatFormFieldModule,
@@ -33,7 +32,6 @@ import { Role } from '../../model/role.model';
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
-
     MatLabel,
     MatError
   ],
@@ -68,7 +66,15 @@ export class TeacherModalComponent {
 
   onSubmit(): void {
     if (this.teacherForm.valid) {
-      this.dialogRef.close(this.teacher);
+      const result = {
+        id: this.mode === 'edit' ? this.teacher.id : undefined,
+        fullName: this.teacher.fullName,
+        email: this.teacher.email,
+        passwordHash: this.teacher.passwordHash,
+        role: Role.TEACHER,
+        status: 'ACTIVE'
+      };
+      this.dialogRef.close(result);
     }
   }
 

@@ -1,70 +1,45 @@
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
-import {
-  MatCell,
-  MatCellDef,
-  MatColumnDef,
-  MatHeaderCell,
-  MatHeaderCellDef,
-  MatHeaderRow,
-  MatHeaderRowDef,
-  MatRow,
-  MatRowDef,
-  MatTable,
-  MatTableDataSource
-} from "@angular/material/table";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort, MatSortHeader } from "@angular/material/sort";
-import { MatIcon } from "@angular/material/icon";
-import { NgClass } from "@angular/common";
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatTableDataSource, MatTableModule } from "@angular/material/table";
+import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
+import { MatSort, MatSortModule } from "@angular/material/sort";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { TeacherModalComponent } from '../../components/teacher-modal/teacher-modal.component';
-import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { UserAccount } from '../../model/user.entity';
 import { TeacherService } from '../../services/teacher.service';
-import { Role } from '../../model/role.model';
+import { TranslateModule } from '@ngx-translate/core';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
+
 
 @Component({
   selector: 'app-teacher-overview',
   standalone: true,
   imports: [
-    MatTable,
-    MatSort,
-    MatColumnDef,
-    MatHeaderCellDef,
-    MatCellDef,
-    MatHeaderCell,
-    MatCell,
-    MatIcon,
-    MatHeaderRowDef,
-    MatRowDef,
-    NgClass,
-    MatHeaderRow,
-    MatRow,
-    MatPaginator,
-    MatSortHeader,
-    MatIconButton,
-    MatButton,
-    TranslatePipe
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatButtonModule,
+    TranslateModule,
+    MatTooltipModule
   ],
   templateUrl: './teacher-overview.component.html',
   styleUrls: ['./teacher-overview.component.css']
 })
 export class TeacherOverviewComponent implements OnInit, AfterViewInit {
-  protected teacherData!: UserAccount;
-  protected columnsToDisplay: string[] = ['fullName', 'email', 'specialty', 'actions'];
+  protected columnsToDisplay: string[] = ['fullName', 'email', 'actions'];
+  protected dataSource = new MatTableDataSource<UserAccount>();
 
-  @ViewChild(MatPaginator, {static: false}) protected paginator!: MatPaginator;
-  @ViewChild(MatSort) protected sort!: MatSort;
-  protected dataSource!: MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  private teacherService: TeacherService = inject(TeacherService);
+  private teacherService = inject(TeacherService);
   private dialog = inject(MatDialog);
-  protected teacher: UserAccount = new UserAccount({ role: Role.TEACHER });
 
-  constructor() {
-    this.teacherData = new UserAccount({ role: Role.TEACHER });
-    this.dataSource = new MatTableDataSource();
+  ngOnInit(): void {
+    this.getAllTeachers();
   }
 
   ngAfterViewInit(): void {
@@ -72,68 +47,74 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  ngOnInit(): void {
-    this.getAllTeachers();
-  }
-
-  protected onNewTeacher(): void {
+  onNewTeacher(): void {
     const dialogRef = this.dialog.open(TeacherModalComponent, {
-      data: {
-        mode: 'add',
-        teacher: new UserAccount({ role: Role.TEACHER })
-      }
+      width: '500px',
+      data: { mode: 'add' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.teacherService.create(result).subscribe((response: UserAccount) => {
-          this.getAllTeachers();
+        this.teacherService.createTeacher(result).subscribe({
+          next: () => this.getAllTeachers(),
+          error: (err) => console.error('Error creating teacher:', err)
         });
       }
     });
   }
 
-  protected onEditItem(item: UserAccount): void {
+  protected onEditItem(teacher: UserAccount): void {
     const dialogRef = this.dialog.open(TeacherModalComponent, {
       data: {
         mode: 'edit',
-        teacher: {...item}
+        teacher: { ...teacher }
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.teacherService.update(result.id, result).subscribe(() => {
-          this.getAllTeachers();
+        this.teacherService.updateTeacher(result.id, result).subscribe({
+          next: () => this.getAllTeachers(),
+          error: (err) => console.error('Error updating teacher:', err)
         });
       }
     });
   }
 
-  protected onDeleteItem(item: UserAccount): void {
+  protected onDeleteItem(teacher: UserAccount): void {
     const dialogRef = this.dialog.open(TeacherModalComponent, {
       data: {
         mode: 'delete',
-        teacher: item
+        teacher: teacher
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        this.deleteTeacher(item.id);
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.teacherService.deleteTeacher(teacher.id).subscribe({
+          next: () => {
+            this.dataSource.data = this.dataSource.data.filter(t => t.id !== teacher.id);
+          },
+          error: (err) => console.error('Error deleting teacher:', err)
+        });
       }
     });
   }
 
   private getAllTeachers() {
-    this.teacherService.getTeachers().subscribe((response: Array<UserAccount>) => {
-      this.dataSource.data = response;
-    });
-  }
+    this.teacherService.getTeachers().subscribe({
+      next: (teachers: any[]) => {
 
-  private deleteTeacher(id: number) {
-    this.teacherService.delete(id).subscribe(() => {
-      this.dataSource.data = this.dataSource.data.filter((teacher: UserAccount) => teacher.id !== id);
+        const profesores = [];
+        for (let i = 0; i < teachers.length; i++) {
+          if (teachers[i].role === 1 || teachers[i].role === 'TEACHER') {
+            profesores.push(teachers[i]);
+          }
+        }
+        this.dataSource.data = profesores;
+        console.log("Datos cargados:", profesores);
+      },
+      error: (err) => console.error("Error cargando datos:", err)
     });
   }
 }
