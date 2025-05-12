@@ -1,9 +1,8 @@
 
 import {Injectable} from '@angular/core';
 import {BaseService} from "../../shared/services/base.service";
-import {Student} from '../model/student.entity';
 import {environment} from '../../../environments/environment';
-
+import {StudentRegistrationResource} from './students.response';
 /**
  * API endpoint path for students obtained from environment configuration.
  */
@@ -31,7 +30,7 @@ const studentsResourceEndpointPath = environment.studentsEndpointPath;
 @Injectable({
   providedIn: 'root'
 })
-export class StudentService extends BaseService<Student> {
+export class StudentService extends BaseService<StudentRegistrationResource> {
 
   /**
    * Initializes the StudentService.
