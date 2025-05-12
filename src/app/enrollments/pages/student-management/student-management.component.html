@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="header">
+    <h4>Gestión de Estudiantes</h4>
+  </div>
+
+  <!-- Formulario para creación o edición de estudiantes -->
+  <div class="student-form-container">
+    <app-student-create-form
+      [studentRegistration]="studentRegistration"
+      [editMode]="editMode"
+      (cancelRequested)="onCancelRequested()"
+      (studentAddRequested)="onStudentAddRequested($event)"
+      (studentUpdateRequested)="onStudentUpdateRequested($event)"
+    />
+
+  </div>
+
+  <!-- Tabla de estudiantes -->
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- DNI Column -->
+      <ng-container matColumnDef="dni">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+        <td mat-cell *matCellDef="let element">{{element.dni}}</td>
+      </ng-container>
+
+      <!-- First Name Column -->
+      <ng-container matColumnDef="first_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+        <td mat-cell *matCellDef="let element">{{element.first_name}}</td>
+      </ng-container>
+
+      <!-- Last Name Column -->
+      <ng-container matColumnDef="last_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido</th>
+        <td mat-cell *matCellDef="let element">{{element.last_name}}</td>
+      </ng-container>
+
+      <!-- Sex Column -->
+      <ng-container matColumnDef="sex">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Género</th>
+        <td mat-cell *matCellDef="let element">{{element.sex === 'MALE' ? 'Masculino' : 'Femenino'}}</td>
+      </ng-container>
+
+      <!-- Birth Date Column -->
+      <ng-container matColumnDef="birth_date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Nacimiento</th>
+        <td mat-cell *matCellDef="let element">{{element.birth_date}}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="onEditItem(element)" aria-label="Editar estudiante">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onDeleteItem(element)" aria-label="Eliminar estudiante">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"
+          [ngClass]="{'highlight': editMode && studentRegistration.dni === row.dni}"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar página de estudiantes"></mat-paginator>
+  </div>
+</div>
