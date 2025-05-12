@@ -102,7 +102,7 @@ export class SignUpComponent {
           this.academyService.createAcademy(newAcademy).subscribe({
             next: () => {
               this.isLoading = false;
-              this.router.navigate(['/login']);
+              this.router.navigate(['/planSelect']);
             },
             error: (academyError) => {
               this.handlePartialRegistration(userResponse.id.toString(), academyError);

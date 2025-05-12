@@ -5,6 +5,7 @@ import { MainLayoutComponent } from './shared/components/main-layout/main-layout
 import { OrganizationComponent } from './workspace/pages/organization/organization.component';
 import { LoginComponent } from './public/pages/login/login.component';
 import { SignUpComponent } from './public/pages/sign-up/sign-up.component';
+import { PlanSelectComponent } from './public/pages/plan-select/plan-select.component';
 import { FinanceLayoutComponent } from './finance/components/finance-layout/finance-layout.component';
 import { ExpensesComponent } from './finance/pages/expenses/expenses.component';
 import { ReportsComponent } from './finance/pages/reports/reports.component';
@@ -36,5 +37,8 @@ export const routes: Routes = [
   },
   { path: 'signup',
     component: SignUpComponent
+  },
+  { path: 'planSelect',
+    component: PlanSelectComponent
   }
 ];

@@ -73,6 +73,40 @@
       "save": "Guardar",
       "delete": "Eliminar"
     }
+  },
+  "title": "Selecciona tu Plan",
+  "plan1": {
+    "subtitle": "Essentials",
+    "title": "Plan Básico",
+    "price": "S/. 19.90",
+    "benefit1": "1 sede",
+    "benefit2": "100 alumnos",
+    "benefit3": "10 profesores",
+    "benefit4": "Gestión de matrícula y pagos"
+  },
+  "plan2": {
+    "subtitle": "Pro",
+    "title": "Plan Intermedio",
+    "price": "S/. 70.00",
+    "benefit1": "500 alumnos",
+    "benefit2": "50 profesores",
+    "benefit3": "2 sedes",
+    "benefit4": "Gestión de inventario y préstamos",
+    "benefit5": "Gestión de matrícula y pagos"
+  },
+  "plan3": {
+    "subtitle": "Elite",
+    "title": "Plan Premium",
+    "price": "S/. 160.00",
+    "benefit1": "2000 alumnos",
+    "benefit2": "200 profesores",
+    "benefit3": "2 o más sedes",
+    "benefit4": "Soporte prioritario",
+    "benefit5": "Gestión de inventario y préstamos",
+    "benefit6": "Gestión de matrícula y pagos"
+  },
+  "button": {
+    "select": "Seleccionar Plan"
   }
 
 }

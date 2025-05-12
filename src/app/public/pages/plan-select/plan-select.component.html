@@ -1,0 +1,21 @@
+<div class="container">
+  <h1 class="title">{{ 'title' | translate }}</h1>
+  <div class="top-bar">
+    <app-language-switcher class="custom-color"></app-language-switcher>
+  </div>
+
+  <div class="plans-container">
+    <div *ngFor="let plan of plans" class="plan-box">
+      <div class="plan-subtitle">{{ plan.subtitle | translate }}</div>
+      <div class="plan-title">{{ plan.title | translate }}</div>
+      <p class="price">{{ plan.price | translate }}</p>
+      <hr />
+      <ul>
+        <li *ngFor="let benefit of plan.benefits">
+          <div class="bullet-box"></div> {{ benefit | translate }}
+        </li>
+      </ul>
+      <button mat-flat-button (click)="selectPlan()">{{ 'button.select' | translate }}</button>
+    </div>
+  </div>
+</div>
