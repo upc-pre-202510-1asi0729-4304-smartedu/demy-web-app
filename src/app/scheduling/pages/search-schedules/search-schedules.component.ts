@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
 import {WeeklyScheduleSearchComponent} from '../../components/weekly-schedule-search/weekly-schedule-search.component';
 
-
+/**
+ * Component for searching schedules.
+ * Provides a UI to search for weekly schedules and display the results.
+ */
 @Component({
   selector: 'app-search-schedules',
   imports: [

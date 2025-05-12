@@ -21,9 +21,12 @@ import {NgClass} from "@angular/common";
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {ClassroomModalComponent} from '../../components/classroom-modal/classroom-modal.component';
-import {TranslateModule, TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe} from '@ngx-translate/core';
 
-
+/**
+ * Component for displaying and managing a list of classrooms.
+ * Allows viewing, adding, editing, and deleting classrooms in the system.
+ */
 @Component({
   selector: 'app-classroom-overview',
   imports: [
@@ -47,54 +50,67 @@ import {TranslateModule, TranslatePipe} from '@ngx-translate/core';
     TranslatePipe
   ],
   templateUrl: './classroom-overview.component.html',
-  styleUrl: './classroom-overview.component.css'
+  styleUrls: ['./classroom-overview.component.css']
 })
 export class ClassroomOverviewComponent implements OnInit, AfterViewInit {
 
   //#region Attributes
 
+  /** Holds the classroom data currently being managed */
   protected classroomData!: Classroom;
 
+  /** List of columns to display in the table */
   protected columnsToDisplay: string[] = ['code', 'capacity', 'campus', 'actions'];
 
- @ViewChild(MatPaginator, {static: false})
+  /** Reference to the paginator for paginating the table */
+  @ViewChild(MatPaginator, { static: false })
   protected paginator!: MatPaginator;
 
+  /** Reference to the sort functionality for the table */
   @ViewChild(MatSort)
   protected sort!: MatSort;
 
-
+  /** Data source for the classroom table */
   protected dataSource!: MatTableDataSource<any>;
 
+  /** Service for managing classroom data */
   private classroomService: ClassroomService = inject(ClassroomService);
 
-
-  //NUEVOOOO
   /** Dialog service for opening dialogs */
   private dialog = inject(MatDialog);
 
-  /** Current course for operations */
+  /** The current classroom object being edited or added */
   protected classroom: Classroom = new Classroom({});
 
+  //#endregion Attributes
 
-
+  /**
+   * Initializes the component and loads all classrooms
+   */
   constructor() {
     this.classroomData = new Classroom({});
     this.dataSource = new MatTableDataSource();
     console.log(this.classroomData);
   }
 
-
+  /**
+   * Runs after the view is initialized to set up pagination and sorting
+   */
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-
+  /**
+   * Initializes the component by loading all classrooms from the service
+   */
   ngOnInit(): void {
     this.getAllClassrooms();
   }
 
+  /**
+   * Opens a dialog to add a new classroom
+   */
   protected onNewClassroom(): void {
     const dialogRef = this.dialog.open(ClassroomModalComponent, {
       data: {
@@ -112,12 +128,15 @@ export class ClassroomOverviewComponent implements OnInit, AfterViewInit {
     });
   }
 
-
+  /**
+   * Opens a dialog to edit an existing classroom
+   * @param item - The classroom to edit
+   */
   protected onEditItem(item: Classroom): void {
     const dialogRef = this.dialog.open(ClassroomModalComponent, {
       data: {
         mode: 'edit',
-        classroom: {...item} // Create a copy to avoid modifying the original until submission
+        classroom: { ...item } // Create a copy to avoid modifying the original until submission
       }
     });
 
@@ -130,6 +149,10 @@ export class ClassroomOverviewComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * Opens a dialog to confirm the deletion of a classroom
+   * @param item - The classroom to delete
+   */
   protected onDeleteItem(item: Classroom): void {
     const dialogRef = this.dialog.open(ClassroomModalComponent, {
       data: {
@@ -146,17 +169,18 @@ export class ClassroomOverviewComponent implements OnInit, AfterViewInit {
   }
 
 
-  private resetEditState(): void {
-    this.classroomData = new Classroom({});
-  }
-
-
+  /**
+   * Fetches all classrooms from the service and updates the table data
+   */
   private getAllClassrooms() {
     this.classroomService.getAll().subscribe((response: Array<Classroom>) => {
       this.dataSource.data = response;
     });
   }
 
+  /**
+   * Creates a new classroom using the current classroom data and adds it to the table
+   */
   private createClassroom() {
     this.classroomService.create(this.classroomData).subscribe((response: Classroom) => {
       this.dataSource.data.push(response);
@@ -164,6 +188,9 @@ export class ClassroomOverviewComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * Updates an existing classroom using the current classroom data
+   */
   private updateClassroom() {
     let classroomToUpdate = this.classroomData;
     this.classroomService.update(classroomToUpdate.id, classroomToUpdate).subscribe((response: Classroom) => {
@@ -174,9 +201,9 @@ export class ClassroomOverviewComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Deletes a course using the CourseService.
-   * Removes the course from the table's data source.
-   * @param id - The ID of the course to delete
+   * Deletes a classroom using the ClassroomService.
+   * Removes the classroom from the table's data source.
+   * @param id - The ID of the classroom to delete
    */
   private deleteCourse(id: number) {
     this.classroomService.delete(id).subscribe(() => {

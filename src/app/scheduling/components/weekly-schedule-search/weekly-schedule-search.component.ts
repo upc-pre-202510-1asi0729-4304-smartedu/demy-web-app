@@ -10,8 +10,12 @@ import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { WeeklyScheduleService } from '../../services/weekly-schedule.service';
 import { ScheduleWeekly } from '../../model/weekly-schedule.entity';
 import { Schedule } from '../../model/schedule.entity';
-import {TranslatePipe} from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
+/**
+ * Component for searching and displaying weekly schedules.
+ * Provides a search form and displays the available weekly schedules based on the selected schedule.
+ */
 @Component({
   selector: 'app-weekly-schedule-search',
   standalone: true,
@@ -27,25 +31,26 @@ import {TranslatePipe} from '@ngx-translate/core';
     TranslatePipe
   ],
   templateUrl: './weekly-schedule-search.component.html',
-  styleUrl: './weekly-schedule-search.component.css'
+  styleUrls: ['./weekly-schedule-search.component.css']
 })
 export class WeeklyScheduleSearchComponent {
-  // Form group for search
+
+  /** Form group for search input */
   searchForm: FormGroup;
 
-  // List of all available weekly schedules
+  /** List of all available weekly schedules */
   availableSchedules: ScheduleWeekly[] = [];
 
-  // State of loading
+  /** State of loading */
   isLoading = false;
 
-  // Error message
+  /** Error message */
   errorMessage: string | null = null;
 
-  // Current weekly schedule
+  /** Current selected weekly schedule */
   currentWeeklySchedule: ScheduleWeekly | null = null;
 
-  // Days of the week for table headers
+  /** Days of the week for table headers */
   weekDays = [
     'monday',
     'tuesday',
@@ -56,8 +61,11 @@ export class WeeklyScheduleSearchComponent {
     'sunday'
   ];
 
-
-
+  /**
+   * Initializes the component and loads available weekly schedules
+   * @param weeklyScheduleService - Service used to fetch weekly schedules from the backend
+   * @param fb - FormBuilder instance used to build the form group
+   */
   constructor(
     private weeklyScheduleService: WeeklyScheduleService,
     private fb: FormBuilder
@@ -66,12 +74,12 @@ export class WeeklyScheduleSearchComponent {
       scheduleSelect: ['']
     });
 
-    // Cargar horarios al construir el componente
+    // Load schedules when the component is created
     this.loadAvailableSchedules();
   }
 
   /**
-   * Load all available weekly schedules
+   * Loads all available weekly schedules from the service
    */
   loadAvailableSchedules(): void {
     this.isLoading = true;
@@ -91,7 +99,7 @@ export class WeeklyScheduleSearchComponent {
   }
 
   /**
-   * Search for a weekly schedule
+   * Searches for a weekly schedule based on the selected schedule ID
    */
   searchWeeklySchedule(): void {
     const selectedScheduleId = this.searchForm.get('scheduleSelect')?.value;
@@ -117,7 +125,8 @@ export class WeeklyScheduleSearchComponent {
   }
 
   /**
-   * Get unique time slots
+   * Gets unique time slots from the current selected weekly schedule
+   * @returns A sorted array of unique time slots
    */
   getUniqueTimeSlots(): string[] {
     if (!this.currentWeeklySchedule) return [];
@@ -131,12 +140,15 @@ export class WeeklyScheduleSearchComponent {
   }
 
   /**
-   * Get schedules for a specific day and time
+   * Gets the schedules for a specific day and time slot
+   * @param day - The day of the week to filter by
+   * @param timeSlot - The time slot to filter by
+   * @returns An array of schedules that match the day and time slot
    */
   getSchedulesForDayAndTime(day: string, timeSlot: string): Schedule[] {
     if (!this.currentWeeklySchedule) return [];
 
-    // Filtrar directamente por el día traducido y la hora
+    // Directly filter by the translated day and time
     return this.currentWeeklySchedule.weekSchedule.filter(schedule =>
       schedule.dayOfWeek.toLowerCase() === day.toLowerCase() &&
       schedule.timeRange.start === timeSlot

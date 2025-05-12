@@ -23,6 +23,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { WeeklyScheduleModalComponent } from '../../components/weekly-schedule-modal/weekly-schedule-modal.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
+
+/**
+ * Component for displaying and managing weekly schedules.
+ * Provides the ability to view, add, edit, and delete weekly schedules.
+ */
 @Component({
   selector: 'app-weekly-schedules-overview',
   imports: [
@@ -46,9 +51,11 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe
   ],
   templateUrl: './weekly-schedules-overview.component.html',
-  styleUrl: './weekly-schedules-overview.component.css'
+  styleUrls: ['./weekly-schedules-overview.component.css']
 })
 export class WeeklySchedulesOverviewComponent implements OnInit, AfterViewInit {
+
+  //#region Attributes
 
   /** Current weekly schedule being created or edited */
   protected weeklyScheduleData!: ScheduleWeekly;
@@ -76,24 +83,38 @@ export class WeeklySchedulesOverviewComponent implements OnInit, AfterViewInit {
   /** Current weekly schedule for operations */
   protected weeklySchedule: ScheduleWeekly = new ScheduleWeekly({});
 
+  //#endregion
 
+  //#region Methods
+
+  /**
+   * Initializes the component with default values and creates a new data source
+   */
   constructor() {
     this.weeklyScheduleData = new ScheduleWeekly({});
     this.dataSource = new MatTableDataSource<ScheduleWeekly>();
   }
 
-
+  /**
+   * Lifecycle hook that runs after view initialization.
+   * Sets up the Material table's paginator and sort functionality.
+   */
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-
+  /**
+   * Lifecycle hook that runs on component initialization.
+   * Loads the initial weekly schedule data.
+   */
   ngOnInit(): void {
     this.getAllWeeklySchedules();
   }
 
-
+  /**
+   * Opens a dialog to add a new weekly schedule
+   */
   protected onNewWeeklySchedule(): void {
     const dialogRef = this.dialog.open(WeeklyScheduleModalComponent, {
       data: {
@@ -112,7 +133,10 @@ export class WeeklySchedulesOverviewComponent implements OnInit, AfterViewInit {
     });
   }
 
-
+  /**
+   * Opens a dialog to edit an existing weekly schedule
+   * @param item - The weekly schedule to be edited
+   */
   protected onEditItem(item: ScheduleWeekly): void {
     const dialogRef = this.dialog.open(WeeklyScheduleModalComponent, {
       data: {
@@ -131,7 +155,10 @@ export class WeeklySchedulesOverviewComponent implements OnInit, AfterViewInit {
     });
   }
 
-
+  /**
+   * Opens a dialog to confirm the deletion of a weekly schedule
+   * @param item - The weekly schedule to be deleted
+   */
   protected onDeleteItem(item: ScheduleWeekly): void {
     const dialogRef = this.dialog.open(WeeklyScheduleModalComponent, {
       data: {
@@ -147,18 +174,30 @@ export class WeeklySchedulesOverviewComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * Returns the count of schedules for the given weekly schedule
+   * @param schedule - The weekly schedule to count the schedules for
+   * @returns The number of schedules for the given weekly schedule
+   */
   protected getSchedulesCount(schedule: ScheduleWeekly): number {
     return schedule.weekSchedule?.length || 0;
   }
 
-
+  /**
+   * Retrieves all weekly schedules from the service and updates the table's data source.
+   * Uses WeeklyScheduleService to fetch the data via HTTP.
+   */
   private getAllWeeklySchedules() {
     this.weeklyScheduleService.getAll().subscribe((response: Array<ScheduleWeekly>) => {
       this.dataSource.data = response;
     });
   }
 
-
+  /**
+   * Deletes a weekly schedule using the WeeklyScheduleService.
+   * Removes the weekly schedule from the table's data source.
+   * @param id - The ID of the weekly schedule to delete
+   */
   private deleteWeeklySchedule(id: number) {
     this.weeklyScheduleService.delete(id).subscribe(() => {
       this.dataSource.data = this.dataSource.data.filter((schedule: ScheduleWeekly) => schedule.id !== id);

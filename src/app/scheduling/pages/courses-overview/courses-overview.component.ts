@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, ViewChild} from '@angular/core';
 import {Course} from "../../model/course.entity";
 import {
   MatCell,
@@ -21,8 +21,12 @@ import {NgClass} from "@angular/common";
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {CourseModalComponent} from '../../components/course-modal/course-modal.component';
-import {TranslateModule, TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe} from '@ngx-translate/core';
 
+/**
+ * Component for displaying and managing a list of courses.
+ * Allows viewing, adding, editing, and deleting courses in the system.
+ */
 @Component({
   selector: 'app-courses-overview',
   imports: [
@@ -46,7 +50,7 @@ import {TranslateModule, TranslatePipe} from '@ngx-translate/core';
     TranslatePipe
   ],
   templateUrl: './courses-overview.component.html',
-  styleUrl: './courses-overview.component.css'
+  styleUrls: ['./courses-overview.component.css']
 })
 export class CoursesOverviewComponent {
 
@@ -59,13 +63,12 @@ export class CoursesOverviewComponent {
   protected columnsToDisplay: string[] = ['name', 'code', 'description', 'actions'];
 
   /** Reference to the Material paginator for handling page-based data display */
-  @ViewChild(MatPaginator, {static: false})
+  @ViewChild(MatPaginator, { static: false })
   protected paginator!: MatPaginator;
 
   /** Reference to the Material sort directive for handling column sorting */
   @ViewChild(MatSort)
   protected sort!: MatSort;
-
 
   /** Material table data source for managing and displaying course data */
   protected dataSource!: MatTableDataSource<any>;
@@ -73,12 +76,10 @@ export class CoursesOverviewComponent {
   /** Service for handling course-related API operations */
   private courseService: CourseService = inject(CourseService);
 
-
-  //NUEVOOOO
   /** Dialog service for opening dialogs */
   private dialog = inject(MatDialog);
 
-  /** Current course for operations */
+  /** The current course object being edited or added */
   protected course: Course = new Course({});
 
   //#endregion
@@ -111,6 +112,9 @@ export class CoursesOverviewComponent {
     this.getAllCourses();
   }
 
+  /**
+   * Opens a dialog to add a new course
+   */
   protected onNewCourse(): void {
     const dialogRef = this.dialog.open(CourseModalComponent, {
       data: {
@@ -128,7 +132,6 @@ export class CoursesOverviewComponent {
     });
   }
 
-
   /**
    * Handles the edit action for a course
    * @param item - The course to be edited
@@ -137,7 +140,7 @@ export class CoursesOverviewComponent {
     const dialogRef = this.dialog.open(CourseModalComponent, {
       data: {
         mode: 'edit',
-        course: {...item} // Create a copy to avoid modifying the original until submission
+        course: { ...item } // Create a copy to avoid modifying the original until submission
       }
     });
 
@@ -169,10 +172,6 @@ export class CoursesOverviewComponent {
     });
   }
 
-
-  private resetEditState(): void {
-    this.courseData = new Course({});
-  }
 
   /**
    * Retrieves all courses from the service and updates the table's data source.
