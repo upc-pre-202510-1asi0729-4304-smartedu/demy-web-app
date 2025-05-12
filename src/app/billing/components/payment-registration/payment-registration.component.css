@@ -1,0 +1,33 @@
+.payment-registration {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.actions {
+  grid-column: 1 / -1; /* botones ocupan toda la fila */
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Responsive: en pantallas pequeñas, una sola columna */
+@media (max-width: 600px) {
+  .form-section {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    justify-content: center;
+  }
+}

@@ -20,5 +20,54 @@
       "address": "Av. Siempre Viva",
       "phoneNumber": "987654321"
     }
+  ],
+  "invoices": [
+    {
+      "id": 1,
+      "subscriptionId": null,
+      "amount": 200,
+      "dueDate": "2024-05-30",
+      "status": "PENDING",
+      "studentId": "1"
+    },
+    {
+      "id": 2,
+      "subscriptionId": null,
+      "amount": 250,
+      "dueDate": "2024-06-01",
+      "status": "PENDING",
+      "studentId": "2"
+    },
+    {
+      "id": 3,
+      "subscriptionId": null,
+      "amount": 250,
+      "dueDate": "2024-06-01",
+      "status": "PENDING",
+      "studentId": "1"
+    }
+  ],
+  "payments": [
+    {
+      "invoiceId": 3,
+      "amount": 250,
+      "paidAt": "2025-05-12T01:05:36.910Z",
+      "method": "CASH",
+      "id": 1
+    },
+    {
+      "invoiceId": 3,
+      "amount": 250,
+      "paidAt": "2025-05-12T01:06:41.850Z",
+      "method": "CASH",
+      "id": 2
+    },
+    {
+      "invoiceId": 2,
+      "amount": 250,
+      "paidAt": "2025-05-12T01:07:16.239Z",
+      "method": "CASH",
+      "id": 3
+    }
   ]
 }

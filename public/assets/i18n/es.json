@@ -32,6 +32,17 @@
     "sex": {
       "MALE": "Masculino",
       "FEMALE": "Femenino"
-    }
+    },
+    "status": {
+      "PENDING": "Pendiente",
+      "PAID": "Pagado",
+      "OVERDUE": "Atrasado"
+    },
+    "register-title": "Registrar pago",
+    "first-name": "Nombres",
+    "last-name": "Apellidos",
+    "paid-at": "Fecha de pago",
+    "amount": "Monto",
+    "register-button": "Registrar pago"
   }
 }
