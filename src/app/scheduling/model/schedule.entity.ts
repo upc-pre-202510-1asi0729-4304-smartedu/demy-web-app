@@ -61,7 +61,7 @@ export class Schedule {
 
 /**
  * Enum representing the days of the week
- */
+
 enum DayOfWeek {
   Monday = 'Monday',
   Tuesday = 'Tuesday',
@@ -71,3 +71,4 @@ enum DayOfWeek {
   Saturday = 'Saturday',
   Sunday = 'Sunday'
 }
+ */

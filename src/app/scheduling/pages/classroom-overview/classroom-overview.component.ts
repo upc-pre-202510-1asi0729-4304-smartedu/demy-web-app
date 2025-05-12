@@ -121,7 +121,7 @@ export class ClassroomOverviewComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.classroomService.create(result).subscribe((response: Classroom) => {
+        this.classroomService.create(result).subscribe(() => {
           this.getAllClassrooms(); // Refresh the list
         });
       }
@@ -178,27 +178,6 @@ export class ClassroomOverviewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * Creates a new classroom using the current classroom data and adds it to the table
-   */
-  private createClassroom() {
-    this.classroomService.create(this.classroomData).subscribe((response: Classroom) => {
-      this.dataSource.data.push(response);
-      this.dataSource.data = this.dataSource.data;
-    });
-  }
-
-  /**
-   * Updates an existing classroom using the current classroom data
-   */
-  private updateClassroom() {
-    let classroomToUpdate = this.classroomData;
-    this.classroomService.update(classroomToUpdate.id, classroomToUpdate).subscribe((response: Classroom) => {
-      let index = this.dataSource.data.findIndex((classroom: Classroom) => classroom.id === response.id);
-      this.dataSource.data[index] = response;
-      this.dataSource.data = this.dataSource.data;
-    });
-  }
 
   /**
    * Deletes a classroom using the ClassroomService.

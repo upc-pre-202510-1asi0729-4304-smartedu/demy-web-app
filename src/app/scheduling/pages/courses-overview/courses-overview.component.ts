@@ -125,7 +125,7 @@ export class CoursesOverviewComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.courseService.create(result).subscribe((response: Course) => {
+        this.courseService.create(result).subscribe(() => {
           this.getAllCourses(); // Refresh the list
         });
       }
@@ -186,18 +186,20 @@ export class CoursesOverviewComponent {
   /**
    * Creates a new course using the CourseService.
    * Updates the table's data source with the newly created course.
-   */
+
   private createCourse() {
     this.courseService.create(this.courseData).subscribe((response: Course) => {
       this.dataSource.data.push(response);
       this.dataSource.data = this.dataSource.data;
     });
   }
+   */
+
 
   /**
    * Updates an existing course using the CourseService.
    * Updates the corresponding course in the table's data source.
-   */
+
   private updateCourse() {
     let courseToUpdate = this.courseData;
     this.courseService.update(courseToUpdate.id, courseToUpdate).subscribe((response: Course) => {
@@ -206,6 +208,8 @@ export class CoursesOverviewComponent {
       this.dataSource.data = this.dataSource.data;
     });
   }
+   */
+
 
   /**
    * Deletes a course using the CourseService.

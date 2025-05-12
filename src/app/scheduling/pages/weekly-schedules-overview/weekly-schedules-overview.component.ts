@@ -126,7 +126,7 @@ export class WeeklySchedulesOverviewComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.weeklyScheduleService.create(result).subscribe((response: ScheduleWeekly) => {
+        this.weeklyScheduleService.create(result).subscribe(() => {
           this.getAllWeeklySchedules(); // Refresh the list
         });
       }
