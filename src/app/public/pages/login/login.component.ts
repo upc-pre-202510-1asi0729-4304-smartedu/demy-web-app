@@ -70,18 +70,26 @@ export class LoginComponent {
 
       this.userService.getUserByEmail(email).subscribe({
         next: (users) => {
-          console.log(users); // Verifica la respuesta de la API
           if (users.length === 1 && users[0].passwordHash === password) {
+            const user = users[0];
             console.log('Login exitoso');
-            this.router.navigate(['/workspace']);
+
+            if (user.role === 'ADMIN') {
+              this.router.navigate(['/workspace']);
+            } else if (user.role === 'TEACHER') {
+              this.router.navigate(['/organization/teachers']); //AGREGAR LA RUTA DE PROFESORES
+            } else {
+              console.warn('Unrecognized role:', user.role);
+              alert('You do not have access with this role.');
+            }
           } else {
-            console.error('Credenciales incorrectas');
-            alert('Credenciales incorrectas');
+            console.error('Incorrect credentials');
+            alert('Incorrect credentials');
           }
         },
         error: (error) => {
-          console.error('Ocurrió un error al iniciar sesión.', error);
-          alert('Ocurrió un error al iniciar sesión.');
+          console.error('An error occurred while logging in.', error);
+          alert('An error occurred while logging in.');
         }
       });
 
