@@ -7,23 +7,27 @@
       <div class="top-bar">
         <app-language-switcher class="custom-color"></app-language-switcher>
       </div>
-
       <img class="logo" src="/assets/logos/demy-blue-logo.png" alt="Imagen de bienvenida" />
+
+      <p class="sign-up">
+        <a  routerLink="/signup">{{ 'login.sign-up' | translate }}</a>
+      </p>
+
       <p class="title">{{ 'login.title' | translate }}</p>
-      <p class="sub-tittle">{{ 'login.subtitle' | translate }}</p>
+      <p class="sub-tittle">{{ 'login.sub-title' | translate }}</p>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
         <input type="email" formControlName="email" [placeholder]="'login.email' | translate"  required />
         <input type="password" formControlName="password" [placeholder]="'login.password' | translate" required />
         <div class="remember-me">
           <label class="remember-label">
             <input type="checkbox" formControlName="remember" />
-            <span>{{ 'login.rememberMe' | translate }}</span>
+            <span>{{ 'login.remember-me' | translate }}</span>
           </label>
         </div>
-        <button mat-flat-button class="button-color" type="submit"  >{{ 'login.signIn' | translate }}</button>
+        <button mat-flat-button class="button-color" type="submit"  >{{ 'login.sign-in' | translate }}</button>
       </form>
       <p class="register-text">
-        <a routerLink="/signup">{{ 'login.forgotPassword' | translate }}</a>
+        <a routerLink="/signup">{{ 'login.forgot-password' | translate }}</a>
       </p>
     </div>
 

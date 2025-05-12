@@ -20,5 +20,27 @@
       "title": "Teachers",
       "description": "Manage your teaching staff"
     }
+  },
+  "login": {
+    "sign-up": "Sign Up",
+    "title": "Log In",
+    "sub-title": "Enter your personal information",
+    "email": "Email",
+    "password": "Password",
+    "remember-me": "Remember me",
+    "sign-in": "Sign In",
+    "forgot-password": "Forgot my password?"
+  },
+  "sign-up": {
+    "login": "Log In",
+    "title": "Sign Up",
+    "sub-title": "Enter your personal information",
+    "name": "Name",
+    "academy-name": "Academy Name",
+    "ruc": "RUC",
+    "email": "Email",
+    "password": "Password",
+    "terms-me": "Accept the terms and conditions",
+    "register": "Register"
   }
 }

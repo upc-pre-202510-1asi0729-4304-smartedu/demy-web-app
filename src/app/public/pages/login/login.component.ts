@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 import { HttpClient } from '@angular/common/http';
+import{TranslatePipe}  from '@ngx-translate/core';
+import {UserService} from '../../../iam-user/services/user.service';
+import {UserAccount} from '../../../iam-user/model/user.entity';
 
 /**
  * Component representing the application's login page.
@@ -32,6 +35,7 @@ import { HttpClient } from '@angular/common/http';
     MatButtonModule,
     MatCardModule,
     TranslateModule,
+    TranslatePipe
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -48,7 +52,7 @@ export class LoginComponent {
    * @param router - Router service for handling navigation
    */
 
-  constructor(private fb: FormBuilder, private router: Router,private http: HttpClient) {
+  constructor(private fb: FormBuilder, private router: Router,private userService: UserService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -66,12 +70,11 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
 
-      // Hacer una solicitud GET al endpoint de usuarios para verificar si existe un usuario con ese email
-      this.http.get<any[]>(`http://localhost:3000/users?email=${email}`).subscribe({
+      this.userService.getUserByEmail(email).subscribe({
         next: (users) => {
-          if (users.length === 1 && users[0].password === password) {
+          if (users.length === 1 && users[0].passwordHash === password) {
             console.log('Login exitoso');
-            this.router.navigate(['/dashboard']); // Redirigir al dashboard
+            this.router.navigate(['/dashboard']);
           } else {
             console.error('Credenciales incorrectas');
             alert('Credenciales incorrectas');
@@ -83,8 +86,9 @@ export class LoginComponent {
         }
       });
     } else {
-      this.loginForm.markAllAsTouched(); // Marca todos los campos con error
+      this.loginForm.markAllAsTouched();
     }
   }
+
 
 }

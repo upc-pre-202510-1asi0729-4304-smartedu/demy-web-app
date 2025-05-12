@@ -27,39 +27,55 @@
   z-index: 1;
 }
 
-
 .logo {
   display: block;
-  width: 500px;
-  margin: 0 auto 50px auto;
+  width: 400px;
+  margin: 0 auto 40px auto;
+}
+
+.sign-up {
+  text-align: left;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.sign-up a {
+  color: #282828;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.sign-up a:hover {
+  color: #0056b3;
+  text-decoration: underline;
 }
 
 .title {
   color: #000000;
   font-family: 'Inter', sans-serif;
-  font-size: 36px;
+  font-size: 29px;
   font-style: normal;
   font-weight: 700;
   line-height: 13.5%;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .sub-tittle {
   color: #000000;
   font-family: 'Inter', sans-serif;
-  font-size: 21px;
+  font-size: 17px;
   font-style: normal;
   font-weight: 400;
   line-height: 195%;
   padding-top: 0;
-  padding-bottom: 23px;
+  padding-bottom: 18px;
   margin-top: 0;
 }
 
 .form-box {
-  width: 120%;
-  max-width: 600px;
-  padding: 45px;
+  width: 96%;
+  max-width: 480px;
+  padding: 36px;
   text-align: left;
   background-color: #ffffff;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -69,9 +85,9 @@
 
 .form input {
   width: 100%;
-  padding: 18px;
-  margin-bottom: 24px;
-  font-size: 18px;
+  padding: 14px;
+  margin-bottom: 19px;
+  font-size: 14px;
   box-sizing: border-box;
   text-align: left;
   border: 3px solid #E8E8EA;
@@ -79,16 +95,16 @@
 }
 
 .remember-me {
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   text-align: left;
-  padding-top: 15px;
+  padding-top: 12px;
 }
 
 .remember-me label {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
-  font-size: 20px;
+  gap: 11px;
+  font-size: 16px;
   cursor: pointer;
   justify-content: flex-start;
   white-space: nowrap;
@@ -101,28 +117,26 @@
 
 button {
   width: 100%;
-  padding: 30px;
-  font-size: 24px;
-  margin-bottom: 30px;
+  padding: 24px;
+  font-size: 19px;
+  margin-bottom: 24px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
-  color: #ffffff
+  color: #ffffff;
 }
 
 button:hover {
   background-color: var(--color-primary-3);
-
 }
+
 .button-color {
-
   background-color: var(--color-primary-1);
-
 }
 
 .register-text {
   text-align: center;
-  margin-top: 10px;
-  font-size: 18px;
+  margin-top: 8px;
+  font-size: 14px;
 }
 
 .register-text a {
@@ -139,14 +153,13 @@ button:hover {
 .top-bar {
   display: flex;
   justify-content: flex-end;
-  padding: 10px;
+  padding: 8px;
 }
 
-.custom-color{
+.custom-color {
   background-color: var(--color-primary-1);
   border-radius: 50px;
 }
-
 
 @media (max-width: 1200px) {
   .container {
@@ -170,51 +183,50 @@ button:hover {
 
   .right-side {
     background-color: transparent;
-    padding: 20px;
+    padding: 16px;
     z-index: 1;
   }
 
   .form-box {
     width: 100%;
-    max-width: 90%;
-    padding: 20px;
-    margin-top: 20px;
+    max-width: 72%;
+    padding: 16px;
+    margin-top: 16px;
     border-radius: 15px;
   }
 
   .logo {
-    width: 250px;
-    margin-bottom: 20px;
+    width: 200px;
+    margin-bottom: 16px;
   }
-
 }
 
 @media (max-width: 400px) {
   .title {
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 16px;
   }
 
   .sub-tittle {
-    font-size: 14px;
-    padding-bottom: 15px;
+    font-size: 11px;
+    padding-bottom: 12px;
   }
 
   .form input {
-    font-size: 14px;
-    padding: 12px;
+    font-size: 11px;
+    padding: 10px;
   }
 
   .remember-me label {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   button {
-    font-size: 18px;
-    padding: 20px;
+    font-size: 14px;
+    padding: 16px;
   }
 
   .register-text {
-    font-size: 12px;
+    font-size: 10px;
   }
 }
