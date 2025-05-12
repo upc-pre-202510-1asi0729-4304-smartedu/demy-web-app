@@ -33,5 +33,25 @@
     "button":{
       "new": "New Weekly Schedule"
     }
+  },
+  "search-schedules": {
+    "title": "Search Weekly Schedules",
+    "select": "Select a schedule",
+    "table": {
+      "subtitle": "Weekly schedule: ",
+      "hour": "Hour",
+      "course": "Course",
+      "classroom": "Classroom",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "button": {
+      "search": "Search"
+    }
   }
 }

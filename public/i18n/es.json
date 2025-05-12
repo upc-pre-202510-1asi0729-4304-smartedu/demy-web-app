@@ -33,5 +33,25 @@
     "button":{
       "new": "Nuevo Horario Semanal"
     }
+  },
+  "search-schedules": {
+    "title": "Buscar Horarios Semanales",
+    "select": "Selecciona un horario",
+    "table": {
+      "subtitle": "Horario: ",
+      "hour": "Hora",
+      "course": "Curso",
+      "classroom": "Aula",
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sabado",
+      "sunday": "Domingo"
+    },
+    "button": {
+      "search": "Buscar"
+    }
   }
 }

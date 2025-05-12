@@ -1,0 +1,70 @@
+<div class="weekly-schedule-container">
+
+  <form [formGroup]="searchForm" (ngSubmit)="searchWeeklySchedule()" class="search-container">
+    <div class="search-inputs">
+      <!-- Schedule Dropdown -->
+      <mat-form-field appearance="outline" class="schedule-select">
+        <mat-label>{{ 'search-schedules.select' | translate }}</mat-label>
+        <mat-select formControlName="scheduleSelect">
+          @for (schedule of availableSchedules; track schedule.id) {
+            <mat-option [value]="schedule.id">
+              {{ schedule.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <!-- Search Button -->
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!searchForm.get('scheduleSelect')?.value">
+        <mat-icon>search</mat-icon>
+        {{ 'search-schedules.button.search' | translate }}
+      </button>
+
+    </div>
+  </form>
+
+
+  @if (currentWeeklySchedule && !isLoading) {
+    <div class="schedule-results">
+      <h2>{{ 'search-schedules.table.subtitle' | translate }}: "{{ currentWeeklySchedule.name }}"</h2>
+
+      <div class="weekly-schedule-table">
+        <table class="schedule-table">
+          <thead>
+          <tr>
+            <th class="time-header">{{ 'search-schedules.table.hour' | translate }}</th>
+            @for (day of weekDays; track day) {
+              <th>{{ 'search-schedules.table.' + day | translate }}</th>
+            }
+          </tr>
+          </thead>
+          <tbody>
+            @for (timeSlot of getUniqueTimeSlots(); track timeSlot) {
+              <tr>
+                <td class="time-cell">{{ timeSlot }}</td>
+
+                @for (day of weekDays; track day) {
+                  <td class="schedule-cell">
+                    @for (schedule of getSchedulesForDayAndTime(day, timeSlot); track schedule) {
+                      <div class="schedule-item">
+                        <div class="schedule-info">
+                          <strong>{{ 'search-schedules.table.hour' | translate }}: {{ schedule.timeRange.start }} - {{ schedule.timeRange.end }}</strong>
+                          <div>{{ 'search-schedules.table.course' | translate }}: {{ schedule.course.name }} ({{ schedule.course.code }})</div>
+                          <div>{{ 'search-schedules.table.classroom' | translate }}: {{ schedule.classroom.code }} ({{ schedule.classroom.campus }})</div>
+                        </div>
+                      </div>
+                    }
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>

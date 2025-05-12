@@ -10,6 +10,7 @@ import { ReportsComponent } from './finance/pages/reports/reports.component';
 import { CoursesOverviewComponent} from './scheduling/pages/courses-overview/courses-overview.component';
 import { ClassroomOverviewComponent} from './scheduling/pages/classroom-overview/classroom-overview.component';
 import {WeeklySchedulesOverviewComponent} from './scheduling/pages/weekly-schedules-overview/weekly-schedules-overview.component';
+import { SearchSchedulesComponent } from './scheduling/pages/search-schedules/search-schedules.component';
 
 
 export const routes: Routes = [
@@ -20,9 +21,10 @@ export const routes: Routes = [
       { path: 'organization', component: OrganizationComponent},
       { path: 'organization/courses', component: CoursesOverviewComponent},
       { path: 'organization/classrooms', component: ClassroomOverviewComponent},
-      { path: 'organization/weeklySchedule', component: WeeklySchedulesOverviewComponent},
+      { path: 'organization/weekly-schedules', component: WeeklySchedulesOverviewComponent},
       { path: 'workspace', component: DashboardComponent },
       { path: 'payments', component: PaymentsComponent },
+      { path: 'search-schedules', component: SearchSchedulesComponent },
       {
         path: 'finance',
         component: FinanceLayoutComponent,
