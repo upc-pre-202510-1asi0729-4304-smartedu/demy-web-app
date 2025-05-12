@@ -1,6 +1,3 @@
-import {Student} from './student.entity';
-import {AcademicPeriod} from './academic-period.entity';
-
 export class Enrollment {
   id: string
   studentId: string;
@@ -8,13 +5,15 @@ export class Enrollment {
   amount: number;
   enrollmentStatus: EnrollmentStatus;
   paymentStatus: PaymentStatus;
-  constructor(id = '', studentId = '', periodId = '', enrollmentStatus = EnrollmentStatus.ACTIVE, amount = 0, paymentStatus = PaymentStatus.PENDING) {
+  createdAt: Date;
+  constructor(id = '', studentId = '', periodId = '', enrollmentStatus = EnrollmentStatus.ACTIVE, amount = 0, paymentStatus = PaymentStatus.PENDING, createdAt = new Date()) {
     this.id = id;
     this.studentId = studentId;
     this.periodId = periodId;
     this.enrollmentStatus = enrollmentStatus;
     this.amount = amount;
     this.paymentStatus = paymentStatus;
+    this.createdAt = createdAt
   }
 }
 
