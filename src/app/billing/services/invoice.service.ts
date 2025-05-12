@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from '../../shared/services/base.service';
 import { Invoice } from '../model/invoice.entity';
 import { environment } from '../../../environments/environment';
-import {catchError, map, Observable, retry} from 'rxjs';
+import {catchError, Observable, retry} from 'rxjs';
 
 const invoicesResourceEndpointPath = environment.invoicesEndpointPath;
 
