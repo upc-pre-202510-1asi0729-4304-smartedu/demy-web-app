@@ -1,0 +1,62 @@
+<h2 mat-dialog-title class="dialog-title">{{ dialogTitle }}</h2>
+
+<div mat-dialog-content>
+  @if (mode === 'add' || mode === 'edit') {
+    <form #teacherForm="ngForm" class="form-row">
+      <!-- Nombre (fullName en UserAccount) -->
+      <mat-form-field appearance="outline">
+        <mat-label>Full Name</mat-label>
+        <input
+          [(ngModel)]="teacher.fullName"
+          matInput
+          name="fullName"
+          required
+          #fullNameInput="ngModel"
+        >
+        @if (fullNameInput.invalid && (fullNameInput.dirty || fullNameInput.touched)) {
+          <mat-error>Name is required</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Email (email en UserAccount) -->
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input
+          [(ngModel)]="teacher.email"
+          matInput
+          name="email"
+          type="email"
+          required
+          #emailInput="ngModel"
+        >
+        @if (emailInput.invalid && (emailInput.dirty || emailInput.touched)) {
+          <mat-error>Valid email is required</mat-error>
+        }
+      </mat-form-field>
+    </form>
+  }
+
+  @if (mode === 'delete') {
+    <div class="delete-confirmation">
+      <p>Are you sure you want to delete "{{ teacher.fullName }}"?</p>
+      <p class="warning-text">This action cannot be undone.</p>
+    </div>
+  }
+</div>
+
+<div mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  @if (mode === 'add' || mode === 'edit') {
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSubmit()"
+      [disabled]="teacherForm.invalid"
+    >
+      Save
+    </button>
+  }
+  @if (mode === 'delete') {
+    <button mat-raised-button color="warn" (click)="onConfirmDelete()">Delete</button>
+  }
+</div>

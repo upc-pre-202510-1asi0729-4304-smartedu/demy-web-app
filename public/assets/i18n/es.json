@@ -42,6 +42,37 @@
     "password": "Contraseña",
     "terms-me": "Acepta los terminos y condiciones",
     "register": "Registrarse"
+  },
+  "view-teachers": {
+    "title": "Gestión de Profesores",
+    "table": {
+      "fullName": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "specialty": "Especialidad",
+      "actions": "Acciones"
+    },
+    "button": {
+      "new-teacher": "Nuevo Profesor"
+    }
+  },
+  "teacher-modal": {
+    "add": "Agregar Profesor",
+    "edit": "Editar Profesor",
+    "delete": "Eliminar Profesor",
+    "delete-confirm": "¿Está seguro de eliminar al profesor \"{{name}}\"?",
+    "delete-warning": "Esta acción no se puede deshacer.",
+    "form": {
+      "fullName": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "specialty": "Especialidad",
+      "required": "Campo requerido",
+      "invalid-email": "Correo electrónico inválido"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "delete": "Eliminar"
+    }
   }
 
 }

@@ -42,5 +42,37 @@
     "password": "Password",
     "terms-me": "Accept the terms and conditions",
     "register": "Register"
+  },
+  "view-teachers": {
+    "title": "Teachers Management",
+    "table": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "specialty": "Specialty",
+      "actions": "Actions"
+    },
+    "button": {
+      "new-teacher": "New Teacher"
+    }
+  },
+  "teacher-modal": {
+    "add": "Add Teacher",
+    "edit": "Edit Teacher",
+    "delete": "Delete Teacher",
+    "delete-confirm": "Are you sure you want to delete teacher \"{{name}}\"?",
+    "delete-warning": "This action cannot be undone.",
+    "form": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "specialty": "Specialty",
+      "required": "Required field",
+      "invalid-email": "Invalid email"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete"
+    }
   }
+
 }
