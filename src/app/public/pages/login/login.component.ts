@@ -8,10 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
-import { HttpClient } from '@angular/common/http';
 import{TranslatePipe}  from '@ngx-translate/core';
 import {UserService} from '../../../iam-user/services/user.service';
-import {UserAccount} from '../../../iam-user/model/user.entity';
 
 /**
  * Component representing the application's login page.
