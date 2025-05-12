@@ -6,7 +6,7 @@ export interface EnrollmentsResponse {
   limit: number;
 }
 
-export interface EnrollmentResourceRegistration {
+export interface EnrollmentRegistrationResource {
   student_id: string;
   period_id: string;
   enrollment_date: string; // ISO format
