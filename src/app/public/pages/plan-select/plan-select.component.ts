@@ -69,6 +69,6 @@ export class PlanSelectComponent {
   }
 
   selectPlan() {
-    this.router.navigate(['/workspace']);
+    this.router.navigate(['/organization']);
   }
 }

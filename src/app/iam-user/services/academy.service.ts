@@ -16,7 +16,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class AcademyService {
-  private apiUrl = `${environment.serverBaseUrl}${environment.academyEndpointPath}`;
+  private apiUrl = `${environment.apiBaseUrl}${environment.academyEndpointPath}`;
 
   /**
    * Injects Angular's HttpClient to handle API requests related to academies.
