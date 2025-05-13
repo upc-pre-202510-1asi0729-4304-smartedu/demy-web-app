@@ -17,7 +17,7 @@ import { Role } from '../model/role.model';
   providedIn: 'root'
 })
 export class TeacherService {
-  private baseUrl = `${environment.serverBaseUrl}${environment.usersEndpointPath}`;
+  private baseUrl = `${environment.apiBaseUrl}${environment.usersEndpointPath}`;
 
   /**
    * Injects Angular's HttpClient for making API requests related to teachers.
