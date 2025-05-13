@@ -21,6 +21,93 @@
       "description": "Manage your teaching staff"
     }
   },
+  "login": {
+    "sign-up": "Sign Up",
+    "title": "Log In",
+    "sub-title": "Enter your personal information",
+    "email": "Email",
+    "password": "Password",
+    "remember-me": "Remember me",
+    "sign-in": "Sign In",
+    "forgot-password": "Forgot my password?"
+  },
+  "sign-up": {
+    "login": "Log In",
+    "title": "Sign Up",
+    "sub-title": "Enter your personal information",
+    "name": "Name",
+    "academy-name": "Academy Name",
+    "ruc": "RUC",
+    "email": "Email",
+    "password": "Password",
+    "terms-me": "Accept the terms and conditions",
+    "register": "Register"
+  },
+  "view-teachers": {
+    "title": "Teachers Management",
+    "table": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "specialty": "Specialty",
+      "actions": "Actions"
+    },
+    "button": {
+      "new-teacher": "New Teacher"
+    }
+  },
+  "teacher-modal": {
+    "add": "Add Teacher",
+    "edit": "Edit Teacher",
+    "delete": "Delete Teacher",
+    "delete-confirm": "Are you sure you want to delete teacher \"{{name}}\"?",
+    "delete-warning": "This action cannot be undone.",
+    "form": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "specialty": "Specialty",
+      "required": "Required field",
+      "invalid-email": "Invalid email"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete"
+    }
+  },
+  "title": "Select Your Plan",
+  "plan1": {
+    "subtitle": "Essentials",
+    "title": "Basic Plan",
+    "price": "$19.90",
+    "benefit1": "1 location",
+    "benefit2": "100 students",
+    "benefit3": "10 teachers",
+    "benefit4": "Enrollment and payment management"
+  },
+  "plan2": {
+    "subtitle": "Pro",
+    "title": "Intermediate Plan",
+    "price": "$70.00",
+    "benefit1": "500 students",
+    "benefit2": "50 teachers",
+    "benefit3": "2 locations",
+    "benefit4": "Inventory and loan management",
+    "benefit5": "Enrollment and payment management"
+  },
+  "plan3": {
+    "subtitle": "Elite",
+    "title": "Premium Plan",
+    "price": "$160.00",
+    "benefit1": "2000 students",
+    "benefit2": "200 teachers",
+    "benefit3": "2 or more locations",
+    "benefit4": "Priority support",
+    "benefit5": "Inventory and loan management",
+    "benefit6": "Enrollment and payment management"
+  },
+  "button": {
+    "select": "Select Plan"
+  },
   "payments": {
     "title": "Payments",
     "subtitle": "Check a student's payment status",

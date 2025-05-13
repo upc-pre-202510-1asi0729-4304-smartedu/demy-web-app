@@ -21,6 +21,93 @@
       "description": "Gestiona el personal docente"
     }
   },
+  "login": {
+    "sign-up": "Crear Cuenta",
+    "title": "Iniciar sesión",
+    "sub-title": "Ingresa tu información personal",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "remember-me": "Recuérdame",
+    "sign-in": "Ingresar",
+    "forgot-password": "¿Olvidaste tu contraseña?"
+  },
+  "sign-up": {
+    "login": "Inicar Sesion",
+    "title": "Crear Cuenta",
+    "sub-title": "Ingresa tu información personal",
+    "name": "Nombre",
+    "academy-name": "Nombre de academia",
+    "ruc": "RUC",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "terms-me": "Acepta los terminos y condiciones",
+    "register": "Registrarse"
+  },
+  "view-teachers": {
+    "title": "Gestión de Profesores",
+    "table": {
+      "fullName": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "specialty": "Especialidad",
+      "actions": "Acciones"
+    },
+    "button": {
+      "new-teacher": "Nuevo Profesor"
+    }
+  },
+  "teacher-modal": {
+    "add": "Agregar Profesor",
+    "edit": "Editar Profesor",
+    "delete": "Eliminar Profesor",
+    "delete-confirm": "¿Está seguro de eliminar al profesor \"{{name}}\"?",
+    "delete-warning": "Esta acción no se puede deshacer.",
+    "form": {
+      "fullName": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "specialty": "Especialidad",
+      "required": "Campo requerido",
+      "invalid-email": "Correo electrónico inválido"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "delete": "Eliminar"
+    }
+  },
+  "title": "Selecciona tu Plan",
+  "plan1": {
+    "subtitle": "Essentials",
+    "title": "Plan Básico",
+    "price": "S/. 19.90",
+    "benefit1": "1 sede",
+    "benefit2": "100 alumnos",
+    "benefit3": "10 profesores",
+    "benefit4": "Gestión de matrícula y pagos"
+  },
+  "plan2": {
+    "subtitle": "Pro",
+    "title": "Plan Intermedio",
+    "price": "S/. 70.00",
+    "benefit1": "500 alumnos",
+    "benefit2": "50 profesores",
+    "benefit3": "2 sedes",
+    "benefit4": "Gestión de inventario y préstamos",
+    "benefit5": "Gestión de matrícula y pagos"
+  },
+  "plan3": {
+    "subtitle": "Elite",
+    "title": "Plan Premium",
+    "price": "S/. 160.00",
+    "benefit1": "2000 alumnos",
+    "benefit2": "200 profesores",
+    "benefit3": "2 o más sedes",
+    "benefit4": "Soporte prioritario",
+    "benefit5": "Gestión de inventario y préstamos",
+    "benefit6": "Gestión de matrícula y pagos"
+  },
+  "button": {
+    "select": "Seleccionar Plan"
+  },
   "payments": {
     "title": "Pagos",
     "subtitle": "Buscar el estado de pago de un alumno",

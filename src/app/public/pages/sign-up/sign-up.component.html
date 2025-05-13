@@ -1,1 +1,35 @@
-<p>sign-up works!</p>
+<div class="container">
+  <div class="left-side">
+    <div class="form-box">
+      <div class="top-bar">
+        <app-language-switcher class="custom-color"></app-language-switcher>
+
+      </div>
+      <img class="logo" src="/assets/logos/demy-blue-logo.png" alt="Imagen de bienvenida" />
+      <p class="login">
+        <a  routerLink="/login">{{ 'sign-up.login' | translate }}</a>
+      </p>
+      <p class="title">{{ 'sign-up.title' | translate }}</p>
+      <p class="sub-tittle">{{ 'sign-up.sub-title' | translate }}</p>
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="form">
+        <input type="text" formControlName="name" [placeholder] = "'sign-up.name' | translate" required />
+        <input type="text" formControlName="academy_name" [placeholder] = "'sign-up.academy-name' | translate" required />
+        <input type="number" formControlName="ruc" [placeholder] = "'sign-up.ruc' | translate" required />
+        <input type="email" formControlName="email" [placeholder] = "'sign-up.email' | translate" required />
+        <input type="password" formControlName="password" [placeholder] = "'sign-up.password' | translate" required />
+
+        <div class="terms-me">
+          <label class="terms-label">
+            <input type="checkbox" formControlName="terms" />
+            <span>{{ 'sign-up.terms-me' | translate }}</span>
+          </label>
+        </div>
+        <button mat-flat-button class="button-color" type="submit" >{{ 'sign-up.register' | translate }}</button>
+      </form>
+
+    </div>
+  </div>
+  <div class="right-side">
+    <img src="/assets/img/sign-up-image.jpg" alt="Imagen de bienvenida" />
+  </div>
+</div>
