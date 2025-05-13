@@ -7,6 +7,7 @@ import { LoginComponent } from './public/pages/login/login.component';
 import { FinanceLayoutComponent } from './finance/components/finance-layout/finance-layout.component';
 import { ExpensesComponent } from './finance/pages/expenses/expenses.component';
 import { ReportsComponent } from './finance/pages/reports/reports.component';
+import {AttendancePageComponent} from './attendance/pages/attendance-page/attendance-page.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,7 @@ export const routes: Routes = [
       { path: 'organization', component: OrganizationComponent },
       { path: 'workspace', component: DashboardComponent },
       { path: 'payments', component: PaymentsComponent },
+      {path:'attendance',component:AttendancePageComponent},
       {
         path: 'finance',
         component: FinanceLayoutComponent,
