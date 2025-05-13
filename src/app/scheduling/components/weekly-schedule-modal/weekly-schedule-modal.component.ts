@@ -10,6 +10,7 @@ import { ScheduleWeekly } from '../../model/weekly-schedule.entity';
 import { Course } from '../../model/course.entity';
 import { Classroom } from '../../model/classroom.entity';
 import { Schedule } from '../../model/schedule.entity';
+import {UserAccount} from '../../../iam-user/model/user.entity';
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
@@ -21,7 +22,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CourseService } from '../../services/course.service';
 import { MatIconModule } from '@angular/material/icon';
 import { ClassroomService } from '../../services/classroom.service';
-//import { TeachersService } from '../../services/teacher.service';
+import { TeacherService } from '../../../iam-user/services/teacher.service';
 
 /**
  * Component for displaying a modal to add, edit, or delete a weekly schedule.
@@ -67,7 +68,7 @@ export class WeeklyScheduleModalComponent {
   /** Data for select options for classrooms */
   availableClassrooms: Classroom[] = [];
 
-  // availableTeachers: Teachers[] = []; // Uncomment when the Teacher entity is available
+  availableTeachers: UserAccount[] = []; // Uncomment when the Teacher entity is available
 
   /** Available day options for the schedule */
   dayOptions: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -85,7 +86,7 @@ export class WeeklyScheduleModalComponent {
   constructor(
     public dialogRef: MatDialogRef<WeeklyScheduleModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    // private teacherService: TeacherService, // Uncomment when the Teacher entity is available
+    private teacherService: TeacherService, // Uncomment when the Teacher entity is available
     private classroomService: ClassroomService,
     private courseService: CourseService
   ) {
@@ -104,7 +105,7 @@ export class WeeklyScheduleModalComponent {
     // Load available courses and classrooms
     this.loadAvailableCourses();
     this.loadAvailableClassrooms();
-    // this.loadAvailableTeachers(); // Uncomment when the Teacher entity is available
+    this.loadAvailableTeachers(); // Uncomment when the Teacher entity is available
   }
 
   /**
@@ -124,6 +125,18 @@ export class WeeklyScheduleModalComponent {
       this.availableClassrooms = classrooms;
     });
   }
+
+  /**
+   * Loads the available teachers from the TeachersService
+   */
+  loadAvailableTeachers() {
+    this.teacherService.getTeachers().subscribe(teachers => {
+      this.availableTeachers = teachers;
+    });
+  }
+
+
+
 
   /**
    * Handles the cancellation of the dialog and closes it
@@ -157,13 +170,13 @@ export class WeeklyScheduleModalComponent {
       this.currentSchedule.timeRange.start &&
       this.currentSchedule.timeRange.end &&
       this.currentSchedule.course.id &&
-      // this.currentSchedule.teacher.id &&    // Uncomment when the Teacher entity is available
+      this.currentSchedule.teacher.id &&    // Uncomment when the Teacher entity is available
       this.currentSchedule.classroom.id
     ) {
       // Find the full Course and Classroom objects based on IDs
       const course = this.availableCourses.find(c => c.id === this.currentSchedule.course.id);
       const classroom = this.availableClassrooms.find(c => c.id === this.currentSchedule.classroom.id);
-      // const teacher = this.availableTeachers.find(t => t.id === this.currentSchedule.teacher.id);   // Uncomment when the Teacher entity is available
+      const teacher = this.availableTeachers.find(t => t.id === this.currentSchedule.teacher.id);   // Uncomment when the Teacher entity is available
 
       // Ensure course and classroom exist before proceeding
       if (course && classroom) {
@@ -173,8 +186,8 @@ export class WeeklyScheduleModalComponent {
           dayOfWeek: this.currentSchedule.dayOfWeek,
           timeRange: { ...this.currentSchedule.timeRange },
           course: course,
-          classroom: classroom
-          // teacher: teacher
+          classroom: classroom,
+          teacher: teacher
         });
 
         // Add the schedule to the weekly schedule

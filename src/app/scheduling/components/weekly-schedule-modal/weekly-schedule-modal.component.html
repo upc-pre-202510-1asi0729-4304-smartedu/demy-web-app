@@ -51,17 +51,17 @@
         </mat-form-field>
 
 
-        <!-- Teacher Selection
+        <!-- Teacher Selection  -->
 
       <mat-form-field appearance="outline">
         <mat-label>Teacher</mat-label>
         <mat-select [(ngModel)]="currentSchedule.teacher.id" name="teacher" required>
           @for (teacher of availableTeachers; track teacher.id) {
-            <mat-option [value]="teacher.id">{{ teacher.name }}</mat-option>
+            <mat-option [value]="teacher.id">{{ teacher.fullName }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
-      -->
+
 
         <!-- Classroom Selection -->
         <mat-form-field appearance="outline">
@@ -88,10 +88,10 @@
                 Course: {{ schedule.course.name }} ({{ schedule.course.code }})
                 <br>
                 Classroom: {{ schedule.classroom.code }} ({{ schedule.classroom.campus }})
-                <!--
+
                 <br>
-                Teacher: {{ schedule.teacher.name }}
-                -->
+                Teacher: {{ schedule.teacher.fullName }}
+
               </div>
               <button mat-icon-button color="warn" (click)="removeSchedule($index)">
                 <mat-icon>delete</mat-icon>
