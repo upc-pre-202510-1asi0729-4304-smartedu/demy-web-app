@@ -75,7 +75,7 @@ export class LoginComponent {
             console.log('Login exitoso');
 
             if (user.role === 'ADMIN') {
-              this.router.navigate(['/workspace']);
+              this.router.navigate(['/organization']);
             } else if (user.role === 'TEACHER') {
               this.router.navigate(['/organization/teachers']); //AGREGAR LA RUTA DE PROFESORES
             } else {
