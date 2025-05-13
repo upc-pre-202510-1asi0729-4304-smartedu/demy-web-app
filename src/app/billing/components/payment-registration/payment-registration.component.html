@@ -1,0 +1,40 @@
+<h3>{{ 'payments.register-title' | translate }}</h3>
+
+<div class="payment-registration">
+  <form #paymentForm="ngForm" (ngSubmit)="onSubmit()" class="form-section">
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>{{ 'payments.first-name' | translate }}</mat-label>
+      <input matInput [value]="student.firstName" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>{{ 'payments.last-name' | translate }}</mat-label>
+      <input matInput [value]="student.lastName" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>DNI</mat-label>
+      <input matInput [value]="student.dni" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>{{ 'payments.amount' | translate }}</mat-label>
+      <input matInput type="number" [value]="invoice.amount" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>{{ 'payments.paid-at' | translate }}</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="paidAt" name="paidAt" required />
+      <mat-datepicker-toggle matSuffix [for]="picker" />
+      <mat-datepicker #picker />
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-flat-button color="primary" type="submit">
+        {{ 'payments.register-button' | translate }}
+      </button>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,14 @@
+<h2>{{ 'finance.title' | translate }}</h2>
+<h3>{{ 'finance.subtitle.register' | translate }}</h3>
+
+<app-expense-form (confirm)="handleRegister($event)" />
+
+<mat-divider />
+
+<h3>{{ 'finance.subtitle.summary' | translate }}</h3>
+
+@if (expenses().length > 0) {
+  <app-expense-table [expenses]="expenses()" />
+} @else {
+  <p>{{ 'finance.summary.empty' | translate }}</p>
+}

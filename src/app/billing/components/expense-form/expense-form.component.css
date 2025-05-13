@@ -1,0 +1,26 @@
+.expense-form-component {
+  max-width: 1000px;
+  margin: 0 auto 2rem auto;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.submit-button {
+  text-align: right;
+  margin-top: 1rem;
+}

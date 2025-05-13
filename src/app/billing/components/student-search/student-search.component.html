@@ -1,0 +1,17 @@
+<div class="student-search">
+  <form class="student-search-form" (ngSubmit)="onSearchClick()">
+    <mat-form-field class="student-form-field" appearance="outline">
+      <mat-label>{{ 'payments.dni-input' | translate }}</mat-label>
+      <input matInput type="text" name="dni" class="dni-input" [(ngModel)]="value" required />
+      @if (value) {
+        <button matSuffix mat-icon-button aria-label="Clear" type="button" (click)="value=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+
+    <button mat-flat-button type="submit" color="primary" class="search-button">
+      {{ 'payments.search-button' | translate }}
+    </button>
+  </form>
+</div>

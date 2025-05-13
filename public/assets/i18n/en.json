@@ -20,5 +20,81 @@
       "title": "Teachers",
       "description": "Manage your teaching staff"
     }
+  },
+  "payments": {
+    "title": "Payments",
+    "subtitle": "Check a student's payment status",
+    "dni-input": "Enter DNI",
+    "search-button": "Search",
+    "table-first-name": "First Name",
+    "table-last-name": "Last Name",
+    "table-sex": "Sex",
+    "sex": {
+      "MALE": "Male",
+      "FEMALE": "Female"
+    },
+    "payment-status": {
+      "PENDING": "Pending",
+      "PAID": "Paid",
+      "OVERDUE": "Overdue"
+    },
+    "register-title": "Register payment",
+    "register-action": "Register payment",
+    "first-name": "First name",
+    "last-name": "Last name",
+    "paid-at": "Payment date",
+    "student": "Student",
+    "amount": "Amount",
+    "status": "Status",
+    "due-date": "Due date",
+    "action": "Action",
+    "register-button": "Save payment"
+  },
+  "finance": {
+    "title": "Finance",
+    "subtitle": {
+      "register": "Register expense",
+      "summary": "Financial summary for the current month"
+    },
+    "summary": {
+      "empty": "No expenses have been recorded this month."
+    },
+    "fields": {
+      "category": "Category",
+      "amount": "Amount (S/)",
+      "concept": "Concept",
+      "date": "Date"
+    },
+    "category": {
+      "teachers": "Payment to teachers",
+      "materials": "Materials",
+      "services": "Services",
+      "taxes": "Taxes",
+      "maintenance": "Maintenance",
+      "technology": "Technology",
+      "others": "Other"
+    },
+    "actions": {
+      "confirm": "Confirm"
+    },
+    "table": {
+      "date": "Date",
+      "category": "Category",
+      "concept": "Concept",
+      "amount": "Amount",
+      "total": "Monthly total"
+    }
+  },
+  "form": {
+    "field": {
+      "amount": "Amount",
+      "date": "Date",
+      "category": "Category",
+      "concept": "Concept"
+    },
+    "error": {
+      "required": "The field {{field}} is required",
+      "invalid": "The field {{field}} is invalid"
+    }
   }
 }

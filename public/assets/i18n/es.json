@@ -20,5 +20,81 @@
       "title": "Profesores",
       "description": "Gestiona el personal docente"
     }
+  },
+  "payments": {
+    "title": "Pagos",
+    "subtitle": "Buscar el estado de pago de un alumno",
+    "dni-input": "Ingresar DNI",
+    "search-button": "Buscar",
+    "table-first-name": "Nombre",
+    "table-last-name": "Apellido",
+    "table-sex": "Sexo",
+    "sex": {
+      "MALE": "Masculino",
+      "FEMALE": "Femenino"
+    },
+    "payment-status": {
+      "PENDING": "Pendiente",
+      "PAID": "Pagado",
+      "OVERDUE": "Atrasado"
+    },
+    "register-title": "Registrar pago",
+    "register-action": "Registrar pago",
+    "first-name": "Nombres",
+    "last-name": "Apellidos",
+    "paid-at": "Fecha de pago",
+    "student": "Estudiante",
+    "amount": "Monto",
+    "status": "Estado",
+    "due-date": "Vencimiento",
+    "action": "Acción",
+    "register-button": "Guardar pago"
+  },
+  "finance": {
+    "title": "Finanzas",
+    "subtitle": {
+      "register": "Registrar egreso",
+      "summary": "Resumen financiero del mes actual"
+    },
+    "summary": {
+      "empty": "No se han registrado egresos este mes."
+    },
+    "fields": {
+      "category": "Categoría",
+      "amount": "Monto (S/)",
+      "concept": "Concepto",
+      "date": "Fecha"
+    },
+    "category": {
+      "teachers": "Pago Docentes",
+      "materials": "Materiales",
+      "services": "Servicios",
+      "taxes": "Impuestos",
+      "maintenance": "Mantenimiento",
+      "technology": "Tecnología",
+      "others": "Otros"
+    },
+    "actions": {
+      "confirm": "Confirmar"
+    },
+    "table": {
+      "date": "Fecha",
+      "category": "Categoría",
+      "concept": "Concepto",
+      "amount": "Monto",
+      "total": "Total mensual"
+    }
+  },
+  "form": {
+    "field": {
+      "amount": "Monto",
+      "date": "Fecha",
+      "category": "Categoría",
+      "concept": "Concepto"
+    },
+    "error": {
+      "required": "El campo {{field}} es obligatorio",
+      "invalid": "El campo {{field}} no es válido"
+    }
   }
 }

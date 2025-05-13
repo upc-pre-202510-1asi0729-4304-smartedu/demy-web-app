@@ -1,0 +1,61 @@
+import {Component, EventEmitter, Output} from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {BaseFormComponent} from '../../../shared/components/base-form/base-form.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {TranslatePipe} from '@ngx-translate/core';
+
+@Component({
+  selector: 'app-expense-form',
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    TranslatePipe,
+  ],
+  templateUrl: './expense-form.component.html',
+  styleUrl: './expense-form.component.css'
+})
+export class ExpenseFormComponent extends BaseFormComponent {
+  @Output() confirm = new EventEmitter<any>();
+  form: FormGroup;
+
+  categories = [
+    { value: 'Teacher Payment', labelKey: 'finance.category.teachers' },
+    { value: 'Materials', labelKey: 'finance.category.materials' },
+    { value: 'Services', labelKey: 'finance.category.services' },
+    { value: 'Taxes', labelKey: 'finance.category.taxes' },
+    { value: 'Maintenance', labelKey: 'finance.category.maintenance' },
+    { value: 'Technology', labelKey: 'finance.category.technology' },
+    { value: 'Other', labelKey: 'finance.category.others' }
+  ];
+
+  constructor(private fb: FormBuilder) {
+    super();
+    this.form = this.fb.group({
+      amount: [null, [Validators.required, Validators.min(0.01)]],
+      category: ['', Validators.required],
+      concept: ['', Validators.required],
+      date: [new Date(), Validators.required]
+    });
+  }
+
+  onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    this.confirm.emit(this.form.value);
+    this.form.reset();
+  }
+}
+
