@@ -1,0 +1,8 @@
+
+.accent-button {
+  background-color: var(--color-primary-2) !important;
+  color: white !important;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+}
+

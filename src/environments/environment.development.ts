@@ -6,5 +6,6 @@ export const environment = {
   studentsEndpointPath: "/students2",
   invoicesEndpointPath: "/invoices",
   paymentsEndpointPath: "/payments",
-  financialTransactionsEndpointPath: "/financialTransactions"
+  financialTransactionsEndpointPath: "/financialTransactions",
+  coursesEndpointPath: '/courses',
 };

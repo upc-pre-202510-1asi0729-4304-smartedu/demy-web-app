@@ -183,5 +183,15 @@
       "required": "The field {{field}} is required",
       "invalid": "The field {{field}} is invalid"
     }
+  },
+  "attendance": {
+    "title": "Attendance",
+    "subtitle": "My classes",
+    "subtitle2": "List of students-Classroom01",
+    "button": "Save attendance",
+    "class-select": "Class",
+    "date-select": "Date",
+    "list-student": "Student",
+    "list-attendance": "Attended"
   }
 }

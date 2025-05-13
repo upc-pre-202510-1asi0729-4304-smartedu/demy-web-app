@@ -183,5 +183,15 @@
       "required": "El campo {{field}} es obligatorio",
       "invalid": "El campo {{field}} no es válido"
     }
+  },
+  "attendance": {
+    "title": "Asistencia",
+    "subtitle": "Mis clases",
+    "subtitle2": "Lista de alumnos-Salon01",
+    "button": "Guardar asistencia",
+    "class-select": "Clase",
+    "date-select": "Fecha",
+    "list-student": "Estudiante",
+    "list-attendance": "Asistió"
   }
 }
