@@ -7,6 +7,8 @@ import {InvoiceService} from '../../services/invoice.service';
 import {PaymentRegistrationComponent} from '../../components/payment-registration/payment-registration.component';
 import {PaymentService} from '../../services/payment.service';
 import {Invoice, PaymentStatus} from '../../model/invoice.entity';
+import {FinancialTransactionService} from '../../services/financial-transaction.service';
+import {FinancialTransaction, PartyType} from '../../model/financial-transaction.entity';
 
 @Component({
   selector: 'app-payments',
@@ -28,7 +30,9 @@ export class PaymentsComponent {
 
   constructor(private studentService: StudentService,
               private invoiceService: InvoiceService,
-              private paymentService: PaymentService) {}
+              private paymentService: PaymentService,
+              private transactionService: FinancialTransactionService
+  ) {}
 
   onSearch(dni: string) {
     this.studentService.getByDni(dni).subscribe({
@@ -64,9 +68,24 @@ export class PaymentsComponent {
     };
 
     this.paymentService.create(payment).subscribe({
-      next: () => {
+      next: (createdPayment) => {
         console.log('Pago registrado correctamente');
         this.showPaymentForm.set(false);
+
+        const transaction = new FinancialTransaction({
+          source: PartyType.STUDENT,
+          target: PartyType.ACADEMY,
+          type: 'INGRESO',
+          concept: 'Pago de mensualidad',
+          date: new Date(),
+          reference: `TX-${Date.now()}`,
+          payment: createdPayment
+        });
+
+        this.transactionService.create(transaction).subscribe({
+          next: () => console.log('Transacción registrada automáticamente'),
+          error: err => console.error('Error al registrar transacción', err)
+        });
 
         const updatedInvoice: Invoice = { ...invoice, status: PaymentStatus.PAID };
 

@@ -33,16 +33,21 @@
       "MALE": "Male",
       "FEMALE": "Female"
     },
-    "status": {
+    "payment-status": {
       "PENDING": "Pending",
       "PAID": "Paid",
       "OVERDUE": "Overdue"
     },
     "register-title": "Register payment",
+    "register-action": "Register payment",
     "first-name": "First name",
     "last-name": "Last name",
     "paid-at": "Payment date",
+    "student": "Student",
     "amount": "Amount",
-    "register-button": "Register payment"
+    "status": "Status",
+    "due-date": "Due date",
+    "action": "Action",
+    "register-button": "Save payment"
   }
 }

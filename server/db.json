@@ -48,26 +48,9 @@
     }
   ],
   "payments": [
-    {
-      "invoiceId": 3,
-      "amount": 250,
-      "paidAt": "2025-05-12T01:05:36.910Z",
-      "method": "CASH",
-      "id": 1
-    },
-    {
-      "invoiceId": 3,
-      "amount": 250,
-      "paidAt": "2025-05-12T01:06:41.850Z",
-      "method": "CASH",
-      "id": 2
-    },
-    {
-      "invoiceId": 2,
-      "amount": 250,
-      "paidAt": "2025-05-12T01:07:16.239Z",
-      "method": "CASH",
-      "id": 3
-    }
+
+  ],
+  "financial-transactions": [
+
   ]
 }
