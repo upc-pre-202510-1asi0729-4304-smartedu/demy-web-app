@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:3000/api/v1',
-  studentsEndpointPath: "/students",
+  apiBaseUrl: 'https://6820406072e59f922ef8198b.mockapi.io/api/v1',
+  studentsEndpointPath: "/students2",
   invoicesEndpointPath: "/invoices",
   paymentsEndpointPath: "/payments",
-  financialTransactionsEndpointPath: "/financial-transactions"
+  financialTransactionsEndpointPath: "/financialTransactions"
 }
