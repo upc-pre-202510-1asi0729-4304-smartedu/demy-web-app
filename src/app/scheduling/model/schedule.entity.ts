@@ -1,6 +1,6 @@
 import { Course } from './course.entity';
 import { Classroom } from './classroom.entity';
-import { Teacher } from '../../iam-user/model/user.entity';
+import { UserAccount } from '../../iam-user/model/user.entity';
 
 /**
  * Represents a time range with a start and end time
@@ -32,7 +32,7 @@ export class Schedule {
   /** The classroom associated with the schedule */
   classroom: Classroom;
 
-  // teacher: Teacher; // To be added once the Teacher entity is included
+  teacher: UserAccount; // To be added once the Teacher entity is included
 
   /**
    * Creates a new Schedule instance
@@ -49,12 +49,13 @@ export class Schedule {
     timeRange?: TimeRange,
     course?: Course,
     classroom?: Classroom
-    //teacher?: Teacher  // To be added once the Teacher entity is included
+    teacher?: UserAccount  // To be added once the Teacher entity is included
   }) {
     this.id = schedule.id || 0;
     this.dayOfWeek = schedule.dayOfWeek || '';
     this.timeRange = schedule.timeRange || { start: '', end: '' };
     this.course = schedule.course || new Course({});
+    this.teacher = schedule.teacher || new UserAccount({});
     this.classroom = schedule.classroom || new Classroom({});
   }
 }

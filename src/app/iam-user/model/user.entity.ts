@@ -37,12 +37,12 @@ export class UserAccount {
 
 }
 
-enum Role {
+export enum Role {
   ADMIN = 'ADMIN',
   TEACHER = 'TEACHER'
 }
 
-enum AccountStatus {
+export enum AccountStatus {
   ACTIVE = 'ACTIVE',
   INACTIVE = 'INACTIVE',
   BLOCKED = 'BLOCKED'

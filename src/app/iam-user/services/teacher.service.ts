@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {map, Observable} from 'rxjs';
 import { UserAccount } from '../model/user.entity';
 import { environment } from '../../../environments/environment';
 
@@ -30,8 +30,11 @@ export class TeacherService {
    * @returns An Observable that emits an array of UserAccount objects, each representing a teacher
    */
   getTeachers(): Observable<UserAccount[]> {
-    return this.http.get<UserAccount[]>(`${this.baseUrl}`);
+    return this.http.get<UserAccount[]>(`${this.baseUrl}`).pipe(
+      map((users: UserAccount[]) => users.filter(user => user.role === 'TEACHER'))
+    );
   }
+
 
   /**
    * Creates a new teacher in the backend.
