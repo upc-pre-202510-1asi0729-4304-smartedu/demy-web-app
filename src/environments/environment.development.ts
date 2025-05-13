@@ -4,5 +4,6 @@ export const environment = {
   serverBaseUrl: 'https://6820406072e59f922ef8198b.mockapi.io/api/v1/',
   coursesEndpointPath: '/courses',
   classroomsEndpointPath: '/classrooms',
-  weeklyScheduleEndpointPath: '/weekly-schedules'
+  weeklyScheduleEndpointPath: '/weekly-schedules',
+  usersEndpointPath: '/users',
 };

@@ -1,6 +1,6 @@
 import { Course } from './course.entity';
 import { Classroom } from './classroom.entity';
-//import { Teacher } from './user.entity';
+import { Teacher } from '../../iam-user/model/user.entity';
 
 /**
  * Represents a time range with a start and end time
