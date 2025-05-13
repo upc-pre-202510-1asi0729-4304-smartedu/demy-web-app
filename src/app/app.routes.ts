@@ -7,6 +7,12 @@ import { LoginComponent } from './public/pages/login/login.component';
 import { FinanceLayoutComponent } from './finance/components/finance-layout/finance-layout.component';
 import { ExpensesComponent } from './finance/pages/expenses/expenses.component';
 import { ReportsComponent } from './finance/pages/reports/reports.component';
+import {StudentManagementComponent} from './enrollments/pages/student-management/student-management.component';
+import {EnrollmentLayoutComponent} from './enrollments/components/enrollment-layout/enrollment-layout.component';
+import {
+  AcademicPeriodManagementComponent
+} from './enrollments/pages/academic-period-management/academic-period-management.component';
+import {EnrollmentManagementComponent} from './enrollments/pages/enrollment-management/enrollment-management.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +22,15 @@ export const routes: Routes = [
       { path: 'organization', component: OrganizationComponent },
       { path: 'workspace', component: DashboardComponent },
       { path: 'payments', component: PaymentsComponent },
+      {
+        path: 'enrollment',
+        component: EnrollmentLayoutComponent,
+        children: [
+          { path: '', component: EnrollmentManagementComponent },  // Muestra este componente en la ruta base
+          { path: 'students', component: StudentManagementComponent },
+          { path: 'academic-periods', component: AcademicPeriodManagementComponent },
+        ]
+      },
       {
         path: 'finance',
         component: FinanceLayoutComponent,
