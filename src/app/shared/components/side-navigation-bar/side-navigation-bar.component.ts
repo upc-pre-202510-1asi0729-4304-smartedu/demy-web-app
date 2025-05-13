@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 })
 export class SideNavigationBarComponent {
   navOptions = [
-    { icon: 'apartment', label: 'Mi organización', route: '/organization-layout' },
+    { icon: 'apartment', label: 'Mi organización', route: '/organization' },
     { icon: 'assignment', label: 'Matrícula', route: '/enrollment' },
     { icon: 'group', label: 'Alumnos', route: '/students' },
     { icon: 'payments', label: 'Pagos', route: '/payments' },

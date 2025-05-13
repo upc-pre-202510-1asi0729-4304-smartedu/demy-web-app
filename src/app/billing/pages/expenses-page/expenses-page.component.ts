@@ -32,7 +32,7 @@ export class ExpensesPageComponent {
       const currentYear = new Date().getFullYear();
 
       const expensesOfTheMonth = transactions.filter(tx =>
-        tx.type === 'EXPENSE' &&
+        tx.type === ('EXPENSE') &&
         new Date(tx.date).getMonth() === currentMonth &&
         new Date(tx.date).getFullYear() === currentYear
       );

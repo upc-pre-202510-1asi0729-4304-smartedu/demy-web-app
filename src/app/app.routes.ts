@@ -14,7 +14,7 @@ export const routes: Routes = [
       { path: 'payments', component: PaymentsComponent },
       { path: 'finance', component: ExpensesPageComponent,
       },
-      { path: '', redirectTo: 'workspace', pathMatch: 'full' }
+      { path: '', redirectTo: 'organization', pathMatch: 'full' }
     ]
   },
   { path: 'login',
