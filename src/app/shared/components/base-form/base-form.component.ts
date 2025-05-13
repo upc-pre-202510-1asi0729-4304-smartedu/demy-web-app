@@ -1,4 +1,6 @@
 import {FormGroup} from "@angular/forms";
+import { inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Base class for form components
@@ -11,6 +13,7 @@ import {FormGroup} from "@angular/forms";
  *
  */
 export class BaseFormComponent {
+  protected translate = inject(TranslateService);
 
   /**
    * Check if a control is invalid
@@ -47,11 +50,12 @@ export class BaseFormComponent {
    * @private
    */
   private errorMessageForControl(controlName: string, errorKey: string) {
+    const field = this.translate.instant(`form.field.${controlName}`);
     switch (errorKey) {
       case 'required':
-        return `The field ${controlName} is required`;
+        return this.translate.instant('form.error.required', { field });
       default:
-        return `The field ${controlName}is invalid`;
+        return this.translate.instant('form.error.invalid', { field });
     }
   }
 }

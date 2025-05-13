@@ -49,5 +49,17 @@
     "due-date": "Vencimiento",
     "action": "Acción",
     "register-button": "Guardar pago"
+  },
+  "form": {
+    "field": {
+      "amount": "Monto",
+      "date": "Fecha",
+      "category": "Categoría",
+      "concept": "Concepto"
+    },
+    "error": {
+      "required": "El campo {{field}} es obligatorio",
+      "invalid": "El campo {{field}} no es válido"
+    }
   }
 }

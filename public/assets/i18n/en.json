@@ -49,5 +49,17 @@
     "due-date": "Due date",
     "action": "Action",
     "register-button": "Save payment"
+  },
+  "form": {
+    "field": {
+      "amount": "Amount",
+      "date": "Date",
+      "category": "Category",
+      "concept": "Concept"
+    },
+    "error": {
+      "required": "The field {{field}} is required",
+      "invalid": "The field {{field}} is invalid"
+    }
   }
 }
