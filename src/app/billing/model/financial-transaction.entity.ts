@@ -1,7 +1,5 @@
-import {Payment} from './payment.entity';
-
 export class FinancialTransaction {
-  id: number;
+  id: string;
   source: PartyType;
   target: PartyType;
   type: string;
@@ -9,11 +7,13 @@ export class FinancialTransaction {
   concept: string;
   date: Date;
   reference: string;
-  payment: Payment;
+  paymentId?: string;
+  amount: number;
+  method: string;
 
-  constructor(financialTransaction: {id?: number, source?: PartyType, target?: PartyType, type?: string,
-    category?: string, concept?: string, date?: Date, reference?: string, payment: Payment } ) {
-    this.id = financialTransaction.id || 0;
+  constructor(financialTransaction: {id?: string, source?: PartyType, target?: PartyType, type?: string,
+    category?: string, concept?: string, date?: Date, reference?: string, paymentId?: string, amount?: number, method?: string } ) {
+    this.id = financialTransaction.id || '';
     this.source = financialTransaction.source || PartyType.ACADEMY;
     this.target = financialTransaction.target || PartyType.ACADEMY;
     this.type = financialTransaction.type || '';
@@ -21,7 +21,9 @@ export class FinancialTransaction {
     this.concept = financialTransaction.concept || '';
     this.date = financialTransaction.date || new Date();
     this.reference = financialTransaction.reference || '';
-    this.payment = financialTransaction.payment;
+    this.paymentId = financialTransaction.paymentId;
+    this.amount = financialTransaction.amount || 0;
+    this.method = financialTransaction.method || '';
   }
 }
 

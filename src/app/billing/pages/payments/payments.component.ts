@@ -76,10 +76,12 @@ export class PaymentsComponent {
           source: PartyType.STUDENT,
           target: PartyType.ACADEMY,
           type: 'INCOME',
+          category: 'Pago de mensualidad',
           concept: 'Pago de mensualidad',
           date: new Date(),
           reference: `TX-${Date.now()}`,
-          payment: createdPayment
+          amount: createdPayment.amount,
+          method: createdPayment.method
         });
 
         this.transactionService.create(transaction).subscribe({

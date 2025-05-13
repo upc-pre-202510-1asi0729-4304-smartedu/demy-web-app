@@ -21,17 +21,6 @@ export class Student {
     this.address = student.address || '';
     this.phoneNumber = student.phoneNumber || '';
   }
-
-  //constructor(id = '', firstName = '', lastName =' ', dni = '', sex = Sex.MALE, birthDate = new Date(), address = '', phoneNumber = '') {
-  //  this.id = id;
-  //  this.firstName = firstName;
-  //  this.lastName = lastName
-  //  this.dni = dni;
-  //  this.sex = sex;
-  //  this.birthDate = birthDate;
-  //  this.address = address;
-  //  this.phoneNumber = phoneNumber;
-  //}
 }
 
 export enum Sex {

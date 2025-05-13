@@ -34,6 +34,6 @@ export class ExpenseTableComponent implements AfterViewInit {
   }
 
   private calculateTotal(data: FinancialTransaction[]): number {
-    return data.reduce((sum, tx) => sum + tx.payment.amount, 0);
+    return data.reduce((sum, tx) => sum + (tx.amount || 0), 0);
   }
 }

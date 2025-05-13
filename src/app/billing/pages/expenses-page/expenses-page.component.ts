@@ -43,7 +43,7 @@ export class ExpensesPageComponent {
 
   handleRegister(expenseData: any) {
     const payload: FinancialTransaction = {
-      id: 0,
+      id: '',
       type: 'EXPENSE',
       source: PartyType.ACADEMY,
       target: PartyType.EXTERNAL,
@@ -51,12 +51,8 @@ export class ExpensesPageComponent {
       concept: expenseData.concept,
       date: expenseData.date,
       reference: `TX-${Date.now()}`,
-      payment: {
-        invoiceId: null,
-        paidAt: expenseData.date,
-        method: 'CASH',
-        amount: expenseData.amount
-      }
+      method: 'CASH',
+      amount: expenseData.amount
     };
 
     this.transactionService.create(payload).subscribe(() => {
