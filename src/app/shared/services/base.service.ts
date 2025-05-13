@@ -14,7 +14,7 @@ export abstract class BaseService<T> {
   /** Base URL for the server API */
   protected serverBaseUrl: string =  `${environment.apiBaseUrl}`;
   /** Endpoint path for the specific resource */
-  protected resourceEndpoint: string = '/resources';
+  public resourceEndpoint: string = '/resources';
   /** HTTP client for making API requests */
   protected http: HttpClient = inject(HttpClient);
 

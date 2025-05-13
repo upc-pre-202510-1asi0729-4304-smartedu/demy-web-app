@@ -6,7 +6,7 @@
   <!-- Formulario para creación o edición de estudiantes -->
   <div class="student-form-container">
     <app-student-create-form
-      [studentRegistration]="studentRegistration"
+      [student]="student"
       [editMode]="editMode"
       (cancelRequested)="onCancelRequested()"
       (studentAddRequested)="onStudentAddRequested($event)"
@@ -64,7 +64,7 @@
 
       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
       <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"
-          [ngClass]="{'highlight': editMode && studentRegistration.dni === row.dni}"></tr>
+          [ngClass]="{'highlight': editMode && student.dni === row.dni}"></tr>
     </table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar página de estudiantes"></mat-paginator>

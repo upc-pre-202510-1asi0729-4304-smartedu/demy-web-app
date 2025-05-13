@@ -5,7 +5,7 @@ import {MatInput} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import {BaseFormComponent} from '../../../shared/components/base-form/base-form.component';
-import {StudentRegistrationResource} from '../../services/students.response';
+import {Student, Sex} from '../../model/student.entity';
 @Component({
   selector: 'app-student-create-form',
   standalone: true,
@@ -22,10 +22,10 @@ import {StudentRegistrationResource} from '../../services/students.response';
 })
 
 export class StudentCreateFormComponent extends BaseFormComponent {
-  @Input() studentRegistration!: StudentRegistrationResource;
+  @Input() student!: Student;
   @Input() editMode: boolean = false;
-  @Output() protected studentAddRequested = new EventEmitter<StudentRegistrationResource>();
-  @Output() protected studentUpdateRequested = new EventEmitter<StudentRegistrationResource>();
+  @Output() protected studentAddRequested = new EventEmitter<Student>();
+  @Output() protected studentUpdateRequested = new EventEmitter<Student>();
   @Output() protected cancelRequested = new EventEmitter<void>();
   @ViewChild('studentForm', {static: false}) studentForm!: NgForm;
 
@@ -39,15 +39,16 @@ export class StudentCreateFormComponent extends BaseFormComponent {
   }
 
   private initializeForm() {
-    this.studentRegistration = {
-      dni: '',
-      first_name: '',
-      last_name: '',
-      sex: 'MALE',
-      birth_date: '',
-      address: '',
-      phone_number: ''
-    };
+    this.student = new Student(
+      '',
+      '',
+      '',
+      '',
+      Sex.MALE,
+      new Date(),
+      '',
+      ''
+    );
   }
 
   protected resetEditState() {
@@ -61,17 +62,12 @@ export class StudentCreateFormComponent extends BaseFormComponent {
 
   protected onSubmit(): void {
     if (this.isValid()) {
-      // Formatea la fecha si es necesario antes de enviar
-      if (this.studentRegistration.birth_date) {
-        // Asegúrate de que la fecha esté en formato ISO
-        const dateObj = new Date(this.studentRegistration.birth_date);
-        if (!isNaN(dateObj.getTime())) {
-          this.studentRegistration.birth_date = dateObj.toISOString().split('T')[0];
-        }
+      // Emite el evento con la entidad del estudiante
+      if (this.editMode) {
+        this.studentUpdateRequested.emit({...this.student});
+      } else {
+        this.studentAddRequested.emit({...this.student});
       }
-
-      // Emite el evento con los datos del estudiante
-      this.studentAddRequested.emit({...this.studentRegistration});
 
       // Reinicia el formulario después de enviar
       this.resetEditState();

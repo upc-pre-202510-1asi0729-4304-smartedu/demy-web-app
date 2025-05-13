@@ -14,7 +14,7 @@ import { filter } from 'rxjs/operators';
 })
 export class EnrollmentLayoutComponent implements OnInit {
   toggleOptions = [
-    { label: 'Registrar Matricula', value: '' },  // Cambiado a valor vacío para la ruta base
+    { label: 'Registrar Matricula', value: '' },
     { label: 'Gestión de Estudiantes', value: 'students' },
     { label: 'Períodos Académicos', value: 'academic-periods' }
   ];

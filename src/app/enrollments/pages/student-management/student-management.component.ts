@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
-import { StudentRegistrationResource } from "../../services/students.response";
 import {
   MatCell,
   MatCellDef,
@@ -15,12 +14,14 @@ import {
 } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort, MatSortHeader } from "@angular/material/sort";
-import { StudentService } from '../../services/student.service';
-import { StudentCreateFormComponent } from "../../components/student-create-and-edit/student-create-and-edit.component";
 import { MatIcon } from "@angular/material/icon";
 import {MatIconModule} from '@angular/material/icon';
 import { NgClass } from "@angular/common";
 import {MatIconButton} from '@angular/material/button';
+import { StudentCreateFormComponent } from "../../components/student-create-and-edit/student-create-and-edit.component";
+import { StudentService } from '../../services/student.service';
+import {StudentAssembler} from '../../services/student.assembler';
+import {Student} from '../../model/student.entity';
 
 /**
  * Component responsible for managing student enrollments through a table interface.
@@ -58,7 +59,7 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
   //#region Attributes
 
   /** Current student enrollment being created or edited */
-  protected studentRegistration!: StudentRegistrationResource;
+  protected student!: Student;
 
   /** Defines which columns should be displayed in the table and their order */
   protected columnsToDisplay: string[] = ['dni', 'first_name', 'last_name', 'sex', 'birth_date', 'actions'];
@@ -79,6 +80,8 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
 
   /** Service for handling student-related API operations */
   private studentService: StudentService = inject(StudentService);
+  private studentAssembler: StudentAssembler = inject(StudentAssembler);
+
   //#endregion
 
   //#region Methods
@@ -88,17 +91,10 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    */
   constructor() {
     this.editMode = false;
-    this.studentRegistration = {
-      dni: '',
-      first_name: '',
-      last_name: '',
-      sex: 'MALE',
-      birth_date: '',
-      address: '',
-      phone_number: ''
-    };
+    this.student = new Student();
     this.dataSource = new MatTableDataSource();
   }
+
 
   /**
    * Lifecycle hook that runs after view initialization.
@@ -121,16 +117,16 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * Handles the edit action for a student
    * @param item - The student to be edited
    */
-  protected onEditItem(item: StudentRegistrationResource) {
+  protected onEditItem(item: any) {
     this.editMode = true;
-    this.studentRegistration = {...item};
+    this.student = this.studentAssembler.toEntityFromResource(item)
   }
 
   /**
    * Handles the delete action for a student
    * @param item - The student to be deleted
    */
-  protected onDeleteItem(item: StudentRegistrationResource) {
+  protected onDeleteItem(item: any) {
     this.deleteStudent(item.dni);
   }
 
@@ -145,20 +141,20 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
 
   /**
    * Handles the addition of a new student
-   * @param item - The new student to be added
+   * @param student - The new student to be added
    */
-  protected onStudentAddRequested(item: StudentRegistrationResource) {
-    this.studentRegistration = item;
+  protected onStudentAddRequested(student: Student) {
+    this.student = student;
     this.createStudent();
     this.resetEditStudentState();
   }
 
   /**
    * Handles the update of an existing student
-   * @param item - The student with updated information
+   * @param student - The student with updated information
    */
-  protected onStudentUpdateRequested(item: StudentRegistrationResource) {
-    this.studentRegistration = item;
+  protected onStudentUpdateRequested(student: Student) {
+    this.student = student;
     this.updateStudent();
     this.resetEditStudentState();
   }
@@ -168,15 +164,7 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * Clears the current student data and exits edit mode.
    */
   private resetEditStudentState(): void {
-    this.studentRegistration = {
-      dni: '',
-      first_name: '',
-      last_name: '',
-      sex: 'MALE',
-      birth_date: '',
-      address: '',
-      phone_number: ''
-    };
+    this.student = new Student()
     this.editMode = false;
   }
 
@@ -185,8 +173,18 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * Uses StudentService to fetch the data via HTTP.
    */
   private getAllStudents() {
-    this.studentService.getAll().subscribe((response: Array<StudentRegistrationResource>) => {
-      this.dataSource.data = response;
+    this.studentService.getAllStudents().subscribe(students => {
+      // Usar mappings para UI en la tabla si es necesario
+      this.dataSource.data = students.map(student => ({
+        dni: student.dni,
+        first_name: student.firstName,
+        last_name: student.lastName,
+        sex: student.sex,
+        birth_date: student.birthDate.toISOString().split('T')[0],
+        _original: student // Mantener referencia a la entidad original
+      }));
+
+
     });
   }
 
@@ -195,9 +193,19 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * Updates the table's data source with the newly created student.
    */
   private createStudent() {
-    this.studentService.create(this.studentRegistration).subscribe((response: StudentRegistrationResource) => {
-      this.dataSource.data.push(response);
-      this.dataSource.data = [...this.dataSource.data];
+    this.studentService.createStudent(this.student).subscribe(createdStudent => {
+      // Actualizar tabla con el estudiante creado
+      const newTableItem = {
+        dni: createdStudent.dni,
+        first_name: createdStudent.firstName,
+        last_name: createdStudent.lastName,
+        sex: createdStudent.sex,
+        birth_date: createdStudent.birthDate.toISOString().split('T')[0],
+        // Otros campos
+        _original: createdStudent
+      };
+
+      this.dataSource.data = [...this.dataSource.data, newTableItem];
     });
   }
 
@@ -206,19 +214,22 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * Updates the corresponding student in the table's data source.
    */
   private updateStudent() {
-    let studentToUpdate = this.studentRegistration;
-    this.studentService.update(studentToUpdate.dni, studentToUpdate).subscribe((response: StudentRegistrationResource) => {
-      // Encontrar el índice del estudiante en el array de datos
-      const index = this.dataSource.data.findIndex((student: StudentRegistrationResource) => student.dni === response.dni);
+    this.studentService.updateStudent(this.student).subscribe(updatedStudent => {
+      // Actualizar la tabla
+      const index = this.dataSource.data.findIndex(item => item.dni === updatedStudent.dni);
 
       if (index !== -1) {
-        // Crear una copia del array de datos
         const updatedData = [...this.dataSource.data];
+        updatedData[index] = {
+          dni: updatedStudent.dni,
+          first_name: updatedStudent.firstName,
+          last_name: updatedStudent.lastName,
+          sex: updatedStudent.sex,
+          birth_date: updatedStudent.birthDate.toISOString().split('T')[0],
+          // Otros campos
+          _original: updatedStudent
+        };
 
-        // Actualizar el estudiante en la posición correcta
-        updatedData[index] = response;
-
-        // Asignar los datos actualizados a la fuente de datos
         this.dataSource.data = updatedData;
       }
     });
@@ -230,10 +241,9 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * @param dni - The DNI (ID) of the student to delete
    */
   private deleteStudent(dni: string) {
-    this.studentService.delete(dni).subscribe(() => {
-      this.dataSource.data = this.dataSource.data.filter((student: StudentRegistrationResource) => student.dni !== dni);
+    this.studentService.deleteStudent(dni).subscribe(() => {
+      this.dataSource.data = this.dataSource.data.filter(item => item.dni !== dni);
     });
   }
-
   //#endregion
 }

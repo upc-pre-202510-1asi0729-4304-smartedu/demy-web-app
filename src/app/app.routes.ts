@@ -12,7 +12,7 @@ import {EnrollmentLayoutComponent} from './enrollments/components/enrollment-lay
 import {
   AcademicPeriodManagementComponent
 } from './enrollments/pages/academic-period-management/academic-period-management.component';
-import {EnrollmentManagementComponent} from './enrollments/pages/enrollment-management/enrollment-management.component';
+import {EnrollmentsManagementComponent} from './enrollments/pages/enrollment-management/enrollment-management.component';
 
 export const routes: Routes = [
   {
@@ -26,7 +26,7 @@ export const routes: Routes = [
         path: 'enrollment',
         component: EnrollmentLayoutComponent,
         children: [
-          { path: '', component: EnrollmentManagementComponent },  // Muestra este componente en la ruta base
+          { path: '', component: EnrollmentsManagementComponent },
           { path: 'students', component: StudentManagementComponent },
           { path: 'academic-periods', component: AcademicPeriodManagementComponent },
         ]

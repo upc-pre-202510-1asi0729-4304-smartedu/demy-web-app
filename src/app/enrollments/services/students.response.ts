@@ -3,13 +3,6 @@ export interface StudentsResponse {
     students: StudentResource[]
 }
 
-export interface StudentSummaryResource {
-    id: string;
-    dni: string;
-    first_name: string;
-    last_name: string;
-}
-
 export interface StudentResource {
     id: string;
     dni: string;

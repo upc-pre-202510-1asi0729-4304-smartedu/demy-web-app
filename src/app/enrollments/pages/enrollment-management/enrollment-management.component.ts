@@ -53,7 +53,7 @@ import {EnrollmentRegistrationResource} from '../../services/enrollment.response
     MatInputModule
   ],
   templateUrl: 'enrollment-management.component.html',
-  styleUrl: 'enrollments-management.component.css'
+  styleUrl: 'enrollment-management.component.css'
 })
 export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
 
@@ -209,7 +209,7 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    */
   private updateEnrollment() {
     let enrollmentToUpdate = this.enrollmentRegistration;
-    this.enrollmentService.update(enrollmentToUpdate.student_id, enrollmentToUpdate.period_id, enrollmentToUpdate).subscribe(
+    this.enrollmentService.update(enrollmentToUpdate.student_id, enrollmentToUpdate).subscribe(
       (response: EnrollmentRegistrationResource) => {
         const index = this.dataSource.data.findIndex(
           (enrollment: EnrollmentRegistrationResource) =>
@@ -233,7 +233,7 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    * @param periodId - The period ID part of the composite key
    */
   private deleteEnrollment(studentId: string, periodId: string) {
-    this.enrollmentService.delete(studentId, periodId).subscribe(() => {
+    this.enrollmentService.delete(studentId).subscribe(() => {
       this.dataSource.data = this.dataSource.data.filter(
         (enrollment: EnrollmentRegistrationResource) =>
           enrollment.student_id !== studentId ||
