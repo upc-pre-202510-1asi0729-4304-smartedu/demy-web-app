@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, AfterViewInit, Signal, WritableSignal, signal } from '@angular/core';
+import { Component, Input, ViewChild, AfterViewInit, WritableSignal, signal } from '@angular/core';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { FinancialTransaction } from '../../model/financial-transaction.entity';

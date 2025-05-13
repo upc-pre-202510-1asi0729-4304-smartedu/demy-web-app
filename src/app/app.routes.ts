@@ -4,9 +4,7 @@ import { PaymentsComponent } from './billing/pages/payments/payments.component';
 import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
 import { OrganizationComponent } from './workspace/pages/organization/organization.component';
 import { LoginComponent } from './public/pages/login/login.component';
-import { FinanceLayoutComponent } from './finance/components/finance-layout/finance-layout.component';
-import { ExpensesComponent } from './finance/pages/expenses/expenses.component';
-import { ReportsComponent } from './finance/pages/reports/reports.component';
+import { ExpensesPageComponent} from './billing/pages/expenses-page/expenses-page.component';
 
 export const routes: Routes = [
   {
@@ -16,14 +14,7 @@ export const routes: Routes = [
       { path: 'organization', component: OrganizationComponent },
       { path: 'workspace', component: DashboardComponent },
       { path: 'payments', component: PaymentsComponent },
-      {
-        path: 'finance',
-        component: FinanceLayoutComponent,
-        children: [
-          { path: '', redirectTo: 'expenses', pathMatch: 'full' },
-          { path: 'expenses', component: ExpensesComponent },
-          { path: 'reports', component: ReportsComponent }
-        ]
+      { path: 'finance', component: ExpensesPageComponent,
       },
       { path: '', redirectTo: 'workspace', pathMatch: 'full' }
     ]

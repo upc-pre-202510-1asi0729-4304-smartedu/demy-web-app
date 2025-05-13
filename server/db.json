@@ -47,10 +47,23 @@
       "studentId": "1"
     }
   ],
-  "payments": [
-
-  ],
+  "payments": [],
   "financial-transactions": [
-
+    {
+      "id": 1,
+      "type": "EXPENSE",
+      "source": "ACADEMY",
+      "target": "EXTERNAL",
+      "category": "Taxes",
+      "concept": "Pal estado",
+      "date": "2025-05-13",
+      "reference": "TX-1747161485651",
+      "payment": {
+        "invoiceId": null,
+        "paidAt": "2025-05-13",
+        "method": "CASH",
+        "amount": 100
+      }
+    }
   ]
 }

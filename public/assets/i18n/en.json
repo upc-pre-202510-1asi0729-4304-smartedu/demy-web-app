@@ -50,6 +50,41 @@
     "action": "Action",
     "register-button": "Save payment"
   },
+  "finance": {
+    "title": "Finance",
+    "subtitle": {
+      "register": "Register expense",
+      "summary": "Financial summary for the current month"
+    },
+    "summary": {
+      "empty": "No expenses have been recorded this month."
+    },
+    "fields": {
+      "category": "Category",
+      "amount": "Amount (S/)",
+      "concept": "Concept",
+      "date": "Date"
+    },
+    "category": {
+      "teachers": "Payment to teachers",
+      "materials": "Materials",
+      "services": "Services",
+      "taxes": "Taxes",
+      "maintenance": "Maintenance",
+      "technology": "Technology",
+      "others": "Other"
+    },
+    "actions": {
+      "confirm": "Confirm"
+    },
+    "table": {
+      "date": "Date",
+      "category": "Category",
+      "concept": "Concept",
+      "amount": "Amount",
+      "total": "Monthly total"
+    }
+  },
   "form": {
     "field": {
       "amount": "Amount",

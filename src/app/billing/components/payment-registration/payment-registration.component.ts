@@ -40,7 +40,7 @@ export class PaymentRegistrationComponent extends BaseFormComponent {
 
   onSubmit() {
     if (!this.paymentForm.valid) {
-      console.warn('Formulario inválido');
+      console.warn('Invalid form');
       return;
     }
     if (this.paymentForm.valid) {

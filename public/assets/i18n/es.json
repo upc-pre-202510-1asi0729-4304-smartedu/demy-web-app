@@ -50,6 +50,41 @@
     "action": "Acción",
     "register-button": "Guardar pago"
   },
+  "finance": {
+    "title": "Finanzas",
+    "subtitle": {
+      "register": "Registrar egreso",
+      "summary": "Resumen financiero del mes actual"
+    },
+    "summary": {
+      "empty": "No se han registrado egresos este mes."
+    },
+    "fields": {
+      "category": "Categoría",
+      "amount": "Monto (S/)",
+      "concept": "Concepto",
+      "date": "Fecha"
+    },
+    "category": {
+      "teachers": "Pago Docentes",
+      "materials": "Materiales",
+      "services": "Servicios",
+      "taxes": "Impuestos",
+      "maintenance": "Mantenimiento",
+      "technology": "Tecnología",
+      "others": "Otros"
+    },
+    "actions": {
+      "confirm": "Confirmar"
+    },
+    "table": {
+      "date": "Fecha",
+      "category": "Categoría",
+      "concept": "Concepto",
+      "amount": "Monto",
+      "total": "Total mensual"
+    }
+  },
   "form": {
     "field": {
       "amount": "Monto",

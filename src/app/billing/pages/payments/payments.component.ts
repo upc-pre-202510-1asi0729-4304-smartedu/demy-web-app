@@ -75,7 +75,7 @@ export class PaymentsComponent {
         const transaction = new FinancialTransaction({
           source: PartyType.STUDENT,
           target: PartyType.ACADEMY,
-          type: 'INGRESO',
+          type: 'INCOME',
           concept: 'Pago de mensualidad',
           date: new Date(),
           reference: `TX-${Date.now()}`,

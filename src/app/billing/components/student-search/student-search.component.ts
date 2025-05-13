@@ -26,7 +26,7 @@ export class StudentSearchComponent {
   @Output() search = new EventEmitter<string>();
 
   onSearchClick() {
-    console.log('🔍 Búsqueda ejecutada desde Enter o botón'); // <-- clave
+    console.log('🔍 Búsqueda ejecutada desde Enter o botón');
     this.search.emit(this.value.trim());
   }
 }
