@@ -89,7 +89,14 @@ export class PaymentsComponent {
           error: err => console.error('Error al registrar transacción', err)
         });
 
-        const updatedInvoice: Invoice = { ...invoice, status: PaymentStatus.PAID };
+        const updatedInvoice: Invoice = {
+          id: invoice.id,
+          subscriptionId: invoice.subscriptionId,
+          amount: invoice.amount,
+          dueDate: invoice.dueDate,
+          status: PaymentStatus.PAID,
+          studentId: invoice.studentId,
+        };
 
         this.invoiceService.update(invoice.id, updatedInvoice).subscribe(() => {
           this.studentPaymentStatus.set({
