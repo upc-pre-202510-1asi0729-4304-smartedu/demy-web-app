@@ -20,5 +20,15 @@
       "title": "Teachers",
       "description": "Manage your teaching staff"
     }
+  },
+  "attendance": {
+    "title": "Attendance",
+    "subtitle": "My classes",
+    "subtitle2": "List of students-Classroom01",
+    "button": "Save attendance",
+    "class-select": "Class",
+    "date-select": "Date",
+    "list-student": "Student",
+    "list-attendance": "Attended"
   }
 }
