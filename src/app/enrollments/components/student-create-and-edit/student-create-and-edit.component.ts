@@ -6,6 +6,7 @@ import {MatButton} from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import {BaseFormComponent} from '../../../shared/components/base-form/base-form.component';
 import {Student} from '../../model/student.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-student-create-form',
@@ -15,7 +16,8 @@ import {Student} from '../../model/student.entity';
     MatFormField,
     MatButton,
     MatInput,
-    MatSelectModule
+    MatSelectModule,
+    TranslatePipe
   ],
   templateUrl: './student-create-and-edit.component.html',
   styleUrl: './student-create-and-edit.component.css'

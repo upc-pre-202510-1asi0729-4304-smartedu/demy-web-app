@@ -24,6 +24,7 @@ import { EnrollmentService } from '../../services/enrollment.service';
 import { Enrollment } from '../../model/enrollment.entity';
 import { StudentService } from '../../services/student.service';
 import { AcademicPeriodService } from '../../services/academic-period.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /**
  * Component responsible for managing enrollments through a table interface.
@@ -52,7 +53,8 @@ import { AcademicPeriodService } from '../../services/academic-period.service';
     NgClass,
     MatFormFieldModule,
     MatInputModule,
-    DatePipe
+    DatePipe,
+    TranslatePipe
   ],
   templateUrl: 'enrollment-management.component.html',
   styleUrl: 'enrollment-management.component.css'

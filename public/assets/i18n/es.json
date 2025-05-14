@@ -265,5 +265,121 @@
     "button": {
       "search": "Buscar"
     }
+  },
+  "academic-period": {
+    "regist":{
+      "title-edit": "Editar Periodo Academico",
+      "title-new": "Nuevo Periodo academico",
+      "period": "Nombre de Periodo",
+      "start-date": "Fecha de Inicio",
+      "end-date": "Fecha de Fin",
+      "cancel": "Cancelar",
+      "save": "Registrar Periodo Academico",
+      "update": "Actualizar Periodo Academico"
+    },
+    "management": {
+      "title": "Gestión de Períodos Académicos"
+    },
+    "table": {
+      "name": "Nombre",
+      "start-date": "Fecha de Inicio",
+      "end-date": "Fecha de Fin",
+      "actions": "Acciones",
+      "edit": "Editar período académico",
+      "delete": "Eliminar período académico"
+    },
+    "paginator": {
+      "label": "Seleccionar página de períodos académicos"
+    }
+  },
+  "enrollment": {
+    "form": {
+      "title-edit": "Editar Matrícula",
+      "title-new": "Registrar Matrícula",
+      "student": "Estudiante",
+      "student-required": "Estudiante es requerido",
+      "period": "Periodo Académico",
+      "period-required": "Periodo académico es requerido",
+      "date": "Fecha de Matrícula",
+      "date-required": "Fecha de matrícula es requerida",
+      "amount": "Monto",
+      "amount-required": "Monto es requerido",
+      "status": "Estado de Matrícula",
+      "status-required": "Estado de matrícula es requerido",
+      "payment-status": "Estado de Pago",
+      "payment-required": "Estado de pago es requerido",
+      "save": "Registrar Matrícula",
+      "update": "Actualizar Matrícula",
+      "cancel": "Cancelar"
+    },
+    "management": {
+      "title": "Gestión de Matrículas"
+    },
+    "table": {
+      "id": "N° de Matrícula",
+      "student": "Estudiante",
+      "period": "Período",
+      "date": "Fecha de Matrícula",
+      "amount": "Monto",
+      "status": "Estado",
+      "payment-status": "Estado de Pago",
+      "actions": "Acciones",
+      "edit": "Editar matrícula",
+      "delete": "Eliminar matrícula"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo"
+    },
+    "payment": {
+      "paid": "Pagado",
+      "unpaid": "No Pagado"
+    },
+    "paginator": {
+      "label": "Seleccionar página de matrículas"
+    }
+  },
+  "student": {
+    "form": {
+      "title-edit": "Editar Estudiante",
+      "title-new": "Nuevo Estudiante",
+      "dni": "DNI",
+      "dni-error": "DNI debe tener 8 dígitos numéricos",
+      "first-name": "Nombres",
+      "first-name-required": "Nombres es requerido",
+      "last-name": "Apellidos",
+      "last-name-required": "Apellidos es requerido",
+      "sex": "Sexo",
+      "sex-required": "Sexo es requerido",
+      "birth-date": "Fecha de Nacimiento",
+      "birth-date-required": "Fecha de nacimiento es requerida",
+      "address": "Dirección",
+      "address-required": "Dirección es requerida",
+      "phone": "Teléfono",
+      "phone-error": "Teléfono debe tener 9 dígitos numéricos",
+      "save": "Registrar Estudiante",
+      "update": "Actualizar Estudiante",
+      "cancel": "Cancelar"
+    },
+    "management": {
+      "title": "Gestión de Estudiantes"
+    },
+    "table": {
+      "dni": "DNI",
+      "first-name": "Nombre",
+      "last-name": "Apellido",
+      "sex": "Género",
+      "birth-date": "Fecha de Nacimiento",
+      "actions": "Acciones",
+      "edit": "Editar estudiante",
+      "delete": "Eliminar estudiante"
+    },
+    "sex": {
+      "male": "Masculino",
+      "female": "Femenino"
+    },
+    "paginator": {
+      "label": "Seleccionar página de estudiantes"
+    }
   }
 }
