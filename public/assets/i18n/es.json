@@ -75,7 +75,7 @@
     "add": "Agregar Profesor",
     "edit": "Editar Profesor",
     "delete": "Eliminar Profesor",
-    "delete-confirm": "¿Está seguro de eliminar al profesor \"{{name}}\"?",
+    "delete-confirm": "¿Está seguro de eliminar al profesor ",
     "delete-warning": "Esta acción no se puede deshacer.",
     "form": {
       "fullName": "Nombre Completo",

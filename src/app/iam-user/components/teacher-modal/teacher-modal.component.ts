@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { UserAccount } from '../../model/user.entity';
 import { Role } from '../../model/role.model';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /**
  * Component for managing teacher-related actions via a modal dialog.
@@ -41,7 +42,8 @@ import { Role } from '../../model/role.model';
     MatDialogContent,
     MatDialogActions,
     MatLabel,
-    MatError
+    MatError,
+    TranslatePipe
   ],
   templateUrl: './teacher-modal.component.html',
   styleUrls: ['./teacher-modal.component.css']

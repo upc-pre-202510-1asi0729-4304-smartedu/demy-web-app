@@ -57,7 +57,7 @@ export class LoginComponent {
    * @param router - Router service for handling navigation
    */
 
-  constructor(private fb: FormBuilder, private router: Router,private userService: UserService) {
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -92,7 +92,7 @@ export class LoginComponent {
                 this.router.navigate(['/organization']);
                 break;
               case 'TEACHER':
-                this.router.navigate(['/organization/teachers']);
+                this.router.navigate(['/attendance']);
                 break;
               default:
                 console.error('Unrecognized role:', user.role);

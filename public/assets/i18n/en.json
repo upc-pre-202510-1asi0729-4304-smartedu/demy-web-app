@@ -75,7 +75,7 @@
     "add": "Add Teacher",
     "edit": "Edit Teacher",
     "delete": "Delete Teacher",
-    "delete-confirm": "Are you sure you want to delete teacher \"{{name}}\"?",
+    "delete-confirm": "Are you sure you want to delete teacher",
     "delete-warning": "This action cannot be undone.",
     "form": {
       "fullName": "Full Name",

@@ -65,8 +65,8 @@
 
   @if (mode === 'delete') {
     <div class="delete-confirmation">
-      <p>Are you sure you want to delete "{{ teacher.fullName }}"?</p>
-      <p class="warning-text">This action cannot be undone.</p>
+      <p>{{ 'teacher-modal.delete-confirm' | translate }} "{{ teacher.fullName }}"?</p>
+      <p class="warning-text">{{ 'teacher-modal.delete-warning' | translate }}</p>
       <div mat-dialog-actions align="end">
         <button mat-button (click)="onCancel()">Cancel</button>
         <button mat-raised-button color="warn" (click)="onConfirmDelete()">Delete</button>
