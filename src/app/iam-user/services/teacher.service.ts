@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import { UserAccount } from '../model/user.entity';
 import { environment } from '../../../environments/environment';
-import { Role } from '../model/role.model';
 
 /**
  * Service responsible for managing teacher-related operations.
@@ -33,7 +32,6 @@ export class TeacherService {
 
   //Look at this
   getTeachers(): Observable<UserAccount[]> {
-    return this.http.get<UserAccount[]>(`${this.baseUrl}`);
     return this.http.get<UserAccount[]>(`${this.baseUrl}`).pipe(
       map((users: UserAccount[]) => users.filter(user => user.role === 'TEACHER'))
     );
