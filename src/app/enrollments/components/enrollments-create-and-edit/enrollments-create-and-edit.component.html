@@ -10,6 +10,9 @@
           {{ student.firstName }} {{ student.lastName }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="studentId.invalid && (studentId.dirty || studentId.touched)">
+        Estudiante es requerido
+      </mat-error>
     </mat-form-field>
   </div>
 
@@ -17,11 +20,14 @@
   <div class="form-row">
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Periodo Académico</mat-label>
-      <mat-select [(ngModel)]="enrollment.periodId" name="periodId" required>
+      <mat-select [(ngModel)]="enrollment.periodId" name="periodId" required #periodId="ngModel">
         <mat-option *ngFor="let period of periodOptions" [value]="period.id">
           {{ period.name }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="periodId.invalid && (periodId.dirty || periodId.touched)">
+        Periodo académico es requerido
+      </mat-error>
     </mat-form-field>
   </div>
 
@@ -30,6 +36,9 @@
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Fecha de Matrícula</mat-label>
       <input matInput required [(ngModel)]="enrollment.createdAt" name="enrollment_date" #enrollmentDate="ngModel" type="date">
+      <mat-error *ngIf="enrollmentDate.invalid && (enrollmentDate.dirty || enrollmentDate.touched)">
+        Fecha de matrícula es requerida
+      </mat-error>
     </mat-form-field>
   </div>
 
@@ -38,6 +47,9 @@
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Monto</mat-label>
       <input matInput required [(ngModel)]="enrollment.amount" name="amount" #amount="ngModel" type="number">
+      <mat-error *ngIf="amount.invalid && (amount.dirty || amount.touched)">
+        Monto es requerido
+      </mat-error>
     </mat-form-field>
   </div>
 
@@ -50,6 +62,9 @@
           {{ status.viewValue }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="enrollmentStatus.invalid && (enrollmentStatus.dirty || enrollmentStatus.touched)">
+        Estado de matrícula es requerido
+      </mat-error>
     </mat-form-field>
   </div>
 
@@ -62,6 +77,9 @@
           {{ payment.viewValue }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="paymentStatus.invalid && (paymentStatus.dirty || paymentStatus.touched)">
+        Estado de pago es requerido
+      </mat-error>
     </mat-form-field>
   </div>
 
