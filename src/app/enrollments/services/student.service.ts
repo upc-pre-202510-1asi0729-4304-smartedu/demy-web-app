@@ -35,7 +35,7 @@ export class StudentService extends BaseService<Student> {
 
   /**
    * Initializes the StudentService.
-   * Sets up the base URL endpoint for all course-related HTTP requests.
+   * Service responsible for managing student-related HTTP operations.
    */
   constructor() {
     super();
@@ -47,5 +47,4 @@ export class StudentService extends BaseService<Student> {
     return this.http.get<Student[]>(url, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-
 }

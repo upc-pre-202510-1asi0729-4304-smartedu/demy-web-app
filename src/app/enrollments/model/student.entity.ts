@@ -1,6 +1,4 @@
-
 export class Student {
-  //REVISAR LOS TIPOS DE CADA CAMPO
   id: string;
   firstName: string;
   lastName: string;
@@ -17,7 +15,7 @@ export class Student {
     this.lastName = student.lastName || '';
     this.dni = student.dni || '';
     this.sex = student.sex || Sex.MALE;
-    this.birthDate = student.birthDate || null;
+    this.birthDate = student.birthDate ?? null;
     this.address = student.address || '';
     this.phoneNumber = student.phoneNumber || '';
   }

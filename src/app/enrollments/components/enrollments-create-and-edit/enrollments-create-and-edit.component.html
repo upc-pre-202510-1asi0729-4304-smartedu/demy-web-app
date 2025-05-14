@@ -1,0 +1,74 @@
+<form #enrollmentForm="ngForm" (ngSubmit)="onSubmit()" class="enrollment-form">
+  <h2>{{ editMode ? 'Editar Matrícula' : 'Registrar Matrícula' }}</h2>
+
+  <!-- Estudiante -->
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Estudiante</mat-label>
+      <mat-select required [(ngModel)]="enrollment.studentId" name="student_id" #studentId="ngModel">
+        <mat-option *ngFor="let student of studentOptions" [value]="student.id">
+          {{ student.firstName }} {{ student.lastName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Periodo Académico -->
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Periodo Académico</mat-label>
+      <mat-select [(ngModel)]="enrollment.periodId" name="periodId" required>
+        <mat-option *ngFor="let period of periodOptions" [value]="period.id">
+          {{ period.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Fecha de matrícula -->
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Fecha de Matrícula</mat-label>
+      <input matInput required [(ngModel)]="enrollment.createdAt" name="created_at" #createdAt="ngModel" type="date">
+    </mat-form-field>
+  </div>
+
+  <!-- Monto -->
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Monto</mat-label>
+      <input matInput required [(ngModel)]="enrollment.amount" name="amount" #amount="ngModel" type="number">
+    </mat-form-field>
+  </div>
+
+  <!-- Estado de Matricula -->
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Estado de Matrícula</mat-label>
+      <mat-select required [(ngModel)]="enrollment.enrollmentStatus" name="status" #enrollmentStatus="ngModel">
+        <mat-option *ngFor="let status of enrollmentStatusOptions" [value]="status.value">
+          {{ status.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Estado de Pago -->
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Estado de Pago</mat-label>
+      <mat-select required [(ngModel)]="enrollment.paymentStatus" name="payment_status" #paymentStatus="ngModel">
+        <mat-option *ngFor="let payment of paymentStatusOptions" [value]="payment.value">
+          {{ payment.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="form-actions">
+    <button mat-flat-button color="primary" type="submit" [disabled]="!enrollmentForm.valid">
+      {{ isEditMode() ? 'Actualizar Matrícula' : 'Registrar Matrícula' }}
+    </button>
+    <button mat-button type="button" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>
