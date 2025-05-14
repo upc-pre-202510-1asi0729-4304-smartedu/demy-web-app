@@ -24,23 +24,16 @@
         <td mat-cell *matCellDef="let element">{{element.name}}</td>
       </ng-container>
 
-      <!-- Academy ID Column -->
-      <ng-container matColumnDef="academy_id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Academia</th>
-<!--        Esto tiene que obtenerlo de una lista de Acamdemys-->
-        <td mat-cell *matCellDef="let element">{{element.academyId}}</td>
-      </ng-container>
-
       <!-- Start Date Column -->
       <ng-container matColumnDef="start_date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Inicio</th>
-        <td mat-cell *matCellDef="let element">{{element.startDate}}</td>
+        <td mat-cell *matCellDef="let element">{{element.startDate | date: 'dd/MM/yyyy'}}</td>
       </ng-container>
 
       <!-- End Date Column -->
       <ng-container matColumnDef="end_date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Fin</th>
-        <td mat-cell *matCellDef="let element">{{element.endDate}}</td>
+        <td mat-cell *matCellDef="let element">{{element.endDate | date: 'dd/MM/yyyy' }}</td>
       </ng-container>
 
       <!-- Actions Column -->

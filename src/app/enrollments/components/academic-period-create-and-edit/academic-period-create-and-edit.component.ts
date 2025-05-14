@@ -11,7 +11,6 @@ import {AcademicPeriod} from '../../model/academic-period.entity';
   imports: [
     FormsModule,
     MatFormField,
-    FormsModule,
     MatButton,
     MatInput,
     MatSelectModule

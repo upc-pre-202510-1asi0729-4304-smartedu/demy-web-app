@@ -15,7 +15,7 @@ import {
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort, MatSortHeader } from "@angular/material/sort";
 import { MatIcon } from "@angular/material/icon";
-import { NgClass } from "@angular/common";
+import {DatePipe, NgClass} from "@angular/common";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -50,10 +50,10 @@ import { AcademicPeriodService } from '../../services/academic-period.service';
     MatRow,
     MatPaginator,
     MatSortHeader,
-    AcademicPeriodCreateFormComponent,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    DatePipe
   ],
   templateUrl: 'academic-period-management.component.html',
   styleUrl: './academic-period-management.component.css'
@@ -66,7 +66,7 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
   protected academicPeriodData!: AcademicPeriod;
 
   /** Defines which columns should be displayed in the table and their order */
-  protected columnsToDisplay: string[] = ['name', 'academy_id', 'start_date', 'end_date', 'actions'];
+  protected columnsToDisplay: string[] = ['name', 'start_date', 'end_date', 'actions'];
 
   /** Reference to the Material paginator for handling page-based data display */
   @ViewChild(MatPaginator, { static: false })
@@ -186,7 +186,7 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
    */
   private createAcademicPeriod() {
     this.academicPeriodService.create(this.academicPeriodData).subscribe((response: AcademicPeriod) => {
-      this.dataSource.data.push(response);
+      this.dataSource.data = [...this.dataSource.data, response];
       this.dataSource.data = this.dataSource.data;
     });
   }
@@ -197,9 +197,11 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
    */
   private updateAcademicPeriod() {
     let periodToUpdate = this.academicPeriodData;
-    this.academicPeriodService.update(periodToUpdate.name, periodToUpdate).subscribe((response: AcademicPeriod) => {
+    this.academicPeriodService.update(periodToUpdate.id, periodToUpdate).subscribe((response: AcademicPeriod) => {
       let index = this.dataSource.data.findIndex((period:AcademicPeriod ) => period.id === response.id);
-      this.dataSource.data[index] = response;
+      const data = [...this.dataSource.data];
+      data[index] = response;
+      this.dataSource.data = data;
       this.dataSource.data = this.dataSource.data;
     });
   }

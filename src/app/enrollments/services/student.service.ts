@@ -1,8 +1,8 @@
-
 import {Injectable} from '@angular/core';
 import {BaseService} from "../../shared/services/base.service";
 import {environment} from '../../../environments/environment';
 import {Student} from '../model/student.entity';
+import {catchError, Observable, retry} from 'rxjs';
 /**
  * API endpoint path for students obtained from environment configuration.
  */
@@ -34,11 +34,17 @@ export class StudentService extends BaseService<Student> {
 
   /**
    * Initializes the StudentService.
-   * Sets up the base URL endpoint for all course-related HTTP requests.
+   * Service responsible for managing student-related HTTP operations.
    */
   constructor() {
     super();
     this.resourceEndpoint = studentsResourceEndpointPath;
+  }
+
+  public getByDni(dni: string): Observable<Student[]> {
+    const url = `${this.resourcePath()}?dni=${dni}`;
+    return this.http.get<Student[]>(url, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
   }
 }
 
