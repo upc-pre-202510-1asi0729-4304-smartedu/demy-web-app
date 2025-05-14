@@ -9,6 +9,9 @@ import { ClassSession } from '../../model/class-session.entity';
 import { AttendanceStatus } from '../../model/attendance-status.enum';
 import { ClassSessionService } from '../../services/class-session.service';
 import{AttendanceRecord} from '../../model/attendance-record.entity';
+import { ViewChild } from '@angular/core';
+import { inject } from '@angular/core';
+import { AttendanceRecordService } from '../../services/attendance-record.service';
 
 /**
  * Page component responsible for managing attendance registration.
@@ -34,6 +37,7 @@ import{AttendanceRecord} from '../../model/attendance-record.entity';
  * The current class session being managed. May be null before data is loaded.
  */
 export class AttendancePageComponent implements OnInit {
+  private attendanceRecordService = inject(AttendanceRecordService);
   classSession: ClassSession | null = null;
 
   constructor(private classSessionService: ClassSessionService) {}
@@ -66,27 +70,34 @@ export class AttendancePageComponent implements OnInit {
    * Saves the current class session to the backend using the session service.
    */
   onSave(): void {
-    if (!this.classSession) return;
-    console.log('Ejecutando onSave con sesión:', this.classSession);
-    this.classSessionService.save(this.classSession).subscribe({
-      next: result => console.log('Clase guardada:', result),
-      error: err => console.error('Error al guardar sesión:', err)
-    });
+    if (!this.recordsBuffer.length) return;
+
+    this.attendanceRecordService.saveMany(this.recordsBuffer);
+
+    this.studentListComponent.resetAttendance();
   }
+
   /**
    * Updates the session's attendance records when changes are received from the student list.
    * Converts boolean attendance values into `AttendanceRecord` instances.
    *
    * @param records - Array of attendance data per student (with `attended` as a boolean)
    */
-  onAttendanceChanged(records: { studentId: string; attended: boolean }[]): void {
-    if (!this.classSession) return;
+  recordsBuffer: AttendanceRecord[] = [];
 
-    const updated = records.map(
+  onAttendanceChanged(records: { studentId: string; attended: boolean }[]): void {
+    this.recordsBuffer = records.map(
       r => new AttendanceRecord(r.studentId, r.attended ? AttendanceStatus.PRESENT : AttendanceStatus.ABSENT)
     );
-
-    this.classSession.setAttendance(updated);
   }
-
+  /**
+   * Reference to the StudentListComponent instance rendered in the template.
+   *
+   * Used to call public methods of the child component such as resetting attendance checkboxes.
+   *
+   * @remarks
+   * This reference is only available after the view has been fully initialized
+   */
+  @ViewChild(StudentListComponent)
+  studentListComponent!: StudentListComponent;
 }
