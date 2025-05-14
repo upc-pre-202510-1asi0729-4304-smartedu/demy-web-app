@@ -1,0 +1,21 @@
+<h3>{{ 'payments.title' | translate }}</h3>
+
+<p class="subtitle-2">{{ 'payments.subtitle' | translate }}</p>
+
+<app-student-search (search)="onSearch($event)" />
+
+@if (studentPaymentStatus()) {
+  <app-student-status
+    [data]="studentPaymentStatus()!.invoices"
+    [student]="studentPaymentStatus()!.student"
+    (registerPaymentRequested)="onRegisterPaymentRequest($event)" />
+
+  @if (showPaymentForm()) {
+    <app-payment-registration
+      [student]="studentPaymentStatus()!.student"
+      [invoice]="selectedInvoice()!"
+      (paymentRegistered)="onPaymentRegistered($event)" />
+  }
+}
+
+

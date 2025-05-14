@@ -1,0 +1,18 @@
+<h2>{{'attendance.title'| translate}}</h2>
+<h3>{{'attendance.subtitle'|translate}}</h3>
+<div class="row-container">
+  <app-attendance-date></app-attendance-date>
+  <app-attendance-class-select></app-attendance-class-select>
+</div>
+
+<h3> {{'attendance.subtitle2'|translate}}</h3>
+<!-- <app-attendance-student-list></app-attendance-student-list>
+<app-attendance-save-button></app-attendance-save-button> -->
+<app-student-list (attendanceChanged)="onAttendanceChanged($event)"></app-student-list>
+<div class="save-button-container">
+  <app-attendance-save-button (saveClicked)="onSave()"></app-attendance-save-button>
+</div>
+
+
+
+

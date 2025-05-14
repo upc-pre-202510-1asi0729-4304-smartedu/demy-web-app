@@ -1,0 +1,14 @@
+.row-container {
+  display: flex;
+  column-gap: 5rem;
+  row-gap: 0.1rem;
+  flex-wrap: wrap; /* por si en móviles deben ir uno debajo del otro */
+  margin-bottom: 2rem;
+}
+
+
+.save-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}

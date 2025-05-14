@@ -1,0 +1,14 @@
+<a [routerLink]="route" class="card-link">
+  <mat-card class="option-card">
+    @if (image) {
+      <img [src]="image" alt="{{ title }}" class="card-image" />
+    }
+
+    <div class="card-text">
+      <mat-card-title>{{ title | translate }}</mat-card-title>
+      @if (description) {
+        <mat-card-content>{{ description | translate }}</mat-card-content>
+      }
+    </div>
+  </mat-card>
+</a>

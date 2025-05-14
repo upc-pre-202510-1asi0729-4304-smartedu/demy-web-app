@@ -1,0 +1,150 @@
+
+
+.container {
+  background-color: #D0E3EE;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 3rem;
+}
+
+.plans-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5rem;
+  padding-top: 40px;
+}
+.plans-container .plan-box:nth-child(1) {
+  height: 500px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.plan-box {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plan-box:first-child .plan-title {
+  font-size: 2.6rem;
+}
+.plan-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.plan-box .plan-subtitle {
+  font-size: 1rem;
+  color: #093D77;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+
+.plan-box .plan-title {
+  font-size: 2.5rem;
+
+  text-align: center;
+  color: #000000;
+  font-weight: bold;
+  margin-bottom: 0.1rem;
+}
+
+
+.plan-box .price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #093D77;
+  margin-bottom: 0.1rem;
+}
+
+
+hr {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 1rem 0;
+}
+
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  text-align: left;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  color: #444;
+}
+
+.top-bar {
+  background-color: #093D77;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  border-radius: 50px;
+}
+
+.bullet-box {
+  width: 10px;
+  height: 10px;
+  background-color: #093D77;
+  margin-right: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+
+button {
+  width: 100%;
+  font-weight: bold;
+  background-color: #093D77;
+  color: white;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #072c5a;
+}
+
+@media (max-width: 768px) {
+  .plan-box {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .plans-container {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,43 @@
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>{{ 'finance.table.date' | translate }}</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.date | date:'dd/MM/yyyy' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>{{ 'finance.table.category' | translate }}</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.category | translate }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="concept">
+      <th mat-header-cell *matHeaderCellDef>{{ 'finance.table.concept' | translate }}</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.concept }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef>{{ 'finance.table.amount' | translate }}</th>
+      <td mat-cell *matCellDef="let element">
+        S/ {{ element.amount | number: '1.2-2' }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+</div>
+
+<mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+<div class="total-row">
+  <strong>{{ 'finance.table.total' | translate }}:</strong>
+  S/ {{ total() | number: '1.2-2' }}
+</div>

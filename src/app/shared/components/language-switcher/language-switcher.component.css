@@ -1,0 +1,12 @@
+mat-button-toggle-group {
+  border: 1px solid white;
+}
+
+mat-button-toggle {
+  color: white;
+}
+
+mat-button-toggle.mat-button-toggle-checked {
+  background-color: white;
+  color: var(--color-primary);
+}

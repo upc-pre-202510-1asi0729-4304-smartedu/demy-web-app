@@ -1,0 +1,30 @@
+@if (isMobile()) {
+  <mat-drawer-container class="drawer-container">
+    <mat-drawer #drawer class="drawer" mode="over">
+      <app-side-navigation-bar (logout)="logout()" />
+    </mat-drawer>
+
+    <app-header-content
+      [isMobile]="true"
+      (menuToggle)="drawer.toggle()" />
+
+    <div class="main-content">
+      <app-content-wrapper>
+        <router-outlet></router-outlet>
+      </app-content-wrapper>
+    </div>
+  </mat-drawer-container>
+} @else {
+  <app-header-content
+    [isMobile]="false" />
+
+  <div class="layout-with-sidebar">
+    <app-side-navigation-bar (logout)="logout()" />
+
+    <div class="main-content">
+      <app-content-wrapper>
+        <router-outlet></router-outlet>
+      </app-content-wrapper>
+    </div>
+  </div>
+}

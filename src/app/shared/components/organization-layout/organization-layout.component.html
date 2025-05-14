@@ -1,0 +1,9 @@
+<div class="grid-container">
+  @for (option of options; track option.route) {
+    <app-organization-option
+      [title]="option.title"
+      [description]="option.description"
+      [image]="option.image"
+      [route]="option.route" />
+  }
+</div>

@@ -1,0 +1,12 @@
+.table-header-blue {
+  background-color: #3A7CA5;
+  color: white;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+}
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}

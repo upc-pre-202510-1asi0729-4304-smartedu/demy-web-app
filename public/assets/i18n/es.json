@@ -1,0 +1,385 @@
+{
+  "organization": {
+    "weekly": {
+      "title": "Horario semanal",
+      "description": "Gestiona tus horarios semanales"
+    },
+    "courses": {
+      "title": "Cursos",
+      "description": "Administra los cursos disponibles"
+    },
+    "periods": {
+      "title": "Periodos",
+      "description": "Modifica los periodos académicos"
+    },
+    "rooms": {
+      "title": "Aulas",
+      "description": "Gestiona las aulas disponibles"
+    },
+    "teachers": {
+      "title": "Profesores",
+      "description": "Gestiona el personal docente"
+    }
+  },
+  "login": {
+    "sign-up": "Crear Cuenta",
+    "title": "Iniciar sesión",
+    "sub-title": "Ingresa tu información personal",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "remember-me": "Recuérdame",
+    "sign-in": "Ingresar",
+    "forgot-password": "¿Olvidaste tu contraseña?",
+    "errors": {
+      "required": "Este campo es obligatorio",
+      "email": "Ingresa un correo válido",
+      "minlength": "Mínimo 8 caracteres"
+    }
+  },
+  "sign-up": {
+    "login": "Inicar Sesion",
+    "title": "Crear Cuenta",
+    "sub-title": "Ingresa tu información personal",
+    "name": "Nombre",
+    "academy-name": "Nombre de academia",
+    "ruc": "RUC",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "terms-me": "Acepta los terminos y condiciones",
+    "register": "Registrarse",
+    "errors": {
+      "required": "Este campo es obligatorio",
+      "invalid-email": "Ingrese un correo válido",
+      "minlength": "Mínimo {requiredLength} caracteres",
+      "maxlength": "Máximo {requiredLength} caracteres",
+      "accept-terms": "Debe aceptar los términos"
+    }
+  },
+  "view-teachers": {
+    "title": "Gestión de Profesores",
+    "table": {
+      "fullName": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "specialty": "Especialidad",
+      "actions": "Acciones"
+    },
+    "button": {
+      "new-teacher": "Nuevo Profesor"
+    }
+  },
+  "common": {
+    "edit": "Editar",
+    "delete": "Eliminar"
+  },
+  "teacher-modal": {
+    "add": "Agregar Profesor",
+    "edit": "Editar Profesor",
+    "delete": "Eliminar Profesor",
+    "delete-confirm": "¿Está seguro de eliminar al profesor ",
+    "delete-warning": "Esta acción no se puede deshacer.",
+    "form": {
+      "fullName": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "specialty": "Especialidad",
+      "required": "Campo requerido",
+      "invalid-email": "Correo electrónico inválido"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "delete": "Eliminar"
+    }
+  },
+  "title": "Selecciona tu Plan",
+  "plan1": {
+    "subtitle": "Essentials",
+    "title": "Plan Básico",
+    "price": "S/. 19.90",
+    "benefit1": "1 sede",
+    "benefit2": "100 alumnos",
+    "benefit3": "10 profesores",
+    "benefit4": "Gestión de matrícula y pagos"
+  },
+  "plan2": {
+    "subtitle": "Pro",
+    "title": "Plan Intermedio",
+    "price": "S/. 70.00",
+    "benefit1": "500 alumnos",
+    "benefit2": "50 profesores",
+    "benefit3": "2 sedes",
+    "benefit4": "Gestión de inventario y préstamos",
+    "benefit5": "Gestión de matrícula y pagos"
+  },
+  "plan3": {
+    "subtitle": "Elite",
+    "title": "Plan Premium",
+    "price": "S/. 160.00",
+    "benefit1": "2000 alumnos",
+    "benefit2": "200 profesores",
+    "benefit3": "2 o más sedes",
+    "benefit4": "Soporte prioritario",
+    "benefit5": "Gestión de inventario y préstamos",
+    "benefit6": "Gestión de matrícula y pagos"
+  },
+  "button": {
+    "select": "Seleccionar Plan"
+  },
+  "payments": {
+    "title": "Pagos",
+    "subtitle": "Buscar el estado de pago de un alumno",
+    "dni-input": "Ingresar DNI",
+    "search-button": "Buscar",
+    "table-first-name": "Nombre",
+    "table-last-name": "Apellido",
+    "table-sex": "Sexo",
+    "sex": {
+      "MALE": "Masculino",
+      "FEMALE": "Femenino"
+    },
+    "payment-status": {
+      "PENDING": "Pendiente",
+      "PAID": "Pagado",
+      "OVERDUE": "Atrasado"
+    },
+    "register-title": "Registrar pago",
+    "register-action": "Registrar pago",
+    "first-name": "Nombres",
+    "last-name": "Apellidos",
+    "paid-at": "Fecha de pago",
+    "student": "Estudiante",
+    "amount": "Monto",
+    "status": "Estado",
+    "due-date": "Vencimiento",
+    "action": "Acción",
+    "register-button": "Guardar pago"
+  },
+  "finance": {
+    "title": "Finanzas",
+    "subtitle": {
+      "register": "Registrar egreso",
+      "summary": "Resumen financiero del mes actual"
+    },
+    "summary": {
+      "empty": "No se han registrado egresos este mes."
+    },
+    "fields": {
+      "category": "Categoría",
+      "amount": "Monto (S/)",
+      "concept": "Concepto",
+      "date": "Fecha"
+    },
+    "category": {
+      "teachers": "Pago Docentes",
+      "materials": "Materiales",
+      "services": "Servicios",
+      "taxes": "Impuestos",
+      "maintenance": "Mantenimiento",
+      "technology": "Tecnología",
+      "others": "Otros"
+    },
+    "actions": {
+      "confirm": "Confirmar"
+    },
+    "table": {
+      "date": "Fecha",
+      "category": "Categoría",
+      "concept": "Concepto",
+      "amount": "Monto",
+      "total": "Total mensual"
+    }
+  },
+  "form": {
+    "field": {
+      "amount": "Monto",
+      "date": "Fecha",
+      "category": "Categoría",
+      "concept": "Concepto"
+    },
+    "error": {
+      "required": "El campo {{field}} es obligatorio",
+      "invalid": "El campo {{field}} no es válido"
+    }
+  },
+  "attendance": {
+    "title": "Asistencia",
+    "subtitle": "Mis clases",
+    "subtitle2": "Lista de alumnos-Salon01",
+    "button": "Guardar asistencia",
+    "class-select": "Clase",
+    "date-select": "Fecha",
+    "list-student": "Estudiante",
+    "list-attendance": "Asistió"
+  },
+  "view-courses": {
+    "title": "Cursos",
+    "table": {
+      "name": "Nombre",
+      "code": "Código",
+      "description": "Descripción",
+      "actions": "Acciones"
+    },
+    "button":{
+      "new-course": "Nuevo Curso"
+    }
+  },
+  "view-classrooms": {
+    "title": "Salones",
+    "table": {
+      "code": "Codigo",
+      "capacity": "Capacidad",
+      "campus": "Sede",
+      "actions": "Acciones"
+    },
+    "button":{
+      "new-classroom": "Nuevo Salón"
+    }
+  },
+  "view-weekly-schedules": {
+    "title": "Horarios Semanales",
+    "table": {
+      "name": "Nombre",
+      "number": "Numero de bloques",
+      "actions": "Acciones"
+    },
+    "button":{
+      "new": "Nuevo Horario Semanal"
+    }
+  },
+  "search-schedules": {
+    "title": "Buscar Horarios Semanales",
+    "select": "Selecciona un horario",
+    "table": {
+      "subtitle": "Horario: ",
+      "hour": "Hora",
+      "course": "Curso",
+      "classroom": "Aula",
+      "teacher": "Profesor",
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sabado",
+      "sunday": "Domingo"
+    },
+    "button": {
+      "search": "Buscar"
+    }
+  },
+  "academic-period": {
+    "regist":{
+      "title-edit": "Editar Periodo Academico",
+      "title-new": "Nuevo Periodo academico",
+      "period": "Nombre de Periodo",
+      "start-date": "Fecha de Inicio",
+      "end-date": "Fecha de Fin",
+      "cancel": "Cancelar",
+      "save": "Registrar Periodo Academico",
+      "update": "Actualizar Periodo Academico"
+    },
+    "management": {
+      "title": "Gestión de Períodos Académicos"
+    },
+    "table": {
+      "name": "Nombre",
+      "start-date": "Fecha de Inicio",
+      "end-date": "Fecha de Fin",
+      "actions": "Acciones",
+      "edit": "Editar período académico",
+      "delete": "Eliminar período académico"
+    },
+    "paginator": {
+      "label": "Seleccionar página de períodos académicos"
+    }
+  },
+  "enrollment": {
+    "form": {
+      "title-edit": "Editar Matrícula",
+      "title-new": "Registrar Matrícula",
+      "student": "Estudiante",
+      "student-required": "Estudiante es requerido",
+      "period": "Periodo Académico",
+      "period-required": "Periodo académico es requerido",
+      "date": "Fecha de Matrícula",
+      "date-required": "Fecha de matrícula es requerida",
+      "amount": "Monto",
+      "amount-required": "Monto es requerido",
+      "status": "Estado de Matrícula",
+      "status-required": "Estado de matrícula es requerido",
+      "payment-status": "Estado de Pago",
+      "payment-required": "Estado de pago es requerido",
+      "save": "Registrar Matrícula",
+      "update": "Actualizar Matrícula",
+      "cancel": "Cancelar"
+    },
+    "management": {
+      "title": "Gestión de Matrículas"
+    },
+    "table": {
+      "id": "N° de Matrícula",
+      "student": "Estudiante",
+      "period": "Período",
+      "date": "Fecha de Matrícula",
+      "amount": "Monto",
+      "status": "Estado",
+      "payment-status": "Estado de Pago",
+      "actions": "Acciones",
+      "edit": "Editar matrícula",
+      "delete": "Eliminar matrícula"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo"
+    },
+    "payment": {
+      "paid": "Pagado",
+      "unpaid": "No Pagado"
+    },
+    "paginator": {
+      "label": "Seleccionar página de matrículas"
+    }
+  },
+  "student": {
+    "form": {
+      "title-edit": "Editar Estudiante",
+      "title-new": "Nuevo Estudiante",
+      "dni": "DNI",
+      "dni-error": "DNI debe tener 8 dígitos numéricos",
+      "first-name": "Nombres",
+      "first-name-required": "Nombres es requerido",
+      "last-name": "Apellidos",
+      "last-name-required": "Apellidos es requerido",
+      "sex": "Sexo",
+      "sex-required": "Sexo es requerido",
+      "birth-date": "Fecha de Nacimiento",
+      "birth-date-required": "Fecha de nacimiento es requerida",
+      "address": "Dirección",
+      "address-required": "Dirección es requerida",
+      "phone": "Teléfono",
+      "phone-error": "Teléfono debe tener 9 dígitos numéricos",
+      "save": "Registrar Estudiante",
+      "update": "Actualizar Estudiante",
+      "cancel": "Cancelar"
+    },
+    "management": {
+      "title": "Gestión de Estudiantes"
+    },
+    "table": {
+      "dni": "DNI",
+      "first-name": "Nombre",
+      "last-name": "Apellido",
+      "sex": "Género",
+      "birth-date": "Fecha de Nacimiento",
+      "actions": "Acciones",
+      "edit": "Editar estudiante",
+      "delete": "Eliminar estudiante"
+    },
+    "sex": {
+      "male": "Masculino",
+      "female": "Femenino"
+    },
+    "paginator": {
+      "label": "Seleccionar página de estudiantes"
+    }
+  }
+}

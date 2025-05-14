@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="header">
+        <h4>{{ 'academic-period.management.title' | translate }}</h4>
+    </div>
+
+    <!-- Formulario para creación o edición de períodos académicos -->
+    <div class="academic-period-form-container">
+        <app-academic-period-create-and-edit
+                [academicPeriod]="academicPeriodData"
+                [editMode]="editMode"
+                (cancelRequested)="onCancelRequested()"
+                (academicPeriodAddRequested)="onAcademicPeriodAddRequested($event)"
+                (academicPeriodUpdateRequested)="onAcademicPeriodUpdateRequested($event)"
+        />
+    </div>
+
+    <!-- Tabla de períodos académicos -->
+    <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'academic-period.table.name' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{element.name}}</td>
+            </ng-container>
+
+            <!-- Start Date Column -->
+            <ng-container matColumnDef="start_date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'academic-period.table.start-date' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{element.startDate | date: 'dd/MM/yyyy'}}</td>
+            </ng-container>
+
+            <!-- End Date Column -->
+            <ng-container matColumnDef="end_date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'academic-period.table.end-date' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{element.endDate | date: 'dd/MM/yyyy' }}</td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>{{ 'academic-period.table.actions' | translate }}</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="primary" (click)="onEditItem(element)" [attr.aria-label]="'academic-period.table.edit' | translate">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="onDeleteItem(element)" [attr.aria-label]="'academic-period.table.delete' | translate">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"
+                [ngClass]="{'highlight': editMode && academicPeriodData.id === row.id}"></tr>
+        </table>
+
+        <mat-paginator
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                [showFirstLastButtons]="true"
+                [attr.aria-label]="'academic-period.paginator.label' | translate">
+        </mat-paginator>
+    </div>
+</div>

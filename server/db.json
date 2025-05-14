@@ -1,0 +1,102 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "name": "Pichulin",
+      "code": "PL",
+      "description": "dasdasdasdasdasdasdpenechico"
+    }
+  ],
+  "classrooms": [
+    {
+      "id": 1,
+      "code": "ASAS",
+      "capacity": "30",
+      "campus": "Surco"
+    }
+  ],
+  "weeklySchedules": [
+    {
+      "id": 1,
+      "name": "SafeU",
+      "weekSchedule": [
+        {
+          "id": 1746941876353,
+          "dayOfWeek": "Monday",
+          "timeRange": {
+            "start": "07:30",
+            "end": "12:00"
+          },
+          "course": {
+            "id": 1,
+            "name": "Pichulin",
+            "code": "PL",
+            "description": "dasdasdasdasdasdasdpenechico"
+          },
+          "classroom": {
+            "id": 1,
+            "code": "ASAS",
+            "capacity": "30",
+            "campus": "Surco"
+          }
+        }
+      ]
+    }
+  ],
+  "users": [],
+  "academies": [],
+  "students": [
+    {
+      "id": "1",
+      "firstName": "Juan",
+      "lastName": "Perez",
+      "dni": "12345678",
+      "sex": "MALE",
+      "birthDate": "2000-01-01",
+      "address": "Calle Lima 123",
+      "phoneNumber": "123456789"
+    },
+    {
+      "id": "2",
+      "firstName": "Maria",
+      "lastName": "Lopez",
+      "dni": "87654321",
+      "sex": "FEMALE",
+      "birthDate": "2001-02-02",
+      "address": "Av. Siempre Viva",
+      "phoneNumber": "987654321"
+    }
+  ],
+  "invoices": [
+    {
+      "id": 1,
+      "subscriptionId": null,
+      "amount": 200,
+      "dueDate": "2024-05-30",
+      "status": "PENDING",
+      "studentId": "1"
+    },
+    {
+      "id": 2,
+      "subscriptionId": null,
+      "amount": 250,
+      "dueDate": "2024-06-01",
+      "status": "PENDING",
+      "studentId": "2"
+    },
+    {
+      "id": 3,
+      "subscriptionId": null,
+      "amount": 250,
+      "dueDate": "2024-06-01",
+      "status": "PENDING",
+      "studentId": "1"
+    }
+  ],
+  "payments": [
+
+  ],
+  "financial-transactions": [
+
+  ]
+}

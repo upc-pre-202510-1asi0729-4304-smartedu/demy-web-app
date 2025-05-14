@@ -1,0 +1,106 @@
+.student-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 1200px;
+  width: 95%;
+  margin: 1.5rem auto;
+  padding: 2rem 1.5rem;
+  background-color: #fff;
+  border-radius: 0.75rem;
+}
+
+.student-form h2 {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Cada fila ocupa 100% en móviles */
+.form-row {
+  width: 100%;
+}
+
+.form-field {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Botones de acción */
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 1.5rem;
+  grid-column: 1 / -1;
+}
+
+.form-actions button {
+  width: 100%;
+  max-width: 600px;
+  padding: 0.75rem 0;
+  font-weight: 500;
+}
+
+/* Estilo específico para el botón primario */
+.form-actions button[color="primary"] {
+  border-radius: 4px;
+}
+
+/* Estilos responsive */
+@media (min-width: 768px) {
+  .student-form {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+    row-gap: 1.25rem;
+  }
+
+  .student-form h2 {
+    font-size: 1.75rem;
+  }
+
+  /* Campos que ocupan ambas columnas */
+  .form-row.full-width {
+    grid-column: 1 / -1;
+  }
+
+  /* Botones horizontalmente en pantallas grandes */
+  .form-actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .form-actions button {
+    width: auto;
+    min-width: 200px;
+    padding: 0.75rem 2rem;
+  }
+}
+
+/* Validación visual */
+.mat-form-field.ng-touched.ng-invalid .mat-form-field-outline {
+  color: #f44336;
+}
+.mat-form-field.ng-touched.ng-valid .mat-form-field-outline {
+  color: #4caf50;
+}
+
+/* Hover animaciones */
+.form-actions button {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.form-actions button:hover:not([disabled]) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos de error */
+mat-error {
+  font-size: 12px;
+  margin-top: 4px;
+}

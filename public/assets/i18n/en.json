@@ -1,0 +1,385 @@
+{
+  "organization": {
+    "weekly": {
+      "title": "Weekly Schedule",
+      "description": "Manage your weekly schedule"
+    },
+    "courses": {
+      "title": "Courses",
+      "description": "Manage your course offerings"
+    },
+    "periods": {
+      "title": "Periods",
+      "description": "Edit academic terms"
+    },
+    "rooms": {
+      "title": "Rooms",
+      "description": "Manage your classrooms"
+    },
+    "teachers": {
+      "title": "Teachers",
+      "description": "Manage your teaching staff"
+    }
+  },
+  "login": {
+    "sign-up": "Sign Up",
+    "title": "Log In",
+    "sub-title": "Enter your personal information",
+    "email": "Email",
+    "password": "Password",
+    "remember-me": "Remember me",
+    "sign-in": "Sign In",
+    "forgot-password": "Forgot my password?",
+    "errors": {
+      "required": "This field is required",
+      "email": "Please enter a valid email",
+      "minlength": "Minimum 8 characters"
+    }
+  },
+  "sign-up": {
+    "login": "Log In",
+    "title": "Sign Up",
+    "sub-title": "Enter your personal information",
+    "name": "Name",
+    "academy-name": "Academy Name",
+    "ruc": "RUC",
+    "email": "Email",
+    "password": "Password",
+    "terms-me": "Accept the terms and conditions",
+    "register": "Register",
+    "errors": {
+      "required": "This field is required",
+      "invalid-email": "Please enter a valid email",
+      "minlength": "Minimum {requiredLength} characters",
+      "maxlength": "Maximum {requiredLength} characters",
+      "accept-terms": "You must accept the terms"
+    }
+  },
+  "view-teachers": {
+    "title": "Teachers Management",
+    "table": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "specialty": "Specialty",
+      "actions": "Actions"
+    },
+    "button": {
+      "new-teacher": "New Teacher"
+    }
+  },
+  "common": {
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "teacher-modal": {
+    "add": "Add Teacher",
+    "edit": "Edit Teacher",
+    "delete": "Delete Teacher",
+    "delete-confirm": "Are you sure you want to delete teacher",
+    "delete-warning": "This action cannot be undone.",
+    "form": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "specialty": "Specialty",
+      "required": "Required field",
+      "invalid-email": "Invalid email"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete"
+    }
+  },
+  "title": "Select Your Plan",
+  "plan1": {
+    "subtitle": "Essentials",
+    "title": "Basic Plan",
+    "price": "$19.90",
+    "benefit1": "1 location",
+    "benefit2": "100 students",
+    "benefit3": "10 teachers",
+    "benefit4": "Enrollment and payment management"
+  },
+  "plan2": {
+    "subtitle": "Pro",
+    "title": "Intermediate Plan",
+    "price": "$70.00",
+    "benefit1": "500 students",
+    "benefit2": "50 teachers",
+    "benefit3": "2 locations",
+    "benefit4": "Inventory and loan management",
+    "benefit5": "Enrollment and payment management"
+  },
+  "plan3": {
+    "subtitle": "Elite",
+    "title": "Premium Plan",
+    "price": "$160.00",
+    "benefit1": "2000 students",
+    "benefit2": "200 teachers",
+    "benefit3": "2 or more locations",
+    "benefit4": "Priority support",
+    "benefit5": "Inventory and loan management",
+    "benefit6": "Enrollment and payment management"
+  },
+  "button": {
+    "select": "Select Plan"
+  },
+  "payments": {
+    "title": "Payments",
+    "subtitle": "Check a student's payment status",
+    "dni-input": "Enter DNI",
+    "search-button": "Search",
+    "table-first-name": "First Name",
+    "table-last-name": "Last Name",
+    "table-sex": "Sex",
+    "sex": {
+      "MALE": "Male",
+      "FEMALE": "Female"
+    },
+    "payment-status": {
+      "PENDING": "Pending",
+      "PAID": "Paid",
+      "OVERDUE": "Overdue"
+    },
+    "register-title": "Register payment",
+    "register-action": "Register payment",
+    "first-name": "First name",
+    "last-name": "Last name",
+    "paid-at": "Payment date",
+    "student": "Student",
+    "amount": "Amount",
+    "status": "Status",
+    "due-date": "Due date",
+    "action": "Action",
+    "register-button": "Save payment"
+  },
+  "finance": {
+    "title": "Finance",
+    "subtitle": {
+      "register": "Register expense",
+      "summary": "Financial summary for the current month"
+    },
+    "summary": {
+      "empty": "No expenses have been recorded this month."
+    },
+    "fields": {
+      "category": "Category",
+      "amount": "Amount (S/)",
+      "concept": "Concept",
+      "date": "Date"
+    },
+    "category": {
+      "teachers": "Payment to teachers",
+      "materials": "Materials",
+      "services": "Services",
+      "taxes": "Taxes",
+      "maintenance": "Maintenance",
+      "technology": "Technology",
+      "others": "Other"
+    },
+    "actions": {
+      "confirm": "Confirm"
+    },
+    "table": {
+      "date": "Date",
+      "category": "Category",
+      "concept": "Concept",
+      "amount": "Amount",
+      "total": "Monthly total"
+    }
+  },
+  "form": {
+    "field": {
+      "amount": "Amount",
+      "date": "Date",
+      "category": "Category",
+      "concept": "Concept"
+    },
+    "error": {
+      "required": "The field {{field}} is required",
+      "invalid": "The field {{field}} is invalid"
+    }
+  },
+  "attendance": {
+    "title": "Attendance",
+    "subtitle": "My classes",
+    "subtitle2": "List of students-Classroom01",
+    "button": "Save attendance",
+    "class-select": "Class",
+    "date-select": "Date",
+    "list-student": "Student",
+    "list-attendance": "Attended"
+  },
+  "view-courses": {
+    "title": "Courses",
+    "table": {
+      "name": "Name",
+      "code": "Code",
+      "description": "Description",
+      "actions": "Actions"
+    },
+    "button":{
+      "new-course": "New Course"
+    }
+  },
+  "view-classrooms": {
+    "title": "Classrooms",
+    "table": {
+      "code": "Code",
+      "capacity": "Capacity",
+      "campus": "Campus",
+      "actions": "Actions"
+    },
+    "button":{
+      "new-classroom": "New Classroom"
+    }
+  },
+  "view-weekly-schedules": {
+    "title": "Weekly Schedules",
+    "table": {
+      "name": "Name",
+      "number": "Number of Schedules",
+      "actions": "Actions"
+    },
+    "button":{
+      "new": "New Weekly Schedule"
+    }
+  },
+  "search-schedules": {
+    "title": "Search Weekly Schedules",
+    "select": "Select a schedule",
+    "table": {
+      "subtitle": "Weekly schedule: ",
+      "hour": "Hour",
+      "course": "Course",
+      "classroom": "Classroom",
+      "teacher": "Teacher",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "button": {
+      "search": "Search"
+    }
+  },
+  "academic-period": {
+    "regist": {
+      "title-edit": "Edit Academic Period",
+      "title-new": "New Academic Period",
+      "period": "Period Name",
+      "start-date": "Start Date",
+      "end-date": "End Date",
+      "cancel": "Cancel",
+      "save": "Register Academic Period",
+      "update": "Update Academic Period"
+    },
+    "management": {
+      "title": "Academic Period Management"
+    },
+    "table": {
+      "name": "Name",
+      "start-date": "Start Date",
+      "end-date": "End Date",
+      "actions": "Actions",
+      "edit": "Edit academic period",
+      "delete": "Delete academic period"
+    },
+    "paginator": {
+      "label": "Select academic period page"
+    }
+  },
+  "enrollment": {
+    "form": {
+      "title-edit": "Edit Enrollment",
+      "title-new": "New Enrollment",
+      "student": "Student",
+      "student-required": "Student is required",
+      "period": "Academic Period",
+      "period-required": "Academic period is required",
+      "date": "Enrollment Date",
+      "date-required": "Enrollment date is required",
+      "amount": "Amount",
+      "amount-required": "Amount is required",
+      "status": "Enrollment Status",
+      "status-required": "Enrollment status is required",
+      "payment-status": "Payment Status",
+      "payment-required": "Payment status is required",
+      "save": "Register Enrollment",
+      "update": "Update Enrollment",
+      "cancel": "Cancel"
+    },
+    "management": {
+      "title": "Enrollment Management"
+    },
+    "table": {
+      "id": "Enrollment No.",
+      "student": "Student",
+      "period": "Period",
+      "date": "Enrollment Date",
+      "amount": "Amount",
+      "status": "Status",
+      "payment-status": "Payment Status",
+      "actions": "Actions",
+      "edit": "Edit enrollment",
+      "delete": "Delete enrollment"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "payment": {
+      "paid": "Paid",
+      "unpaid": "Unpaid"
+    },
+    "paginator": {
+      "label": "Select enrollment page"
+    }
+  },
+  "student": {
+    "form": {
+      "title-edit": "Edit Student",
+      "title-new": "New Student",
+      "dni": "DNI",
+      "dni-error": "DNI must have 8 numeric digits",
+      "first-name": "First Name",
+      "first-name-required": "First name is required",
+      "last-name": "Last Name",
+      "last-name-required": "Last name is required",
+      "sex": "Sex",
+      "sex-required": "Sex is required",
+      "birth-date": "Birth Date",
+      "birth-date-required": "Birth date is required",
+      "address": "Address",
+      "address-required": "Address is required",
+      "phone": "Phone Number",
+      "phone-error": "Phone must have 9 numeric digits",
+      "save": "Register Student",
+      "update": "Update Student",
+      "cancel": "Cancel"
+    },
+    "management": {
+      "title": "Student Management"
+    },
+    "table": {
+      "dni": "DNI",
+      "first-name": "First Name",
+      "last-name": "Last Name",
+      "sex": "Gender",
+      "birth-date": "Birth Date",
+      "actions": "Actions",
+      "edit": "Edit student",
+      "delete": "Delete student"
+    },
+    "sex": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "paginator": {
+      "label": "Select student page"
+    }
+  }
+}

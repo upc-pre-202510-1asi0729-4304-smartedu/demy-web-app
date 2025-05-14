@@ -1,0 +1,28 @@
+.student-search-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.student-form-field {
+  min-width: 200px;
+}
+
+.search-button {
+  margin-bottom: 1.7rem;
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 600px) {
+  .student-form-field {
+    min-width: 20%;
+  }
+
+  .student-search-form {
+    align-items: stretch;
+  }
+
+  .search-button {
+    margin-top: 0.5rem;
+  }
+}
