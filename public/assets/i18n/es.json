@@ -1,8 +1,8 @@
 {
   "organization": {
-    "profile": {
-      "title": "Perfil",
-      "description": "Gestiona los miembros de tu organización"
+    "weekly": {
+      "title": "Horario semanal",
+      "description": "Gestiona tus horarios semanales"
     },
     "courses": {
       "title": "Cursos",

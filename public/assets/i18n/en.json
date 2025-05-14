@@ -1,8 +1,8 @@
 {
   "organization": {
-    "profile": {
-      "title": "Profile",
-      "description": "Manage your organization's profile"
+    "weekly": {
+      "title": "Weekly Schedule",
+      "description": "Manage your weekly schedule"
     },
     "courses": {
       "title": "Courses",
