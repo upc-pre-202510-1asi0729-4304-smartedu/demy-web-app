@@ -10,6 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 import{TranslatePipe}  from '@ngx-translate/core';
 import {UserService} from '../../../iam-user/services/user.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 /**
  * Component representing the application's login page.
@@ -24,7 +27,9 @@ import {UserService} from '../../../iam-user/services/user.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [
+    CommonModule,
     LanguageSwitcherComponent,
     RouterModule,
     ReactiveFormsModule,
@@ -33,7 +38,9 @@ import {UserService} from '../../../iam-user/services/user.service';
     MatButtonModule,
     MatCardModule,
     TranslateModule,
-    TranslatePipe
+    TranslatePipe,
+    MatCheckboxModule,
+    MatIconModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -41,7 +48,7 @@ import {UserService} from '../../../iam-user/services/user.service';
 
 export class LoginComponent {
   loginForm: FormGroup;
-
+  hidePassword = true;
   /**
    * Constructor for the LoginComponent. Creates the reactive form with validation
    * and initializes the FormBuilder and Router services.
@@ -53,7 +60,7 @@ export class LoginComponent {
   constructor(private fb: FormBuilder, private router: Router,private userService: UserService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       remember: [false]
     });
   }
@@ -66,37 +73,46 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
+      const { email, password, remember } = this.loginForm.value;
 
       this.userService.getUserByEmail(email).subscribe({
         next: (users) => {
           if (users.length === 1 && users[0].passwordHash === password) {
             const user = users[0];
-            console.log('Login exitoso');
 
-            if (user.role === 'ADMIN') {
-              this.router.navigate(['/organization']);
-            } else if (user.role === 'TEACHER') {
-              this.router.navigate(['/organization/teachers']); //AGREGAR LA RUTA DE PROFESORES
-            } else {
-              console.warn('Unrecognized role:', user.role);
-              alert('You do not have access with this role.');
+            if (remember) {
+              localStorage.setItem('userData', JSON.stringify({
+                email: user.email,
+                role: user.role
+              }));
+            }
+
+            switch(user.role) {
+              case 'ADMIN':
+                this.router.navigate(['/organization']);
+                break;
+              case 'TEACHER':
+                this.router.navigate(['/organization/teachers']);
+                break;
+              default:
+                console.error('Unrecognized role:', user.role);
+                alert('You do not have permission to access');
             }
           } else {
-            console.error('Incorrect credentials');
             alert('Incorrect credentials');
           }
         },
         error: (error) => {
-          console.error('An error occurred while logging in.', error);
-          alert('An error occurred while logging in.');
+          console.error('Login error:', error);
+          alert('Login failed');
         }
       });
-
     } else {
       this.loginForm.markAllAsTouched();
     }
   }
-
+  get f() {
+    return this.loginForm?.controls || {};
+  }
 
 }

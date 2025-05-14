@@ -29,7 +29,12 @@
     "password": "Password",
     "remember-me": "Remember me",
     "sign-in": "Sign In",
-    "forgot-password": "Forgot my password?"
+    "forgot-password": "Forgot my password?",
+    "errors": {
+      "required": "This field is required",
+      "email": "Please enter a valid email",
+      "minlength": "Minimum 8 characters"
+    }
   },
   "sign-up": {
     "login": "Log In",
@@ -41,7 +46,14 @@
     "email": "Email",
     "password": "Password",
     "terms-me": "Accept the terms and conditions",
-    "register": "Register"
+    "register": "Register",
+    "errors": {
+      "required": "This field is required",
+      "invalid-email": "Please enter a valid email",
+      "minlength": "Minimum {requiredLength} characters",
+      "maxlength": "Maximum {requiredLength} characters",
+      "accept-terms": "You must accept the terms"
+    }
   },
   "view-teachers": {
     "title": "Teachers Management",
@@ -54,6 +66,10 @@
     "button": {
       "new-teacher": "New Teacher"
     }
+  },
+  "common": {
+    "edit": "Edit",
+    "delete": "Delete"
   },
   "teacher-modal": {
     "add": "Add Teacher",
