@@ -5,7 +5,7 @@ import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select'; // Para el select de sexo
 import { BaseFormComponent } from '../../../shared/components/base-form/base-form.component';
-import { AcademicPeriodRegistrationResource } from '../../services/academic-period.response';
+import {AcademicPeriod} from '../../model/academic-period.entity';
 @Component({
   selector: 'app-academic-period-create-and-edit',
   imports: [
@@ -20,28 +20,19 @@ import { AcademicPeriodRegistrationResource } from '../../services/academic-peri
   styleUrl: './academic-period-create-and-edit.component.css'
 })
 export class AcademicPeriodCreateFormComponent extends BaseFormComponent{
-  @Input() academicPeriodRegistration!: AcademicPeriodRegistrationResource;
+  @Input() academicPeriod!: AcademicPeriod;
   @Input() editMode: boolean = false;
-  @Output() protected academicPeriodAddRequested = new EventEmitter<AcademicPeriodRegistrationResource>();
-  @Output() protected academicPeriodUpdateRequested = new EventEmitter<AcademicPeriodRegistrationResource>();
+  @Output() protected academicPeriodAddRequested = new EventEmitter<AcademicPeriod>();
+  @Output() protected academicPeriodUpdateRequested = new EventEmitter<AcademicPeriod>();
   @Output() protected cancelRequested = new EventEmitter<void>();
   @ViewChild('academicPeriodForm', {static: false}) academicPeriodForm!: NgForm;
   constructor() {
     super();
-    this.initializeForm();
+    this.academicPeriod = new AcademicPeriod({});
   }
 
-  private initializeForm() {
-    this.academicPeriodRegistration = {
-      name: '',
-      academy_id: '',
-      start_date: '',
-      end_date: '',
-    };
-  }
-
-  protected resetForm() {
-    this.initializeForm();
+  protected resetEditState() {
+    this.academicPeriod = new AcademicPeriod({});
     this.editMode = false
     this.academicPeriodForm.reset();
   }
@@ -51,27 +42,28 @@ export class AcademicPeriodCreateFormComponent extends BaseFormComponent{
 
   protected onSubmit() {
     if (this.isValid()) {
-      if(this.academicPeriodRegistration.start_date && this.academicPeriodRegistration.end_date){
+      let emitter = this.isEditMode() ? this.academicPeriodUpdateRequested : this.academicPeriodAddRequested;
+
+      if(this.academicPeriod.startDate && this.academicPeriod.endDate){
         // Asegúrate de que la fecha esté en formato ISO
-        const startDateObj = new Date(this.academicPeriodRegistration.start_date);
-        const endDateObj = new Date(this.academicPeriodRegistration.end_date);
+        const startDateObj = new Date(this.academicPeriod.startDate);
+        const endDateObj = new Date(this.academicPeriod.endDate);
         if (!isNaN(startDateObj.getTime()) && !isNaN(endDateObj.getTime())) {
-          this.academicPeriodRegistration.start_date = startDateObj.toISOString().split('T')[0];
-          this.academicPeriodRegistration.end_date = endDateObj.toISOString().split('T')[0];
+          this.academicPeriod.startDate = startDateObj;
+          this.academicPeriod.endDate = endDateObj;
         }
       }
-      this.academicPeriodAddRequested.emit({...this.academicPeriodRegistration});
-
-      this.resetForm();
+      emitter.emit(this.academicPeriod);
+      this.resetEditState()
     }
-    else{
+    else {
       console.error('Formulario inválido. Por favor, verifica los campos.');
     }
   }
 
   protected onCancel() {
     this.cancelRequested.emit();
-    this.resetForm();
+    this.resetEditState();
   }
 }
 

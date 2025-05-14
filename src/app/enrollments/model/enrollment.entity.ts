@@ -6,14 +6,15 @@ export class Enrollment {
   enrollmentStatus: EnrollmentStatus;
   paymentStatus: PaymentStatus;
   createdAt: Date;
-  constructor(id = '', studentId = '', periodId = '', enrollmentStatus = EnrollmentStatus.ACTIVE, amount = 0, paymentStatus = PaymentStatus.PENDING, createdAt = new Date()) {
-    this.id = id;
-    this.studentId = studentId;
-    this.periodId = periodId;
-    this.enrollmentStatus = enrollmentStatus;
-    this.amount = amount;
-    this.paymentStatus = paymentStatus;
-    this.createdAt = createdAt
+
+  constructor(enrollment: {id?: string, studentId?:string, periodId?: string, amount?: number, enrollmentStatus?: EnrollmentStatus, paymentStatus?: PaymentStatus, createdAt?: Date}) {
+    this.id = enrollment.id || '';
+    this.studentId = enrollment.studentId || '';
+    this.periodId = enrollment.periodId || '';
+    this.amount = enrollment.amount || 0;
+    this.enrollmentStatus = enrollment.enrollmentStatus || EnrollmentStatus.DELETED;
+    this.paymentStatus = enrollment.paymentStatus || PaymentStatus.PENDING;
+    this.createdAt = enrollment.createdAt || new Date();
   }
 }
 

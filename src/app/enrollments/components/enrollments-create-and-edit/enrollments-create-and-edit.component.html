@@ -5,10 +5,12 @@
   <div class="form-row">
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Estudiante</mat-label>
-      <mat-select required [(ngModel)]="enrollmentRegistration.student_id" name="student_id" #studentId="ngModel">
-        <mat-option *ngFor="let student of studentOptions" [value]="student.id">
-          {{ student.first_name }} {{ student.last_name }}
+      <mat-select required [(ngModel)]="enrollment.studentId" name="student_id" #studentId="ngModel">
+        @for(student of studentOptions; track student.id) {
+        <mat-option [value]="student.id">
+          {{ student.firstName }} {{ student.lastName }}
         </mat-option>
+        }
       </mat-select>
     </mat-form-field>
   </div>
@@ -17,7 +19,7 @@
   <div class="form-row">
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Periodo Académico</mat-label>
-      <mat-select required [(ngModel)]="enrollmentRegistration.period_id" name="period_id" #periodId="ngModel">
+      <mat-select [(ngModel)]="enrollment.periodId" name="periodId" required>
         <mat-option *ngFor="let period of periodOptions" [value]="period.id">
           {{ period.name }}
         </mat-option>
@@ -29,7 +31,7 @@
   <div class="form-row">
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Fecha de Matrícula</mat-label>
-      <input matInput required [(ngModel)]="enrollmentRegistration.enrollment_date" name="enrollment_date" #enrollmentDate="ngModel" type="date">
+      <input matInput required [(ngModel)]="enrollment.createdAt" name="created_at" #createdAt="ngModel" type="date">
     </mat-form-field>
   </div>
 
@@ -37,7 +39,7 @@
   <div class="form-row">
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Monto</mat-label>
-      <input matInput required [(ngModel)]="enrollmentRegistration.amount" name="amount" #amount="ngModel" type="number">
+      <input matInput required [(ngModel)]="enrollment.amount" name="amount" #amount="ngModel" type="number">
     </mat-form-field>
   </div>
 
@@ -45,10 +47,12 @@
   <div class="form-row">
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Estado de Matricula</mat-label>
-      <mat-select required [(ngModel)]="enrollmentRegistration.status" name="status" #status="ngModel">
-        <mat-option *ngFor="let option of enrollmentStatusOptions" [value]="option.value">
-          {{ option.viewValue }}
+      <mat-select required [(ngModel)]="enrollment.enrollmentStatus" name="status" #enrollmentStatus="ngModel">
+        @for(status of enrollmentStatusOptions; track status.value){
+        <mat-option [value]="status.value">
+          {{ status.viewValue }}
         </mat-option>
+        }
       </mat-select>
     </mat-form-field>
   </div>
@@ -57,10 +61,12 @@
   <div class="form-row">
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Estado de Pago</mat-label>
-      <mat-select required [(ngModel)]="enrollmentRegistration.payment_status" name="payment_status" #paymentStatus="ngModel">
-        <mat-option *ngFor="let option of paymentStatusOptions" [value]="option.value">
-          {{ option.viewValue }}
+      <mat-select required [(ngModel)]="enrollment.paymentStatus" name="payment_status" #paymentStatus="ngModel">
+        @for(payment of paymentStatusOptions; track payment.value) {
+        <mat-option [value]="payment.value">
+          {{ payment.viewValue }}
         </mat-option>
+        }
       </mat-select>
     </mat-form-field>
   </div>

@@ -20,7 +20,6 @@ import { NgClass } from "@angular/common";
 import {MatIconButton} from '@angular/material/button';
 import { StudentCreateFormComponent } from "../../components/student-create-and-edit/student-create-and-edit.component";
 import { StudentService } from '../../services/student.service';
-import {StudentAssembler} from '../../services/student.assembler';
 import {Student} from '../../model/student.entity';
 
 /**
@@ -59,10 +58,9 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
   //#region Attributes
 
   /** Current student enrollment being created or edited */
-  protected student!: Student;
-
+  protected studentData !: Student
   /** Defines which columns should be displayed in the table and their order */
-  protected columnsToDisplay: string[] = ['dni', 'first_name', 'last_name', 'sex', 'birth_date', 'actions'];
+  protected readonly columnsToDisplay: string[] = ['dni', 'first_name', 'last_name', 'sex', 'birth_date', 'actions'];
 
   /** Reference to the Material paginator for handling page-based data display */
   @ViewChild(MatPaginator, { static: false })
@@ -80,7 +78,6 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
 
   /** Service for handling student-related API operations */
   private studentService: StudentService = inject(StudentService);
-  private studentAssembler: StudentAssembler = inject(StudentAssembler);
 
   //#endregion
 
@@ -91,11 +88,10 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    */
   constructor() {
     this.editMode = false;
-    this.student = new Student();
+    this.studentData = new Student({});
     this.dataSource = new MatTableDataSource();
+    console.log(this.studentData);
   }
-
-
   /**
    * Lifecycle hook that runs after view initialization.
    * Sets up the Material table's paginator and sort functionality.
@@ -119,15 +115,15 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    */
   protected onEditItem(item: any) {
     this.editMode = true;
-    this.student = this.studentAssembler.toEntityFromResource(item)
+    this.studentData = item;
   }
 
   /**
    * Handles the delete action for a student
    * @param item - The student to be deleted
    */
-  protected onDeleteItem(item: any) {
-    this.deleteStudent(item.dni);
+  protected onDeleteItem(item: Student) {
+    this.deleteStudent(item.id);
   }
 
   /**
@@ -144,7 +140,7 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * @param student - The new student to be added
    */
   protected onStudentAddRequested(student: Student) {
-    this.student = student;
+    this.studentData = student;
     this.createStudent();
     this.resetEditStudentState();
   }
@@ -154,7 +150,7 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * @param student - The student with updated information
    */
   protected onStudentUpdateRequested(student: Student) {
-    this.student = student;
+    this.studentData = student;
     this.updateStudent();
     this.resetEditStudentState();
   }
@@ -164,7 +160,7 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * Clears the current student data and exits edit mode.
    */
   private resetEditStudentState(): void {
-    this.student = new Student()
+    this.studentData = new Student({})
     this.editMode = false;
   }
 
@@ -173,39 +169,19 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * Uses StudentService to fetch the data via HTTP.
    */
   private getAllStudents() {
-    this.studentService.getAllStudents().subscribe(students => {
-      // Usar mappings para UI en la tabla si es necesario
-      this.dataSource.data = students.map(student => ({
-        dni: student.dni,
-        first_name: student.firstName,
-        last_name: student.lastName,
-        sex: student.sex,
-        birth_date: student.birthDate.toISOString().split('T')[0],
-        _original: student // Mantener referencia a la entidad original
-      }));
-
-
-    });
-  }
+    this.studentService.getAll().subscribe((response: Array<Student>)=> {
+      this.dataSource.data = response;
+      });
+    }
 
   /**
    * Creates a new student using the StudentService.
    * Updates the table's data source with the newly created student.
    */
   private createStudent() {
-    this.studentService.createStudent(this.student).subscribe(createdStudent => {
-      // Actualizar tabla con el estudiante creado
-      const newTableItem = {
-        dni: createdStudent.dni,
-        first_name: createdStudent.firstName,
-        last_name: createdStudent.lastName,
-        sex: createdStudent.sex,
-        birth_date: createdStudent.birthDate.toISOString().split('T')[0],
-        // Otros campos
-        _original: createdStudent
-      };
-
-      this.dataSource.data = [...this.dataSource.data, newTableItem];
+      this.studentService.create(this.studentData).subscribe((response: Student) => {
+        this.dataSource.data.push(response);
+        this.dataSource.data = this.dataSource.data;
     });
   }
 
@@ -214,24 +190,11 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * Updates the corresponding student in the table's data source.
    */
   private updateStudent() {
-    this.studentService.updateStudent(this.student).subscribe(updatedStudent => {
-      // Actualizar la tabla
-      const index = this.dataSource.data.findIndex(item => item.dni === updatedStudent.dni);
-
-      if (index !== -1) {
-        const updatedData = [...this.dataSource.data];
-        updatedData[index] = {
-          dni: updatedStudent.dni,
-          first_name: updatedStudent.firstName,
-          last_name: updatedStudent.lastName,
-          sex: updatedStudent.sex,
-          birth_date: updatedStudent.birthDate.toISOString().split('T')[0],
-          // Otros campos
-          _original: updatedStudent
-        };
-
-        this.dataSource.data = updatedData;
-      }
+    let studentToUpdate = this.studentData;
+    this.studentService.update(studentToUpdate.id, studentToUpdate).subscribe((response: Student) => {
+      let index = this.dataSource.data.findIndex((course: Student) => course.id === response.id);
+      this.dataSource.data[index] = response;
+      this.dataSource.data = this.dataSource.data;
     });
   }
 
@@ -240,9 +203,9 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * Removes the student from the table's data source.
    * @param dni - The DNI (ID) of the student to delete
    */
-  private deleteStudent(dni: string) {
-    this.studentService.deleteStudent(dni).subscribe(() => {
-      this.dataSource.data = this.dataSource.data.filter(item => item.dni !== dni);
+  private deleteStudent(id: string) {
+    this.studentService.delete(id).subscribe(() => {
+      this.dataSource.data = this.dataSource.data.filter(item => item.id !== id);
     });
   }
   //#endregion

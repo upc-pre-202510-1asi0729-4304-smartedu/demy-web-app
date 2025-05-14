@@ -5,14 +5,14 @@ import {MatInput} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import {BaseFormComponent} from '../../../shared/components/base-form/base-form.component';
-import {Student, Sex} from '../../model/student.entity';
+import {Student} from '../../model/student.entity';
+
 @Component({
   selector: 'app-student-create-form',
   standalone: true,
   imports: [
     FormsModule,
     MatFormField,
-    FormsModule,
     MatButton,
     MatInput,
     MatSelectModule
@@ -35,24 +35,11 @@ export class StudentCreateFormComponent extends BaseFormComponent {
   ];
   constructor() {
     super();
-    this.initializeForm();
-  }
-
-  private initializeForm() {
-    this.student = new Student(
-      '',
-      '',
-      '',
-      '',
-      Sex.MALE,
-      new Date(),
-      '',
-      ''
-    );
+    this.student = new Student({});
   }
 
   protected resetEditState() {
-    this.initializeForm();
+    this.student = new Student({});
     this.editMode = false;
     this.studentForm.reset()
   }
@@ -62,14 +49,8 @@ export class StudentCreateFormComponent extends BaseFormComponent {
 
   protected onSubmit(): void {
     if (this.isValid()) {
-      // Emite el evento con la entidad del estudiante
-      if (this.editMode) {
-        this.studentUpdateRequested.emit({...this.student});
-      } else {
-        this.studentAddRequested.emit({...this.student});
-      }
-
-      // Reinicia el formulario después de enviar
+      let emitter = this.isEditMode() ? this.studentUpdateRequested : this.studentAddRequested
+      emitter.emit(this.student);
       this.resetEditState();
     } else {
       console.error('Formulario inválido. Por favor, verifica los campos.');

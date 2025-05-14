@@ -23,7 +23,8 @@ import {
   EnrollmentsCreateFormComponent
 } from '../../components/enrollments-create-and-edit/enrollments-create-and-edit.component';
 import { EnrollmentService } from '../../services/enrollment.service';
-import {EnrollmentRegistrationResource} from '../../services/enrollment.response';
+import {Enrollment} from '../../model/enrollment.entity';
+
 /**
  * Component responsible for managing enrollments through a table interface.
  * Provides functionality for viewing, creating, updating, and deleting enrollments.
@@ -60,10 +61,10 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
   //#region Attributes
 
   /** Current enrollment being created or edited */
-  protected enrollmentRegistration: EnrollmentRegistrationResource;
+  protected enrollmentData !: Enrollment;
 
   /** Defines which columns should be displayed in the table and their order */
-  protected columnsToDisplay: string[] = ['student_id', 'period_id', 'enrollment_date', 'amount', 'status', 'payment_status', 'actions'];
+  protected columnsToDisplay: string[] = ['enrollment_id','student_id', 'period_id', 'created_at', 'amount', 'status', 'payment_status', 'actions'];
 
   /** Reference to the Material paginator for handling page-based data display */
   @ViewChild(MatPaginator, { static: false })
@@ -77,7 +78,7 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
   protected editMode: boolean = false;
 
   /** Material table data source for managing and displaying enrollment data */
-  protected dataSource: MatTableDataSource<EnrollmentRegistrationResource>;
+  protected dataSource: MatTableDataSource<any>;
 
   /** Service for handling enrollment-related API operations */
   private enrollmentService: EnrollmentService = inject(EnrollmentService);
@@ -90,17 +91,10 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    */
   constructor() {
     this.editMode = false;
-    this.enrollmentRegistration = {
+    this.enrollmentData = new Enrollment({});
+    this.dataSource = new MatTableDataSource();
+    console.log(this.enrollmentData);
 
-      student_id: '',
-      period_id: '',
-      enrollment_date: '',
-      amount: 0,
-      status: 'ACTIVE',
-      payment_status: 'UNPAID',
-      date_created: ''
-    };
-    this.dataSource = new MatTableDataSource<EnrollmentRegistrationResource>([]);
   }
 
   /**
@@ -124,17 +118,17 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    * Handles the edit action for an enrollment
    * @param item - The enrollment to be edited
    */
-  protected onEditItem(item: EnrollmentRegistrationResource) {
+  protected onEditItem(item: any) {
     this.editMode = true;
-    this.enrollmentRegistration = {...item};
+    this.enrollmentData = item;
   }
 
   /**
    * Handles the delete action for an enrollment
    * @param item - The enrollment to be deleted
    */
-  protected onDeleteItem(item: EnrollmentRegistrationResource) {
-    this.deleteEnrollment(item.student_id, item.period_id);
+  protected onDeleteItem(item: Enrollment) {
+    this.deleteEnrollment(item.id);
   }
 
   /**
@@ -150,8 +144,8 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    * Handles the addition of a new enrollment
    * @param item - The new enrollment to be added
    */
-  protected onEnrollmentAddRequested(item: EnrollmentRegistrationResource) {
-    this.enrollmentRegistration = item;
+  protected onEnrollmentAddRequested(item: Enrollment) {
+    this.enrollmentData = item;
     this.createEnrollment();
     this.resetEditEnrollmentState();
   }
@@ -160,8 +154,8 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    * Handles the update of an existing enrollment
    * @param item - The enrollment with updated information
    */
-  protected onEnrollmentUpdateRequested(item: EnrollmentRegistrationResource) {
-    this.enrollmentRegistration = item;
+  protected onEnrollmentUpdateRequested(item: Enrollment) {
+    this.enrollmentData = item;
     this.updateEnrollment();
     this.resetEditEnrollmentState();
   }
@@ -171,15 +165,7 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    * Clears the current enrollment data and exits edit mode.
    */
   private resetEditEnrollmentState(): void {
-    this.enrollmentRegistration = {
-      student_id: '',
-      period_id: '',
-      enrollment_date: '',
-      amount: 0,
-      status: 'ACTIVE',
-      payment_status: 'UNPAID',
-      date_created: ''
-    };
+    this.enrollmentData = new Enrollment({})
     this.editMode = false;
   }
 
@@ -188,7 +174,7 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    * Uses EnrollmentService to fetch the data via HTTP.
    */
   private getAllEnrollments() {
-    this.enrollmentService.getAll().subscribe((response: Array<EnrollmentRegistrationResource>) => {
+    this.enrollmentService.getAll().subscribe((response: Array<Enrollment>) => {
       this.dataSource.data = response;
     });
   }
@@ -198,8 +184,9 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    * Updates the table's data source with the newly created enrollment.
    */
   private createEnrollment() {
-    this.enrollmentService.create(this.enrollmentRegistration).subscribe((response: EnrollmentRegistrationResource) => {
-      this.dataSource.data = [...this.dataSource.data, response];
+    this.enrollmentService.create(this.enrollmentData).subscribe((response: Enrollment) => {
+      this.dataSource.data.push(response);
+      this.dataSource.data = this.dataSource.data;
     });
   }
 
@@ -208,37 +195,21 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    * Updates the corresponding enrollment in the table's data source.
    */
   private updateEnrollment() {
-    let enrollmentToUpdate = this.enrollmentRegistration;
-    this.enrollmentService.update(enrollmentToUpdate.student_id, enrollmentToUpdate).subscribe(
-      (response: EnrollmentRegistrationResource) => {
-        const index = this.dataSource.data.findIndex(
-          (enrollment: EnrollmentRegistrationResource) =>
-            enrollment.student_id === response.student_id &&
-            enrollment.period_id === response.period_id
-        );
-
-        if (index !== -1) {
-          const updatedData = [...this.dataSource.data];
-          updatedData[index] = response;
-          this.dataSource.data = updatedData;
-        }
-      }
-    );
+    let enrollmentToUpdate = this.enrollmentData;
+    this.enrollmentService.update(enrollmentToUpdate.id, enrollmentToUpdate).subscribe((response: Enrollment) => {
+      const index = this.dataSource.data.findIndex((enrollment: Enrollment) => enrollment.id === response.id);
+      this.dataSource.data[index] = response;
+      this.dataSource.data = this.dataSource.data;
+    });
   }
-
   /**
    * Deletes an enrollment using the EnrollmentService.
    * Removes the enrollment from the table's data source.
-   * @param studentId - The student ID part of the composite key
-   * @param periodId - The period ID part of the composite key
+   * @param id - The ID part of the enrollment to be deleted
    */
-  private deleteEnrollment(studentId: string, periodId: string) {
-    this.enrollmentService.delete(studentId).subscribe(() => {
-      this.dataSource.data = this.dataSource.data.filter(
-        (enrollment: EnrollmentRegistrationResource) =>
-          enrollment.student_id !== studentId ||
-          enrollment.period_id !== periodId
-      );
+  private deleteEnrollment(id: string) {
+    this.enrollmentService.delete(id).subscribe(() => {
+      this.dataSource.data = this.dataSource.data.filter(item => item.id !== id);
     });
   }
 

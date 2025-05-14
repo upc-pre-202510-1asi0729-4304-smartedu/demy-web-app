@@ -14,7 +14,7 @@ export abstract class BaseService<T> {
   /** Base URL for the server API */
   protected serverBaseUrl: string =  `${environment.apiBaseUrl}`;
   /** Endpoint path for the specific resource */
-  public resourceEndpoint: string = '/resources';
+  protected resourceEndpoint: string = '/resources';
   /** HTTP client for making API requests */
   protected http: HttpClient = inject(HttpClient);
 
@@ -59,7 +59,6 @@ export abstract class BaseService<T> {
     return this.http.delete(`${this.resourcePath()}/${id}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  //SACAR EL 2 DEL RETRY NO HARDCODEAR!!!!
 
   /**
    * Updates an existing resource

@@ -22,7 +22,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {
   AcademicPeriodCreateFormComponent
 } from '../../components/academic-period-create-and-edit/academic-period-create-and-edit.component';
-import { AcademicPeriodRegistrationResource } from '../../services/academic-period.response';
+import {AcademicPeriod} from '../../model/academic-period.entity';
 import { AcademicPeriodService } from '../../services/academic-period.service';
 
 /**
@@ -63,7 +63,7 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
   //#region Attributes
 
   /** Current academic period being created or edited */
-  protected academicPeriodData!: AcademicPeriodRegistrationResource;
+  protected academicPeriodData!: AcademicPeriod;
 
   /** Defines which columns should be displayed in the table and their order */
   protected columnsToDisplay: string[] = ['name', 'academy_id', 'start_date', 'end_date', 'actions'];
@@ -93,13 +93,9 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
    */
   constructor() {
     this.editMode = false;
-    this.academicPeriodData = {
-      name: '',
-      academy_id: '',
-      start_date: '',
-      end_date: ''
-    };
+    this.academicPeriodData = new AcademicPeriod({})
     this.dataSource = new MatTableDataSource();
+    console.log(this.academicPeriodData);
   }
 
   /**
@@ -123,17 +119,17 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
    * Handles the edit action for an academic period
    * @param item - The academic period to be edited
    */
-  protected onEditItem(item: AcademicPeriodRegistrationResource) {
+  protected onEditItem(item: AcademicPeriod) {
     this.editMode = true;
-    this.academicPeriodData = {...item};
+    this.academicPeriodData = item
   }
 
   /**
    * Handles the delete action for an academic period
    * @param item - The academic period to be deleted
    */
-  protected onDeleteItem(item: AcademicPeriodRegistrationResource) {
-    this.deleteAcademicPeriod(item.name);
+  protected onDeleteItem(item: AcademicPeriod) {
+    this.deleteAcademicPeriod(item.id);
   }
 
   /**
@@ -149,7 +145,7 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
    * Handles the addition of a new academic period
    * @param item - The new academic period to be added
    */
-  protected onAcademicPeriodAddRequested(item: AcademicPeriodRegistrationResource) {
+  protected onAcademicPeriodAddRequested(item: AcademicPeriod) {
     this.academicPeriodData = item;
     this.createAcademicPeriod();
     this.resetEditAcademicPeriodState();
@@ -159,7 +155,7 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
    * Handles the update of an existing academic period
    * @param item - The academic period with updated information
    */
-  protected onAcademicPeriodUpdateRequested(item: AcademicPeriodRegistrationResource) {
+  protected onAcademicPeriodUpdateRequested(item: AcademicPeriod) {
     this.academicPeriodData = item;
     this.updateAcademicPeriod();
     this.resetEditAcademicPeriodState();
@@ -170,12 +166,7 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
    * Clears the current academic period data and exits edit mode.
    */
   private resetEditAcademicPeriodState(): void {
-    this.academicPeriodData = {
-      name: '',
-      academy_id: '',
-      start_date: '',
-      end_date: ''
-    };
+    this.academicPeriodData = new AcademicPeriod({});
     this.editMode = false;
   }
 
@@ -184,7 +175,7 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
    * Uses AcademicPeriodService to fetch the data via HTTP.
    */
   private getAllAcademicPeriods() {
-    this.academicPeriodService.getAll().subscribe((response: Array<AcademicPeriodRegistrationResource>) => {
+    this.academicPeriodService.getAll().subscribe((response: Array<AcademicPeriod>) => {
       this.dataSource.data = response;
     });
   }
@@ -194,9 +185,9 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
    * Updates the table's data source with the newly created academic period.
    */
   private createAcademicPeriod() {
-    this.academicPeriodService.create(this.academicPeriodData).subscribe((response: AcademicPeriodRegistrationResource) => {
+    this.academicPeriodService.create(this.academicPeriodData).subscribe((response: AcademicPeriod) => {
       this.dataSource.data.push(response);
-      this.dataSource.data = [...this.dataSource.data];
+      this.dataSource.data = this.dataSource.data;
     });
   }
 
@@ -206,21 +197,21 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
    */
   private updateAcademicPeriod() {
     let periodToUpdate = this.academicPeriodData;
-    this.academicPeriodService.update(periodToUpdate.name, periodToUpdate).subscribe((response: AcademicPeriodRegistrationResource) => {
-      let index = this.dataSource.data.findIndex((period: AcademicPeriodRegistrationResource) => period.name === response.name);
+    this.academicPeriodService.update(periodToUpdate.name, periodToUpdate).subscribe((response: AcademicPeriod) => {
+      let index = this.dataSource.data.findIndex((period:AcademicPeriod ) => period.id === response.id);
       this.dataSource.data[index] = response;
-      this.dataSource.data = [...this.dataSource.data];
+      this.dataSource.data = this.dataSource.data;
     });
   }
 
   /**
    * Deletes an academic period using the AcademicPeriodService.
    * Removes the academic period from the table's data source.
-   * @param name - The name (ID) of the academic period to delete
+   * @param id - The (ID) of the academic period to delete
    */
-  private deleteAcademicPeriod(name: string) {
-    this.academicPeriodService.delete(name).subscribe(() => {
-      this.dataSource.data = this.dataSource.data.filter((period: AcademicPeriodRegistrationResource) => period.name !== name);
+  private deleteAcademicPeriod(id: string) {
+    this.academicPeriodService.delete(id).subscribe(() => {
+      this.dataSource.data = this.dataSource.data.filter((period: AcademicPeriod) => period.id !== id);
     });
   }
 

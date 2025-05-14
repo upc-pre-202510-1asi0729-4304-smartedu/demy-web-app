@@ -6,7 +6,7 @@
   <!-- Formulario para creación o edición de estudiantes -->
   <div class="student-form-container">
     <app-student-create-form
-      [student]="student"
+      [student]="studentData"
       [editMode]="editMode"
       (cancelRequested)="onCancelRequested()"
       (studentAddRequested)="onStudentAddRequested($event)"
@@ -28,13 +28,13 @@
       <!-- First Name Column -->
       <ng-container matColumnDef="first_name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-        <td mat-cell *matCellDef="let element">{{element.first_name}}</td>
+        <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
       </ng-container>
 
       <!-- Last Name Column -->
       <ng-container matColumnDef="last_name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido</th>
-        <td mat-cell *matCellDef="let element">{{element.last_name}}</td>
+        <td mat-cell *matCellDef="let element">{{element.lastName}}</td>
       </ng-container>
 
       <!-- Sex Column -->
@@ -46,7 +46,7 @@
       <!-- Birth Date Column -->
       <ng-container matColumnDef="birth_date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Nacimiento</th>
-        <td mat-cell *matCellDef="let element">{{element.birth_date}}</td>
+        <td mat-cell *matCellDef="let element">{{element.birthDate}}</td>
       </ng-container>
 
       <!-- Actions Column -->
@@ -64,7 +64,7 @@
 
       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
       <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"
-          [ngClass]="{'highlight': editMode && student.dni === row.dni}"></tr>
+          [ngClass]="{'highlight': editMode && studentData.dni === row.dni}"></tr>
     </table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar página de estudiantes"></mat-paginator>
