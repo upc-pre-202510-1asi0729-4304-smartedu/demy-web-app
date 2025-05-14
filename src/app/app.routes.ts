@@ -15,7 +15,6 @@ import { TeacherOverviewComponent } from './iam-user/pages/teacher-overview/teac
 import { ExpensesPageComponent} from './billing/pages/expenses-page/expenses-page.component';
 import {AttendancePageComponent} from './attendance/pages/attendance-page/attendance-page.component';
 import {StudentManagementComponent} from './enrollments/pages/student-management/student-management.component';
-import {EnrollmentLayoutComponent} from './enrollments/components/enrollment-layout/enrollment-layout.component';
 import {
   AcademicPeriodManagementComponent
 } from './enrollments/pages/academic-period-management/academic-period-management.component';
@@ -30,21 +29,15 @@ export const routes: Routes = [
       { path: 'organization/teachers', component: TeacherOverviewComponent },
       { path: 'organization/courses', component: CoursesOverviewComponent},
       { path: 'organization/classrooms', component: ClassroomOverviewComponent},
+      { path: 'organization/academic-periods', component: AcademicPeriodManagementComponent},
       { path: 'organization/weekly-schedules', component: WeeklySchedulesOverviewComponent},
       { path: 'payments', component: PaymentsComponent },
       { path: 'attendance', component:AttendancePageComponent},
       { path: 'finance', component: ExpensesPageComponent },
       { path: 'search-schedules', component: SearchSchedulesComponent },
       { path: 'teacher-schedule', component: TeacherScheduleComponent },
-      {
-        path: 'enrollment',
-        component: EnrollmentLayoutComponent,
-        children: [
-          { path: '', component: EnrollmentsManagementComponent },
-          { path: 'students', component: StudentManagementComponent },
-          { path: 'academic-periods', component: AcademicPeriodManagementComponent },
-        ]
-      },
+      { path: 'students',component: StudentManagementComponent},
+      {path: 'enrollment', component: EnrollmentsManagementComponent},
       { path: '', redirectTo: 'organization', pathMatch: 'full' }
     ]
   },

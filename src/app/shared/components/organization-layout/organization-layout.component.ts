@@ -39,7 +39,7 @@ export class OrganizationLayoutComponent {
       title: 'organization.periods.title',
       description: 'organization.periods.description',
       image: 'assets/img/organization-periods.jpg',
-      route: '/organization/periods'
+      route: '/organization/academic-periods'
     },
   ];
 }
