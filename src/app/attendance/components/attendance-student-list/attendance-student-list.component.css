@@ -6,3 +6,7 @@
 .mat-header-cell {
   font-weight: bold;
 }
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}

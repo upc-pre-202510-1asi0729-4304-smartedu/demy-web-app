@@ -9,7 +9,7 @@ import { ClassSession } from '../../model/class-session.entity';
 import { AttendanceStatus } from '../../model/attendance-status.enum';
 import { ClassSessionService } from '../../services/class-session.service';
 import{AttendanceRecord} from '../../model/attendance-record.entity';
-
+import { ViewChild } from '@angular/core';
 /**
  * Page component responsible for managing attendance registration.
  *
@@ -72,6 +72,7 @@ export class AttendancePageComponent implements OnInit {
       next: result => console.log('Clase guardada:', result),
       error: err => console.error('Error al guardar sesión:', err)
     });
+    this.studentListComponent.resetAttendance();
   }
   /**
    * Updates the session's attendance records when changes are received from the student list.
@@ -85,8 +86,22 @@ export class AttendancePageComponent implements OnInit {
     const updated = records.map(
       r => new AttendanceRecord(r.studentId, r.attended ? AttendanceStatus.PRESENT : AttendanceStatus.ABSENT)
     );
-
+    /**
+     * Resets all attendance values in the student list to unchecked (false).
+     *
+     * @remarks
+     * This method is called after attendance is successfully saved to visually reset the UI.
+     */
     this.classSession.setAttendance(updated);
   }
-
+  /**
+   * Reference to the StudentListComponent instance rendered in the template.
+   *
+   * Used to call public methods of the child component such as resetting attendance checkboxes.
+   *
+   * @remarks
+   * This reference is only available after the view has been fully initialized
+   */
+  @ViewChild(StudentListComponent)
+  studentListComponent!: StudentListComponent;
 }

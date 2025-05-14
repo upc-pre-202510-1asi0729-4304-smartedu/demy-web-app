@@ -12,6 +12,7 @@ import {
 import { AttendanceStudentService, AttendanceStudent } from '../../services/attendance-student.service';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {FormsModule} from '@angular/forms';
+import{TranslatePipe} from '@ngx-translate/core';
 
 /**
  * Displays a list of students in a table format and allows toggling attendance using checkboxes.
@@ -35,7 +36,8 @@ import {FormsModule} from '@angular/forms';
     MatHeaderCellDef,
     MatRowDef,
     MatHeaderRowDef,
-    MatPaginator
+    MatPaginator,
+    TranslatePipe
   ],
 
 })
@@ -91,4 +93,14 @@ export class StudentListComponent implements OnInit {
     }));
     this.attendanceChanged.emit(updated);
   }
+  /**
+   * Resets the attendance status for all students to false
+   * and refreshes the table data.
+   */
+  resetAttendance(): void {
+    this.students.data.forEach(s => s.attended = false);
+    this.students.data = [...this.students.data];
+
+  }
+
 }

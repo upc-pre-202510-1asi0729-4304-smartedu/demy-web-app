@@ -29,5 +29,6 @@ export class AttendanceSaveButtonComponent {
    */
   save(): void {
     this.saveClicked.emit(); // emite evento al padre
+    window.alert('¡Asistencia guardada con éxito!');
   }
 }
