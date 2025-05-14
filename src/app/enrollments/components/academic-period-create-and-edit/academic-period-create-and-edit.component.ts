@@ -6,6 +6,8 @@ import { MatButton } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select'; // Para el select de sexo
 import { BaseFormComponent } from '../../../shared/components/base-form/base-form.component';
 import {AcademicPeriod} from '../../model/academic-period.entity';
+import {TranslatePipe} from '@ngx-translate/core';
+
 @Component({
   selector: 'app-academic-period-create-and-edit',
   imports: [
@@ -13,7 +15,8 @@ import {AcademicPeriod} from '../../model/academic-period.entity';
     MatFormField,
     MatButton,
     MatInput,
-    MatSelectModule
+    MatSelectModule,
+    TranslatePipe
   ],
   templateUrl: './academic-period-create-and-edit.component.html',
   styleUrl: './academic-period-create-and-edit.component.css'

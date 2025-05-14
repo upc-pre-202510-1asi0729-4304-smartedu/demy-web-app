@@ -24,7 +24,7 @@ import {
 } from '../../components/academic-period-create-and-edit/academic-period-create-and-edit.component';
 import {AcademicPeriod} from '../../model/academic-period.entity';
 import { AcademicPeriodService } from '../../services/academic-period.service';
-
+import {TranslatePipe} from "@ngx-translate/core";
 /**
  * Component responsible for managing academic periods through a table interface.
  * Provides functionality for viewing, creating, updating, and deleting academic periods.
@@ -53,7 +53,8 @@ import { AcademicPeriodService } from '../../services/academic-period.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    DatePipe
+    DatePipe,
+    TranslatePipe
   ],
   templateUrl: 'academic-period-management.component.html',
   styleUrl: './academic-period-management.component.css'

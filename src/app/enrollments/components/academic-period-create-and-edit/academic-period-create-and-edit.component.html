@@ -1,23 +1,23 @@
 <form #academicPeriodForm="ngForm" (ngSubmit)="onSubmit()" class="academic-period-form">
-  <h4>{{ editMode ? 'Edit Academic Period': 'New Academic Period' }}</h4>
+  <h4>{{ (editMode ? 'academic-period.regist.title-edit' : 'academic-period.regist.save') | translate }}</h4>
 
   <div class="form-row">
     <mat-form-field appearance="fill" class="form-field">
-      <mat-label>Nombre de Periodo</mat-label>
+      <mat-label>{{'academic-period.regist.period' | translate}}</mat-label>
       <input matInput required [(ngModel)]="academicPeriod.name" name="name" #name="ngModel">
     </mat-form-field>
   </div>
 
   <div class="form-row">
     <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Fecha de Inicio</mat-label>
+      <mat-label>{{'academic-period.regist.start-date' | translate}}</mat-label>
       <input matInput required [(ngModel)]="academicPeriod.startDate" name="start_date" #startDate="ngModel" type="date">
     </mat-form-field>
   </div>
 
   <div class="form-row">
     <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Fecha de Fin</mat-label>
+      <mat-label>{{'academic-period.regist.end-date' | translate}}</mat-label>
       <input matInput required [(ngModel)]="academicPeriod.endDate" name="end_date" #endDate="ngModel" type="date">
     </mat-form-field>
   </div>
@@ -26,8 +26,8 @@
     <button mat-raised-button color="primary" type="submit"
             [disabled]="!academicPeriodForm.valid"
             aria-label="Save academic period">
-      {{ isEditMode() ? 'Actualizar Periodo Academico' : 'Registrar Periodo Academico'}}
+      {{ (isEditMode() ? 'academic-period.regist.update' : 'academic-period.regist.save') | translate }}
     </button>
-    <button mat-button type="button" (click)="onCancel()">Cancelar</button>
+    <button mat-button type="button" (click)="onCancel()"> {{ 'academic-period.regist.cancel' | translate }} </button>
   </div>
 </form>
