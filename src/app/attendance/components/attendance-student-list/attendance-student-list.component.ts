@@ -42,6 +42,7 @@ import{TranslatePipe} from '@ngx-translate/core';
 
 })
 export class StudentListComponent implements OnInit {
+
   /**
    * Event emitted when attendance data is modified.
    * Emits an array of objects containing student ID and attendance status.
@@ -103,4 +104,4 @@ export class StudentListComponent implements OnInit {
 
   }
 
-}
+  }
