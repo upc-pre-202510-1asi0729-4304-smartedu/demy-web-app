@@ -16,14 +16,14 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort, MatSortHeader } from "@angular/material/sort";
 import { MatIcon } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
-import { NgClass } from "@angular/common";
+import {DatePipe, NgClass} from "@angular/common";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {
-  EnrollmentsCreateFormComponent
-} from '../../components/enrollments-create-and-edit/enrollments-create-and-edit.component';
+import { EnrollmentsCreateFormComponent } from '../../components/enrollments-create-and-edit/enrollments-create-and-edit.component';
 import { EnrollmentService } from '../../services/enrollment.service';
-import {Enrollment} from '../../model/enrollment.entity';
+import { Enrollment } from '../../model/enrollment.entity';
+import { StudentService } from '../../services/student.service';
+import { AcademicPeriodService } from '../../services/academic-period.service';
 
 /**
  * Component responsible for managing enrollments through a table interface.
@@ -51,7 +51,8 @@ import {Enrollment} from '../../model/enrollment.entity';
     MatButtonModule,
     NgClass,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    DatePipe
   ],
   templateUrl: 'enrollment-management.component.html',
   styleUrl: 'enrollment-management.component.css'
@@ -64,7 +65,16 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
   protected enrollmentData !: Enrollment;
 
   /** Defines which columns should be displayed in the table and their order */
-  protected columnsToDisplay: string[] = ['enrollment_id','student_id', 'period_id', 'created_at', 'amount', 'status', 'payment_status', 'actions'];
+  protected columnsToDisplay: string[] = [
+    'enrollment_id',
+    'student_id',
+    'period_id',
+    'created_at',
+    'amount',
+    'enrollmentStatus',
+    'paymentStatus',
+    'actions'
+  ];
 
   /** Reference to the Material paginator for handling page-based data display */
   @ViewChild(MatPaginator, { static: false })
@@ -82,6 +92,12 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
 
   /** Service for handling enrollment-related API operations */
   private enrollmentService: EnrollmentService = inject(EnrollmentService);
+
+  protected studentMap = new Map<string, string>();
+  protected periodMap = new Map<string, string>();
+  private studentService = inject(StudentService);
+  private academicPeriodService = inject(AcademicPeriodService);
+
   //#endregion
 
   //#region Methods
@@ -112,6 +128,8 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    */
   ngOnInit(): void {
     this.getAllEnrollments();
+    this.loadStudents();
+    this.loadPeriods();
   }
 
   /**
@@ -179,14 +197,25 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
     });
   }
 
+  private loadStudents(): void {
+    this.studentService.getAll().subscribe(students => {
+      this.studentMap = new Map(students.map(s => [s.id, `${s.firstName} ${s.lastName}`]));
+    });
+  }
+
+  private loadPeriods(): void {
+    this.academicPeriodService.getAll().subscribe(periods => {
+      this.periodMap = new Map(periods.map(p => [p.id, p.name]));
+    });
+  }
+
   /**
    * Creates a new enrollment using the EnrollmentService.
    * Updates the table's data source with the newly created enrollment.
    */
   private createEnrollment() {
     this.enrollmentService.create(this.enrollmentData).subscribe((response: Enrollment) => {
-      this.dataSource.data.push(response);
-      this.dataSource.data = this.dataSource.data;
+      this.dataSource.data = [...this.dataSource.data, response];
     });
   }
 
@@ -195,12 +224,10 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    * Updates the corresponding enrollment in the table's data source.
    */
   private updateEnrollment() {
-    let enrollmentToUpdate = this.enrollmentData;
-    this.enrollmentService.update(enrollmentToUpdate.id, enrollmentToUpdate).subscribe((response: Enrollment) => {
-      const index = this.dataSource.data.findIndex((enrollment: Enrollment) => enrollment.id === response.id);
-      this.dataSource.data[index] = response;
-      this.dataSource.data = this.dataSource.data;
-    });
+    const index = this.dataSource.data.findIndex(e => e.id === this.enrollmentData.id);
+    const updated = [...this.dataSource.data];
+    updated[index] = this.enrollmentData;
+    this.dataSource.data = updated;
   }
   /**
    * Deletes an enrollment using the EnrollmentService.

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
@@ -9,11 +10,13 @@ import {Enrollment} from '../../model/enrollment.entity';
 import {AcademicPeriod} from '../../model/academic-period.entity';
 import {AcademicPeriodService} from '../../services/academic-period.service';
 import {Student} from '../../model/student.entity';
+import { StudentService } from '../../services/student.service';
 
 @Component({
   selector: 'app-enrollments-create-form',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     MatFormField,
     MatInput,
@@ -48,13 +51,16 @@ export class EnrollmentsCreateFormComponent extends BaseFormComponent implements
   studentOptions: Student[] = []; // Aquí cargarás los estudiantes disponibles
   periodOptions: AcademicPeriod[] = []
 
-  constructor(private academicPeriodService: AcademicPeriodService) {
+  constructor(private academicPeriodService: AcademicPeriodService,
+              private studentService: StudentService
+  ) {
     super();
     this.enrollment = new Enrollment({});
   }
 
   ngOnInit(): void {
     this.loadAcademicPeriods();
+    this.loadStudents();
   }
 
   private loadAcademicPeriods(): void {
@@ -62,7 +68,13 @@ export class EnrollmentsCreateFormComponent extends BaseFormComponent implements
       next: (periods) => this.periodOptions = periods,
       error: (err) => console.error('Error al cargar períodos académicos', err)
     });
-    console.log(this.periodOptions);
+  }
+
+  private loadStudents(): void {
+    this.studentService.getAll().subscribe({
+      next: (students) => this.studentOptions = students,
+      error: (err) => console.error('Error al cargar estudiantes', err)
+    });
   }
 
   protected resetEditState() {
