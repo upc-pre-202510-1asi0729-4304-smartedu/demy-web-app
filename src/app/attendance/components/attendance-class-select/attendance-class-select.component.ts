@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, signal} from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import {TranslatePipe} from '@ngx-translate/core';
-/**
- * A standalone Angular component that provides a dropdown
- * for selecting a class (e.g., Math, History, Physics)
- * for attendance purposes.
- *
- * This component uses Angular Material's `mat-select`
- * and supports translation via `ngx-translate`.
- */
+import {Course} from '../../model/course.entity';
+import {CourseService} from '../../services/course.service';
+import {FormsModule} from '@angular/forms';
 
+/**
+ * Component responsible for displaying a dropdown selection of available courses.
+ * Used in the attendance feature to allow users to choose a class.
+ */
 @Component({
   selector: 'app-attendance-class-select',
   standalone: true,
@@ -23,22 +22,29 @@ import {TranslatePipe} from '@ngx-translate/core';
     CommonModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    FormsModule
   ]
 })
 export class AttendanceClassSelectComponent {
   /**
-   * The list of available classes to choose from.
-   * Each class has an `id` (used internally) and a `name` (displayed to the user).
+   * Holds the list of available courses fetched from the backend.
    */
-
-  classes = [
-    { id: 'matematicas', name: 'Matemáticas' },
-    { id: 'historia', name: 'Historia' },
-    { id: 'fisica', name: 'Física' }
-  ];
+  courses = signal<Course[]>([]);
   /**
-   * The identifier of the currently selected class.
+   * Stores the currently selected course ID.
    */
-  selectedClass: string = '';
+  selectedCourseId = signal<string>('');
+  /**
+   * Injects the CourseService for retrieving course data.
+   * @param courseService - Service used to fetch course information.
+   */
+  constructor(private courseService: CourseService) {}
+  /**
+   * Lifecycle hook that runs after component initialization.
+   * Fetches the list of courses and stores them in a signal.
+   */
+  ngOnInit(): void {
+    this.courseService.getAll().subscribe(c => this.courses.set(c));
+  }
 }

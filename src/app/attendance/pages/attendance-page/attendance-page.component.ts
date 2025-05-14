@@ -53,19 +53,7 @@ export class AttendancePageComponent implements OnInit {
       error: err => console.error('Error al cargar sesiones:', err)
     });
   }
-  /**
-   * Updates the attendance status of a specific student in the current session.
-   *
-   * @param studentId - The ID of the student whose status has changed
-   * @param status - The new attendance status (PRESENT, ABSENT, etc.)
-   */
 
-  onStatusChange(studentId: string, status: AttendanceStatus): void {
-    if (!this.classSession) return;
-
-    const record = this.classSession.getAttendance().find(r => r.studentId === studentId);
-    if (record) record.status = status;
-  }
   /**
    * Saves the current class session to the backend using the session service.
    */
