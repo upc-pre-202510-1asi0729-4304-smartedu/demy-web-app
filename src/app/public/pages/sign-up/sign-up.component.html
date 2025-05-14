@@ -3,30 +3,69 @@
     <div class="form-box">
       <div class="top-bar">
         <app-language-switcher class="custom-color"></app-language-switcher>
-
       </div>
       <img class="logo" src="/assets/logos/demy-blue-logo.png" alt="Imagen de bienvenida" />
       <p class="login">
-        <a  routerLink="/login">{{ 'sign-up.login' | translate }}</a>
+        <a routerLink="/login">{{ 'sign-up.login' | translate }}</a>
       </p>
       <p class="title">{{ 'sign-up.title' | translate }}</p>
       <p class="sub-tittle">{{ 'sign-up.sub-title' | translate }}</p>
+
       <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="form">
-        <input type="text" formControlName="name" [placeholder] = "'sign-up.name' | translate" required />
-        <input type="text" formControlName="academy_name" [placeholder] = "'sign-up.academy-name' | translate" required />
-        <input type="number" formControlName="ruc" [placeholder] = "'sign-up.ruc' | translate" required />
-        <input type="email" formControlName="email" [placeholder] = "'sign-up.email' | translate" required />
-        <input type="password" formControlName="password" [placeholder] = "'sign-up.password' | translate" required />
+        <mat-form-field appearance="fill" class="custom-mat-field">
+          <mat-label>{{ 'sign-up.name' | translate }}</mat-label>
+          <input matInput formControlName="name">
+          <mat-error *ngIf="f['name'].errors?.['required']">
+            {{ 'sign-up.errors.required' | translate }}
+          </mat-error>
+        </mat-form-field>
 
-        <div class="terms-me">
-          <label class="terms-label">
-            <input type="checkbox" formControlName="terms" />
-            <span>{{ 'sign-up.terms-me' | translate }}</span>
-          </label>
-        </div>
-        <button mat-flat-button class="button-color" type="submit" >{{ 'sign-up.register' | translate }}</button>
+        <mat-form-field appearance="fill" class="custom-mat-field">
+          <mat-label>{{ 'sign-up.academy-name' | translate }}</mat-label>
+          <input matInput formControlName="academy_name">
+          <mat-error *ngIf="f['academy_name'].errors?.['required']">
+            {{ 'sign-up.errors.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="custom-mat-field">
+          <mat-label>{{ 'sign-up.ruc' | translate }}</mat-label>
+          <input matInput type="number" formControlName="ruc">
+          <mat-error *ngIf="f['ruc'].errors?.['required']">
+            {{ 'sign-up.errors.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="custom-mat-field">
+          <mat-label>{{ 'sign-up.email' | translate }}</mat-label>
+          <input matInput type="email" formControlName="email">
+          <mat-error *ngIf="f['email'].errors?.['required']">
+            {{ 'sign-up.errors.required' | translate }}
+          </mat-error>
+          <mat-error *ngIf="f['email'].errors?.['email']">
+            {{ 'sign-up.errors.invalid-email' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="custom-mat-field">
+          <mat-label>{{ 'sign-up.password' | translate }}</mat-label>
+          <input matInput type="password" formControlName="password">
+          <mat-error *ngIf="f['password'].errors?.['required']">
+            {{ 'sign-up.errors.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-checkbox formControlName="terms" class="terms-me">
+          {{ 'sign-up.terms-me' | translate }}
+        </mat-checkbox>
+        <mat-error *ngIf="f['terms'].errors?.['requiredTrue']" class="checkbox-error">
+          {{ 'sign-up.errors.accept-terms' | translate }}
+        </mat-error>
+
+        <button mat-flat-button color="primary" class="button-color" type="submit">
+          {{ 'sign-up.register' | translate }}
+        </button>
       </form>
-
     </div>
   </div>
   <div class="right-side">

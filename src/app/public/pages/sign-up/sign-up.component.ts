@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 /**
  * Component representing the application's sign-up (registration) page.
@@ -40,6 +41,7 @@ import { LanguageSwitcherComponent } from '../../../shared/components/language-s
     MatCardModule,
     MatProgressSpinnerModule,
     TranslateModule,
+    MatCheckboxModule
   ],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
@@ -160,5 +162,9 @@ export class SignUpComponent {
     }
 
     alert(errorMessage);
+  }
+
+  get f() {
+    return this.signUpForm.controls;
   }
 }
