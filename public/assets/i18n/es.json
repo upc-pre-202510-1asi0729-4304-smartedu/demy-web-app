@@ -29,7 +29,12 @@
     "password": "Contraseña",
     "remember-me": "Recuérdame",
     "sign-in": "Ingresar",
-    "forgot-password": "¿Olvidaste tu contraseña?"
+    "forgot-password": "¿Olvidaste tu contraseña?",
+    "errors": {
+      "required": "Este campo es obligatorio",
+      "email": "Ingresa un correo válido",
+      "minlength": "Mínimo 8 caracteres"
+    }
   },
   "sign-up": {
     "login": "Inicar Sesion",
@@ -41,7 +46,14 @@
     "email": "Correo electrónico",
     "password": "Contraseña",
     "terms-me": "Acepta los terminos y condiciones",
-    "register": "Registrarse"
+    "register": "Registrarse",
+    "errors": {
+      "required": "Este campo es obligatorio",
+      "invalid-email": "Ingrese un correo válido",
+      "minlength": "Mínimo {requiredLength} caracteres",
+      "maxlength": "Máximo {requiredLength} caracteres",
+      "accept-terms": "Debe aceptar los términos"
+    }
   },
   "view-teachers": {
     "title": "Gestión de Profesores",
@@ -55,11 +67,15 @@
       "new-teacher": "Nuevo Profesor"
     }
   },
+  "common": {
+    "edit": "Editar",
+    "delete": "Eliminar"
+  },
   "teacher-modal": {
     "add": "Agregar Profesor",
     "edit": "Editar Profesor",
     "delete": "Eliminar Profesor",
-    "delete-confirm": "¿Está seguro de eliminar al profesor \"{{name}}\"?",
+    "delete-confirm": "¿Está seguro de eliminar al profesor ",
     "delete-warning": "Esta acción no se puede deshacer.",
     "form": {
       "fullName": "Nombre Completo",
