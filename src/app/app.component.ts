@@ -15,8 +15,13 @@ export class AppComponent {
   title = 'demy-web-app';
 
   constructor(private translate: TranslateService) {
+    const savedLang = localStorage.getItem('app-lang');
+    const browserLang = translate.getBrowserLang();
+
+    const langToUse = savedLang || (browserLang?.match(/en|es/) ? browserLang : 'en');
+
     this.translate.addLangs(['en', 'es']);
     this.translate.setDefaultLang('en');
-    this.translate.use('en');
+    this.translate.use(langToUse);
   }
 }

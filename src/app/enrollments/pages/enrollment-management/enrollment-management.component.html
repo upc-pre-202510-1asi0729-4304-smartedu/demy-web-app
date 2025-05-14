@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="header">
+    <h4>Gestión de Matrículas</h4>
+  </div>
+
+  <!-- Formulario para creación o edición de matrículas -->
+  <div class="enrollment-form-container">
+    <app-enrollments-create-form
+      [enrollment]="enrollmentData"
+      [editMode]="editMode"
+      (cancelRequested)="onCancelRequested()"
+      (enrollmentAddRequested)="onEnrollmentAddRequested($event)"
+      (enrollmentUpdateRequested)="onEnrollmentUpdateRequested($event)"
+    ></app-enrollments-create-form>
+  </div>
+
+  <!-- Tabla de matrículas -->
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+<!--      Enrollment ID-->
+      <ng-container matColumnDef="enrollment_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>N° de Matricula</th>
+        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+      </ng-container>
+
+      <!-- Student ID Column -->
+      <ng-container matColumnDef="student_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estudiante</th>
+        <td mat-cell *matCellDef="let element">{{ studentMap.get(element.studentId) || '—' }}</td>
+      </ng-container>
+
+      <!-- Period ID Column -->
+      <ng-container matColumnDef="period_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Período</th>
+        <td mat-cell *matCellDef="let element">{{ periodMap.get(element.periodId) || '—' }}</td>
+      </ng-container>
+
+      <!-- Enrollment Date Column -->
+      <ng-container matColumnDef="created_at">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Matrícula</th>
+        <td mat-cell *matCellDef="let element">{{ element.createdAt | date: 'dd/MM/yyyy' }}</td>
+      </ng-container>
+
+      <!-- Amount Column -->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Monto</th>
+        <td mat-cell *matCellDef="let element">{{element.amount}}</td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="enrollmentStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+        <td mat-cell *matCellDef="let element">{{element.enrollmentStatus === 'ACTIVE' ? 'Activo' : 'Inactivo'}}</td>
+      </ng-container>
+
+      <!-- Payment Status Column -->
+      <ng-container matColumnDef="paymentStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado de Pago</th>
+        <td mat-cell *matCellDef="let element">{{element.paymentStatus === 'PAID' ? 'Pagado' : 'No Pagado'}}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="onEditItem(element)" aria-label="Editar matrícula">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onDeleteItem(element)" aria-label="Eliminar matrícula">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"
+          [ngClass]="{'highlight': editMode && enrollmentData.id === row.id}"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar página de matrículas"></mat-paginator>
+  </div>
+</div>

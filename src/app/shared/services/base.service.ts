@@ -1,4 +1,3 @@
-
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {inject} from '@angular/core';
@@ -12,7 +11,7 @@ export abstract class BaseService<T> {
   /** HTTP headers configuration for JSON communication */
   protected httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'})};
   /** Base URL for the server API */
-  protected serverBaseUrl: string =  `${environment.serverBaseUrl}`;
+  protected serverBaseUrl: string =  `${environment.apiBaseUrl}`;
   /** Endpoint path for the specific resource */
   protected resourceEndpoint: string = '/resources';
   /** HTTP client for making API requests */
@@ -59,7 +58,6 @@ export abstract class BaseService<T> {
     return this.http.delete(`${this.resourcePath()}/${id}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  //SACAR EL 2 DEL RETRY NO HARDCODEAR!!!!
 
   /**
    * Updates an existing resource

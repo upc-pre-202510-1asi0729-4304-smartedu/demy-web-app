@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import { UserAccount } from '../model/user.entity';
 import { environment } from '../../../environments/environment';
+import { Role } from '../model/role.model';
 
 /**
  * Service responsible for managing teacher-related operations.
@@ -16,7 +17,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class TeacherService {
-  private baseUrl = `${environment.serverBaseUrl}${environment.usersEndpointPath}`;
+  private baseUrl = `${environment.apiBaseUrl}${environment.usersEndpointPath}`;
 
   /**
    * Injects Angular's HttpClient for making API requests related to teachers.
@@ -29,7 +30,10 @@ export class TeacherService {
    *
    * @returns An Observable that emits an array of UserAccount objects, each representing a teacher
    */
+
+  //Look at this
   getTeachers(): Observable<UserAccount[]> {
+    return this.http.get<UserAccount[]>(`${this.baseUrl}`);
     return this.http.get<UserAccount[]>(`${this.baseUrl}`).pipe(
       map((users: UserAccount[]) => users.filter(user => user.role === 'TEACHER'))
     );

@@ -1,0 +1,213 @@
+{
+  "organization": {
+    "profile": {
+      "title": "Profile",
+      "description": "Manage your organization's profile"
+    },
+    "courses": {
+      "title": "Courses",
+      "description": "Manage your course offerings"
+    },
+    "periods": {
+      "title": "Periods",
+      "description": "Edit academic terms"
+    },
+    "rooms": {
+      "title": "Rooms",
+      "description": "Manage your classrooms"
+    },
+    "teachers": {
+      "title": "Teachers",
+      "description": "Manage your teaching staff"
+    }
+  },
+  "login": {
+    "sign-up": "Sign Up",
+    "title": "Log In",
+    "sub-title": "Enter your personal information",
+    "email": "Email",
+    "password": "Password",
+    "remember-me": "Remember me",
+    "sign-in": "Sign In",
+    "forgot-password": "Forgot my password?",
+    "errors": {
+      "required": "This field is required",
+      "email": "Please enter a valid email",
+      "minlength": "Minimum 8 characters"
+    }
+  },
+  "sign-up": {
+    "login": "Log In",
+    "title": "Sign Up",
+    "sub-title": "Enter your personal information",
+    "name": "Name",
+    "academy-name": "Academy Name",
+    "ruc": "RUC",
+    "email": "Email",
+    "password": "Password",
+    "terms-me": "Accept the terms and conditions",
+    "register": "Register",
+    "errors": {
+      "required": "This field is required",
+      "invalid-email": "Please enter a valid email",
+      "minlength": "Minimum {requiredLength} characters",
+      "maxlength": "Maximum {requiredLength} characters",
+      "accept-terms": "You must accept the terms"
+    }
+  },
+  "view-teachers": {
+    "title": "Teachers Management",
+    "table": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "specialty": "Specialty",
+      "actions": "Actions"
+    },
+    "button": {
+      "new-teacher": "New Teacher"
+    }
+  },
+  "common": {
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "teacher-modal": {
+    "add": "Add Teacher",
+    "edit": "Edit Teacher",
+    "delete": "Delete Teacher",
+    "delete-confirm": "Are you sure you want to delete teacher",
+    "delete-warning": "This action cannot be undone.",
+    "form": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "specialty": "Specialty",
+      "required": "Required field",
+      "invalid-email": "Invalid email"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete"
+    }
+  },
+  "title": "Select Your Plan",
+  "plan1": {
+    "subtitle": "Essentials",
+    "title": "Basic Plan",
+    "price": "$19.90",
+    "benefit1": "1 location",
+    "benefit2": "100 students",
+    "benefit3": "10 teachers",
+    "benefit4": "Enrollment and payment management"
+  },
+  "plan2": {
+    "subtitle": "Pro",
+    "title": "Intermediate Plan",
+    "price": "$70.00",
+    "benefit1": "500 students",
+    "benefit2": "50 teachers",
+    "benefit3": "2 locations",
+    "benefit4": "Inventory and loan management",
+    "benefit5": "Enrollment and payment management"
+  },
+  "plan3": {
+    "subtitle": "Elite",
+    "title": "Premium Plan",
+    "price": "$160.00",
+    "benefit1": "2000 students",
+    "benefit2": "200 teachers",
+    "benefit3": "2 or more locations",
+    "benefit4": "Priority support",
+    "benefit5": "Inventory and loan management",
+    "benefit6": "Enrollment and payment management"
+  },
+  "button": {
+    "select": "Select Plan"
+  },
+  "payments": {
+    "title": "Payments",
+    "subtitle": "Check a student's payment status",
+    "dni-input": "Enter DNI",
+    "search-button": "Search",
+    "table-first-name": "First Name",
+    "table-last-name": "Last Name",
+    "table-sex": "Sex",
+    "sex": {
+      "MALE": "Male",
+      "FEMALE": "Female"
+    },
+    "payment-status": {
+      "PENDING": "Pending",
+      "PAID": "Paid",
+      "OVERDUE": "Overdue"
+    },
+    "register-title": "Register payment",
+    "register-action": "Register payment",
+    "first-name": "First name",
+    "last-name": "Last name",
+    "paid-at": "Payment date",
+    "student": "Student",
+    "amount": "Amount",
+    "status": "Status",
+    "due-date": "Due date",
+    "action": "Action",
+    "register-button": "Save payment"
+  },
+  "finance": {
+    "title": "Finance",
+    "subtitle": {
+      "register": "Register expense",
+      "summary": "Financial summary for the current month"
+    },
+    "summary": {
+      "empty": "No expenses have been recorded this month."
+    },
+    "fields": {
+      "category": "Category",
+      "amount": "Amount (S/)",
+      "concept": "Concept",
+      "date": "Date"
+    },
+    "category": {
+      "teachers": "Payment to teachers",
+      "materials": "Materials",
+      "services": "Services",
+      "taxes": "Taxes",
+      "maintenance": "Maintenance",
+      "technology": "Technology",
+      "others": "Other"
+    },
+    "actions": {
+      "confirm": "Confirm"
+    },
+    "table": {
+      "date": "Date",
+      "category": "Category",
+      "concept": "Concept",
+      "amount": "Amount",
+      "total": "Monthly total"
+    }
+  },
+  "form": {
+    "field": {
+      "amount": "Amount",
+      "date": "Date",
+      "category": "Category",
+      "concept": "Concept"
+    },
+    "error": {
+      "required": "The field {{field}} is required",
+      "invalid": "The field {{field}} is invalid"
+    }
+  },
+  "attendance": {
+    "title": "Attendance",
+    "subtitle": "My classes",
+    "subtitle2": "List of students-Classroom01",
+    "button": "Save attendance",
+    "class-select": "Class",
+    "date-select": "Date",
+    "list-student": "Student",
+    "list-attendance": "Attended"
+  }
+}

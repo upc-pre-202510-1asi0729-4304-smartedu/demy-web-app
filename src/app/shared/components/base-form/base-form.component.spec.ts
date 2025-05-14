@@ -10,7 +10,7 @@ describe('BaseFormComponent', () => {
     await TestBed.configureTestingModule({
       imports: [BaseFormComponent]
     })
-      .compileComponents();
+    .compileComponents();
 
     fixture = TestBed.createComponent(BaseFormComponent);
     component = fixture.componentInstance;

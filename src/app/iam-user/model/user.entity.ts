@@ -6,6 +6,8 @@ export class UserAccount {
   role: string;
   status: string;
 
+
+
   constructor(user: {id?: number, fullName?: string, email?: string, passwordHash?: string, role?: string, status?: string}) {
     this.id = user.id || 0;
     this.fullName = user.fullName  || '';

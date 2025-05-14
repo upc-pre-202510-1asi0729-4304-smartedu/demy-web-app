@@ -1,9 +1,16 @@
 export const environment = {
-  // In real lifecycles, this file should not be part of version control
   production: true,
-  serverBaseUrl: 'https://6820406072e59f922ef8198b.mockapi.io/api/v1',
+  apiBaseUrl: 'https://6820406072e59f922ef8198b.mockapi.io/api/v1',
+  usersEndpointPath: '/users',
+  academyEndpointPath: '/academy',
+  academicPeriodEndpointPath: "/academic-periods",
+  studentsEndpointPath: "/students2",
+  enrollmentEndpointPath: "/enrollments",
+  invoicesEndpointPath: "/invoices",
+  paymentsEndpointPath: "/payments",
+  financialTransactionsEndpointPath: "/financialTransactions",
   coursesEndpointPath: '/courses',
+  //coursesEndpointPath: '/class-sessions',
   classroomsEndpointPath: '/classrooms',
   weeklyScheduleEndpointPath: '/weekly-schedules',
-  usersEndpointPath: '/users',
 };

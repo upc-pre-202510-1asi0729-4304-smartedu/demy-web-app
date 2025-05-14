@@ -1,0 +1,43 @@
+
+<form #academicPeriodForm="ngForm" (ngSubmit)="onSubmit()" class="academic-period-form">
+  <h4>{{ editMode ? 'Edit Academic Period': 'New Academic Period' }}</h4>
+
+  <div class="form-row">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Nombre de Periodo</mat-label>
+      <input matInput required [(ngModel)]="academicPeriod.name" name="name" #name="ngModel">
+      <!--      <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">-->
+      <!--        Nombres es requerido-->
+      <!--      </mat-error>-->
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Fecha de Inicio</mat-label>
+      <input matInput required [(ngModel)]="academicPeriod.startDate" name="start_date" #startDate="ngModel" type="date">
+      <!--      <mat-error *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)">-->
+      <!--        Fecha de nacimiento es requerida-->
+      <!--      </mat-error>-->
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Fecha de Fin</mat-label>
+      <input matInput required [(ngModel)]="academicPeriod.endDate" name="end_date" #endDate="ngModel" type="date">
+      <!--      <mat-error *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)">-->
+      <!--        Fecha de nacimiento es requerida-->
+      <!--      </mat-error>-->
+    </mat-form-field>
+  </div>
+
+  <div class="form-actions">
+    <button mat-raised-button color="primary" type="submit"
+            [disabled]="!academicPeriodForm.valid"
+            aria-label="Save academic period">
+      {{ isEditMode() ? 'Actualizar Periodo Academico' : 'Registrar Periodo Academico'}}
+    </button>
+    <button mat-button type="button" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>

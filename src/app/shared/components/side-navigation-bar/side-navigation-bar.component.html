@@ -11,9 +11,10 @@
 
     <mat-divider />
 
-    <a mat-list-item (click)="logout.emit()">
-        <mat-icon matListItemIcon>logout</mat-icon>
-        <span matListItemLine>Salir</span>
-    </a>
+  <a mat-list-item [routerLink]="'/login'">
+    <mat-icon matListItemIcon>logout</mat-icon>
+    <span matListItemLine>Salir</span>
+  </a>
+
 
 </mat-nav-list>
