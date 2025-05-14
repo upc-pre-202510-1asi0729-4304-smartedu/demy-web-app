@@ -10,26 +10,61 @@
       <img class="logo" src="/assets/logos/demy-blue-logo.png" alt="Imagen de bienvenida" />
 
       <p class="sign-up">
-        <a  routerLink="/signup">{{ 'login.sign-up' | translate }}</a>
+        <a routerLink="/signup">{{ 'login.sign-up' | translate }}</a>
       </p>
 
       <p class="title">{{ 'login.title' | translate }}</p>
       <p class="sub-tittle">{{ 'login.sub-title' | translate }}</p>
+
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
-        <input type="email" formControlName="email" [placeholder]="'login.email' | translate"  required />
-        <input type="password" formControlName="password" [placeholder]="'login.password' | translate" required />
-        <div class="remember-me">
-          <label class="remember-label">
-            <input type="checkbox" formControlName="remember" />
-            <span>{{ 'login.remember-me' | translate }}</span>
-          </label>
-        </div>
-        <button mat-flat-button class="button-color" type="submit"  >{{ 'login.sign-in' | translate }}</button>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'login.email' | translate }}</mat-label>
+          <input matInput formControlName="email" type="email" required>
+          <mat-icon matPrefix>email</mat-icon>
+
+          <mat-error *ngIf="f['email']?.errors?.['required']">
+            {{ 'login.errors.required' | translate }}
+          </mat-error>
+
+          <mat-error *ngIf="f['email']?.errors?.['email']">
+            {{ 'login.errors.email' | translate }}
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'login.password' | translate }}</mat-label>
+          <input matInput formControlName="password"
+                 [type]="hidePassword ? 'password' : 'text'"
+                 required>
+          <mat-icon matPrefix>lock</mat-icon>
+          <button type="button" mat-icon-button matSuffix
+                  (click)="hidePassword = !hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+
+          <mat-error *ngIf="f['password']?.errors?.['required']">
+            {{ 'login.errors.required' | translate }}
+          </mat-error>
+
+          <mat-error *ngIf="f['password']?.errors?.['minlength']">
+            {{ 'login.errors.minlength' | translate:{requiredLength: 8} }}
+          </mat-error>
+
+
+        </mat-form-field>
+        <mat-checkbox formControlName="remember" class="remember-me">
+          {{ 'login.remember-me' | translate }}
+        </mat-checkbox>
+
+        <button mat-flat-button color="primary" class="button-color" type="submit" [disabled]="loginForm.invalid">
+          {{ 'login.sign-in' | translate }}
+        </button>
       </form>
+
       <p class="register-text">
-        <a routerLink="/signup">{{ 'login.forgot-password' | translate }}</a>
+        <a routerLink="/forgot-password">{{ 'login.forgot-password' | translate }}</a>
       </p>
     </div>
-
   </div>
 </div>
