@@ -1,92 +1,94 @@
 <form #enrollmentForm="ngForm" (ngSubmit)="onSubmit()" class="enrollment-form">
-  <h2>{{ editMode ? 'Editar Matrícula' : 'Registrar Matrícula' }}</h2>
+    <h2>{{ editMode ? 'enrollment.form.title-edit' : 'enrollment.form.title-new' | translate }}</h2>
 
-  <!-- Estudiante -->
-  <div class="form-row">
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Estudiante</mat-label>
-      <mat-select required [(ngModel)]="enrollment.studentId" name="student_id" #studentId="ngModel">
-        <mat-option *ngFor="let student of studentOptions" [value]="student.id">
-          {{ student.firstName }} {{ student.lastName }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="studentId.invalid && (studentId.dirty || studentId.touched)">
-        Estudiante es requerido
-      </mat-error>
-    </mat-form-field>
-  </div>
+    <!-- Estudiante -->
+    <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+            <mat-label>{{ 'enrollment.form.student' | translate }}</mat-label>
+            <mat-select required [(ngModel)]="enrollment.studentId" name="student_id" #studentId="ngModel">
+                <mat-option *ngFor="let student of studentOptions" [value]="student.id">
+                    {{ student.firstName }} {{ student.lastName }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="studentId.invalid && (studentId.dirty || studentId.touched)">
+                {{ 'enrollment.form.student-required' | translate }}
+            </mat-error>
+        </mat-form-field>
+    </div>
 
-  <!-- Periodo Académico -->
-  <div class="form-row">
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Periodo Académico</mat-label>
-      <mat-select [(ngModel)]="enrollment.periodId" name="periodId" required #periodId="ngModel">
-        <mat-option *ngFor="let period of periodOptions" [value]="period.id">
-          {{ period.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="periodId.invalid && (periodId.dirty || periodId.touched)">
-        Periodo académico es requerido
-      </mat-error>
-    </mat-form-field>
-  </div>
+    <!-- Periodo Académico -->
+    <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+            <mat-label>{{ 'enrollment.form.period' | translate }}</mat-label>
+            <mat-select [(ngModel)]="enrollment.periodId" name="periodId" required #periodId="ngModel">
+                <mat-option *ngFor="let period of periodOptions" [value]="period.id">
+                    {{ period.name }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="periodId.invalid && (periodId.dirty || periodId.touched)">
+                {{ 'enrollment.form.period-required' | translate }}
+            </mat-error>
+        </mat-form-field>
+    </div>
 
-  <!-- Fecha de matrícula -->
-  <div class="form-row">
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Fecha de Matrícula</mat-label>
-      <input matInput required [(ngModel)]="enrollment.createdAt" name="enrollment_date" #enrollmentDate="ngModel" type="date">
-      <mat-error *ngIf="enrollmentDate.invalid && (enrollmentDate.dirty || enrollmentDate.touched)">
-        Fecha de matrícula es requerida
-      </mat-error>
-    </mat-form-field>
-  </div>
+    <!-- Fecha de matrícula -->
+    <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+            <mat-label>{{ 'enrollment.form.date' | translate }}</mat-label>
+            <input matInput required [(ngModel)]="enrollment.createdAt" name="enrollment_date" #enrollmentDate="ngModel" type="date">
+            <mat-error *ngIf="enrollmentDate.invalid && (enrollmentDate.dirty || enrollmentDate.touched)">
+                {{ 'enrollment.form.date-required' | translate }}
+            </mat-error>
+        </mat-form-field>
+    </div>
 
-  <!-- Monto -->
-  <div class="form-row">
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Monto</mat-label>
-      <input matInput required [(ngModel)]="enrollment.amount" name="amount" #amount="ngModel" type="number">
-      <mat-error *ngIf="amount.invalid && (amount.dirty || amount.touched)">
-        Monto es requerido
-      </mat-error>
-    </mat-form-field>
-  </div>
+    <!-- Monto -->
+    <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+            <mat-label>{{ 'enrollment.form.amount' | translate }}</mat-label>
+            <input matInput required [(ngModel)]="enrollment.amount" name="amount" #amount="ngModel" type="number">
+            <mat-error *ngIf="amount.invalid && (amount.dirty || amount.touched)">
+                {{ 'enrollment.form.amount-required' | translate }}
+            </mat-error>
+        </mat-form-field>
+    </div>
 
-  <!-- Estado de Matricula -->
-  <div class="form-row">
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Estado de Matrícula</mat-label>
-      <mat-select required [(ngModel)]="enrollment.enrollmentStatus" name="status" #enrollmentStatus="ngModel">
-        <mat-option *ngFor="let status of enrollmentStatusOptions" [value]="status.value">
-          {{ status.viewValue }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="enrollmentStatus.invalid && (enrollmentStatus.dirty || enrollmentStatus.touched)">
-        Estado de matrícula es requerido
-      </mat-error>
-    </mat-form-field>
-  </div>
+    <!-- Estado de Matrícula -->
+    <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+            <mat-label>{{ 'enrollment.form.status' | translate }}</mat-label>
+            <mat-select required [(ngModel)]="enrollment.enrollmentStatus" name="status" #enrollmentStatus="ngModel">
+                <mat-option *ngFor="let status of enrollmentStatusOptions" [value]="status.value">
+                    {{ status.viewValue }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="enrollmentStatus.invalid && (enrollmentStatus.dirty || enrollmentStatus.touched)">
+                {{ 'enrollment.form.status-required' | translate }}
+            </mat-error>
+        </mat-form-field>
+    </div>
 
-  <!-- Estado de Pago -->
-  <div class="form-row">
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Estado de Pago</mat-label>
-      <mat-select required [(ngModel)]="enrollment.paymentStatus" name="payment_status" #paymentStatus="ngModel">
-        <mat-option *ngFor="let payment of paymentStatusOptions" [value]="payment.value">
-          {{ payment.viewValue }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="paymentStatus.invalid && (paymentStatus.dirty || paymentStatus.touched)">
-        Estado de pago es requerido
-      </mat-error>
-    </mat-form-field>
-  </div>
+    <!-- Estado de Pago -->
+    <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+            <mat-label>{{ 'enrollment.form.payment-status' | translate }}</mat-label>
+            <mat-select required [(ngModel)]="enrollment.paymentStatus" name="payment_status" #paymentStatus="ngModel">
+                <mat-option *ngFor="let payment of paymentStatusOptions" [value]="payment.value">
+                    {{ payment.viewValue }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="paymentStatus.invalid && (paymentStatus.dirty || paymentStatus.touched)">
+                {{ 'enrollment.form.payment-required' | translate }}
+            </mat-error>
+        </mat-form-field>
+    </div>
 
-  <div class="form-actions">
-    <button mat-flat-button color="primary" type="submit" [disabled]="!enrollmentForm.valid">
-      {{ isEditMode() ? 'Actualizar Matrícula' : 'Registrar Matrícula' }}
-    </button>
-    <button mat-button type="button" (click)="onCancel()">Cancelar</button>
-  </div>
+    <div class="form-actions">
+        <button mat-flat-button color="primary" type="submit" [disabled]="!enrollmentForm.valid">
+            {{ isEditMode() ? 'enrollment.form.update' : 'enrollment.form.save' | translate }}
+        </button>
+        <button mat-button type="button" (click)="onCancel()">
+            {{ 'enrollment.form.cancel' | translate }}
+        </button>
+    </div>
 </form>

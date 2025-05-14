@@ -11,6 +11,7 @@ import {AcademicPeriod} from '../../model/academic-period.entity';
 import {AcademicPeriodService} from '../../services/academic-period.service';
 import {Student} from '../../model/student.entity';
 import { StudentService } from '../../services/student.service';
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-enrollments-create-form',
@@ -22,6 +23,7 @@ import { StudentService } from '../../services/student.service';
     MatInput,
     MatButton,
     MatSelectModule,
+    TranslatePipe
   ],
   templateUrl: './enrollments-create-and-edit.component.html',
   styleUrls: ['./enrollments-create-and-edit.component.css']
