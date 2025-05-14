@@ -1,72 +1,71 @@
 <div class="container">
-  <div class="header">
-    <h4>Gestión de Estudiantes</h4>
-  </div>
+    <div class="header">
+        <h4>{{ 'student.management.title' | translate }}</h4>
+    </div>
 
-  <!-- Formulario para creación o edición de estudiantes -->
-  <div class="student-form-container">
-    <app-student-create-form
-      [student]="studentData"
-      [editMode]="editMode"
-      (cancelRequested)="onCancelRequested()"
-      (studentAddRequested)="onStudentAddRequested($event)"
-      (studentUpdateRequested)="onStudentUpdateRequested($event)"
-    />
+    <!-- Formulario para creación o edición de estudiantes -->
+    <div class="student-form-container">
+        <app-student-create-form
+                [student]="studentData"
+                [editMode]="editMode"
+                (cancelRequested)="onCancelRequested()"
+                (studentAddRequested)="onStudentAddRequested($event)"
+                (studentUpdateRequested)="onStudentUpdateRequested($event)"
+        />
+    </div>
 
-  </div>
+    <!-- Tabla de estudiantes -->
+    <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
 
-  <!-- Tabla de estudiantes -->
-  <div class="table-container mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+            <!-- DNI Column -->
+            <ng-container matColumnDef="dni">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'student.table.dni' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{element.dni}}</td>
+            </ng-container>
 
-      <!-- DNI Column -->
-      <ng-container matColumnDef="dni">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
-        <td mat-cell *matCellDef="let element">{{element.dni}}</td>
-      </ng-container>
+            <!-- First Name Column -->
+            <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'student.table.first-name' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
+            </ng-container>
 
-      <!-- First Name Column -->
-      <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-        <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
-      </ng-container>
+            <!-- Last Name Column -->
+            <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'student.table.last-name' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{element.lastName}}</td>
+            </ng-container>
 
-      <!-- Last Name Column -->
-      <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido</th>
-        <td mat-cell *matCellDef="let element">{{element.lastName}}</td>
-      </ng-container>
+            <!-- Sex Column -->
+            <ng-container matColumnDef="sex">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'student.table.sex' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{element.sex === 'MALE' ? ('student.sex.male' | translate) : ('student.sex.female' | translate)}}</td>
+            </ng-container>
 
-      <!-- Sex Column -->
-      <ng-container matColumnDef="sex">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Género</th>
-        <td mat-cell *matCellDef="let element">{{element.sex === 'MALE' ? 'Masculino' : 'Femenino'}}</td>
-      </ng-container>
+            <!-- Birth Date Column -->
+            <ng-container matColumnDef="birthDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'student.table.birth-date' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.birthDate | date: 'dd/MM/yyyy' }}</td>
+            </ng-container>
 
-      <!-- Birth Date Column -->
-      <ng-container matColumnDef="birthDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Nacimiento</th>
-        <td mat-cell *matCellDef="let element">{{ element.birthDate | date: 'dd/MM/yyyy' }}</td>
-      </ng-container>
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>{{ 'student.table.actions' | translate }}</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="primary" (click)="onEditItem(element)" [attr.aria-label]="'student.table.edit' | translate">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="onDeleteItem(element)" [attr.aria-label]="'student.table.delete' | translate">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
 
-      <!-- Actions Column -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary" (click)="onEditItem(element)" aria-label="Editar estudiante">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="onDeleteItem(element)" aria-label="Eliminar estudiante">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"
+                [ngClass]="{'highlight': editMode && studentData.id === row.id}"></tr>
+        </table>
 
-      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"
-          [ngClass]="{'highlight': editMode && studentData.id === row.id}"></tr>
-    </table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar página de estudiantes"></mat-paginator>
-  </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [attr.aria-label]="'student.paginator.label' | translate"></mat-paginator>
+    </div>
 </div>

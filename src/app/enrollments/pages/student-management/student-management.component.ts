@@ -21,6 +21,7 @@ import {MatIconButton} from '@angular/material/button';
 import { StudentCreateFormComponent } from "../../components/student-create-and-edit/student-create-and-edit.component";
 import { StudentService } from '../../services/student.service';
 import {Student} from '../../model/student.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /**
  * Component responsible for managing student enrollments through a table interface.
@@ -49,7 +50,8 @@ import {Student} from '../../model/student.entity';
     MatSortHeader,
     MatIconModule,
     MatIconButton,
-    DatePipe
+    DatePipe,
+    TranslatePipe
   ],
   templateUrl: 'student-management.component.html',
   styleUrl: './student-management.component.css'
