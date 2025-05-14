@@ -83,7 +83,7 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="!studentForm.valid">
       {{ isEditMode() ? 'Actualizar Estudiante' : 'Registrar Estudiante'}}
     </button>
-    <button mat-button type="button" (click)="resetEditState()">Cancelar</button>
+    <button mat-button type="button" (click)="onCancel()">Cancelar</button>
   </div>
 </form>
 

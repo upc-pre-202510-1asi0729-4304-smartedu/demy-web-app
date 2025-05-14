@@ -16,7 +16,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort, MatSortHeader } from "@angular/material/sort";
 import { MatIcon } from "@angular/material/icon";
 import {MatIconModule} from '@angular/material/icon';
-import { NgClass } from "@angular/common";
+import {DatePipe, NgClass} from "@angular/common";
 import {MatIconButton} from '@angular/material/button';
 import { StudentCreateFormComponent } from "../../components/student-create-and-edit/student-create-and-edit.component";
 import { StudentService } from '../../services/student.service';
@@ -48,7 +48,8 @@ import {Student} from '../../model/student.entity';
     MatPaginator,
     MatSortHeader,
     MatIconModule,
-    MatIconButton
+    MatIconButton,
+    DatePipe
   ],
   templateUrl: 'student-management.component.html',
   styleUrl: './student-management.component.css'
@@ -60,7 +61,7 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
   /** Current student enrollment being created or edited */
   protected studentData !: Student
   /** Defines which columns should be displayed in the table and their order */
-  protected readonly columnsToDisplay: string[] = ['dni', 'first_name', 'last_name', 'sex', 'birth_date', 'actions'];
+  protected readonly columnsToDisplay: string[] = ['dni', 'firstName', 'lastName', 'sex', 'birthDate', 'actions'];
 
   /** Reference to the Material paginator for handling page-based data display */
   @ViewChild(MatPaginator, { static: false })
@@ -179,9 +180,8 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * Updates the table's data source with the newly created student.
    */
   private createStudent() {
-      this.studentService.create(this.studentData).subscribe((response: Student) => {
-        this.dataSource.data.push(response);
-        this.dataSource.data = this.dataSource.data;
+    this.studentService.create(this.studentData).subscribe((response: Student) => {
+      this.dataSource.data = [...this.dataSource.data, response];
     });
   }
 
@@ -190,18 +190,19 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * Updates the corresponding student in the table's data source.
    */
   private updateStudent() {
-    let studentToUpdate = this.studentData;
+    const studentToUpdate = this.studentData;
     this.studentService.update(studentToUpdate.id, studentToUpdate).subscribe((response: Student) => {
-      let index = this.dataSource.data.findIndex((course: Student) => course.id === response.id);
-      this.dataSource.data[index] = response;
-      this.dataSource.data = this.dataSource.data;
+      const index = this.dataSource.data.findIndex(s => s.id === response.id);
+      const updatedData = [...this.dataSource.data];
+      updatedData[index] = response;
+      this.dataSource.data = updatedData;
     });
   }
 
   /**
    * Deletes a student using the StudentService.
    * Removes the student from the table's data source.
-   * @param dni - The DNI (ID) of the student to delete
+   * @param id - The DNI (ID) of the student to delete
    */
   private deleteStudent(id: string) {
     this.studentService.delete(id).subscribe(() => {

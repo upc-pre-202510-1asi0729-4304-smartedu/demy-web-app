@@ -26,13 +26,13 @@
       </ng-container>
 
       <!-- First Name Column -->
-      <ng-container matColumnDef="first_name">
+      <ng-container matColumnDef="firstName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
         <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
       </ng-container>
 
       <!-- Last Name Column -->
-      <ng-container matColumnDef="last_name">
+      <ng-container matColumnDef="lastName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido</th>
         <td mat-cell *matCellDef="let element">{{element.lastName}}</td>
       </ng-container>
@@ -44,9 +44,9 @@
       </ng-container>
 
       <!-- Birth Date Column -->
-      <ng-container matColumnDef="birth_date">
+      <ng-container matColumnDef="birthDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Nacimiento</th>
-        <td mat-cell *matCellDef="let element">{{element.birthDate}}</td>
+        <td mat-cell *matCellDef="let element">{{ element.birthDate | date: 'dd/MM/yyyy' }}</td>
       </ng-container>
 
       <!-- Actions Column -->
@@ -64,7 +64,7 @@
 
       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
       <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"
-          [ngClass]="{'highlight': editMode && studentData.dni === row.dni}"></tr>
+          [ngClass]="{'highlight': editMode && studentData.id === row.id}"></tr>
     </table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar página de estudiantes"></mat-paginator>
