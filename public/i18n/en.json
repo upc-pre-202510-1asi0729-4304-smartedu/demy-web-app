@@ -1,0 +1,58 @@
+{
+  "view-courses": {
+    "title": "Courses",
+    "table": {
+      "name": "Name",
+      "code": "Code",
+      "description": "Description",
+      "actions": "Actions"
+    },
+    "button":{
+      "new-course": "New Course"
+    }
+  },
+  "view-classrooms": {
+    "title": "Classrooms",
+    "table": {
+      "code": "Code",
+      "capacity": "Capacity",
+      "campus": "Campus",
+      "actions": "Actions"
+    },
+    "button":{
+      "new-classroom": "New Classroom"
+    }
+  },
+  "view-weekly-schedules": {
+    "title": "Weekly Schedules",
+    "table": {
+      "name": "Name",
+      "number": "Number of Schedules",
+      "actions": "Actions"
+    },
+    "button":{
+      "new": "New Weekly Schedule"
+    }
+  },
+  "search-schedules": {
+    "title": "Search Weekly Schedules",
+    "select": "Select a schedule",
+    "table": {
+      "subtitle": "Weekly schedule: ",
+      "hour": "Hour",
+      "course": "Course",
+      "classroom": "Classroom",
+      "teacher": "Teacher",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "button": {
+      "search": "Search"
+    }
+  }
+}

@@ -1,4 +1,48 @@
 {
+  "courses": [
+    {
+      "id": 1,
+      "name": "Pichulin",
+      "code": "PL",
+      "description": "dasdasdasdasdasdasdpenechico"
+    }
+  ],
+  "classrooms": [
+    {
+      "id": 1,
+      "code": "ASAS",
+      "capacity": "30",
+      "campus": "Surco"
+    }
+  ],
+  "weeklySchedules": [
+    {
+      "id": 1,
+      "name": "SafeU",
+      "weekSchedule": [
+        {
+          "id": 1746941876353,
+          "dayOfWeek": "Monday",
+          "timeRange": {
+            "start": "07:30",
+            "end": "12:00"
+          },
+          "course": {
+            "id": 1,
+            "name": "Pichulin",
+            "code": "PL",
+            "description": "dasdasdasdasdasdasdpenechico"
+          },
+          "classroom": {
+            "id": 1,
+            "code": "ASAS",
+            "capacity": "30",
+            "campus": "Surco"
+          }
+        }
+      ]
+    }
+  ],
   "users": [],
   "academies": [],
   "students": [

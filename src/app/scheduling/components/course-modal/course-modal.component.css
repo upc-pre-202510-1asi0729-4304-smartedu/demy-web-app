@@ -1,0 +1,77 @@
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-top: 15px;  /* Añadí un poco de espacio entre los campos */
+}
+mat-form-field .mat-form-field-infix {
+  padding-top: 12px;  /* Ajusté el padding para evitar que el label se corte */
+}
+
+[mat-dialog-content] {
+  min-width: 350px;
+  padding: 20px;
+}
+
+.dialog-title {
+  text-align: center;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 20px;  /* Incrementé el margen inferior para mayor espacio */
+}
+
+.save-button {
+  background-color: var(--color-success);
+  color: white;
+}
+
+.delete-button {
+  background-color: var(--color-error);
+  color: white;
+}
+
+.delete-confirmation {
+  text-align: center;
+  padding: 10px;
+}
+
+.warning-text {
+  color:  var(--color-error);
+  font-weight: 500;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Focus styles for better accessibility */
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  color: var(--color-secondary);;
+}
+
+/* Error styling */
+mat-error {
+  font-size: 12px;
+}
+
+[mat-dialog-actions] {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 20px;
+}
+
+.mat-form-field {
+  margin-top: 15px;
+}

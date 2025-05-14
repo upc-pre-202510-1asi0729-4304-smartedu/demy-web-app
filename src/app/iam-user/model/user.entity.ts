@@ -1,6 +1,3 @@
-import { Role } from './role.model';
-import { AccountStatus } from './account-status.model';
-
 export class UserAccount {
   id: number;
   fullName: string;
@@ -40,6 +37,15 @@ export class UserAccount {
     this.email = newEmail;
   }
 
+}
 
+export enum Role {
+  ADMIN = 'ADMIN',
+  TEACHER = 'TEACHER'
+}
 
+export enum AccountStatus {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  BLOCKED = 'BLOCKED'
 }

@@ -1,0 +1,73 @@
+<div class="teacher-schedule-container">
+  <!-- Loading spinner -->
+  @if (isLoading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+      <p>{{ 'teacher-schedule.loading' | translate }}</p>
+    </div>
+  }
+
+  <!-- Error message -->
+  @if (errorMessage) {
+    <div class="error-message">
+      <mat-icon color="warn">error</mat-icon>
+      <p>{{ errorMessage }}</p>
+    </div>
+  }
+
+  <!-- Teacher info header -->
+  @if (currentTeacher && !isLoading && !errorMessage) {
+    <div class="teacher-info">
+      <h2>{{ 'teacher-schedule.welcome' | translate }} {{ currentTeacher.fullName }}</h2>
+      <p>{{ 'teacher-schedule.description' | translate }}</p>
+    </div>
+  }
+
+  <!-- Schedule table for teacher -->
+  @if (teacherSchedules.length > 0 && !isLoading) {
+    <div class="schedule-results">
+      <h3>{{ 'teacher-schedule.table.title' | translate }}</h3>
+
+      <div class="weekly-schedule-table">
+        <table class="schedule-table">
+          <thead>
+          <tr>
+            <th class="time-header">{{ 'teacher-schedule.table.hour' | translate }}</th>
+            @for (day of weekDays; track day) {
+              <th>{{ 'teacher-schedule.table.' + day | translate }}</th>
+            }
+          </tr>
+          </thead>
+          <tbody>
+            @for (timeSlot of getUniqueTimeSlots(); track timeSlot) {
+              <tr>
+                <td class="time-cell">{{ timeSlot }}</td>
+
+                @for (day of weekDays; track day) {
+                  <td class="schedule-cell">
+                    @for (schedule of getSchedulesForDayAndTime(day, timeSlot); track schedule) {
+                      <div class="schedule-item">
+                        <div class="schedule-info">
+                          <strong>{{ schedule.timeRange.start }} - {{ schedule.timeRange.end }}</strong>
+                          <div>{{ 'teacher-schedule.table.course' | translate }}: {{ schedule.course.name }} ({{ schedule.course.code }})</div>
+                          <div>{{ 'teacher-schedule.table.classroom' | translate }}: {{ schedule.classroom.code }} ({{ schedule.classroom.campus }})</div>
+                        </div>
+                      </div>
+                    }
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+
+  @if (teacherSchedules.length === 0 && !isLoading && !errorMessage) {
+    <div class="no-schedules">
+      <mat-icon>calendar_today</mat-icon>
+      <p>{{ 'teacher-schedule.no-schedules' | translate }}</p>
+    </div>
+  }
+</div>

@@ -9,5 +9,9 @@ export const environment = {
   invoicesEndpointPath: "/invoices",
   paymentsEndpointPath: "/payments",
   financialTransactionsEndpointPath: "/financialTransactions",
+  coursesEndpointPath: '/courses',
+  classSessionsEndpointPath: '/class-sessions',
+  classroomsEndpointPath: '/classrooms',
+  weeklyScheduleEndpointPath: '/weekly-schedules',
   attendancesEndpointPath: '/attendance-record'
 };

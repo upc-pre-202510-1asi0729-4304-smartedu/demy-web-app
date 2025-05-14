@@ -1,0 +1,62 @@
+<!-- Course catalogue -->
+
+<div>
+  <h1>{{ 'view-classrooms.title' | translate }}</h1>
+</div>
+
+<div class="table-wrapper">
+
+  <!-- Data Table -->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'view-classrooms.table.code' | translate }} </th>
+      <td mat-cell *matCellDef="let classroom"> {{ classroom.code }}</td>
+    </ng-container>
+
+    <!-- Code Column -->
+    <ng-container matColumnDef="capacity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'view-classrooms.table.capacity' | translate }}  </th>
+      <td mat-cell *matCellDef="let classroom"> {{ classroom.capacity }}</td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="campus">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'view-classrooms.table.campus' | translate }}  </th>
+      <td mat-cell *matCellDef="let classroom"> {{ classroom.campus }}</td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> {{ 'view-classrooms.table.actions' | translate }}  </th>
+      <td mat-cell *matCellDef="let classroom">
+        <!-- Edit button -->
+        <button mat-icon-button (click)="onEditItem(classroom)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <!-- Delete button -->
+        <button mat-icon-button (click)="onDeleteItem(classroom)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Table Header and Rows -->
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" [ngClass]="{ 'editable-row': classroomData && classroomData.id === row.id }"></tr>
+
+  </table>
+
+  <!-- Paginator -->
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+
+</div>
+
+<!-- Button to create a new course - placed at the top -->
+<div class="action-buttons">
+  <button mat-raised-button color="primary" (click)="onNewClassroom()">
+    <mat-icon>add_circle</mat-icon>
+    {{ 'view-classrooms.button.new-classroom' | translate }}
+  </button>
+</div>
