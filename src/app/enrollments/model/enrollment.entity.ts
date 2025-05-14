@@ -12,7 +12,7 @@ export class Enrollment {
     this.studentId = enrollment.studentId || '';
     this.periodId = enrollment.periodId || '';
     this.amount = enrollment.amount || 0;
-    this.enrollmentStatus = enrollment.enrollmentStatus || EnrollmentStatus.DELETED;
+    this.enrollmentStatus = enrollment.enrollmentStatus ?? EnrollmentStatus.ACTIVE;
     this.paymentStatus = enrollment.paymentStatus || PaymentStatus.PENDING;
     this.createdAt = enrollment.createdAt || new Date();
   }

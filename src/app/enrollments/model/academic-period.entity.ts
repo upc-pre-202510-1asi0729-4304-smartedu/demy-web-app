@@ -12,6 +12,6 @@ export class AcademicPeriod {
     this.academyId = academicPeriod.academyId || '';
     this.startDate = academicPeriod.startDate || new Date();
     this.endDate = academicPeriod.endDate || new Date();
-    this.isActive = academicPeriod.isActive || true;
+    this.isActive = academicPeriod.isActive ?? true;
   }
 }

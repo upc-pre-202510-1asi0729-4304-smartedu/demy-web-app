@@ -4,7 +4,7 @@ export class Student {
   lastName: string;
   dni: string
   sex: Sex;
-  birthDate: Date;
+  birthDate: Date | null;
   address: string;
   phoneNumber: string;
 
@@ -14,7 +14,7 @@ export class Student {
     this.lastName = student.lastName || '';
     this.dni = student.dni || '';
     this.sex = student.sex || Sex.MALE;
-    this.birthDate = student.birthDate || new Date();
+    this.birthDate = student.birthDate ?? null;
     this.address = student.address || '';
     this.phoneNumber = student.phoneNumber || '';
   }
