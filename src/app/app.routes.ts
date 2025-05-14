@@ -11,6 +11,7 @@ import { CoursesOverviewComponent} from './scheduling/pages/courses-overview/cou
 import { ClassroomOverviewComponent} from './scheduling/pages/classroom-overview/classroom-overview.component';
 import {WeeklySchedulesOverviewComponent} from './scheduling/pages/weekly-schedules-overview/weekly-schedules-overview.component';
 import { SearchSchedulesComponent } from './scheduling/pages/search-schedules/search-schedules.component';
+import {TeacherScheduleComponent} from './scheduling/pages/teacher-schedule/teacher-schedule.component';
 
 
 export const routes: Routes = [
@@ -25,6 +26,7 @@ export const routes: Routes = [
       { path: 'workspace', component: DashboardComponent },
       { path: 'payments', component: PaymentsComponent },
       { path: 'search-schedules', component: SearchSchedulesComponent },
+      { path: 'teacher-schedule', component: TeacherScheduleComponent },
       {
         path: 'finance',
         component: FinanceLayoutComponent,
