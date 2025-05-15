@@ -21,13 +21,15 @@ import { Role } from '../../model/role.model';
 import {TranslatePipe} from '@ngx-translate/core';
 
 /**
- * Component for managing teacher-related actions via a modal dialog.
- * It can be used to add, edit, or delete a teacher.
+ * Modal dialog component for managing teacher-related actions.
+ *
+ * Supports adding, editing, and deleting teacher accounts.
+ * Uses template-driven forms and emits a result upon user confirmation.
  *
  * @remarks
- * The modal allows creating a new teacher, editing an existing one, or confirming deletion.
+ * The `data` input determines the mode of the modal (`add`, `edit`, or `delete`)
+ * and optionally passes existing teacher data.
  */
-
 @Component({
   selector: 'app-teacher-modal',
   standalone: true,
@@ -49,19 +51,34 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrls: ['./teacher-modal.component.css']
 })
 export class TeacherModalComponent {
+  /**
+   * Reference to the teacher form in the template.
+   * Used for validation and access to form state.
+   */
   @ViewChild('teacherForm') teacherForm!: NgForm;
 
+  /**
+   * Title displayed at the top of the modal.
+   * Computed based on the current mode.
+   */
   dialogTitle: string;
+
+  /**
+   * Teacher account data being created or edited.
+   */
   teacher: UserAccount;
+
+  /**
+   * Current mode of the modal: `add`, `edit`, or `delete`.
+   */
   mode: 'add' | 'edit' | 'delete';
 
   /**
-   * Constructor to initialize the modal with passed data (mode, teacher data).
+   * Initializes the modal with data passed via the Angular Material dialog.
    *
-   * @param dialogRef - Reference to the dialog
-   * @param data - Data passed to the dialog (mode, teacher)
+   * @param dialogRef - Reference to the open dialog.
+   * @param data - Object containing the operation `mode` and optional `teacher` data.
    */
-
   constructor(
     public dialogRef: MatDialogRef<TeacherModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -78,15 +95,15 @@ export class TeacherModalComponent {
   }
 
   /**
-   * Closes the dialog without saving any changes.
+   * Closes the modal dialog without saving any data.
    */
   onCancel(): void {
     this.dialogRef.close(null);
   }
 
   /**
-   * Submits the form and closes the dialog with the teacher data if the form is valid.
-   * For 'edit' mode, the teacher ID is also included in the result.
+   * Submits the form and closes the modal with the teacher data if the form is valid.
+   * In `edit` mode, the `id` field is preserved.
    */
   onSubmit(): void {
     if (this.teacherForm.valid) {
@@ -103,7 +120,8 @@ export class TeacherModalComponent {
   }
 
   /**
-   * Confirms the deletion of the teacher and closes the dialog with a 'true' value.
+   * Confirms the deletion of the teacher and closes the modal with a `true` value.
+   * Used in `delete` mode only.
    */
   onConfirmDelete(): void {
     this.dialogRef.close(true);
