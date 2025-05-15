@@ -3,6 +3,10 @@ import { MatIcon } from "@angular/material/icon";
 import { MatListModule } from '@angular/material/list';
 import { RouterLink } from '@angular/router';
 
+/**
+ * Sidebar navigation component.
+ * Displays a list of navigation options and emits a logout event.
+ */
 @Component({
   selector: 'app-side-navigation-bar',
   imports: [
@@ -14,6 +18,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './side-navigation-bar.component.css'
 })
 export class SideNavigationBarComponent {
+  /**
+   * List of navigation options with icon, label, and route.
+   */
   navOptions = [
     { icon: 'apartment', label: 'Mi organización', route: '/organization' },
     { icon: 'assignment', label: 'Matrícula', route: '/enrollment' },
@@ -24,5 +31,8 @@ export class SideNavigationBarComponent {
     { icon: 'account_balance', label: 'Finanzas', route: '/finance' }
   ];
 
+  /**
+   * Emits when the logout action is triggered.
+   */
   @Output() logout = new EventEmitter<void>();
 }
