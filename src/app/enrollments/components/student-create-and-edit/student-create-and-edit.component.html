@@ -79,7 +79,7 @@
 
     <div class="form-actions">
         <button mat-raised-button color="primary" type="submit" [disabled]="!studentForm.valid">
-            {{ isEditMode() ? 'student.form.update' : 'student.form.save' | translate }}
+            {{ (isEditMode() ? 'student.form.update' : 'student.form.save') | translate }}
         </button>
         <button mat-button type="button" (click)="onCancel()">
             {{ 'student.form.cancel' | translate }}
