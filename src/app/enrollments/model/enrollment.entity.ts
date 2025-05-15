@@ -1,13 +1,42 @@
+/**
+ * Represents a student enrollment in an academic period.
+ */
 export class Enrollment {
-  id: string
+  /** Enrollment ID */
+  id: string;
+
+  /** ID of the student */
   studentId: string;
+
+  /** ID of the academic period */
   periodId: string;
+
+  /** Payment amount */
   amount: number;
+
+  /** Enrollment status */
   enrollmentStatus: EnrollmentStatus;
+
+  /** Payment status */
   paymentStatus: PaymentStatus;
+
+  /** Creation date */
   createdAt: Date;
 
-  constructor(enrollment: {id?: string, studentId?:string, periodId?: string, amount?: number, enrollmentStatus?: EnrollmentStatus, paymentStatus?: PaymentStatus, createdAt?: Date}) {
+  /**
+   * Creates an Enrollment instance.
+   *
+   * @param enrollment - Partial data to initialize the entity
+   */
+  constructor(enrollment: {
+    id?: string;
+    studentId?: string;
+    periodId?: string;
+    amount?: number;
+    enrollmentStatus?: EnrollmentStatus;
+    paymentStatus?: PaymentStatus;
+    createdAt?: Date;
+  }) {
     this.id = enrollment.id || '';
     this.studentId = enrollment.studentId || '';
     this.periodId = enrollment.periodId || '';
@@ -18,6 +47,9 @@ export class Enrollment {
   }
 }
 
+/**
+ * Status of an enrollment.
+ */
 export enum EnrollmentStatus {
   ACTIVE = 'ACTIVE',
   CANCELLED = 'CANCELLED',
@@ -25,6 +57,9 @@ export enum EnrollmentStatus {
   DELETED = 'DELETED'
 }
 
+/**
+ * Status of a payment.
+ */
 export enum PaymentStatus {
   PENDING = 'PENDING',
   PAID = 'PAID',
