@@ -10,6 +10,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { BaseFormComponent } from '../../../shared/components/base-form/base-form.component';
 import { Invoice } from '../../model/invoice.entity';
 
+/**
+ * Standalone form component used to register a payment for a given invoice and student.
+ *
+ * Validates form inputs and emits payment data to the parent component upon submission.
+ */
 @Component({
   selector: 'app-payment-registration',
   imports: [
@@ -25,19 +30,39 @@ import { Invoice } from '../../model/invoice.entity';
   styleUrl: './payment-registration.component.css'
 })
 export class PaymentRegistrationComponent extends BaseFormComponent {
+  /**
+   * The student associated with the invoice being paid.
+   */
   @Input() student!: Student;
 
+  /**
+   * The invoice for which the payment is being registered.
+   */
   @Input() invoice!: Invoice;
 
+  /**
+   * Event emitted when a payment is successfully registered.
+   * Emits an object containing the payment amount and date.
+   */
   @Output() paymentRegistered = new EventEmitter<{
     amount: number;
     paidAt: Date;
   }>();
 
+  /**
+   * Template reference to the payment form for validation and reset operations.
+   */
   @ViewChild('paymentForm', { static: false}) paymentForm!: NgForm;
 
+  /**
+   * The date selected as the payment date. Defaults to the current date.
+   */
   paidAt: Date = new Date();
 
+  /**
+   * Handles form submission. Emits the payment data if the form is valid,
+   * and resets the form to its initial state.
+   */
   onSubmit() {
     if (!this.paymentForm.valid) {
       console.warn('Invalid form');
