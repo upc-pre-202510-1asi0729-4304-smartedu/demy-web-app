@@ -1,5 +1,5 @@
 <form #studentForm="ngForm" (ngSubmit)="onSubmit()" class="student-form">
-    <h2>{{ editMode ? 'student.form.title-edit' : 'student.form.title-new' | translate }}</h2>
+    <h2>{{(editMode ? 'student.form.title-edit' : 'student.form.title-new') | translate }}</h2>
 
     <div class="form-row">
         <mat-form-field appearance="outline" class="form-field">
@@ -79,7 +79,7 @@
 
     <div class="form-actions">
         <button mat-raised-button color="primary" type="submit" [disabled]="!studentForm.valid">
-            {{ isEditMode() ? 'student.form.update' : 'student.form.save' | translate }}
+            {{ (isEditMode() ? 'student.form.update' : 'student.form.save') | translate }}
         </button>
         <button mat-button type="button" (click)="onCancel()">
             {{ 'student.form.cancel' | translate }}

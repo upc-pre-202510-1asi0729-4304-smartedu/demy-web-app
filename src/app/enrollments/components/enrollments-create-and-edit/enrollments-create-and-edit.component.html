@@ -1,5 +1,5 @@
 <form #enrollmentForm="ngForm" (ngSubmit)="onSubmit()" class="enrollment-form">
-    <h2>{{ editMode ? 'enrollment.form.title-edit' : 'enrollment.form.title-new' | translate }}</h2>
+  <h2>{{ (editMode ? 'enrollment.form.title-edit' : 'enrollment.form.title-new') | translate }}</h2>
 
     <!-- Estudiante -->
     <div class="form-row">
@@ -85,7 +85,7 @@
 
     <div class="form-actions">
         <button mat-flat-button color="primary" type="submit" [disabled]="!enrollmentForm.valid">
-            {{ isEditMode() ? 'enrollment.form.update' : 'enrollment.form.save' | translate }}
+            {{ (isEditMode() ? 'enrollment.form.update' : 'enrollment.form.save') | translate }}
         </button>
         <button mat-button type="button" (click)="onCancel()">
             {{ 'enrollment.form.cancel' | translate }}
