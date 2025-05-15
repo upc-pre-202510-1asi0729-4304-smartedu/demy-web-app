@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {BaseService} from "../../shared/services/base.service";
-import {Student} from '../model/student.entity';
-import {environment} from '../../../environments/environment';
-import {catchError, Observable, retry} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BaseService } from "../../shared/services/base.service";
+import { Student } from '../model/student.entity';
+import { environment } from '../../../environments/environment';
+import { catchError, Observable, retry } from 'rxjs';
 
 /**
  * API endpoint path for students obtained from environment configuration.
@@ -10,7 +10,7 @@ import {catchError, Observable, retry} from 'rxjs';
 const studentsResourceEndpointPath = environment.studentsEndpointPath;
 
 /**
- * Service responsible for managing course-related HTTP operations.
+ * Service responsible for managing student-related HTTP operations.
  * Extends BaseService to provide CRUD operations for Student entities.
  *
  * Available operations inherited from BaseService:
@@ -24,7 +24,7 @@ const studentsResourceEndpointPath = environment.studentsEndpointPath;
  * ```typescript
  * constructor(private studentService: StudentService) {}
  *
- * // Get all courses
+ * // Get all students
  * studentService.getAll().subscribe(students => {...});
  * ```
  */
@@ -35,13 +35,19 @@ export class StudentService extends BaseService<Student> {
 
   /**
    * Initializes the StudentService.
-   * Service responsible for managing student-related HTTP operations.
+   * Sets the resource endpoint used for student-related API operations.
    */
   constructor() {
     super();
     this.resourceEndpoint = studentsResourceEndpointPath;
   }
 
+  /**
+   * Retrieves students by their DNI.
+   *
+   * @param dni - The DNI of the student(s) to retrieve.
+   * @returns An observable with a list of matching students.
+   */
   public getByDni(dni: string): Observable<Student[]> {
     const url = `${this.resourcePath()}?dni=${dni}`;
     return this.http.get<Student[]>(url, this.httpOptions)

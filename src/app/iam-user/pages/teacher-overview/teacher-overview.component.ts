@@ -13,12 +13,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 /**
- * Component that shows an overview of the teachers in a table.
- * Allows adding, editing, and deleting teachers through a modal.
- * The table includes pagination, sorting, and the ability to interact with teacher data.
+ * Component that displays a list of teachers in a table with sorting and pagination.
  *
- * @remarks
- * This component uses the TeacherService to fetch and manage teacher data.
+ * Provides actions to add, edit, or delete teachers using a modal dialog.
+ * Fetches data from the backend using the {@link TeacherService}.
  */
 @Component({
   selector: 'app-teacher-overview',
@@ -36,26 +34,40 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   styleUrls: ['./teacher-overview.component.css']
 })
 export class TeacherOverviewComponent implements OnInit, AfterViewInit {
+  /**
+   * Columns displayed in the teacher table.
+   */
   protected columnsToDisplay: string[] = ['fullName', 'email', 'actions'];
+
+  /**
+   * Data source for the Angular Material table.
+   */
   protected dataSource = new MatTableDataSource<UserAccount>();
 
+  /**
+   * Reference to the table paginator.
+   */
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  /**
+   * Reference to the table sorter.
+   */
   @ViewChild(MatSort) sort!: MatSort;
 
   private teacherService = inject(TeacherService);
   private dialog = inject(MatDialog);
 
   /**
-   * Method that runs when the component is initialized.
-   * Responsible for loading the list of teachers.
+   * Lifecycle hook that runs on component initialization.
+   * Loads the list of teachers from the backend.
    */
   ngOnInit(): void {
     this.getAllTeachers();
   }
 
   /**
-   * Method that runs after the view has been fully initialized.
-   * Sets up pagination and sorting for the table.
+   * Lifecycle hook that runs after the view is fully initialized.
+   * Assigns the paginator and sorter to the data table.
    */
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -63,8 +75,8 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Opens the modal to add a new teacher.
-   * When the modal is closed successfully, the new teacher is saved, and the list is updated.
+   * Opens the teacher modal in 'add' mode.
+   * If a new teacher is successfully added, the table is refreshed.
    */
   onNewTeacher(): void {
     const dialogRef = this.dialog.open(TeacherModalComponent, {
@@ -83,10 +95,10 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Opens the modal to edit an existing teacher.
-   * When the modal is closed successfully, the teacher is updated, and the list is refreshed.
+   * Opens the teacher modal in 'edit' mode with pre-filled teacher data.
+   * If edited successfully, the table is refreshed.
    *
-   * @param teacher - The teacher to edit
+   * @param teacher - The teacher to be edited.
    */
   protected onEditItem(teacher: UserAccount): void {
     const dialogRef = this.dialog.open(TeacherModalComponent, {
@@ -107,10 +119,10 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Opens the modal to confirm the deletion of a teacher.
-   * If the deletion is confirmed, the teacher is deleted, and the list is updated.
+   * Opens the teacher modal in 'delete' mode to confirm deletion.
+   * If confirmed, deletes the teacher and updates the table.
    *
-   * @param teacher - The teacher to delete
+   * @param teacher - The teacher to be deleted.
    */
   protected onDeleteItem(teacher: UserAccount): void {
     const dialogRef = this.dialog.open(TeacherModalComponent, {
@@ -133,8 +145,8 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Fetches all teachers from the backend.
-   * Filters the teachers based on their role to only show those with the role 'TEACHER'.
+   * Fetches all teacher accounts from the backend and filters those with role `TEACHER`.
+   * Updates the data source with the filtered list.
    */
   private getAllTeachers() {
     this.teacherService.getTeachers().subscribe({

@@ -15,18 +15,22 @@ import {
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort, MatSortHeader } from "@angular/material/sort";
 import { MatIcon } from "@angular/material/icon";
-import {MatIconModule} from '@angular/material/icon';
-import {DatePipe, NgClass} from "@angular/common";
-import {MatIconButton} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { DatePipe, NgClass } from "@angular/common";
+import { MatIconButton } from '@angular/material/button';
 import { StudentCreateFormComponent } from "../../components/student-create-and-edit/student-create-and-edit.component";
 import { StudentService } from '../../services/student.service';
-import {Student} from '../../model/student.entity';
-import {TranslatePipe} from '@ngx-translate/core';
+import { Student } from '../../model/student.entity';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
- * Component responsible for managing student enrollments through a table interface.
- * Provides functionality for viewing, creating, updating, and deleting student enrollments.
- * Features include pagination, sorting, and integrated CRUD operations.
+ * Component for managing students via a table interface.
+ * Allows creation, editing, deletion, and listing of students with sorting and pagination features.
+ *
+ * @export
+ * @class StudentManagementComponent
+ * @implements {OnInit}
+ * @implements {AfterViewInit}
  */
 @Component({
   selector: 'app-student-management',
@@ -58,36 +62,31 @@ import {TranslatePipe} from '@ngx-translate/core';
 })
 export class StudentManagementComponent implements OnInit, AfterViewInit {
 
-  //#region Attributes
-
   /** Current student enrollment being created or edited */
-  protected studentData !: Student
-  /** Defines which columns should be displayed in the table and their order */
+  protected studentData!: Student;
+
+  /** Columns to display in the table */
   protected readonly columnsToDisplay: string[] = ['dni', 'firstName', 'lastName', 'sex', 'birthDate', 'actions'];
 
-  /** Reference to the Material paginator for handling page-based data display */
+  /** Reference to Material paginator */
   @ViewChild(MatPaginator, { static: false })
   protected paginator!: MatPaginator;
 
-  /** Reference to the Material sort directive for handling column sorting */
+  /** Reference to Material sort */
   @ViewChild(MatSort)
   protected sort!: MatSort;
 
-  /** Controls whether the component is in edit mode */
+  /** Flag indicating if component is in edit mode */
   protected editMode: boolean = false;
 
-  /** Material table data source for managing and displaying student data */
+  /** Data source for the Material table */
   protected dataSource!: MatTableDataSource<any>;
 
-  /** Service for handling student-related API operations */
+  /** Service for student-related API operations */
   private studentService: StudentService = inject(StudentService);
 
-  //#endregion
-
-  //#region Methods
-
   /**
-   * Initializes the component with default values and creates a new data source
+   * Creates an instance of StudentManagementComponent.
    */
   constructor() {
     this.editMode = false;
@@ -95,9 +94,10 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource();
     console.log(this.studentData);
   }
+
   /**
-   * Lifecycle hook that runs after view initialization.
-   * Sets up the Material table's paginator and sort functionality.
+   * Lifecycle hook called after the component's view has been fully initialized.
+   * Assigns the paginator and sort references to the table data source.
    */
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -105,93 +105,105 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Lifecycle hook that runs on component initialization.
-   * Loads the initial student data.
+   * Lifecycle hook called on component initialization.
+   * Loads the list of all students.
    */
   ngOnInit(): void {
     this.getAllStudents();
   }
 
   /**
-   * Handles the edit action for a student
-   * @param item - The student to be edited
+   * Enables edit mode for a selected student.
+   *
+   * @param item The student to edit
    */
-  protected onEditItem(item: any) {
+  protected onEditItem(item: any): void {
     this.editMode = true;
     this.studentData = item;
   }
 
   /**
-   * Handles the delete action for a student
-   * @param item - The student to be deleted
+   * Deletes the selected student.
+   *
+   * @param item The student to delete
    */
-  protected onDeleteItem(item: Student) {
+  protected onDeleteItem(item: Student): void {
     this.deleteStudent(item.id);
   }
 
   /**
-   * Handles the cancellation of create/edit operations.
-   * Resets the component state and refreshes the student list.
+   * Cancels current create or edit operation.
+   * Resets the edit state and reloads student list.
    */
-  protected onCancelRequested() {
+  protected onCancelRequested(): void {
     this.resetEditStudentState();
     this.getAllStudents();
   }
 
   /**
-   * Handles the addition of a new student
-   * @param student - The new student to be added
+   * Adds a new student.
+   *
+   * @param student The student to add
    */
-  protected onStudentAddRequested(student: Student) {
+  protected onStudentAddRequested(student: Student): void {
     this.studentData = student;
     this.createStudent();
     this.resetEditStudentState();
   }
 
   /**
-   * Handles the update of an existing student
-   * @param student - The student with updated information
+   * Updates an existing student.
+   *
+   * @param student The student to update
    */
-  protected onStudentUpdateRequested(student: Student) {
+  protected onStudentUpdateRequested(student: Student): void {
     this.studentData = student;
     this.updateStudent();
     this.resetEditStudentState();
   }
 
   /**
-   * Resets the component's edit state to its default values.
-   * Clears the current student data and exits edit mode.
+   * Resets the edit state to default.
+   * Clears student data and disables edit mode.
+   *
+   * @private
    */
   private resetEditStudentState(): void {
-    this.studentData = new Student({})
+    this.studentData = new Student({});
     this.editMode = false;
   }
 
   /**
-   * Retrieves all students from the service and updates the table's data source.
-   * Uses StudentService to fetch the data via HTTP.
+   * Retrieves all students using the student service.
+   * Updates the data source with the fetched student list.
+   *
+   * @private
    */
-  private getAllStudents() {
-    this.studentService.getAll().subscribe((response: Array<Student>)=> {
+  private getAllStudents(): void {
+    this.studentService.getAll().subscribe((response: Array<Student>) => {
       this.dataSource.data = response;
-      });
-    }
+    });
+  }
 
   /**
-   * Creates a new student using the StudentService.
-   * Updates the table's data source with the newly created student.
+   * Creates a new student using the student service.
+   * Appends the created student to the data source.
+   *
+   * @private
    */
-  private createStudent() {
+  private createStudent(): void {
     this.studentService.create(this.studentData).subscribe((response: Student) => {
       this.dataSource.data = [...this.dataSource.data, response];
     });
   }
 
   /**
-   * Updates an existing student using the StudentService.
-   * Updates the corresponding student in the table's data source.
+   * Updates an existing student using the student service.
+   * Replaces the existing record in the data source.
+   *
+   * @private
    */
-  private updateStudent() {
+  private updateStudent(): void {
     const studentToUpdate = this.studentData;
     this.studentService.update(studentToUpdate.id, studentToUpdate).subscribe((response: Student) => {
       const index = this.dataSource.data.findIndex(s => s.id === response.id);
@@ -202,14 +214,15 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Deletes a student using the StudentService.
-   * Removes the student from the table's data source.
-   * @param id - The DNI (ID) of the student to delete
+   * Deletes a student by ID using the student service.
+   * Removes the student from the data source.
+   *
+   * @param id ID of the student to delete
+   * @private
    */
-  private deleteStudent(id: string) {
+  private deleteStudent(id: string): void {
     this.studentService.delete(id).subscribe(() => {
       this.dataSource.data = this.dataSource.data.filter(item => item.id !== id);
     });
   }
-  //#endregion
 }

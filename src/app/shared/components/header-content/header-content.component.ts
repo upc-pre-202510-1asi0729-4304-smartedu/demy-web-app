@@ -4,6 +4,10 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton, MatButtonModule } from "@angular/material/button";
 import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
+/**
+ * Header content component for the application layout.
+ * Displays toolbar controls, language switcher and handles menu toggle on mobile.
+ */
 @Component({
   selector: 'app-header-content',
   imports: [
@@ -17,8 +21,13 @@ import { LanguageSwitcherComponent } from '../language-switcher/language-switche
   styleUrl: './header-content.component.css'
 })
 export class HeaderContentComponent {
+  /**
+   * Indicates if the layout is in mobile view.
+   */
   @Input() isMobile: boolean = false;
 
+  /**
+   * Emits when the mobile menu button is clicked.
+   */
   @Output() menuToggle = new EventEmitter<void>();
-
 }
