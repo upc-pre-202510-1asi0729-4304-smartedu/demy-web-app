@@ -1,5 +1,5 @@
 <form #enrollmentForm="ngForm" (ngSubmit)="onSubmit()" class="enrollment-form">
-    <h2>{{ editMode ? 'enrollment.form.title-edit' : 'enrollment.form.title-new' | translate }}</h2>
+  <h2>{{ (editMode ? 'enrollment.form.title-edit' : 'enrollment.form.title-new') | translate }}</h2>
 
     <!-- Estudiante -->
     <div class="form-row">

@@ -1,5 +1,5 @@
 <form #studentForm="ngForm" (ngSubmit)="onSubmit()" class="student-form">
-    <h2>{{ editMode ? 'student.form.title-edit' : 'student.form.title-new' | translate }}</h2>
+    <h2>{{(editMode ? 'student.form.title-edit' : 'student.form.title-new') | translate }}</h2>
 
     <div class="form-row">
         <mat-form-field appearance="outline" class="form-field">
