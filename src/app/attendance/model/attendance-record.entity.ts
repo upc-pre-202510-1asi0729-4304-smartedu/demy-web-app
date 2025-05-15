@@ -2,13 +2,14 @@ import { AttendanceStatus } from './attendance-status.enum';
 
 /**
  * Represents a single attendance record for a student.
+ * Contains the student's identifier and their attendance status in a given session.
  */
 export class AttendanceRecord {
   /**
    * Creates an instance of AttendanceRecord.
    *
    * @param studentId - The unique identifier of the student
-   * @param status - The attendance status (e.g., PRESENT, ABSENT). Defaults to ABSENT
+   * @param status - The attendance status (e.g., PRESENT, ABSENT). Defaults to {@link AttendanceStatus.ABSENT}.
    */
   constructor(
     public readonly studentId: string,

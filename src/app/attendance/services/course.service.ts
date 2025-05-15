@@ -4,7 +4,7 @@ import { Course } from '../model/course.entity';
 import { map, Observable } from 'rxjs';
 /**
  * Service responsible for retrieving course data from the backend API.
- * Used by components that require a list of available courses.
+ * Used by components that require a list of available courses, such as dropdowns or selection forms.
  */
 @Injectable({ providedIn: 'root' })
 export class CourseService {
@@ -19,9 +19,9 @@ export class CourseService {
    */
   constructor(private http: HttpClient) {}
   /**
-   * Fetches all courses from the API and maps them to Course instances.
+   * Fetches all courses from the API and maps them to {@link Course} instances.
    *
-   * @returns An observable that emits an array of Course objects.
+   * @returns An {@link Observable} that emits an array of {@link Course} objects.
    */
   getAll(): Observable<Course[]> {
     return this.http.get<any[]>(this.apiUrl).pipe(
