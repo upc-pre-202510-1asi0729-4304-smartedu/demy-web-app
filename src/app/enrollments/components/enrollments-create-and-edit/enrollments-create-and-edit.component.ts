@@ -6,13 +6,17 @@ import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { BaseFormComponent } from '../../../shared/components/base-form/base-form.component';
-import {Enrollment} from '../../model/enrollment.entity';
-import {AcademicPeriod} from '../../model/academic-period.entity';
-import {AcademicPeriodService} from '../../services/academic-period.service';
-import {Student} from '../../model/student.entity';
+import { Enrollment } from '../../model/enrollment.entity';
+import { AcademicPeriod } from '../../model/academic-period.entity';
+import { AcademicPeriodService } from '../../services/academic-period.service';
+import { Student } from '../../model/student.entity';
 import { StudentService } from '../../services/student.service';
-import {TranslatePipe} from "@ngx-translate/core";
+import { TranslatePipe } from "@ngx-translate/core";
 
+/**
+ * Component responsible for creating and editing student enrollments.
+ * Provides a form interface with validation and emits events for creation, update, and cancellation.
+ */
 @Component({
   selector: 'app-enrollments-create-form',
   standalone: true,
@@ -28,21 +32,35 @@ import {TranslatePipe} from "@ngx-translate/core";
   templateUrl: './enrollments-create-and-edit.component.html',
   styleUrls: ['./enrollments-create-and-edit.component.css']
 })
-
 export class EnrollmentsCreateFormComponent extends BaseFormComponent implements OnInit {
+
+  /** Current enrollment being created or edited */
   @Input() enrollment!: Enrollment;
+
+  /** Indicates whether the component is in edit mode */
   @Input() editMode: boolean = false;
+
+  /** Event emitted when a new enrollment is submitted */
   @Output() protected enrollmentAddRequested = new EventEmitter<Enrollment>();
+
+  /** Event emitted when an existing enrollment is updated */
   @Output() protected enrollmentUpdateRequested = new EventEmitter<Enrollment>();
+
+  /** Event emitted when the user cancels the form operation */
   @Output() protected cancelRequested = new EventEmitter<void>();
+
+  /** Reference to the form object used for validation and resetting */
   @ViewChild('enrollmentForm', { static: false }) enrollmentForm!: NgForm;
 
+  /** List of enrollment status options */
   enrollmentStatusOptions = [
     { value: 'ACTIVE', viewValue: 'Activo' },
     { value: 'CANCELLED', viewValue: 'Cancelado' },
     { value: 'COMPLETED', viewValue: 'Completado' },
     { value: 'DELETED', viewValue: 'Eliminado' }
   ];
+
+  /** List of payment status options */
   paymentStatusOptions = [
     { value: 'PENDING', viewValue: 'Pendiente' },
     { value: 'PAID', viewValue: 'Pagado' },
@@ -50,21 +68,37 @@ export class EnrollmentsCreateFormComponent extends BaseFormComponent implements
     { value: 'PARTIAL', viewValue: 'Parcial' }
   ];
 
-  studentOptions: Student[] = []; // Aquí cargarás los estudiantes disponibles
-  periodOptions: AcademicPeriod[] = []
+  /** List of students to select from */
+  studentOptions: Student[] = [];
 
-  constructor(private academicPeriodService: AcademicPeriodService,
-              private studentService: StudentService
+  /** List of academic periods to select from */
+  periodOptions: AcademicPeriod[] = [];
+
+  /**
+   * Initializes the component and its dependencies.
+   * @param academicPeriodService - Service used to fetch academic periods
+   * @param studentService - Service used to fetch students
+   */
+  constructor(
+    private academicPeriodService: AcademicPeriodService,
+    private studentService: StudentService
   ) {
     super();
     this.enrollment = new Enrollment({});
   }
 
+  /**
+   * Lifecycle hook called on component initialization.
+   * Loads academic periods and students for selection.
+   */
   ngOnInit(): void {
     this.loadAcademicPeriods();
     this.loadStudents();
   }
 
+  /**
+   * Loads academic periods from the service and updates the options.
+   */
   private loadAcademicPeriods(): void {
     this.academicPeriodService.getAll().subscribe({
       next: (periods) => this.periodOptions = periods,
@@ -72,6 +106,9 @@ export class EnrollmentsCreateFormComponent extends BaseFormComponent implements
     });
   }
 
+  /**
+   * Loads students from the service and updates the options.
+   */
   private loadStudents(): void {
     this.studentService.getAll().subscribe({
       next: (students) => this.studentOptions = students,
@@ -79,24 +116,42 @@ export class EnrollmentsCreateFormComponent extends BaseFormComponent implements
     });
   }
 
-  protected resetEditState() {
+  /**
+   * Resets the form and exits edit mode.
+   * Clears the current enrollment data.
+   */
+  protected resetEditState(): void {
     this.enrollment = new Enrollment({});
     this.editMode = false;
     this.enrollmentForm.reset();
   }
 
+  /**
+   * Checks whether the current form is valid.
+   * @returns `true` if form is valid, otherwise `false`
+   */
   private isValid = () => this.enrollmentForm.valid;
+
+  /**
+   * Determines if the component is in edit mode.
+   * @returns `true` if editing, otherwise `false`
+   */
   protected isEditMode = () => this.editMode;
 
+  /**
+   * Handles the form submission. Emits an event to create or update enrollment.
+   */
   protected onSubmit(): void {
     if (this.isValid()) {
       let emitter = this.isEditMode() ? this.enrollmentUpdateRequested : this.enrollmentAddRequested;
+
       if (this.enrollment.createdAt) {
         const dateObj = new Date(this.enrollment.createdAt);
         if (!isNaN(dateObj.getTime())) {
           this.enrollment.createdAt = dateObj;
         }
       }
+
       emitter.emit(this.enrollment);
       this.resetEditState();
     } else {
@@ -104,6 +159,9 @@ export class EnrollmentsCreateFormComponent extends BaseFormComponent implements
     }
   }
 
+  /**
+   * Handles the cancel action. Emits an event and resets the form state.
+   */
   protected onCancel(): void {
     this.cancelRequested.emit();
     this.resetEditState();

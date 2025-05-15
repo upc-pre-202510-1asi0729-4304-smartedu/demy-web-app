@@ -15,16 +15,15 @@ import {
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort, MatSortHeader } from "@angular/material/sort";
 import { MatIcon } from "@angular/material/icon";
-import {DatePipe, NgClass} from "@angular/common";
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-import {
-  AcademicPeriodCreateFormComponent
-} from '../../components/academic-period-create-and-edit/academic-period-create-and-edit.component';
-import {AcademicPeriod} from '../../model/academic-period.entity';
+import { DatePipe, NgClass } from "@angular/common";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { AcademicPeriodCreateFormComponent } from '../../components/academic-period-create-and-edit/academic-period-create-and-edit.component';
+import { AcademicPeriod } from '../../model/academic-period.entity';
 import { AcademicPeriodService } from '../../services/academic-period.service';
-import {TranslatePipe} from "@ngx-translate/core";
+import { TranslatePipe } from "@ngx-translate/core";
+
 /**
  * Component responsible for managing academic periods through a table interface.
  * Provides functionality for viewing, creating, updating, and deleting academic periods.
@@ -63,45 +62,45 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
 
   //#region Attributes
 
-  /** Current academic period being created or edited */
+  /** The currently selected or edited academic period. */
   protected academicPeriodData!: AcademicPeriod;
 
-  /** Defines which columns should be displayed in the table and their order */
+  /** Columns to display in the Material table. */
   protected columnsToDisplay: string[] = ['name', 'start_date', 'end_date', 'actions'];
 
-  /** Reference to the Material paginator for handling page-based data display */
+  /** Paginator reference for Material table. */
   @ViewChild(MatPaginator, { static: false })
   protected paginator!: MatPaginator;
 
-  /** Reference to the Material sort directive for handling column sorting */
+  /** Sort header reference for Material table. */
   @ViewChild(MatSort)
   protected sort!: MatSort;
 
-  /** Controls whether the component is in edit mode */
+  /** Flag indicating whether the form is in edit mode. */
   protected editMode: boolean = false;
 
-  /** Material table data source for managing and displaying academic period data */
-  protected dataSource!: MatTableDataSource<any>;
+  /** Material data source for binding academic period data to the table. */
+  protected dataSource!: MatTableDataSource<AcademicPeriod>;
 
-  /** Service for handling academic period-related API operations */
+  /** Injected service for API interaction regarding academic periods. */
   private academicPeriodService: AcademicPeriodService = inject(AcademicPeriodService);
+
   //#endregion
 
-  //#region Methods
+  //#region Lifecycle
 
   /**
-   * Initializes the component with default values and creates a new data source
+   * Component constructor. Initializes data source and default form state.
    */
   constructor() {
     this.editMode = false;
-    this.academicPeriodData = new AcademicPeriod({})
+    this.academicPeriodData = new AcademicPeriod({});
     this.dataSource = new MatTableDataSource();
-    console.log(this.academicPeriodData);
   }
 
   /**
-   * Lifecycle hook that runs after view initialization.
-   * Sets up the Material table's paginator and sort functionality.
+   * AfterViewInit lifecycle hook.
+   * Assigns paginator and sort controls to the data source.
    */
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -109,62 +108,69 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
   }
 
   /**
-   * Lifecycle hook that runs on component initialization.
-   * Loads the initial academic period data.
+   * OnInit lifecycle hook.
+   * Fetches initial data from the API.
    */
   ngOnInit(): void {
     this.getAllAcademicPeriods();
   }
 
+  //#endregion
+
+  //#region Event Handlers
+
   /**
-   * Handles the edit action for an academic period
-   * @param item - The academic period to be edited
+   * Handles the edit action.
+   * @param item Academic period to edit.
    */
-  protected onEditItem(item: AcademicPeriod) {
+  protected onEditItem(item: AcademicPeriod): void {
     this.editMode = true;
-    this.academicPeriodData = item
+    this.academicPeriodData = item;
   }
 
   /**
-   * Handles the delete action for an academic period
-   * @param item - The academic period to be deleted
+   * Handles the delete action.
+   * @param item Academic period to delete.
    */
-  protected onDeleteItem(item: AcademicPeriod) {
+  protected onDeleteItem(item: AcademicPeriod): void {
     this.deleteAcademicPeriod(item.id);
   }
 
   /**
-   * Handles the cancellation of create/edit operations.
-   * Resets the component state and refreshes the academic period list.
+   * Cancels editing or creation.
+   * Resets the form state and reloads academic periods.
    */
-  protected onCancelRequested() {
+  protected onCancelRequested(): void {
     this.resetEditAcademicPeriodState();
     this.getAllAcademicPeriods();
   }
 
   /**
-   * Handles the addition of a new academic period
-   * @param item - The new academic period to be added
+   * Handles the add action.
+   * @param item New academic period to add.
    */
-  protected onAcademicPeriodAddRequested(item: AcademicPeriod) {
+  protected onAcademicPeriodAddRequested(item: AcademicPeriod): void {
     this.academicPeriodData = item;
     this.createAcademicPeriod();
     this.resetEditAcademicPeriodState();
   }
 
   /**
-   * Handles the update of an existing academic period
-   * @param item - The academic period with updated information
+   * Handles the update action.
+   * @param item Updated academic period data.
    */
-  protected onAcademicPeriodUpdateRequested(item: AcademicPeriod) {
+  protected onAcademicPeriodUpdateRequested(item: AcademicPeriod): void {
     this.academicPeriodData = item;
     this.updateAcademicPeriod();
     this.resetEditAcademicPeriodState();
   }
 
+  //#endregion
+
+  //#region Private Methods
+
   /**
-   * Resets the component's edit state to its default values.
-   * Clears the current academic period data and exits edit mode.
+   * Resets edit state and clears current academic period.
    */
   private resetEditAcademicPeriodState(): void {
     this.academicPeriodData = new AcademicPeriod({});
@@ -172,49 +178,47 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
   }
 
   /**
-   * Retrieves all academic periods from the service and updates the table's data source.
-   * Uses AcademicPeriodService to fetch the data via HTTP.
+   * Fetches all academic periods from the API.
+   * Populates the table with data.
    */
-  private getAllAcademicPeriods() {
-    this.academicPeriodService.getAll().subscribe((response: Array<AcademicPeriod>) => {
+  private getAllAcademicPeriods(): void {
+    this.academicPeriodService.getAll().subscribe((response: AcademicPeriod[]) => {
       this.dataSource.data = response;
     });
   }
 
   /**
-   * Creates a new academic period using the AcademicPeriodService.
-   * Updates the table's data source with the newly created academic period.
+   * Creates a new academic period via the API.
+   * Adds it to the data table.
    */
-  private createAcademicPeriod() {
+  private createAcademicPeriod(): void {
     this.academicPeriodService.create(this.academicPeriodData).subscribe((response: AcademicPeriod) => {
       this.dataSource.data = [...this.dataSource.data, response];
-      this.dataSource.data = this.dataSource.data;
     });
   }
 
   /**
-   * Updates an existing academic period using the AcademicPeriodService.
-   * Updates the corresponding academic period in the table's data source.
+   * Updates an academic period via the API.
+   * Replaces the old record in the data table.
    */
-  private updateAcademicPeriod() {
-    let periodToUpdate = this.academicPeriodData;
+  private updateAcademicPeriod(): void {
+    const periodToUpdate = this.academicPeriodData;
     this.academicPeriodService.update(periodToUpdate.id, periodToUpdate).subscribe((response: AcademicPeriod) => {
-      let index = this.dataSource.data.findIndex((period:AcademicPeriod ) => period.id === response.id);
+      const index = this.dataSource.data.findIndex(period => period.id === response.id);
       const data = [...this.dataSource.data];
       data[index] = response;
       this.dataSource.data = data;
-      this.dataSource.data = this.dataSource.data;
     });
   }
 
   /**
-   * Deletes an academic period using the AcademicPeriodService.
-   * Removes the academic period from the table's data source.
-   * @param id - The (ID) of the academic period to delete
+   * Deletes an academic period via the API.
+   * Removes it from the data table.
+   * @param id ID of the academic period to delete.
    */
-  private deleteAcademicPeriod(id: string) {
+  private deleteAcademicPeriod(id: string): void {
     this.academicPeriodService.delete(id).subscribe(() => {
-      this.dataSource.data = this.dataSource.data.filter((period: AcademicPeriod) => period.id !== id);
+      this.dataSource.data = this.dataSource.data.filter(period => period.id !== id);
     });
   }
 

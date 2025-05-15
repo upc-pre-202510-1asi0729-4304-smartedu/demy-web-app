@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import {OrganizationOptionComponent} from '../organization-option/organization-option.component';
+import { OrganizationOptionComponent } from '../organization-option/organization-option.component';
 
+/**
+ * Layout component for the Organization module.
+ * Displays navigation options such as courses, rooms, teachers, etc.
+ */
 @Component({
   selector: 'app-organization-layout',
   imports: [
@@ -10,6 +14,9 @@ import {OrganizationOptionComponent} from '../organization-option/organization-o
   styleUrl: './organization-layout.component.css'
 })
 export class OrganizationLayoutComponent {
+  /**
+   * List of organization options with title, description, image and route.
+   */
   options = [
     {
       title: 'organization.courses.title',
