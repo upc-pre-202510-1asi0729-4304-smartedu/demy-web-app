@@ -1,6 +1,6 @@
 /**
  * Represents a course within the attendance system.
- * This model is used to display course names in a selection dropdown.
+ * This model is typically used to populate dropdown selections with course names.
  */
 export class Course {
   /**

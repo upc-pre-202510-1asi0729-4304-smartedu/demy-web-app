@@ -9,6 +9,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {TranslatePipe} from '@ngx-translate/core';
 
+/**
+ * Standalone form component used to create and register an expense.
+ *
+ * Provides form controls for amount, category, concept, and date.
+ * Emits the completed form data to the parent component upon confirmation.
+ */
 @Component({
   selector: 'app-expense-form',
   imports: [
@@ -25,9 +31,21 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrl: './expense-form.component.css'
 })
 export class ExpenseFormComponent extends BaseFormComponent {
+  /**
+   * Event emitted when the user submits a valid expense form.
+   * Sends the form value as an object.
+   */
   @Output() confirm = new EventEmitter<any>();
+
+  /**
+   * Reactive form group for managing expense input fields.
+   */
   form: FormGroup;
 
+  /**
+   * Predefined categories available for expense classification.
+   * Each category includes a `value` and a translation `labelKey`.
+   */
   categories = [
     { value: 'Teacher Payment', labelKey: 'finance.category.teachers' },
     { value: 'Materials', labelKey: 'finance.category.materials' },
@@ -38,6 +56,11 @@ export class ExpenseFormComponent extends BaseFormComponent {
     { value: 'Other', labelKey: 'finance.category.others' }
   ];
 
+  /**
+   * Initializes the expense form with default validators and a current date.
+   *
+   * @param fb - FormBuilder service used to create the form group.
+   */
   constructor(private fb: FormBuilder) {
     super();
     this.form = this.fb.group({
@@ -48,6 +71,10 @@ export class ExpenseFormComponent extends BaseFormComponent {
     });
   }
 
+  /**
+   * Handles form submission. If valid, emits the form data and resets the form.
+   * If invalid, marks all fields as touched to trigger validation messages.
+   */
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();

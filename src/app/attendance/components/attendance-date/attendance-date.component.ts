@@ -27,9 +27,13 @@ import{TranslatePipe} from '@ngx-translate/core';
     MatNativeDateModule
   ]
 })
+
 /**
- * Holds the currently selected date from the datepicker.
- * This value can be used to create or filter class sessions by date.
+ * Standalone component that allows users to select a date
+ * for an attendance session using Angular Material's datepicker.
+ *
+ * Supports internationalization via `ngx-translate`.
+ * The selected date can be used to create or filter attendance sessions.
  */
 export class AttendanceDateComponent {
   /**

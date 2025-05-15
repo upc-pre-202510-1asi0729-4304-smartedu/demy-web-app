@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserAccount } from '../model/user.entity';
-import { environment } from '../../../environments/environment'; // Importar el entorno
+import { environment } from '../../../environments/environment';
 
 /**
  * Service responsible for handling operations related to user accounts.

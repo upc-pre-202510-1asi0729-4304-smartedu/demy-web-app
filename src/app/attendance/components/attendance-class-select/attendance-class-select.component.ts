@@ -9,8 +9,8 @@ import {CourseService} from '../../services/course.service';
 import {FormsModule} from '@angular/forms';
 
 /**
- * Component responsible for displaying a dropdown selection of available courses.
- * Used in the attendance feature to allow users to choose a class.
+ * Component responsible for displaying a dropdown list of available courses.
+ * Used in the attendance feature to allow users to choose a course before marking attendance.
  */
 @Component({
   selector: 'app-attendance-class-select',
@@ -28,21 +28,25 @@ import {FormsModule} from '@angular/forms';
 })
 export class AttendanceClassSelectComponent {
   /**
-   * Holds the list of available courses fetched from the backend.
+   * Holds the list of available courses retrieved from the backend.
    */
   courses = signal<Course[]>([]);
+
   /**
    * Stores the currently selected course ID.
    */
   selectedCourseId = signal<string>('');
+
   /**
-   * Injects the CourseService for retrieving course data.
-   * @param courseService - Service used to fetch course information.
+   * Initializes the component with a reference to {@link CourseService}.
+   *
+   * @param courseService - Service used to fetch course data from the backend.
    */
   constructor(private courseService: CourseService) {}
+
   /**
-   * Lifecycle hook that runs after component initialization.
-   * Fetches the list of courses and stores them in a signal.
+   * Angular lifecycle hook called after component initialization.
+   * Fetches all available courses and updates the `courses` signal.
    */
   ngOnInit(): void {
     this.courseService.getAll().subscribe(c => this.courses.set(c));

@@ -2,14 +2,15 @@ import { AttendanceRecord } from './attendance-record.entity';
 
 /**
  * Represents a class session that holds attendance records for students.
+ * Typically used to group attendance data by session date or schedule.
  */
 export class ClassSession {
   /**
    * Creates a new ClassSession instance.
    *
    * @param id - The unique identifier for the session
-   * @param attendance - An array of attendance records for this session
-   * @param createdAt - The creation timestamp of the session (defaults to now)
+   * @param attendance - An optional array of attendance records for this session (defaults to an empty array).
+   * @param createdAt - The creation timestamp of the session (defaults to the current date and time).
    */
   constructor(
     public id: string,
@@ -27,7 +28,7 @@ export class ClassSession {
   /**
    * Retrieves the attendance records associated with this session.
    *
-   * @returns An array of `AttendanceRecord` objects
+   * @returns An array of {@link AttendanceRecord} objects.
    */
   getAttendance(): AttendanceRecord[] {
     return this.attendance;
@@ -35,7 +36,7 @@ export class ClassSession {
 
   /**
    * Converts the class session into a plain JSON object.
-   * Useful for serialization when saving or sending to a backend.
+   * Useful for serialization when saving or sending data to a backend.
    *
    * @returns An object with `id`, `createdAt` (as ISO string), and `attendance` records
    */

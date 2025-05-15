@@ -16,9 +16,12 @@ import { AttendanceRecordService } from '../../services/attendance-record.servic
 /**
  * Page component responsible for managing attendance registration.
  *
- * It integrates subcomponents for date selection, student listing,
- * class selection, and saving the session. It handles the logic
- * for fetching and updating `ClassSession` entities.
+ * This component coordinates the entire attendance flow:
+ * - Selecting a date and course.
+ * - Listing students with checkboxes.
+ * - Saving attendance records.
+ * It integrates reusable subcomponents and handles the logic
+ * for transforming attendance data and interacting with backend services.
  */
 @Component({
   selector: 'app-attendance-page',
@@ -33,17 +36,39 @@ import { AttendanceRecordService } from '../../services/attendance-record.servic
   styleUrl: './attendance-page.component.css',
   providers: [ClassSessionService]
 })
-/**
- * The current class session being managed. May be null before data is loaded.
- */
+
 export class AttendancePageComponent implements OnInit {
-  private attendanceRecordService = inject(AttendanceRecordService);
+  /**
+   * The current {@link ClassSession} being managed.
+   * May be `null` before session data is loaded.
+   */
   classSession: ClassSession | null = null;
 
-  constructor(private classSessionService: ClassSessionService) {}
   /**
-   * Lifecycle hook that initializes the component.
-   * Loads existing class sessions and selects the first one if available.
+   * Temporary buffer of attendance records to be saved.
+   * Populated by the student list component via `onAttendanceChanged`.
+   */
+  recordsBuffer: AttendanceRecord[] = [];
+
+  /**
+   * Reference to the student list component in the template.
+   * Used to call methods like `resetAttendance()` after saving.
+   *
+   * @remarks This reference becomes available after the view is fully initialized.
+   */
+  @ViewChild(StudentListComponent)
+  studentListComponent!: StudentListComponent;
+
+  private attendanceRecordService = inject(AttendanceRecordService);
+
+  /**
+   * Injects required services for class session management and attendance saving.
+   */
+  constructor(private classSessionService: ClassSessionService) {}
+
+  /**
+   * Lifecycle hook called after component initialization.
+   * Loads existing class sessions and selects the first one, or creates a new session if none exist.
    */
   ngOnInit(): void {
     this.classSessionService.getAll().subscribe({
@@ -55,7 +80,8 @@ export class AttendancePageComponent implements OnInit {
   }
 
   /**
-   * Saves the current class session to the backend using the session service.
+   * Saves the buffered attendance records to the backend.
+   * Then resets the student list to prepare for a new session.
    */
   onSave(): void {
     if (!this.recordsBuffer.length) return;
@@ -66,26 +92,14 @@ export class AttendancePageComponent implements OnInit {
   }
 
   /**
-   * Updates the session's attendance records when changes are received from the student list.
-   * Converts boolean attendance values into `AttendanceRecord` instances.
+   * Receives updated attendance data from the student list component.
+   * Converts raw attendance (boolean) into {@link AttendanceRecord} instances.
    *
-   * @param records - Array of attendance data per student (with `attended` as a boolean)
+   * @param records - Array of objects with `studentId` and `attended` status.
    */
-  recordsBuffer: AttendanceRecord[] = [];
-
   onAttendanceChanged(records: { studentId: string; attended: boolean }[]): void {
     this.recordsBuffer = records.map(
       r => new AttendanceRecord(r.studentId, r.attended ? AttendanceStatus.PRESENT : AttendanceStatus.ABSENT)
     );
   }
-  /**
-   * Reference to the StudentListComponent instance rendered in the template.
-   *
-   * Used to call public methods of the child component such as resetting attendance checkboxes.
-   *
-   * @remarks
-   * This reference is only available after the view has been fully initialized
-   */
-  @ViewChild(StudentListComponent)
-  studentListComponent!: StudentListComponent;
 }

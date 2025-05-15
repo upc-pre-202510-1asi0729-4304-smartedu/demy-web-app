@@ -15,8 +15,9 @@ import {FormsModule} from '@angular/forms';
 import{TranslatePipe} from '@ngx-translate/core';
 
 /**
- * Displays a list of students in a table format and allows toggling attendance using checkboxes.
- * Emits an event when attendance changes.
+ * Standalone component that displays a paginated list of students for attendance tracking.
+ * Allows toggling each student's attendance status using checkboxes,
+ * and emits the updated data to the parent component.
  */
 @Component({
   selector: 'app-student-list',
@@ -44,48 +45,55 @@ import{TranslatePipe} from '@ngx-translate/core';
 export class StudentListComponent implements OnInit {
 
   /**
-   * Event emitted when attendance data is modified.
-   * Emits an array of objects containing student ID and attendance status.
+   * Event emitted when attendance data is updated.
+   * Emits an array of objects containing each student's ID and attendance status.
    */
   @Output() attendanceChanged = new EventEmitter<{ studentId: string, attended: boolean }[]>();
-  /**
-   * Columns to display in the material table.
-   */
 
+  /**
+   * List of column identifiers used in the Material table.
+   */
   displayedColumns: string[] = ['dni', 'name', 'attended'];
 
   /**
-   * Data source for the student list table.
+   * Data source for the student table.
+   * Each row represents a {@link AttendanceStudent} instance.
    */
   students = new MatTableDataSource<AttendanceStudent>([]);
+
   /**
-   * Reference to the paginator component.
+   * Reference to the Angular Material paginator.
    */
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   /**
-   * Injects the attendance student service used to fetch student data.
-   * @param attendanceStudentService - Service to retrieve student list for attendance.
+   * Injects the {@link AttendanceStudentService} used to retrieve student data.
+   *
+   * @param attendanceStudentService - The service that fetches student records prepared for attendance.
    */
   constructor(private attendanceStudentService: AttendanceStudentService) {}
+
   /**
-   * Lifecycle hook that is called after data-bound properties are initialized.
-   * Retrieves the list of students and populates the table.
+   * Lifecycle hook called after component initialization.
+   * Fetches student data and populates the table.
    */
   ngOnInit(): void {
     this.attendanceStudentService.getForAttendance().subscribe(data => {
       this.students.data = data;
     });
   }
+
   /**
-   * Lifecycle hook that is called after the component's view has been fully initialized.
-   * Assigns the paginator to the data source.
+   * Lifecycle hook called after the view has been fully initialized.
+   * Binds the paginator to the table data source.
    */
   ngAfterViewInit(): void {
     this.students.paginator = this.paginator;
   }
+
   /**
-   * Emits the current attendance state for all students in the table.
-   * Called when a checkbox is toggled.
+   * Emits the current attendance status of all students in the table.
+   * This method should be called whenever a checkbox is toggled.
    */
   toggleAttendance() {
     const updated = this.students.data.map(s => ({
@@ -94,14 +102,13 @@ export class StudentListComponent implements OnInit {
     }));
     this.attendanceChanged.emit(updated);
   }
+
   /**
-   * Resets the attendance status for all students to false
-   * and refreshes the table data.
+   * Resets the attendance status of all students to `false`
+   * and refreshes the table to reflect the changes.
    */
   resetAttendance(): void {
     this.students.data.forEach(s => s.attended = false);
     this.students.data = [...this.students.data];
-
   }
-
-  }
+}
