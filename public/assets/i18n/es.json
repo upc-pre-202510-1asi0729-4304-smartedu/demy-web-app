@@ -209,5 +209,19 @@
     "date-select": "Fecha",
     "list-student": "Estudiante",
     "list-attendance": "Asistió"
+  },
+  "recover-password": {
+    "title": "Recuperar Contraseña",
+    "subtitle": "Ingresa tu correo",
+    "send": "Enviar",
+    "back": "Volver"
+  },
+  "reset-password": {
+    "title": "Restablecer Contraseña",
+    "newPassword": "Nueva Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "button": "Restablecer Contraseña",
+    "back": "Volver al inicio de sesión"
   }
+
 }

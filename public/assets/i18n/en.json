@@ -209,5 +209,18 @@
     "date-select": "Date",
     "list-student": "Student",
     "list-attendance": "Attended"
+  },
+  "recover-password": {
+    "title": "Recover Password",
+    "subtitle": "Enter your email",
+    "send": "Send",
+    "back": "Back"
+  },
+  "reset-password": {
+    "title": "Reset Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "button": "Reset Password",
+    "back": "Back to Login"
   }
 }

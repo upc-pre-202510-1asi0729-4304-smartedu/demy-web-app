@@ -4,6 +4,10 @@ import { MainLayoutComponent } from './shared/components/main-layout/main-layout
 import { OrganizationLayoutComponent } from './shared/components/organization-layout/organization-layout.component';
 import { LoginComponent } from './public/pages/login/login.component';
 import { SignUpComponent } from './public/pages/sign-up/sign-up.component';
+import { RecoverPasswordComponent } from  './public/pages/recover-password/recover-password.component';
+import { ResetPasswordComponent} from './public/pages/reset-password/reset-password.component';
+
+
 import { PlanSelectComponent } from './public/pages/plan-select/plan-select.component';
 import { TeacherOverviewComponent } from './iam-user/pages/teacher-overview/teacher-overview.component';
 import { ExpensesPageComponent} from './billing/pages/expenses-page/expenses-page.component';
@@ -45,5 +49,11 @@ export const routes: Routes = [
   },
   { path: 'planSelect',
     component: PlanSelectComponent
+  },
+  { path: 'forgot-password',
+    component: RecoverPasswordComponent
+  },
+  { path: 'reset-password',
+    component: ResetPasswordComponent
   }
 ];
