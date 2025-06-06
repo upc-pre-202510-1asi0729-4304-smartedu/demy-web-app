@@ -11,7 +11,6 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule} from '@angular/material/chips';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { WeeklyScheduleService } from '../../services/weekly-schedule.service';
 import { ScheduleWeekly } from '../../model/weekly-schedule.entity';
 import { Schedule } from '../../model/schedule.entity';
