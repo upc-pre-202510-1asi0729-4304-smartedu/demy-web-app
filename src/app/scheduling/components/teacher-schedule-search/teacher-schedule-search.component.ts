@@ -93,8 +93,7 @@ export class TeacherScheduleSearchComponent implements OnInit {
   constructor(
     private weeklyScheduleService: WeeklyScheduleService,
     private teacherService: TeacherService,
-    private dialog: MatDialog,
-    private router: Router
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {

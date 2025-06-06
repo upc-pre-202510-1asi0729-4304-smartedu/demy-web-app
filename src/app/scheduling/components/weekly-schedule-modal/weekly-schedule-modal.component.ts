@@ -101,13 +101,14 @@ export class WeeklyScheduleModalComponent {
    * Initializes the component based on the dialog data
    * @param dialogRef - Reference to the dialog used to close the dialog when done
    * @param data - The data passed to the dialog, containing mode and weekly schedule information
+   * @param teacherService - Service used to load available teachers
    * @param classroomService - Service used to load available classrooms
    * @param courseService - Service used to load available courses
    */
   constructor(
     public dialogRef: MatDialogRef<WeeklyScheduleModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private teacherService: TeacherService, // Uncomment when the Teacher entity is available
+    private teacherService: TeacherService,
     private classroomService: ClassroomService,
     private courseService: CourseService
   ) {

@@ -23,12 +23,8 @@ import { TeacherScheduleSearchComponent } from '../../components/teacher-schedul
   templateUrl: './teacher-schedule.component.html',
   styleUrls: ['./teacher-schedule.component.css']
 })
-export class TeacherScheduleComponent implements OnInit {
+export class TeacherScheduleComponent {
   errorMessage: string | null = null;
 
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {
-  }
-
+  constructor() {}
 }
