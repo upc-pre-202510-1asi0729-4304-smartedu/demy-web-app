@@ -27,6 +27,7 @@ export class SideNavigationBarComponent {
     { icon: 'group', label: 'Alumnos', route: '/students' },
     { icon: 'payments', label: 'Pagos', route: '/payments' },
     { icon: 'schedule', label: 'Horarios', route: '/search-schedules' },
+    { icon: 'schedule', label: 'Mi Horario', route: '/my-schedule' },
     { icon: 'check_circle', label: 'Asistencia', route: '/attendance' },
     { icon: 'account_balance', label: 'Finanzas', route: '/finance' }
   ];

@@ -35,7 +35,7 @@ export const routes: Routes = [
       { path: 'attendance', component:AttendancePageComponent},
       { path: 'finance', component: ExpensesPageComponent },
       { path: 'search-schedules', component: SearchSchedulesComponent },
-      { path: 'teacher-schedule', component: TeacherScheduleComponent },
+      { path: 'my-schedule', component: TeacherScheduleComponent },
       { path: 'students',component: StudentManagementComponent},
       {path: 'enrollment', component: EnrollmentsManagementComponent},
       { path: '', redirectTo: 'organization', pathMatch: 'full' }
