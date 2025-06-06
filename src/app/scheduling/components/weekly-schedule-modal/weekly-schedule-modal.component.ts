@@ -23,6 +23,7 @@ import { CourseService } from '../../services/course.service';
 import { MatIconModule } from '@angular/material/icon';
 import { ClassroomService } from '../../services/classroom.service';
 import { TeacherService } from '../../../iam-user/services/teacher.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /**
  * Component for displaying a modal to add, edit, or delete a weekly schedule.
@@ -46,7 +47,8 @@ import { TeacherService } from '../../../iam-user/services/teacher.service';
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    MatIconButton
+    MatIconButton,
+    TranslatePipe
   ],
   templateUrl: './weekly-schedule-modal.component.html',
   styleUrls: ['./weekly-schedule-modal.component.css']
@@ -75,6 +77,25 @@ export class WeeklyScheduleModalComponent {
 
   /** Schedules already added to the weekly schedule */
   currentSchedule: Schedule = new Schedule({});
+
+  /** Time slots (from 7:00 AM to 9:00 PM in 30-minute intervals) */
+  timeSlots: string[] = [
+    '07:00', '07:30',
+    '08:00', '08:30',
+    '09:00', '09:30',
+    '10:00', '10:30',
+    '11:00', '11:30',
+    '12:00', '12:30',
+    '13:00', '13:30',
+    '14:00', '14:30',
+    '15:00', '15:30',
+    '16:00', '16:30',
+    '17:00', '17:30',
+    '18:00', '18:30',
+    '19:00', '19:30',
+    '20:00', '20:30',
+    '21:00'
+  ];
 
   /**
    * Initializes the component based on the dialog data

@@ -1,73 +1,111 @@
 <div class="teacher-schedule-container">
-  <!-- Loading spinner -->
+  <!-- Header Section -->
+  <div class="schedule-header">
+    @if (currentTeacher) {
+      <mat-card class="teacher-info-card">
+        <mat-card-content>
+          <div class="teacher-info-content">
+            <mat-icon>person</mat-icon>
+            <span class="teacher-name">{{ currentTeacher.fullName }}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+
+  <!-- Loading State -->
   @if (isLoading) {
-    <div class="loading-container">
-      <mat-spinner></mat-spinner>
-      <p>{{ 'teacher-schedule.loading' | translate }}</p>
-    </div>
+    <mat-card class="loading-card">
+      <mat-card-content>
+        <div class="loading-indicator">
+          <mat-spinner diameter="40"></mat-spinner>
+          <p>{{ 'teacher-schedule.loading' | translate }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
   }
 
-  <!-- Error message -->
+  <!-- Error State -->
   @if (errorMessage) {
-    <div class="error-message">
-      <mat-icon color="warn">error</mat-icon>
-      <p>{{ errorMessage }}</p>
-    </div>
+    <mat-card class="error-card">
+      <mat-card-content>
+        <div class="error-content">
+          <mat-icon color="warn">error</mat-icon>
+          <span>{{ errorMessage }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
   }
 
-  <!-- Teacher info header -->
-  @if (currentTeacher && !isLoading && !errorMessage) {
-    <div class="teacher-info">
-      <h2>{{ 'teacher-schedule.welcome' | translate }} {{ currentTeacher.fullName }}</h2>
-      <p>{{ 'teacher-schedule.description' | translate }}</p>
-    </div>
+  <!-- Teacher Selection -->
+  <div class="teacher-selection">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'teacher-schedule.select-teacher' | translate }}</mat-label>
+      <mat-select [(ngModel)]="selectedTeacher" (selectionChange)="onTeacherSelect($event.value)">
+        @for (teacher of availableTeachers; track teacher.id) {
+          <mat-option [value]="teacher">{{ teacher.fullName }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <p class="instruction-text">{{ 'teacher-schedule.instruction' | translate }}</p>
+
+  <!-- No Schedules State -->
+  @if (!teacherSchedules.length && !isLoading && !errorMessage && selectedTeacher) {
+    <mat-card class="no-schedules-card">
+      <mat-card-content>
+        <div class="no-schedules-content">
+          <mat-icon>calendar_today</mat-icon>
+          <h3>{{ 'teacher-schedule.no-schedules.title' | translate }}</h3>
+          <p>{{ 'teacher-schedule.no-schedules.message' | translate }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
   }
 
-  <!-- Schedule table for teacher -->
+  <!-- Schedule Grid -->
   @if (teacherSchedules.length > 0 && !isLoading) {
-    <div class="schedule-results">
-      <h3>{{ 'teacher-schedule.table.title' | translate }}</h3>
+    <div class="schedule-section">
+      <div class="schedule-grid-container">
+        <div class="schedule-grid">
+          <!-- Header row with days -->
+          <div class="time-header"></div>
+          @for (day of daysOfWeek; track day.key) {
+            <div class="day-header">
+              {{ day.value }}
+            </div>
+          }
 
-      <div class="weekly-schedule-table">
-        <table class="schedule-table">
-          <thead>
-          <tr>
-            <th class="time-header">{{ 'teacher-schedule.table.hour' | translate }}</th>
-            @for (day of weekDays; track day) {
-              <th>{{ 'teacher-schedule.table.' + day | translate }}</th>
-            }
-          </tr>
-          </thead>
-          <tbody>
-            @for (timeSlot of getUniqueTimeSlots(); track timeSlot) {
-              <tr>
-                <td class="time-cell">{{ timeSlot }}</td>
+          <!-- Time slots and schedule blocks -->
+          @for (timeSlot of timeSlots; track timeSlot) {
+            <div class="time-slot">
+              {{ timeSlot }}
+            </div>
 
-                @for (day of weekDays; track day) {
-                  <td class="schedule-cell">
-                    @for (schedule of getSchedulesForDayAndTime(day, timeSlot); track schedule) {
-                      <div class="schedule-item">
-                        <div class="schedule-info">
-                          <strong>{{ schedule.timeRange.start }} - {{ schedule.timeRange.end }}</strong>
-                          <div>{{ 'teacher-schedule.table.course' | translate }}: {{ schedule.course.name }} ({{ schedule.course.code }})</div>
-                          <div>{{ 'teacher-schedule.table.classroom' | translate }}: {{ schedule.classroom.code }} ({{ schedule.classroom.campus }})</div>
-                        </div>
+            @for (day of daysOfWeek; track day.key) {
+              <div class="schedule-cell" [class.has-class]="hasClass(day.key, timeSlot)" (click)="onCellClick(day.key, timeSlot)">
+                @if (hasClass(day.key, timeSlot)) {
+                  @if (getScheduleForSlot(day.key, timeSlot); as schedule) {
+                    <div class="schedule-block">
+                      <div class="course-info">
+                        <strong>{{ schedule.course.name }}</strong>
                       </div>
-                    }
-                  </td>
+                      <div class="classroom-info">
+                        <mat-icon>location_on</mat-icon>
+                        {{ schedule.classroom.code }} - {{ schedule.classroom.campus }}
+                      </div>
+                      <div class="time-info">
+                        {{ schedule.timeRange.start }} - {{ schedule.timeRange.end }}
+                      </div>
+                    </div>
+                  }
                 }
-              </tr>
+              </div>
             }
-          </tbody>
-        </table>
+          }
+        </div>
       </div>
-    </div>
-  }
-
-  @if (teacherSchedules.length === 0 && !isLoading && !errorMessage) {
-    <div class="no-schedules">
-      <mat-icon>calendar_today</mat-icon>
-      <p>{{ 'teacher-schedule.no-schedules' | translate }}</p>
     </div>
   }
 </div>
