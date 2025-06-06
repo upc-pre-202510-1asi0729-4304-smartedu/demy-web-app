@@ -1,4 +1,17 @@
 <div class="teacher-schedule-page">
-  <h1>{{ 'teacher-schedule.title' | translate }}</h1>
-  <app-teacher-schedule-search />
+  @if (errorMessage) {
+    <mat-card class="error-card">
+      <mat-card-content>
+        <div class="error-content">
+          <mat-icon color="warn">error</mat-icon>
+          <span>{{ errorMessage }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <div>
+      <h1>{{ 'teacher-schedule.title' | translate }}</h1>
+    </div>
+    <app-teacher-schedule-search />
+  }
 </div>
