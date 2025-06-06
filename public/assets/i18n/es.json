@@ -67,10 +67,6 @@
       "new-teacher": "Nuevo Profesor"
     }
   },
-  "common": {
-    "edit": "Editar",
-    "delete": "Eliminar"
-  },
   "teacher-modal": {
     "add": "Agregar Profesor",
     "edit": "Editar Profesor",

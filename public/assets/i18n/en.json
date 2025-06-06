@@ -67,10 +67,6 @@
       "new-teacher": "New Teacher"
     }
   },
-  "common": {
-    "edit": "Edit",
-    "delete": "Delete"
-  },
   "teacher-modal": {
     "add": "Add Teacher",
     "edit": "Edit Teacher",
