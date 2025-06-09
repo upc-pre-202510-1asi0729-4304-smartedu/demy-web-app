@@ -12,7 +12,7 @@
       <p class="sub-tittle">{{ 'sign-up.sub-title' | translate }}</p>
 
       <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="form">
-        <mat-form-field appearance="fill" class="custom-mat-field">
+        <mat-form-field appearance="outline" class="custom-mat-field">
           <mat-label>{{ 'sign-up.name' | translate }}</mat-label>
           <input matInput formControlName="name">
           <mat-error *ngIf="f['name'].errors?.['required']">
@@ -20,7 +20,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="custom-mat-field">
+        <mat-form-field appearance="outline" class="custom-mat-field">
           <mat-label>{{ 'sign-up.academy-name' | translate }}</mat-label>
           <input matInput formControlName="academy_name">
           <mat-error *ngIf="f['academy_name'].errors?.['required']">
@@ -28,7 +28,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="custom-mat-field">
+        <mat-form-field appearance="outline" class="custom-mat-field">
           <mat-label>{{ 'sign-up.ruc' | translate }}</mat-label>
           <input matInput type="number" formControlName="ruc">
           <mat-error *ngIf="f['ruc'].errors?.['required']">
@@ -36,7 +36,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="custom-mat-field">
+        <mat-form-field appearance="outline" class="custom-mat-field">
           <mat-label>{{ 'sign-up.email' | translate }}</mat-label>
           <input matInput type="email" formControlName="email">
           <mat-error *ngIf="f['email'].errors?.['required']">
@@ -47,7 +47,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="custom-mat-field">
+        <mat-form-field appearance="outline" class="custom-mat-field">
           <mat-label>{{ 'sign-up.password' | translate }}</mat-label>
           <input matInput type="password" formControlName="password">
           <mat-error *ngIf="f['password'].errors?.['required']">

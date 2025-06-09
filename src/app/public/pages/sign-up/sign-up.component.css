@@ -75,15 +75,15 @@
 
 .form-box {
   width: 90%;
-  max-width: 400px;
+  max-width: 440px;
   padding: 10px 30px;
   text-align: left;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  transform: scale(0.75);
-  z-index: 1;
+  transform: scale(0.80);
 }
+
 
 .form input {
   width: 100%;
@@ -173,11 +173,10 @@ button:hover {
   }
 
   .form-box {
-    width: 100%;
-    max-width: 70%;
-    padding: 12px;
-    margin-top: 12px;
-    border-radius: 10px;
+    max-width: 90%;
+    padding: 15px 20px;
+    margin-top: 15px;
+    border-radius: 15px;
   }
 
   .logo {
@@ -187,6 +186,11 @@ button:hover {
 }
 
 @media (max-width: 400px) {
+  .form-box {
+    max-width: 100%;
+    padding: 10px 15px;
+    border-radius: 10px;
+  }
   .title {
     font-size: 14px;
     margin-bottom: 12px;

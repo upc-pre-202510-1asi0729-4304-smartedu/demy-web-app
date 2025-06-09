@@ -214,13 +214,23 @@
     "title": "Recover Password",
     "subtitle": "Enter your email",
     "send": "Send",
-    "back": "Back"
+    "back": "Back",
+    "dialog-title": "Password Recovery",
+    "dialog-button": "OK",
+    "success": "We sent you an email with reset instructions.",
+    "not-registered": "This email is not registered.",
+    "check-error": "An error occurred. Please try again later.",
+    "empty-email": "Please enter your email."
   },
   "reset-password": {
     "title": "Reset Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "button": "Reset Password",
-    "back": "Back to Login"
+    "back": "Back to Login",
+    "confirm-title": "Confirm Password Change",
+    "confirm-message": "Are you sure you want to change your password?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   }
 }

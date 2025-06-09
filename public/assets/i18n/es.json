@@ -214,14 +214,24 @@
     "title": "Recuperar Contraseña",
     "subtitle": "Ingresa tu correo",
     "send": "Enviar",
-    "back": "Volver"
+    "back": "Volver",
+    "dialog-title": "Recuperación de Contraseña",
+    "dialog-button": "Aceptar",
+    "success": "Te hemos enviado un correo con instrucciones para restablecer tu contraseña.",
+    "not-registered": "Este correo no está registrado.",
+    "check-error": "Ocurrió un error. Por favor, intenta de nuevo más tarde.",
+    "empty-email": "Por favor, ingresa tu correo electrónico."
   },
   "reset-password": {
     "title": "Restablecer Contraseña",
     "newPassword": "Nueva Contraseña",
     "confirmPassword": "Confirmar Contraseña",
     "button": "Restablecer Contraseña",
-    "back": "Volver al inicio de sesión"
+    "back": "Volver al inicio de sesión",
+    "confirm-title": "Confirmar cambio de contraseña",
+    "confirm-message": "¿Estás seguro de que quieres cambiar tu contraseña?",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
   }
 
 }
