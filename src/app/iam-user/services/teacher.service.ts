@@ -37,6 +37,9 @@ export class TeacherService {
     );
   }
 
+  getTeacherById(id: string): Observable<UserAccount> {
+    return this.http.get<UserAccount>(`${this.baseUrl}/${id}`);
+  }
 
   /**
    * Creates a new teacher in the backend.

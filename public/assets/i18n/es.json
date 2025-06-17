@@ -67,10 +67,6 @@
       "new-teacher": "Nuevo Profesor"
     }
   },
-  "common": {
-    "edit": "Editar",
-    "delete": "Eliminar"
-  },
   "teacher-modal": {
     "add": "Agregar Profesor",
     "edit": "Editar Profesor",
@@ -222,6 +218,24 @@
       "new-course": "Nuevo Curso"
     }
   },
+  "course-modal": {
+    "add": "Agregar Curso",
+    "edit": "Editar Curso",
+    "delete": "Eliminar Curso",
+    "delete-confirm": "¿Está seguro de eliminar el curso",
+    "delete-warning": "Esta acción no se puede deshacer.",
+    "form": {
+      "name": "Nombre",
+      "code": "Código",
+      "description": "Descripción",
+      "required": "Campo requerido"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "delete": "Eliminar"
+    }
+  },
   "view-classrooms": {
     "title": "Salones",
     "table": {
@@ -234,6 +248,24 @@
       "new-classroom": "Nuevo Salón"
     }
   },
+  "classroom-modal": {
+    "add": "Agregar Salón",
+    "edit": "Editar Salón",
+    "delete": "Eliminar Salón",
+    "delete-confirm": "¿Está seguro de eliminar el salón con código",
+    "delete-warning": "Esta acción no se puede deshacer.",
+    "form": {
+      "code": "Código",
+      "capacity": "Capacidad",
+      "campus": "Sede",
+      "required": "Campo requerido"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "delete": "Eliminar"
+    }
+  },
   "view-weekly-schedules": {
     "title": "Horarios Semanales",
     "table": {
@@ -243,6 +275,32 @@
     },
     "button":{
       "new": "Nuevo Horario Semanal"
+    }
+  },
+  "weekly-schedule-modal": {
+    "add": "Agregar Horario Semanal",
+    "edit": "Editar Horario Semanal",
+    "delete": "Eliminar Horario Semanal",
+    "delete-confirm": "¿Está seguro de eliminar este horario semanal",
+    "delete-warning": "Esta acción no se puede deshacer.",
+    "form": {
+      "name": "Nombre",
+      "required": "Campo requerido",
+      "add-schedule": "Agregar Horario",
+      "current-schedules": "Horarios Actuales",
+      "day-of-week": "Día de la Semana",
+      "start-time": "Hora de Inicio",
+      "end-time": "Hora de Fin",
+      "course": "Curso",
+      "teacher": "Profesor",
+      "classroom": "Salón",
+      "capacity": "Capacidad"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "delete": "Eliminar",
+      "add": "Agregar Horario"
     }
   },
   "search-schedules": {
@@ -381,5 +439,34 @@
     "paginator": {
       "label": "Seleccionar página de estudiantes"
     }
+  },
+  "scheduling": {
+    "reschedule": {
+      "title": "Reprogramar Clase",
+      "day": "Día",
+      "startTime": "Hora de inicio",
+      "endTime": "Hora de fin",
+      "classroom": "Aula",
+      "dayRequired": "El día es requerido",
+      "startTimeRequired": "La hora de inicio es requerida",
+      "endTimeRequired": "La hora de fin es requerida",
+      "classroomRequired": "El aula es requerida"
+    }
+  },
+  "teacher-schedule": {
+    "title": "Mi Horario Semanal",
+    "loading": "Cargando horario...",
+    "select-teacher": "Seleccionar profesor",
+    "no-schedules": {
+      "title": "Sin horarios asignados",
+      "message": "Este profesor no tiene horarios asignados"
+    },
+    "instruction": "Presiona el bloque para poder reprogramarlo"
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "edit": "Editar",
+    "delete": "Eliminar"
   }
 }
