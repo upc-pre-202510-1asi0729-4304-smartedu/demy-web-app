@@ -81,18 +81,18 @@ export class LoginComponent {
           if (users.length === 1 && users[0].passwordHash === password) {
             const user = users[0];
 
-            if (remember) {
-              localStorage.setItem('userData', JSON.stringify({
-                email: user.email,
-                role: user.role
-              }));
-            }
+            // Save data in localStorage
+            localStorage.setItem('userData', JSON.stringify({
+              email: user.email,
+              role: user.role
+            }));
 
             // Store teacher ID in localStorage if the user is a teacher
             if (user.role === 'TEACHER') {
               localStorage.setItem('teacherId', user.id.toString());
             }
 
+            // Navigate by role
             switch(user.role) {
               case 'ADMIN':
                 this.router.navigate(['/organization']);
