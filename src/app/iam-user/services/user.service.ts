@@ -47,6 +47,12 @@ export class UserService {
     return this.http.get<UserAccount[]>(`${this.apiUrl}?email=${email}`);
   }
 
+  updatePasswordById(id: number, newPassword: string): Observable<UserAccount> {
+    return this.http.put<UserAccount>(`${this.apiUrl}/${id}`, { passwordHash: newPassword });
+  }
+
+
+
   /**
    * Deletes a user account from the backend using their ID.
    *
