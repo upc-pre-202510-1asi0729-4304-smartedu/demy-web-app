@@ -1,0 +1,91 @@
+<div class="modal">
+  <h2 class="header">{{ 'scheduling.reschedule.title' | translate }}</h2>
+  
+  @if (loadingData) {
+    <div class="loading-indicator">
+      <p>{{ 'teacher-schedule.loading' | translate }}</p>
+    </div>
+  }
+
+  @if (error) {
+    <div class="error-message">
+      <mat-icon>error</mat-icon>
+      {{ error }}
+    </div>
+  }
+  
+  <form [formGroup]="rescheduleForm" (ngSubmit)="onSubmit()" class="form">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'scheduling.reschedule.day' | translate }}</mat-label>
+      <mat-select formControlName="dayOfWeek">
+        @for (day of dayOptions; track day.value) {
+          <mat-option [value]="day.value">
+            {{ day.label }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (rescheduleForm.get('dayOfWeek')?.hasError('required')) {
+        <mat-error>
+          {{ 'scheduling.reschedule.dayRequired' | translate }}
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'scheduling.reschedule.startTime' | translate }}</mat-label>
+      <mat-select formControlName="startTime">
+        @for (time of timeSlots; track time) {
+          <mat-option [value]="time">
+            {{ time }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (rescheduleForm.get('startTime')?.hasError('required')) {
+        <mat-error>
+          {{ 'scheduling.reschedule.startTimeRequired' | translate }}
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'scheduling.reschedule.endTime' | translate }}</mat-label>
+      <mat-select formControlName="endTime">
+        @for (time of timeSlots; track time) {
+          <mat-option [value]="time">
+            {{ time }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (rescheduleForm.get('endTime')?.hasError('required')) {
+        <mat-error>
+          {{ 'scheduling.reschedule.endTimeRequired' | translate }}
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'scheduling.reschedule.classroom' | translate }}</mat-label>
+      <mat-select formControlName="classroomId">
+        @for (classroom of availableClassrooms; track classroom.id) {
+          <mat-option [value]="classroom.id">
+            {{ classroom.code }} - {{ classroom.campus }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (rescheduleForm.get('classroomId')?.hasError('required')) {
+        <mat-error>
+          {{ 'scheduling.reschedule.classroomRequired' | translate }}
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <div class="dialog-actions">
+      <button mat-button type="button" (click)="onCancel()">
+        {{ 'common.cancel' | translate }}
+      </button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid">
+        {{ 'common.confirm' | translate }}
+      </button>
+    </div>
+  </form>
+</div>

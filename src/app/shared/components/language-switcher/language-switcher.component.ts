@@ -18,6 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-language-switcher',
+  standalone:true,
   imports: [
     MatButtonToggle,
     MatButtonToggleGroup,

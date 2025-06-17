@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatError } from '@angular/material/form-field';
-
+import {TranslatePipe} from '@ngx-translate/core';
 /**
  * Component for displaying a modal to add, edit, or delete a classroom.
  * Provides a form interface for adding or modifying classroom information,
@@ -31,6 +31,7 @@ import { MatError } from '@angular/material/form-field';
     MatFormFieldModule,
     MatLabel,
     MatError,
+    TranslatePipe
   ],
   templateUrl: './classroom-modal.component.html',
   styleUrls: ['./classroom-modal.component.css']

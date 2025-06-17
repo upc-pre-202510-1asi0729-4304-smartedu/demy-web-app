@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -33,7 +33,13 @@ import { TranslatePipe } from '@ngx-translate/core';
   templateUrl: './weekly-schedule-search.component.html',
   styleUrls: ['./weekly-schedule-search.component.css']
 })
-export class WeeklyScheduleSearchComponent {
+export class WeeklyScheduleSearchComponent implements OnInit {
+
+  /** Input for pre-selected schedule ID */
+  @Input() selectedScheduleId: string | number = '';
+
+  /** Output event when a schedule is selected */
+  @Output() scheduleSelected = new EventEmitter<ScheduleWeekly>();
 
   /** Form group for search input */
   searchForm: FormGroup;
@@ -61,6 +67,25 @@ export class WeeklyScheduleSearchComponent {
     'sunday'
   ];
 
+  /** Time slots from 7:00 AM to 9:00 PM in 30-minute intervals */
+  timeSlots = [
+    '07:00', '07:30',
+    '08:00', '08:30',
+    '09:00', '09:30',
+    '10:00', '10:30',
+    '11:00', '11:30',
+    '12:00', '12:30',
+    '13:00', '13:30',
+    '14:00', '14:30',
+    '15:00', '15:30',
+    '16:00', '16:30',
+    '17:00', '17:30',
+    '18:00', '18:30',
+    '19:00', '19:30',
+    '20:00', '20:30',
+    '21:00'
+  ];
+
   /**
    * Initializes the component and loads available weekly schedules
    * @param weeklyScheduleService - Service used to fetch weekly schedules from the backend
@@ -71,10 +96,11 @@ export class WeeklyScheduleSearchComponent {
     private fb: FormBuilder
   ) {
     this.searchForm = this.fb.group({
-      scheduleSelect: ['']
+      scheduleSelect: [this.selectedScheduleId]
     });
+  }
 
-    // Load schedules when the component is created
+  ngOnInit(): void {
     this.loadAvailableSchedules();
   }
 
@@ -89,10 +115,15 @@ export class WeeklyScheduleSearchComponent {
       next: (schedules) => {
         this.availableSchedules = schedules;
         this.isLoading = false;
+
+        // If there's a pre-selected schedule, set it in the form but don't search automatically
+        if (this.selectedScheduleId) {
+          this.searchForm.patchValue({ scheduleSelect: this.selectedScheduleId });
+        }
       },
       error: (error) => {
         console.error('Error fetching weekly schedules:', error);
-        this.errorMessage = 'Ocurrió un error al cargar los horarios semanales. Por favor, intente nuevamente.';
+        this.errorMessage = 'An error occurred while loading weekly schedules. Please try again.';
         this.isLoading = false;
       }
     });
@@ -115,28 +146,26 @@ export class WeeklyScheduleSearchComponent {
       ) || null;
 
       if (!this.currentWeeklySchedule) {
-        this.errorMessage = 'No se pudo encontrar el horario seleccionado.';
+        this.errorMessage = 'Could not find the selected schedule.';
+      } else {
+        // Emit the selected schedule to parent
+        this.scheduleSelected.emit(this.currentWeeklySchedule);
       }
       return;
     }
 
     // If no schedule selected
-    this.errorMessage = 'Por favor, seleccione un horario.';
+    this.errorMessage = 'Please select a schedule.';
   }
 
   /**
-   * Gets unique time slots from the current selected weekly schedule
-   * @returns A sorted array of unique time slots
+   * Called when schedule selection changes
    */
-  getUniqueTimeSlots(): string[] {
-    if (!this.currentWeeklySchedule) return [];
-
-    const timeSlots = new Set<string>();
-    this.currentWeeklySchedule.weekSchedule.forEach(schedule => {
-      timeSlots.add(schedule.timeRange.start);
-    });
-
-    return Array.from(timeSlots).sort();
+  onScheduleChange(): void {
+    // Reset the current schedule when selection changes
+    // Don't automatically search - wait for button click
+    this.currentWeeklySchedule = null;
+    this.errorMessage = null;
   }
 
   /**
@@ -148,10 +177,33 @@ export class WeeklyScheduleSearchComponent {
   getSchedulesForDayAndTime(day: string, timeSlot: string): Schedule[] {
     if (!this.currentWeeklySchedule) return [];
 
-    // Directly filter by the translated day and time
-    return this.currentWeeklySchedule.weekSchedule.filter(schedule =>
-      schedule.dayOfWeek.toLowerCase() === day.toLowerCase() &&
-      schedule.timeRange.start === timeSlot
-    );
+    return this.currentWeeklySchedule.weekSchedule.filter(schedule => {
+      const scheduleDayOfWeek = schedule.dayOfWeek.toLowerCase();
+      const [startHour, startMinute] = schedule.timeRange.start.split(':').map(Number);
+      const [endHour, endMinute] = schedule.timeRange.end.split(':').map(Number);
+      const [slotHour, slotMinute] = timeSlot.split(':').map(Number);
+
+      const startTimeInMinutes = startHour * 60 + startMinute;
+      const endTimeInMinutes = endHour * 60 + endMinute;
+      const slotTimeInMinutes = slotHour * 60 + slotMinute;
+
+      return scheduleDayOfWeek === day.toLowerCase() &&
+        slotTimeInMinutes >= startTimeInMinutes &&
+        slotTimeInMinutes < endTimeInMinutes;
+    });
+  }
+
+  /**
+   * Gets all time slots (always returns the complete 30-minute interval slots)
+   */
+  getUniqueTimeSlots(): string[] {
+    return this.timeSlots;
+  }
+
+  /**
+   * Checks if search is disabled
+   */
+  get isSearchDisabled(): boolean {
+    return !this.searchForm.get('scheduleSelect')?.value;
   }
 }

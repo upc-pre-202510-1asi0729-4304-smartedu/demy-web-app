@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatError } from '@angular/material/form-field';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /**
  * Component for displaying a modal to add, edit, or delete a course.
@@ -30,7 +31,8 @@ import { MatError } from '@angular/material/form-field';
     MatDialogActions,
     MatFormFieldModule,
     MatLabel,
-    MatError
+    MatError,
+    TranslatePipe
   ],
   templateUrl: './course-modal.component.html',
   styleUrls: ['./course-modal.component.css']

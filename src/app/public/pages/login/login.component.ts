@@ -8,8 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
-import{TranslatePipe}  from '@ngx-translate/core';
-import {UserService} from '../../../iam-user/services/user.service';
+import { TranslatePipe } from '@ngx-translate/core';
+import { UserService } from '../../../iam-user/services/user.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
@@ -55,12 +55,13 @@ export class LoginComponent {
    *
    * @param fb - FormBuilder service for creating reactive forms
    * @param router - Router service for handling navigation
+   * @param userService
    */
 
   constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(0)]],
       remember: [false]
     });
   }
@@ -80,13 +81,18 @@ export class LoginComponent {
           if (users.length === 1 && users[0].passwordHash === password) {
             const user = users[0];
 
-            if (remember) {
-              localStorage.setItem('userData', JSON.stringify({
-                email: user.email,
-                role: user.role
-              }));
+            // Save data in localStorage
+            localStorage.setItem('userData', JSON.stringify({
+              email: user.email,
+              role: user.role
+            }));
+
+            // Store teacher ID in localStorage if the user is a teacher
+            if (user.role === 'TEACHER') {
+              localStorage.setItem('teacherId', user.id.toString());
             }
 
+            // Navigate by role
             switch(user.role) {
               case 'ADMIN':
                 this.router.navigate(['/organization']);

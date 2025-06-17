@@ -21,6 +21,18 @@
       "description": "Manage your teaching staff"
     }
   },
+  "sidebar": {
+    "categories": "Categories",
+    "organization": "My Organization",
+    "enrollment": "Enrollment",
+    "students": "Students",
+    "payments": "Payments",
+    "schedules": "Schedules",
+    "my-schedule": "My Schedule",
+    "attendance": "Attendance",
+    "finance": "Finance",
+    "logout": "Log out"
+  },
   "login": {
     "sign-up": "Sign Up",
     "title": "Log In",
@@ -66,10 +78,6 @@
     "button": {
       "new-teacher": "New Teacher"
     }
-  },
-  "common": {
-    "edit": "Edit",
-    "delete": "Delete"
   },
   "teacher-modal": {
     "add": "Add Teacher",
@@ -222,6 +230,24 @@
       "new-course": "New Course"
     }
   },
+  "course-modal": {
+    "add": "Add Course",
+    "edit": "Edit Course",
+    "delete": "Delete Course",
+    "delete-confirm": "Are you sure you want to delete the course",
+    "delete-warning": "This action cannot be undone.",
+    "form": {
+      "name": "Name",
+      "code": "Code",
+      "description": "Description",
+      "required": "Required field"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete"
+    }
+  },
   "view-classrooms": {
     "title": "Classrooms",
     "table": {
@@ -234,6 +260,24 @@
       "new-classroom": "New Classroom"
     }
   },
+  "classroom-modal": {
+    "add": "Add Classroom",
+    "edit": "Edit Classroom",
+    "delete": "Delete Classroom",
+    "delete-confirm": "Are you sure you want to delete the classroom with code",
+    "delete-warning": "This action cannot be undone.",
+    "form": {
+      "code": "Code",
+      "capacity": "Capacity",
+      "campus": "Campus",
+      "required": "Required field"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete"
+    }
+  },
   "view-weekly-schedules": {
     "title": "Weekly Schedules",
     "table": {
@@ -243,6 +287,32 @@
     },
     "button":{
       "new": "New Weekly Schedule"
+    }
+  },
+  "weekly-schedule-modal": {
+    "add": "Add Weekly Schedule",
+    "edit": "Edit Weekly Schedule",
+    "delete": "Delete Weekly Schedule",
+    "delete-confirm": "Are you sure you want to delete this weekly schedule",
+    "delete-warning": "This action cannot be undone.",
+    "form": {
+      "name": "Name",
+      "required": "Required field",
+      "add-schedule": "Add Schedule",
+      "current-schedules": "Current Schedules",
+      "day-of-week": "Day of Week",
+      "start-time": "Start Time",
+      "end-time": "End Time",
+      "course": "Course",
+      "teacher": "Teacher",
+      "classroom": "Classroom",
+      "capacity": "Capacity"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete",
+      "add": "Add Schedule"
     }
   },
   "search-schedules": {
@@ -381,5 +451,57 @@
     "paginator": {
       "label": "Select student page"
     }
+  },
+  "scheduling": {
+    "reschedule": {
+      "title": "Reschedule Class",
+      "day": "Day",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "classroom": "Classroom",
+      "dayRequired": "Day is required",
+      "startTimeRequired": "Start time is required",
+      "endTimeRequired": "End time is required",
+      "classroomRequired": "Classroom is required"
+    }
+  },
+  "teacher-schedule": {
+    "title": "My Weekly Schedule",
+    "loading": "Loading schedule...",
+    "select-teacher": "Select teacher",
+    "no-schedules": {
+      "title": "No schedules assigned",
+      "message": "This teacher has no assigned schedules"
+    },
+    "instruction": "Click on a block to reschedule it"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "recover-password": {
+    "title": "Recover Password",
+    "subtitle": "Enter your email",
+    "send": "Send",
+    "back": "Back",
+    "dialog-title": "Password Recovery",
+    "dialog-button": "OK",
+    "success": "We sent you an email with reset instructions.",
+    "not-registered": "This email is not registered.",
+    "check-error": "An error occurred. Please try again later.",
+    "empty-email": "Please enter your email."
+  },
+  "reset-password": {
+    "title": "Reset Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "button": "Reset Password",
+    "back": "Back to Login",
+    "confirm-title": "Confirm Password Change",
+    "confirm-message": "Are you sure you want to change your password?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   }
 }
