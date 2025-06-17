@@ -58,16 +58,8 @@ export class TeacherScheduleSearchComponent implements OnInit {
   isLoading = false;
   /** Error message */
   errorMessage: string | null = null;
-  /** Selected teacher */
-  selectedTeacher: UserAccount | null = null;
   /** Current teacher being displayed */
   currentTeacher: UserAccount | null = null;
-  /** Available teachers */
-  availableTeachers: UserAccount[] = [];
-  /** Selected schedule for rescheduling */
-  selectedSchedule: Schedule | null = null;
-  /** Show reschedule modal */
-  showRescheduleModal = false;
 
   /** Days of the week configuration */
   daysOfWeek: DayOfWeek[] = [
@@ -96,38 +88,38 @@ export class TeacherScheduleSearchComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadTeachers();
+    this.loadTeacherFromLocalStorage();
   }
 
-  private loadTeachers(): void {
+  private loadTeacherFromLocalStorage(): void {
+    const teacherId = localStorage.getItem('teacherId');
+    if (!teacherId) {
+      this.errorMessage = 'No se encontró el ID del profesor en el almacenamiento local';
+      return;
+    }
+
     this.isLoading = true;
     this.errorMessage = null;
 
-    this.teacherService.getTeachers().subscribe({
-      next: (teachers) => {
-        this.availableTeachers = teachers;
-        this.isLoading = false;
+    this.teacherService.getTeacherById(teacherId).subscribe({
+      next: (teacher) => {
+        this.currentTeacher = teacher;
+        this.fetchTeacherSchedules();
       },
       error: (error) => {
-        console.error('Error loading teachers:', error);
-        this.errorMessage = 'Error al cargar la lista de profesores';
+        console.error('Error loading teacher:', error);
+        this.errorMessage = 'Error al cargar la información del profesor';
         this.isLoading = false;
       }
     });
-  }
-
-  onTeacherSelect(teacher: UserAccount): void {
-    this.selectedTeacher = teacher;
-    this.currentTeacher = teacher;
-    this.fetchTeacherSchedules();
   }
 
   /**
    * Fetches all teacher schedules from the backend
    */
   private fetchTeacherSchedules(): void {
-    if (!this.selectedTeacher) {
-      this.errorMessage = 'Por favor seleccione un profesor';
+    if (!this.currentTeacher) {
+      this.errorMessage = 'No se encontró información del profesor';
       return;
     }
 
@@ -168,11 +160,10 @@ export class TeacherScheduleSearchComponent implements OnInit {
       }
     });
 
-    // Filter schedules for selected teacher
-    const selectedTeacherId = String(this.selectedTeacher?.id);
+    const teacherId = String(this.currentTeacher?.id);
     this.teacherSchedules = allIndividualSchedules.filter(schedule => {
-      const teacherId = String(schedule.teacher?.id);
-      return teacherId === selectedTeacherId;
+      const scheduleTeacherId = String(schedule.teacher?.id);
+      return scheduleTeacherId === teacherId;
     });
   }
 

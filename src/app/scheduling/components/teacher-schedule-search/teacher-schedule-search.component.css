@@ -13,10 +13,10 @@
 }
 
 .instruction-text {
+  text-align: center;
   color: #666;
+  margin: 1rem 0;
   font-style: italic;
-  margin: -10px 0 20px 0;
-  font-size: 0.9em;
 }
 
 .schedule-header {

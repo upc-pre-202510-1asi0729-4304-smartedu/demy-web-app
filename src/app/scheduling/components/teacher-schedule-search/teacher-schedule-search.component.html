@@ -13,6 +13,11 @@
     }
   </div>
 
+  <!-- Instruction Text -->
+  <p class="instruction-text">
+    {{ 'teacher-schedule.instruction' | translate }}
+  </p>
+
   <!-- Loading State -->
   @if (isLoading) {
     <mat-card class="loading-card">
@@ -37,22 +42,8 @@
     </mat-card>
   }
 
-  <!-- Teacher Selection -->
-  <div class="teacher-selection">
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'teacher-schedule.select-teacher' | translate }}</mat-label>
-      <mat-select [(ngModel)]="selectedTeacher" (selectionChange)="onTeacherSelect($event.value)">
-        @for (teacher of availableTeachers; track teacher.id) {
-          <mat-option [value]="teacher">{{ teacher.fullName }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <p class="instruction-text">{{ 'teacher-schedule.instruction' | translate }}</p>
-
   <!-- No Schedules State -->
-  @if (!teacherSchedules.length && !isLoading && !errorMessage && selectedTeacher) {
+  @if (!teacherSchedules.length && !isLoading && !errorMessage && currentTeacher) {
     <mat-card class="no-schedules-card">
       <mat-card-content>
         <div class="no-schedules-content">
