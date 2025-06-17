@@ -3,6 +3,7 @@ import { MatIcon } from "@angular/material/icon";
 import { MatListModule } from '@angular/material/list';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../iam-user/services/user.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Sidebar navigation component.
@@ -13,7 +14,8 @@ import { UserService } from '../../../iam-user/services/user.service';
   imports: [
     MatIcon,
     MatListModule,
-    RouterLink
+    RouterLink,
+    TranslatePipe
   ],
   templateUrl: './side-navigation-bar.component.html',
   styleUrl: './side-navigation-bar.component.css'
@@ -25,14 +27,14 @@ export class SideNavigationBarComponent {
    * List of navigation options with icon, label, and route.
    */
   navOptions = [
-    { icon: 'apartment', label: 'Mi organización', route: '/organization', roles: ['ADMIN'] },
-    { icon: 'assignment', label: 'Matrícula', route: '/enrollment', roles: ['ADMIN'] },
-    { icon: 'group', label: 'Alumnos', route: '/students', roles: ['ADMIN'] },
-    { icon: 'payments', label: 'Pagos', route: '/payments', roles: ['ADMIN'] },
-    { icon: 'schedule', label: 'Horarios', route: '/search-schedules', roles: ['ADMIN'] },
-    { icon: 'schedule', label: 'Mi Horario', route: '/my-schedule', roles: ['TEACHER'] },
-    { icon: 'check_circle', label: 'Asistencia', route: '/attendance',roles: ['TEACHER'] },
-    { icon: 'account_balance', label: 'Finanzas', route: '/finance', roles: ['ADMIN'] }
+    { icon: 'apartment', label: 'sidebar.organization', route: '/organization', roles: ['ADMIN'] },
+    { icon: 'assignment', label: 'sidebar.enrollment', route: '/enrollment', roles: ['ADMIN'] },
+    { icon: 'group', label: 'sidebar.students', route: '/students', roles: ['ADMIN'] },
+    { icon: 'payments', label: 'sidebar.payments', route: '/payments', roles: ['ADMIN'] },
+    { icon: 'schedule', label: 'sidebar.schedules', route: '/search-schedules', roles: ['ADMIN'] },
+    { icon: 'schedule', label: 'sidebar.my-schedule', route: '/my-schedule', roles: ['TEACHER'] },
+    { icon: 'check_circle', label: 'sidebar.attendance', route: '/attendance',roles: ['TEACHER'] },
+    { icon: 'account_balance', label: 'sidebar.finance', route: '/finance', roles: ['ADMIN'] }
   ];
 
   get visibleNavOptions() {

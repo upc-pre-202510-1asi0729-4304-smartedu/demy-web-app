@@ -21,6 +21,18 @@
       "description": "Gestiona el personal docente"
     }
   },
+  "sidebar": {
+    "categories": "Categorías",
+    "organization": "Mi organización",
+    "enrollment": "Matrícula",
+    "students": "Alumnos",
+    "payments": "Pagos",
+    "schedules": "Horarios",
+    "my-schedule": "Mi Horario",
+    "attendance": "Asistencia",
+    "finance": "Finanzas",
+    "logout": "Salir"
+  },
   "login": {
     "sign-up": "Crear Cuenta",
     "title": "Iniciar sesión",
