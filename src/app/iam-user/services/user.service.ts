@@ -51,8 +51,6 @@ export class UserService {
     return this.http.put<UserAccount>(`${this.apiUrl}/${id}`, { passwordHash: newPassword });
   }
 
-
-
   /**
    * Deletes a user account from the backend using their ID.
    *
@@ -61,5 +59,28 @@ export class UserService {
    */
   deleteUser(userId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${userId}`);
+  }
+
+  getUserRole(): string | null {
+    const userData = localStorage.getItem('userData');
+    if (!userData) return null;
+    try {
+      return JSON.parse(userData).role ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  isAdmin(): boolean {
+    return this.getUserRole() === 'ADMIN';
+  }
+
+  isTeacher(): boolean {
+    return this.getUserRole() === 'TEACHER';
+  }
+
+  clearUserData(): void {
+    localStorage.removeItem('userData');
+    localStorage.removeItem('teacherId');
   }
 }
