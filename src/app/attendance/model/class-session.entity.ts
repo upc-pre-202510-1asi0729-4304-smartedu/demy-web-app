@@ -11,12 +11,15 @@ export class ClassSession {
    * @param id - The unique identifier for the session
    * @param attendance - An optional array of attendance records for this session (defaults to an empty array).
    * @param createdAt - The creation timestamp of the session (defaults to the current date and time).
+   * @param classId - The ID of the associated course/class.
    */
   constructor(
     public id: string,
     public attendance: AttendanceRecord[] = [],
-    public createdAt: Date = new Date() //
+    public createdAt: Date = new Date(),
+    public classId: string = ''
   ) {}
+
   /**
    * Replaces the existing attendance records with a new set.
    *
@@ -25,6 +28,7 @@ export class ClassSession {
   setAttendance(records: AttendanceRecord[]): void {
     this.attendance = records;
   }
+
   /**
    * Retrieves the attendance records associated with this session.
    *
@@ -38,12 +42,13 @@ export class ClassSession {
    * Converts the class session into a plain JSON object.
    * Useful for serialization when saving or sending data to a backend.
    *
-   * @returns An object with `id`, `createdAt` (as ISO string), and `attendance` records
+   * @returns An object with `id`, `createdAt` (as ISO string), `classId`, and `attendance` records
    */
   toJSON() {
     return {
       id: this.id,
       createdAt: this.createdAt.toISOString(),
+      classId: this.classId,
       attendance: this.attendance.map(a => a.toJSON())
     };
   }
