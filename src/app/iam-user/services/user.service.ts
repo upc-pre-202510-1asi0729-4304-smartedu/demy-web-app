@@ -17,7 +17,7 @@ import { environment } from '../../../environments/environment'; // Importar el 
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = `${environment.apiBaseUrl}${environment.usersEndpointPath}`; // Usar las variables de entorno
+  private apiUrl = `${environment.apiBaseUrl}${environment.usersEndpointPath}`;
 
   /**
    * Injects Angular's HttpClient to perform HTTP requests.
