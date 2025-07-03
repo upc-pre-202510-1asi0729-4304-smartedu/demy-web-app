@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../../shared/services/base.service';
-import {ClassSession} from '../model/class-session.entity';
-import {environment} from '../../../environments/environment';
+import { ClassSession } from '../model/class-session.entity';
+import { environment } from '../../../environments/environment';
 
 const classSessionsResourceEndpointPath = environment.classSessionsEndpointPath;
 
@@ -15,12 +15,8 @@ const classSessionsResourceEndpointPath = environment.classSessionsEndpointPath;
   providedIn: 'root'
 })
 export class ClassSessionService extends BaseService<ClassSession> {
-  /**
-   * Initializes the service and sets the resource endpoint for class sessions.
-   */
   constructor() {
     super();
     this.resourceEndpoint = classSessionsResourceEndpointPath;
   }
-
 }
