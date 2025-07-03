@@ -5,7 +5,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import {authenticationInterceptor} from "./iam-user/authentication/authentication.interceptor";
+import {authenticationInterceptor} from "./iam-user/services/authentication.interceptor";
 
 const httpLoaderFactory: (http: HttpClient) =>
   TranslateLoader = (http: HttpClient) =>

@@ -10,7 +10,6 @@ import { SearchSchedulesComponent } from './scheduling/pages/search-schedules/se
 import {TeacherScheduleComponent} from './scheduling/pages/teacher-schedule/teacher-schedule.component';
 
 import { SignUpComponent } from './public/pages/sign-up/sign-up.component';
-import { RecoverPasswordComponent } from  './public/pages/recover-password/recover-password.component';
 import { ResetPasswordComponent} from './public/pages/reset-password/reset-password.component';
 import {AuthenticationSectionComponent} from './iam-user/components/authentication-section/authentication-section.component';
 
@@ -24,7 +23,7 @@ import {
   AcademicPeriodManagementComponent
 } from './enrollments/pages/academic-period-management/academic-period-management.component';
 import {EnrollmentsManagementComponent} from './enrollments/pages/enrollment-management/enrollment-management.component';
-import {authenticationGuard} from './iam-user/authentication/authentication.guard';
+import {authenticationGuard} from './iam-user/services/authentication.guard';
 
 export const routes: Routes = [
   {
@@ -56,9 +55,6 @@ export const routes: Routes = [
   },
   { path: 'planSelect',
     component: PlanSelectComponent
-  },
-  { path: 'forgot-password',
-    component: RecoverPasswordComponent
   },
   { path: 'reset-password',
     component: ResetPasswordComponent
