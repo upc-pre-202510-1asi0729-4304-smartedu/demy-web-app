@@ -502,6 +502,9 @@
     "confirm-title": "Confirmar cambio de contraseña",
     "confirm-message": "¿Estás seguro de que quieres cambiar tu contraseña?",
     "cancel": "Cancelar",
-    "confirm": "Confirmar"
+    "confirm": "Confirmar",
+    "missing-fields": "Por favor, completa el correo y la nueva contraseña.",
+    "success": "Tu contraseña ha sido actualizada correctamente.",
+    "error": "Error al actualizar la contraseña. Inténtalo nuevamente."
   }
 }

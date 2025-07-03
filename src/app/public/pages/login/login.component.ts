@@ -13,7 +13,7 @@ import { UserService } from '../../../iam-user/services/user.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import {AuthenticationService} from '../../../iam-user/authentication/authentication.service';
+import {AuthenticationService} from '../../../iam-user/services/authentication.service';
 
 /**
  * Component representing the application's login page.

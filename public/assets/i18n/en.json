@@ -502,6 +502,9 @@
     "confirm-title": "Confirm Password Change",
     "confirm-message": "Are you sure you want to change your password?",
     "cancel": "Cancel",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "missing-fields": "Please fill in both email and password.",
+    "success": "Your password has been reset successfully.",
+    "error": "Failed to reset password. Please try again."
   }
 }
