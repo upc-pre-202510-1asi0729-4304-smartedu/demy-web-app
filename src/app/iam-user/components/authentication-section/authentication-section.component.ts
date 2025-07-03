@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
-import {AuthenticationService} from "../../authentication/authentication.service";
+import {AuthenticationService} from "../../services/authentication.service";
 import {MatButton} from "@angular/material/button";
 
 @Component({
