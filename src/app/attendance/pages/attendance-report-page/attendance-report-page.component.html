@@ -1,0 +1,47 @@
+<h2>{{ 'attendance.report-title' | translate }}</h2>
+<h3>{{ 'attendance.report-subtitle1' | translate }}</h3>
+
+<div class="filters-row">
+  <app-attendance-class-select (classChanged)="onClassChanged($event)"></app-attendance-class-select>
+
+  <app-attendance-student-select (studentChanged)="onStudentChanged($event)"></app-attendance-student-select>
+
+  <app-attendance-date-range-picker (dateRangeChanged)="onDateRangeChanged($event)"></app-attendance-date-range-picker>
+
+  <button mat-raised-button (click)="onSearchReport()">
+    <mat-icon>search</mat-icon>
+    {{ 'attendance.search' | translate }}
+  </button>
+
+</div>
+
+<h3>{{ 'attendance.report-subtitle2' | translate }}</h3>
+<div class="table-wrapper">
+  <ng-container *ngIf="hasSearched && dataSource.data.length > 0; else noResults">
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2 full-width-table">
+      <!-- Columna fija: Nombre -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="sticky-column">{{ 'attendance.attendance-student' | translate }}</th>
+        <td mat-cell *matCellDef="let element" class="sticky-column">{{ element.name }}</td>
+      </ng-container>
+
+
+      <!-- Columnas dinámicas por día -->
+      <ng-container *ngFor="let col of dateColumns" [matColumnDef]="col.key">
+        <th mat-header-cell *matHeaderCellDef class="date-column">{{ col.label }}</th>
+        <td mat-cell *matCellDef="let row" class="date-column">{{ row[col.key] }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+  </ng-container>
+  <ng-template #noResults>
+    <p class="no-results-message">{{ 'attendance.no-search-message' | translate }}</p>
+  </ng-template>
+</div>
+
+
