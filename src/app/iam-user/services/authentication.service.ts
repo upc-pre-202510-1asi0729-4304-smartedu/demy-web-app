@@ -3,10 +3,10 @@ import {environment} from "../../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Router} from "@angular/router";
-import {SignUpRequest} from "../model-authentication/sign-up.request";
-import {SignUpResponse} from "../model-authentication/sign-up.response";
-import {SignInRequest} from "../model-authentication/sign-in.request";
-import {SignInResponse} from "../model-authentication/sign-in.response";
+import {SignUpRequest} from "../model/sign-up.request";
+import {SignUpResponse} from "../model/sign-up.response";
+import {SignInRequest} from "../model/sign-in.request";
+import {SignInResponse} from "../model/sign-in.response";
 
 /**
  * Service for handling authentication operations.
@@ -15,7 +15,7 @@ import {SignInResponse} from "../model-authentication/sign-in.response";
  */
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
-  basePath: string = `${environment.serverBaseUrl}`;
+  basePath: string = `${environment.apiBaseUrl}`;
   httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
   private signedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -28,6 +28,8 @@ export class AuthenticationService {
    * @param http The HttpClient service.
    */
   constructor(private router: Router, private http: HttpClient) {
+    const token = localStorage.getItem('token');
+    this.signedIn.next(!!token);
   }
 
   get isSignedIn() {
@@ -42,30 +44,8 @@ export class AuthenticationService {
     return this.signedInUsername.asObservable();
   }
 
-  /**
-   * Sign up a new user.
-   * @summary
-   * This method sends a POST request to the server with the user's username and password.
-   * If the request is successful, the user's id and username are logged and the user is navigated to the sign-in page.
-   * If the request fails, an error message is logged and the user is navigated to the sign-up page.
-   * @param signUpRequest The {@link SignUpRequest} object containing the user's username and password.
-   * @returns The {@link SignUpResponse} object containing the user's id and username.
-   */
-  signUp(signUpRequest: SignUpRequest) {
-    return this.http.post<any>(`${this.basePath}/users/admins/sign-up`, signUpRequest, this.httpOptions)
-      .subscribe({
-        next: (response) => {
-          const user = response.user;
-          console.log(`Signed up as ${user.fullName} (${user.email}) with id ${user.id}`);
-          this.router.navigate(['/login']).then();
-        },
-        error: (error) => {
-          console.error(`Error while signing up:`, error);
-          alert('Error during sign-up. Please try again.');
-          this.router.navigate(['/signup']).then();
-        }
-      });
-  }
+
+
 
 
   /**
