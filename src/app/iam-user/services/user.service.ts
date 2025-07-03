@@ -62,4 +62,18 @@ export class UserService {
   deleteUser(userId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${userId}`);
   }
+
+
+  /**
+   * Sends a request to reset a user's password using their email.
+   *
+   * @param email - The user's email address
+   * @param newPassword - The new password to set
+   * @returns An Observable that completes when the password is reset
+   */
+  resetPassword(email: string, newPassword: string): Observable<void> {
+    const body = { email, newPassword };
+    return this.http.put<void>(`${environment.apiBaseUrl}/users/reset-password`, body);
+  }
+
 }

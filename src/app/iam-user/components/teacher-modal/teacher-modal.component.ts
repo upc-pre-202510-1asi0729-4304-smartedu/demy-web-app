@@ -68,6 +68,9 @@ export class TeacherModalComponent {
   ) {
     this.mode = data.mode;
     this.teacher = data.teacher || new UserAccount({
+      fullName: '',
+      email: '',
+      passwordHash: '',
       role: Role.TEACHER,
       status: 'INACTIVE'
     });
@@ -90,17 +93,27 @@ export class TeacherModalComponent {
    */
   onSubmit(): void {
     if (this.teacherForm.valid) {
-      const result = {
-        id: this.mode === 'edit' ? this.teacher.id : undefined,
-        fullName: this.teacher.fullName,
+      const [firstName, ...lastParts] = this.teacher.fullName.trim().split(' ');
+      const lastName = lastParts.join(' ');
+
+      const result: any = {
+        firstName,
+        lastName,
         email: this.teacher.email,
-        passwordHash: this.teacher.passwordHash,
-        role: Role.TEACHER,
-        status: 'ACTIVE'
+        password: this.teacher.passwordHash,
+        role: this.teacher.role
       };
+
+      if (this.mode === 'edit') {
+        result.id = this.teacher.id;
+      }
+
+      console.log("Datos que se envían:", result);
       this.dialogRef.close(result);
     }
   }
+
+
 
   /**
    * Confirms the deletion of the teacher and closes the dialog with a 'true' value.

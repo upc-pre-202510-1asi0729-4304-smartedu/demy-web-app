@@ -139,17 +139,14 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
   private getAllTeachers() {
     this.teacherService.getTeachers().subscribe({
       next: (teachers: any[]) => {
-
-        const profesores = [];
-        for (let i = 0; i < teachers.length; i++) {
-          if (teachers[i].role === 1 || teachers[i].role === 'TEACHER') {
-            profesores.push(teachers[i]);
-          }
-        }
+        const profesores = teachers.filter(t => t.role === 'TEACHER');
         this.dataSource.data = profesores;
         console.log("Datos cargados:", profesores);
       },
       error: (err) => console.error("Error cargando datos:", err)
     });
   }
+
+
+
 }
