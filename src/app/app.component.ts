@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {AuthenticationSectionComponent} from './iam-user/components/authentication-section/authentication-section.component';
+
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
+    AuthenticationSectionComponent,
     RouterOutlet
   ],
   templateUrl: './app.component.html',

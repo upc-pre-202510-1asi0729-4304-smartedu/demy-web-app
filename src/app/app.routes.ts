@@ -6,6 +6,7 @@ import { LoginComponent } from './public/pages/login/login.component';
 import { SignUpComponent } from './public/pages/sign-up/sign-up.component';
 import { RecoverPasswordComponent } from  './public/pages/recover-password/recover-password.component';
 import { ResetPasswordComponent} from './public/pages/reset-password/reset-password.component';
+import {AuthenticationSectionComponent} from './iam-user/components/authentication-section/authentication-section.component';
 
 
 import { PlanSelectComponent } from './public/pages/plan-select/plan-select.component';
@@ -18,10 +19,12 @@ import {
   AcademicPeriodManagementComponent
 } from './enrollments/pages/academic-period-management/academic-period-management.component';
 import {EnrollmentsManagementComponent} from './enrollments/pages/enrollment-management/enrollment-management.component';
+import {authenticationGuard} from './iam-user/authentication/authentication.guard';
 
 export const routes: Routes = [
   {
     path: '',
+    canActivate: [authenticationGuard],
     component: MainLayoutComponent,
     children: [
       { path: 'organization', component: OrganizationLayoutComponent },
@@ -55,5 +58,8 @@ export const routes: Routes = [
   },
   { path: 'reset-password',
     component: ResetPasswordComponent
-  }
+  },
+
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' }
 ];
