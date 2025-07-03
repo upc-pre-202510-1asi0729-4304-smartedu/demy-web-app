@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, signal} from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import {TranslatePipe} from '@ngx-translate/core';
-/**
- * A standalone Angular component that provides a dropdown
- * for selecting a class (e.g., Math, History, Physics)
- * for attendance purposes.
- *
- * This component uses Angular Material's `mat-select`
- * and supports translation via `ngx-translate`.
- */
+import {Course} from '../../model/course.entity';
+import {CourseService} from '../../services/course.service';
+import {FormsModule} from '@angular/forms';
 
+/**
+ * Component responsible for displaying a dropdown list of available courses.
+ * Used in the attendance feature to allow users to choose a course before marking attendance.
+ */
 @Component({
   selector: 'app-attendance-class-select',
   standalone: true,
@@ -23,22 +22,33 @@ import {TranslatePipe} from '@ngx-translate/core';
     CommonModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    FormsModule
   ]
 })
 export class AttendanceClassSelectComponent {
   /**
-   * The list of available classes to choose from.
-   * Each class has an `id` (used internally) and a `name` (displayed to the user).
+   * Holds the list of available courses retrieved from the backend.
    */
+  courses = signal<Course[]>([]);
 
-  classes = [
-    { id: 'matematicas', name: 'Matemáticas' },
-    { id: 'historia', name: 'Historia' },
-    { id: 'fisica', name: 'Física' }
-  ];
   /**
-   * The identifier of the currently selected class.
+   * Stores the currently selected course ID.
    */
-  selectedClass: string = '';
+  selectedCourseId = signal<string>('');
+
+  /**
+   * Initializes the component with a reference to {@link CourseService}.
+   *
+   * @param courseService - Service used to fetch course data from the backend.
+   */
+  constructor(private courseService: CourseService) {}
+
+  /**
+   * Angular lifecycle hook called after component initialization.
+   * Fetches all available courses and updates the `courses` signal.
+   */
+  ngOnInit(): void {
+    this.courseService.getAll().subscribe(c => this.courses.set(c));
+  }
 }

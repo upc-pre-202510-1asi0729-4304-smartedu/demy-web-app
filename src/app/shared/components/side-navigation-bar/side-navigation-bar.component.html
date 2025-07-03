@@ -1,21 +1,21 @@
 <mat-nav-list class="side-nav">
 
-    <h3 class="side-nav-title">Categorías</h3>
+    <h3 class="side-nav-title">{{ 'sidebar.categories' | translate }}</h3>
 
-    @for (option of navOptions; track option.label) {
+    @for (option of visibleNavOptions; track option.label) {
         <a mat-list-item [routerLink]="option.route">
             <mat-icon matListItemIcon>{{ option.icon }}</mat-icon>
-            <span matListItemLine>{{ option.label }}</span>
+            <span matListItemLine>{{ option.label | translate }}</span>
         </a>
     }
 
     <mat-divider />
 
-  <mat-list-item (click)="onLogout()">
-    <mat-icon matListItemIcon>logout</mat-icon>
-    <span matListItemLine>Salir</span>
-  </mat-list-item>
 
+  <a mat-list-item (click)="onLogout()">
+    <mat-icon matListItemIcon>logout</mat-icon>
+    <span matListItemLine>{{ 'sidebar.logout' | translate }}</span>
+  </a>
 
 
 </mat-nav-list>

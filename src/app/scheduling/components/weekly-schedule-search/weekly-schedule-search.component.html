@@ -1,0 +1,96 @@
+<div class="weekly-schedule-search">
+  <!-- Search Form -->
+  <div class="search-container">
+    <form [formGroup]="searchForm" class="search-inputs">
+      <!-- Schedule Dropdown -->
+      <mat-form-field appearance="outline" class="schedule-select">
+        <mat-label>{{ 'search-schedules.select' | translate }}</mat-label>
+        <mat-select formControlName="scheduleSelect" (selectionChange)="onScheduleChange()">
+          @for (schedule of availableSchedules; track schedule.id) {
+            <mat-option [value]="schedule.id">
+              {{ schedule.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Search Button -->
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        [disabled]="isSearchDisabled"
+        (click)="searchWeeklySchedule()">
+        <mat-icon>search</mat-icon>
+        {{ 'search-schedules.button.search' | translate }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Loading Indicator -->
+  @if (isLoading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+      <p>Loading schedules...</p>
+    </div>
+  }
+
+  <!-- Error Message -->
+  @if (errorMessage) {
+    <div class="error-container">
+      <mat-icon>error</mat-icon>
+      <p>{{ errorMessage }}</p>
+    </div>
+  }
+
+  <!-- Schedule Results -->
+  @if (currentWeeklySchedule && !isLoading) {
+    <div class="schedule-results">
+      <h3>{{ 'search-schedules.table.subtitle' | translate }}: "{{ currentWeeklySchedule.name }}"</h3>
+
+      <div class="schedule-grid-container">
+        <div class="schedule-grid">
+          <!-- Header row with days -->
+          <div class="time-header"></div>
+          @for (day of weekDays; track day) {
+            <div class="day-header">
+              {{ 'search-schedules.table.' + day | translate }}
+            </div>
+          }
+
+          <!-- Time slots and schedule blocks -->
+          @for (timeSlot of timeSlots; track timeSlot) {
+            <div class="time-slot">
+              {{ timeSlot }}
+            </div>
+
+            @for (day of weekDays; track day) {
+              <div class="schedule-cell" [class.has-class]="getSchedulesForDayAndTime(day, timeSlot).length > 0">
+                @for (schedule of getSchedulesForDayAndTime(day, timeSlot); track schedule.id) {
+                  <div class="schedule-block">
+                    <div class="course-info">
+                      <strong>{{ schedule.course.name }}</strong>
+                    </div>
+                    <div class="classroom-info">
+                      <mat-icon>location_on</mat-icon>
+                      {{ schedule.classroom.code }} - {{ schedule.classroom.campus }}
+                    </div>
+                    <div class="teacher-info">
+                      <mat-icon>person</mat-icon>
+                      {{ schedule.teacher.fullName }}
+                    </div>
+                    <div class="time-info">
+                      {{ schedule.timeRange.start }} - {{ schedule.timeRange.end }}
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+
+</div>

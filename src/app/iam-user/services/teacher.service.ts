@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {map, Observable} from 'rxjs';
 import { UserAccount } from '../model/user.entity';
 import { environment } from '../../../environments/environment';
 import { Role } from '../model/role.model';
@@ -30,8 +30,14 @@ export class TeacherService {
    *
    * @returns An Observable that emits an array of UserAccount objects, each representing a teacher
    */
+
+  //Look at this
   getTeachers(): Observable<UserAccount[]> {
     return this.http.get<UserAccount[]>(`${this.baseUrl}/teachers`);
+  }
+
+  getTeacherById(id: string): Observable<UserAccount> {
+    return this.http.get<UserAccount>(`${this.baseUrl}/${id}`);
   }
 
   createTeacher(teacher: {
@@ -43,10 +49,23 @@ export class TeacherService {
     return this.http.post<UserAccount>(`${this.baseUrl}/teachers`, teacher);
   }
 
+  /**
+   * Updates an existing teacher's information.
+   *
+   * @param id - The ID of the teacher to update
+   * @param teacherData - The updated teacher data to send (partial UserAccount object)
+   * @returns An Observable that emits the updated UserAccount object representing the teacher
+   */
   updateTeacher(id: number, teacherData: Partial<UserAccount>): Observable<UserAccount> {
     return this.http.put<UserAccount>(`${this.baseUrl}/${id}`, teacherData);
   }
 
+  /**
+   * Deletes a teacher from the backend.
+   *
+   * @param id - The ID of the teacher to delete
+   * @returns An Observable that completes when the teacher has been successfully deleted
+   */
   deleteTeacher(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }

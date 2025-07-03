@@ -1,8 +1,8 @@
 {
   "organization": {
-    "profile": {
-      "title": "Perfil",
-      "description": "Gestiona los miembros de tu organización"
+    "weekly": {
+      "title": "Horario semanal",
+      "description": "Gestiona tus horarios semanales"
     },
     "courses": {
       "title": "Cursos",
@@ -20,6 +20,18 @@
       "title": "Profesores",
       "description": "Gestiona el personal docente"
     }
+  },
+  "sidebar": {
+    "categories": "Categorías",
+    "organization": "Mi organización",
+    "enrollment": "Matrícula",
+    "students": "Alumnos",
+    "payments": "Pagos",
+    "schedules": "Horarios",
+    "my-schedule": "Mi Horario",
+    "attendance": "Asistencia",
+    "finance": "Finanzas",
+    "logout": "Salir"
   },
   "login": {
     "sign-up": "Crear Cuenta",
@@ -66,10 +78,6 @@
     "button": {
       "new-teacher": "Nuevo Profesor"
     }
-  },
-  "common": {
-    "edit": "Editar",
-    "delete": "Eliminar"
   },
   "teacher-modal": {
     "add": "Agregar Profesor",
@@ -210,6 +218,269 @@
     "list-student": "Estudiante",
     "list-attendance": "Asistió"
   },
+  "view-courses": {
+    "title": "Cursos",
+    "table": {
+      "name": "Nombre",
+      "code": "Código",
+      "description": "Descripción",
+      "actions": "Acciones"
+    },
+    "button":{
+      "new-course": "Nuevo Curso"
+    }
+  },
+  "course-modal": {
+    "add": "Agregar Curso",
+    "edit": "Editar Curso",
+    "delete": "Eliminar Curso",
+    "delete-confirm": "¿Está seguro de eliminar el curso",
+    "delete-warning": "Esta acción no se puede deshacer.",
+    "form": {
+      "name": "Nombre",
+      "code": "Código",
+      "description": "Descripción",
+      "required": "Campo requerido"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "delete": "Eliminar"
+    }
+  },
+  "view-classrooms": {
+    "title": "Salones",
+    "table": {
+      "code": "Codigo",
+      "capacity": "Capacidad",
+      "campus": "Sede",
+      "actions": "Acciones"
+    },
+    "button":{
+      "new-classroom": "Nuevo Salón"
+    }
+  },
+  "classroom-modal": {
+    "add": "Agregar Salón",
+    "edit": "Editar Salón",
+    "delete": "Eliminar Salón",
+    "delete-confirm": "¿Está seguro de eliminar el salón con código",
+    "delete-warning": "Esta acción no se puede deshacer.",
+    "form": {
+      "code": "Código",
+      "capacity": "Capacidad",
+      "campus": "Sede",
+      "required": "Campo requerido"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "delete": "Eliminar"
+    }
+  },
+  "view-weekly-schedules": {
+    "title": "Horarios Semanales",
+    "table": {
+      "name": "Nombre",
+      "number": "Numero de bloques",
+      "actions": "Acciones"
+    },
+    "button":{
+      "new": "Nuevo Horario Semanal"
+    }
+  },
+  "weekly-schedule-modal": {
+    "add": "Agregar Horario Semanal",
+    "edit": "Editar Horario Semanal",
+    "delete": "Eliminar Horario Semanal",
+    "delete-confirm": "¿Está seguro de eliminar este horario semanal",
+    "delete-warning": "Esta acción no se puede deshacer.",
+    "form": {
+      "name": "Nombre",
+      "required": "Campo requerido",
+      "add-schedule": "Agregar Horario",
+      "current-schedules": "Horarios Actuales",
+      "day-of-week": "Día de la Semana",
+      "start-time": "Hora de Inicio",
+      "end-time": "Hora de Fin",
+      "course": "Curso",
+      "teacher": "Profesor",
+      "classroom": "Salón",
+      "capacity": "Capacidad"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "delete": "Eliminar",
+      "add": "Agregar Horario"
+    }
+  },
+  "search-schedules": {
+    "title": "Buscar Horarios Semanales",
+    "select": "Selecciona un horario",
+    "table": {
+      "subtitle": "Horario: ",
+      "hour": "Hora",
+      "course": "Curso",
+      "classroom": "Aula",
+      "teacher": "Profesor",
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sabado",
+      "sunday": "Domingo"
+    },
+    "button": {
+      "search": "Buscar"
+    }
+  },
+  "academic-period": {
+    "regist":{
+      "title-edit": "Editar Periodo Academico",
+      "title-new": "Nuevo Periodo academico",
+      "period": "Nombre de Periodo",
+      "start-date": "Fecha de Inicio",
+      "end-date": "Fecha de Fin",
+      "cancel": "Cancelar",
+      "save": "Registrar Periodo Academico",
+      "update": "Actualizar Periodo Academico"
+    },
+    "management": {
+      "title": "Gestión de Períodos Académicos"
+    },
+    "table": {
+      "name": "Nombre",
+      "start-date": "Fecha de Inicio",
+      "end-date": "Fecha de Fin",
+      "actions": "Acciones",
+      "edit": "Editar período académico",
+      "delete": "Eliminar período académico"
+    },
+    "paginator": {
+      "label": "Seleccionar página de períodos académicos"
+    }
+  },
+  "enrollment": {
+    "form": {
+      "title-edit": "Editar Matrícula",
+      "title-new": "Registrar Matrícula",
+      "student": "Estudiante",
+      "student-required": "Estudiante es requerido",
+      "period": "Periodo Académico",
+      "period-required": "Periodo académico es requerido",
+      "date": "Fecha de Matrícula",
+      "date-required": "Fecha de matrícula es requerida",
+      "amount": "Monto",
+      "amount-required": "Monto es requerido",
+      "status": "Estado de Matrícula",
+      "status-required": "Estado de matrícula es requerido",
+      "payment-status": "Estado de Pago",
+      "payment-required": "Estado de pago es requerido",
+      "save": "Registrar Matrícula",
+      "update": "Actualizar Matrícula",
+      "cancel": "Cancelar"
+    },
+    "management": {
+      "title": "Gestión de Matrículas"
+    },
+    "table": {
+      "id": "N° de Matrícula",
+      "student": "Estudiante",
+      "period": "Período",
+      "date": "Fecha de Matrícula",
+      "amount": "Monto",
+      "status": "Estado",
+      "payment-status": "Estado de Pago",
+      "actions": "Acciones",
+      "edit": "Editar matrícula",
+      "delete": "Eliminar matrícula"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo"
+    },
+    "payment": {
+      "paid": "Pagado",
+      "unpaid": "No Pagado"
+    },
+    "paginator": {
+      "label": "Seleccionar página de matrículas"
+    }
+  },
+  "student": {
+    "form": {
+      "title-edit": "Editar Estudiante",
+      "title-new": "Nuevo Estudiante",
+      "dni": "DNI",
+      "dni-error": "DNI debe tener 8 dígitos numéricos",
+      "first-name": "Nombres",
+      "first-name-required": "Nombres es requerido",
+      "last-name": "Apellidos",
+      "last-name-required": "Apellidos es requerido",
+      "sex": "Sexo",
+      "sex-required": "Sexo es requerido",
+      "birth-date": "Fecha de Nacimiento",
+      "birth-date-required": "Fecha de nacimiento es requerida",
+      "address": "Dirección",
+      "address-required": "Dirección es requerida",
+      "phone": "Teléfono",
+      "phone-error": "Teléfono debe tener 9 dígitos numéricos",
+      "save": "Registrar Estudiante",
+      "update": "Actualizar Estudiante",
+      "cancel": "Cancelar"
+    },
+    "management": {
+      "title": "Gestión de Estudiantes"
+    },
+    "table": {
+      "dni": "DNI",
+      "first-name": "Nombre",
+      "last-name": "Apellido",
+      "sex": "Género",
+      "birth-date": "Fecha de Nacimiento",
+      "actions": "Acciones",
+      "edit": "Editar estudiante",
+      "delete": "Eliminar estudiante"
+    },
+    "sex": {
+      "male": "Masculino",
+      "female": "Femenino"
+    },
+    "paginator": {
+      "label": "Seleccionar página de estudiantes"
+    }
+  },
+  "scheduling": {
+    "reschedule": {
+      "title": "Reprogramar Clase",
+      "day": "Día",
+      "startTime": "Hora de inicio",
+      "endTime": "Hora de fin",
+      "classroom": "Aula",
+      "dayRequired": "El día es requerido",
+      "startTimeRequired": "La hora de inicio es requerida",
+      "endTimeRequired": "La hora de fin es requerida",
+      "classroomRequired": "El aula es requerida"
+    }
+  },
+  "teacher-schedule": {
+    "title": "Mi Horario Semanal",
+    "loading": "Cargando horario...",
+    "select-teacher": "Seleccionar profesor",
+    "no-schedules": {
+      "title": "Sin horarios asignados",
+      "message": "Este profesor no tiene horarios asignados"
+    },
+    "instruction": "Presiona el bloque para poder reprogramarlo"
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "edit": "Editar",
+    "delete": "Eliminar"
+  },
   "recover-password": {
     "title": "Recuperar Contraseña",
     "subtitle": "Ingresa tu correo",
@@ -233,5 +504,4 @@
     "cancel": "Cancelar",
     "confirm": "Confirmar"
   }
-
 }

@@ -1,0 +1,102 @@
+<div class="teacher-schedule-container">
+  <!-- Header Section -->
+  <div class="schedule-header">
+    @if (currentTeacher) {
+      <mat-card class="teacher-info-card">
+        <mat-card-content>
+          <div class="teacher-info-content">
+            <mat-icon>person</mat-icon>
+            <span class="teacher-name">{{ currentTeacher.fullName }}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+
+  <!-- Instruction Text -->
+  <p class="instruction-text">
+    {{ 'teacher-schedule.instruction' | translate }}
+  </p>
+
+  <!-- Loading State -->
+  @if (isLoading) {
+    <mat-card class="loading-card">
+      <mat-card-content>
+        <div class="loading-indicator">
+          <mat-spinner diameter="40"></mat-spinner>
+          <p>{{ 'teacher-schedule.loading' | translate }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <!-- Error State -->
+  @if (errorMessage) {
+    <mat-card class="error-card">
+      <mat-card-content>
+        <div class="error-content">
+          <mat-icon color="warn">error</mat-icon>
+          <span>{{ errorMessage }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <!-- No Schedules State -->
+  @if (!teacherSchedules.length && !isLoading && !errorMessage && currentTeacher) {
+    <mat-card class="no-schedules-card">
+      <mat-card-content>
+        <div class="no-schedules-content">
+          <mat-icon>calendar_today</mat-icon>
+          <h3>{{ 'teacher-schedule.no-schedules.title' | translate }}</h3>
+          <p>{{ 'teacher-schedule.no-schedules.message' | translate }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <!-- Schedule Grid -->
+  @if (teacherSchedules.length > 0 && !isLoading) {
+    <div class="schedule-section">
+      <div class="schedule-grid-container">
+        <div class="schedule-grid">
+          <!-- Header row with days -->
+          <div class="time-header"></div>
+          @for (day of daysOfWeek; track day.key) {
+            <div class="day-header">
+              {{ day.value }}
+            </div>
+          }
+
+          <!-- Time slots and schedule blocks -->
+          @for (timeSlot of timeSlots; track timeSlot) {
+            <div class="time-slot">
+              {{ timeSlot }}
+            </div>
+
+            @for (day of daysOfWeek; track day.key) {
+              <div class="schedule-cell" [class.has-class]="hasClass(day.key, timeSlot)" (click)="onCellClick(day.key, timeSlot)">
+                @if (hasClass(day.key, timeSlot)) {
+                  @if (getScheduleForSlot(day.key, timeSlot); as schedule) {
+                    <div class="schedule-block">
+                      <div class="course-info">
+                        <strong>{{ schedule.course.name }}</strong>
+                      </div>
+                      <div class="classroom-info">
+                        <mat-icon>location_on</mat-icon>
+                        {{ schedule.classroom.code }} - {{ schedule.classroom.campus }}
+                      </div>
+                      <div class="time-info">
+                        {{ schedule.timeRange.start }} - {{ schedule.timeRange.end }}
+                      </div>
+                    </div>
+                  }
+                }
+              </div>
+            }
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

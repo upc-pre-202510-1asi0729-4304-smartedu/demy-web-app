@@ -5,7 +5,10 @@ import { Router } from '@angular/router';
 import { TranslatePipe}  from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import {LanguageSwitcherComponent} from '../../../shared/components/language-switcher/language-switcher.component';
-
+/**
+ * Component for displaying and selecting a subscription plan.
+ * Uses translation keys to render plan information.
+ */
 @Component({
   selector: 'app-plan-select',
   imports: [
@@ -18,13 +21,20 @@ import {LanguageSwitcherComponent} from '../../../shared/components/language-swi
   styleUrls: ['./plan-select.component.css']
 })
 export class PlanSelectComponent {
+  /** List of available plans using translation keys */
   plans: any[] = [];
-
+  /**
+  * Initializes the component and loads available plans.
+  *
+  * @param translate - Service to handle i18n translations
+  * @param router - Router for navigation
+  */
   constructor(private translate: TranslateService,private router: Router) {
     this.loadPlans();
   }
-
-
+  /**
+   * Loads the available plans with translation keys.
+   */
   loadPlans() {
     this.translate.get(['plan1', 'plan2', 'plan3']).subscribe(translations => {
       this.plans = [
@@ -68,6 +78,9 @@ export class PlanSelectComponent {
     });
   }
 
+  /**
+   * Handles plan selection and navigates to the organization route.
+   */
   selectPlan() {
     this.router.navigate(['/organization']);
   }

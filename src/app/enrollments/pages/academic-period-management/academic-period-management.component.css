@@ -1,0 +1,39 @@
+.container {
+  padding: 0.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Título centrado */
+.header h4 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+/* Estilos para hacer scroll horizontal en la tabla */
+.table-container {
+  width: 100%;
+  overflow-x: auto;  /* habilita scroll horizontal */
+  background-color: #fff;
+  padding: 1rem;
+}
+
+/* Estilo general para la tabla */
+.table-container table {
+  width: 100%;
+  min-width: 600px; /* permite el scroll si la pantalla es más pequeña */
+  border-collapse: collapse;
+}
+
+/* Mejor visibilidad en móviles */
+th, td {
+  white-space: nowrap; /* evita que el contenido se rompa */
+  padding: 0.75rem;
+}
+
+/* Paginador separado */
+mat-paginator {
+  margin-top: 1rem;
+}

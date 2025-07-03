@@ -9,7 +9,11 @@ export const environment = {
   invoicesEndpointPath: "/invoices",
   paymentsEndpointPath: "/payments",
   financialTransactionsEndpointPath: "/financialTransactions",
-  coursesEndpointPath: '/class-sessions',
+  classSessionsEndpointPath: "/class-sessions",
+  coursesEndpointPath: '/courses',
+  classroomsEndpointPath: '/classrooms',
+  weeklyScheduleEndpointPath: '/weekly-schedules',
+  attendancesEndpointPath: '/attendance-record',
   serverBaseUrl: 'http://localhost:8080/api/v1'
 
 };

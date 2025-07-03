@@ -1,0 +1,53 @@
+<h2 mat-dialog-title class="dialog-title">{{ 'course-modal.' + mode | translate }}</h2>
+
+<div mat-dialog-content>
+  <!-- Form for add/edit -->
+  @if (mode === 'add' || mode === 'edit') {
+    <form #courseForm="ngForm" class="form-row">
+      <!-- Campo para el nombre del curso -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'course-modal.form.name' | translate }}</mat-label>
+        <input [(ngModel)]="course.name" matInput name="name" [placeholder]="'course-modal.form.name' | translate" required #nameInput="ngModel">
+        @if (nameInput.invalid && (nameInput.dirty || nameInput.touched)) {
+          <mat-error>{{ 'course-modal.form.required' | translate }}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Campo para el código del curso -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'course-modal.form.code' | translate }}</mat-label>
+        <input [(ngModel)]="course.code" matInput name="code" [placeholder]="'course-modal.form.code' | translate" required #codeInput="ngModel">
+        @if (codeInput.invalid && (codeInput.dirty || codeInput.touched)) {
+          <mat-error>{{ 'course-modal.form.required' | translate }}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Campo para la descripción del curso -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'course-modal.form.description' | translate }}</mat-label>
+        <textarea [(ngModel)]="course.description" matInput name="description" [placeholder]="'course-modal.form.description' | translate" rows="3" required #descInput="ngModel"></textarea>
+        @if (descInput.invalid && (descInput.dirty || descInput.touched)) {
+          <mat-error>{{ 'course-modal.form.required' | translate }}</mat-error>
+        }
+      </mat-form-field>
+    </form>
+  }
+
+  <!-- Confirmation for delete -->
+  @if (mode === 'delete') {
+    <p>{{ 'course-modal.delete-confirm' | translate }} "{{ course.name }}"?</p>
+    <p>{{ 'course-modal.delete-warning' | translate }}</p>
+  }
+</div>
+
+<div mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button (click)="onCancel()">{{ 'course-modal.actions.cancel' | translate }}</button>
+
+  @if (mode === 'add' || mode === 'edit') {
+    <button mat-raised-button class="save-button" (click)="onSubmit()">{{ 'course-modal.actions.save' | translate }}</button>
+  }
+
+  @if (mode === 'delete') {
+    <button mat-raised-button class="delete-button" (click)="onConfirmDelete()">{{ 'course-modal.actions.delete' | translate }}</button>
+  }
+</div>

@@ -63,6 +63,29 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/${userId}`);
   }
 
+  getUserRole(): string | null {
+    const userData = localStorage.getItem('userData');
+    if (!userData) return null;
+    try {
+      return JSON.parse(userData).role ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  isAdmin(): boolean {
+    return this.getUserRole() === 'ADMIN';
+  }
+
+  isTeacher(): boolean {
+    return this.getUserRole() === 'TEACHER';
+  }
+
+  clearUserData(): void {
+    localStorage.removeItem('userData');
+    localStorage.removeItem('teacherId');
+  }
+
 
   /**
    * Sends a request to reset a user's password using their email.

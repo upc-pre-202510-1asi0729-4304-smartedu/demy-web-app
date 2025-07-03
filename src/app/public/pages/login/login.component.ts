@@ -8,8 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
-import{TranslatePipe}  from '@ngx-translate/core';
-import {UserService} from '../../../iam-user/services/user.service';
+import { TranslatePipe } from '@ngx-translate/core';
+import { UserService } from '../../../iam-user/services/user.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
@@ -56,6 +56,7 @@ export class LoginComponent {
    *
    * @param fb - FormBuilder service for creating reactive forms
    * @param router - Router service for handling navigation
+   * @param userService
    */
 
   constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private authenticationService: AuthenticationService) {
@@ -71,9 +72,6 @@ export class LoginComponent {
    * Validates the form and, if valid, navigates to the dashboard.
    * If invalid, marks all fields as touched to display errors.
    */
-  get f() {
-    return this.loginForm.controls;
-  }
 
   onSubmit() {
     if (this.loginForm.valid) {
@@ -85,7 +83,8 @@ export class LoginComponent {
     }
   }
 
-
-
+  get f() {
+    return this.loginForm?.controls || {};
+  }
 
 }

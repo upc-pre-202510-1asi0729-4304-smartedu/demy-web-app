@@ -1,8 +1,8 @@
 {
   "organization": {
-    "profile": {
-      "title": "Profile",
-      "description": "Manage your organization's profile"
+    "weekly": {
+      "title": "Weekly Schedule",
+      "description": "Manage your weekly schedule"
     },
     "courses": {
       "title": "Courses",
@@ -20,6 +20,18 @@
       "title": "Teachers",
       "description": "Manage your teaching staff"
     }
+  },
+  "sidebar": {
+    "categories": "Categories",
+    "organization": "My Organization",
+    "enrollment": "Enrollment",
+    "students": "Students",
+    "payments": "Payments",
+    "schedules": "Schedules",
+    "my-schedule": "My Schedule",
+    "attendance": "Attendance",
+    "finance": "Finance",
+    "logout": "Log out"
   },
   "login": {
     "sign-up": "Sign Up",
@@ -66,10 +78,6 @@
     "button": {
       "new-teacher": "New Teacher"
     }
-  },
-  "common": {
-    "edit": "Edit",
-    "delete": "Delete"
   },
   "teacher-modal": {
     "add": "Add Teacher",
@@ -209,6 +217,269 @@
     "date-select": "Date",
     "list-student": "Student",
     "list-attendance": "Attended"
+  },
+  "view-courses": {
+    "title": "Courses",
+    "table": {
+      "name": "Name",
+      "code": "Code",
+      "description": "Description",
+      "actions": "Actions"
+    },
+    "button":{
+      "new-course": "New Course"
+    }
+  },
+  "course-modal": {
+    "add": "Add Course",
+    "edit": "Edit Course",
+    "delete": "Delete Course",
+    "delete-confirm": "Are you sure you want to delete the course",
+    "delete-warning": "This action cannot be undone.",
+    "form": {
+      "name": "Name",
+      "code": "Code",
+      "description": "Description",
+      "required": "Required field"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete"
+    }
+  },
+  "view-classrooms": {
+    "title": "Classrooms",
+    "table": {
+      "code": "Code",
+      "capacity": "Capacity",
+      "campus": "Campus",
+      "actions": "Actions"
+    },
+    "button":{
+      "new-classroom": "New Classroom"
+    }
+  },
+  "classroom-modal": {
+    "add": "Add Classroom",
+    "edit": "Edit Classroom",
+    "delete": "Delete Classroom",
+    "delete-confirm": "Are you sure you want to delete the classroom with code",
+    "delete-warning": "This action cannot be undone.",
+    "form": {
+      "code": "Code",
+      "capacity": "Capacity",
+      "campus": "Campus",
+      "required": "Required field"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete"
+    }
+  },
+  "view-weekly-schedules": {
+    "title": "Weekly Schedules",
+    "table": {
+      "name": "Name",
+      "number": "Number of Schedules",
+      "actions": "Actions"
+    },
+    "button":{
+      "new": "New Weekly Schedule"
+    }
+  },
+  "weekly-schedule-modal": {
+    "add": "Add Weekly Schedule",
+    "edit": "Edit Weekly Schedule",
+    "delete": "Delete Weekly Schedule",
+    "delete-confirm": "Are you sure you want to delete this weekly schedule",
+    "delete-warning": "This action cannot be undone.",
+    "form": {
+      "name": "Name",
+      "required": "Required field",
+      "add-schedule": "Add Schedule",
+      "current-schedules": "Current Schedules",
+      "day-of-week": "Day of Week",
+      "start-time": "Start Time",
+      "end-time": "End Time",
+      "course": "Course",
+      "teacher": "Teacher",
+      "classroom": "Classroom",
+      "capacity": "Capacity"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete",
+      "add": "Add Schedule"
+    }
+  },
+  "search-schedules": {
+    "title": "Search Weekly Schedules",
+    "select": "Select a schedule",
+    "table": {
+      "subtitle": "Weekly schedule: ",
+      "hour": "Hour",
+      "course": "Course",
+      "classroom": "Classroom",
+      "teacher": "Teacher",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "button": {
+      "search": "Search"
+    }
+  },
+  "academic-period": {
+    "regist": {
+      "title-edit": "Edit Academic Period",
+      "title-new": "New Academic Period",
+      "period": "Period Name",
+      "start-date": "Start Date",
+      "end-date": "End Date",
+      "cancel": "Cancel",
+      "save": "Register Academic Period",
+      "update": "Update Academic Period"
+    },
+    "management": {
+      "title": "Academic Period Management"
+    },
+    "table": {
+      "name": "Name",
+      "start-date": "Start Date",
+      "end-date": "End Date",
+      "actions": "Actions",
+      "edit": "Edit academic period",
+      "delete": "Delete academic period"
+    },
+    "paginator": {
+      "label": "Select academic period page"
+    }
+  },
+  "enrollment": {
+    "form": {
+      "title-edit": "Edit Enrollment",
+      "title-new": "New Enrollment",
+      "student": "Student",
+      "student-required": "Student is required",
+      "period": "Academic Period",
+      "period-required": "Academic period is required",
+      "date": "Enrollment Date",
+      "date-required": "Enrollment date is required",
+      "amount": "Amount",
+      "amount-required": "Amount is required",
+      "status": "Enrollment Status",
+      "status-required": "Enrollment status is required",
+      "payment-status": "Payment Status",
+      "payment-required": "Payment status is required",
+      "save": "Register Enrollment",
+      "update": "Update Enrollment",
+      "cancel": "Cancel"
+    },
+    "management": {
+      "title": "Enrollment Management"
+    },
+    "table": {
+      "id": "Enrollment No.",
+      "student": "Student",
+      "period": "Period",
+      "date": "Enrollment Date",
+      "amount": "Amount",
+      "status": "Status",
+      "payment-status": "Payment Status",
+      "actions": "Actions",
+      "edit": "Edit enrollment",
+      "delete": "Delete enrollment"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "payment": {
+      "paid": "Paid",
+      "unpaid": "Unpaid"
+    },
+    "paginator": {
+      "label": "Select enrollment page"
+    }
+  },
+  "student": {
+    "form": {
+      "title-edit": "Edit Student",
+      "title-new": "New Student",
+      "dni": "DNI",
+      "dni-error": "DNI must have 8 numeric digits",
+      "first-name": "First Name",
+      "first-name-required": "First name is required",
+      "last-name": "Last Name",
+      "last-name-required": "Last name is required",
+      "sex": "Sex",
+      "sex-required": "Sex is required",
+      "birth-date": "Birth Date",
+      "birth-date-required": "Birth date is required",
+      "address": "Address",
+      "address-required": "Address is required",
+      "phone": "Phone Number",
+      "phone-error": "Phone must have 9 numeric digits",
+      "save": "Register Student",
+      "update": "Update Student",
+      "cancel": "Cancel"
+    },
+    "management": {
+      "title": "Student Management"
+    },
+    "table": {
+      "dni": "DNI",
+      "first-name": "First Name",
+      "last-name": "Last Name",
+      "sex": "Gender",
+      "birth-date": "Birth Date",
+      "actions": "Actions",
+      "edit": "Edit student",
+      "delete": "Delete student"
+    },
+    "sex": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "paginator": {
+      "label": "Select student page"
+    }
+  },
+  "scheduling": {
+    "reschedule": {
+      "title": "Reschedule Class",
+      "day": "Day",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "classroom": "Classroom",
+      "dayRequired": "Day is required",
+      "startTimeRequired": "Start time is required",
+      "endTimeRequired": "End time is required",
+      "classroomRequired": "Classroom is required"
+    }
+  },
+  "teacher-schedule": {
+    "title": "My Weekly Schedule",
+    "loading": "Loading schedule...",
+    "select-teacher": "Select teacher",
+    "no-schedules": {
+      "title": "No schedules assigned",
+      "message": "This teacher has no assigned schedules"
+    },
+    "instruction": "Click on a block to reschedule it"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "edit": "Edit",
+    "delete": "Delete"
   },
   "recover-password": {
     "title": "Recover Password",

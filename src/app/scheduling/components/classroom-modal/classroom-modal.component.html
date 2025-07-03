@@ -1,0 +1,68 @@
+<h2 mat-dialog-title class="dialog-title">{{ 'classroom-modal.' + mode | translate }}</h2>
+
+<div mat-dialog-content>
+  <!-- Form for add/edit -->
+  @if (mode === 'add' || mode === 'edit') {
+    <form #classroomForm="ngForm" class="form-row">
+      <!-- Campo para el codigo del salon -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'classroom-modal.form.code' | translate }}</mat-label>
+        <input [(ngModel)]="classroom.code" matInput name="code" [placeholder]="'classroom-modal.form.code' | translate" required #codeInput="ngModel">
+        @if (codeInput.invalid && (codeInput.dirty || codeInput.touched)) {
+          <mat-error>{{ 'classroom-modal.form.required' | translate }}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Campo para la capacidad del salon -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'classroom-modal.form.capacity' | translate }}</mat-label>
+        <input [(ngModel)]="classroom.capacity" 
+               matInput 
+               name="capacity" 
+               type="number"
+               min="1"
+               [placeholder]="'classroom-modal.form.capacity' | translate" 
+               required 
+               #capacityInput="ngModel"
+               pattern="^[0-9]*$">
+        @if (capacityInput.invalid && (capacityInput.dirty || capacityInput.touched)) {
+          <mat-error>
+            @if (capacityInput.errors?.['required']) {
+              {{ 'classroom-modal.form.required' | translate }}
+            }
+            @if (capacityInput.errors?.['pattern']) {
+              {{ 'classroom-modal.form.numbers-only' | translate }}
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Campo para la sede del salon -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'classroom-modal.form.campus' | translate }}</mat-label>
+        <input [(ngModel)]="classroom.campus" matInput name="campus" [placeholder]="'classroom-modal.form.campus' | translate" required #campusInput="ngModel">
+        @if (campusInput.invalid && (campusInput.dirty || campusInput.touched)) {
+          <mat-error>{{ 'classroom-modal.form.required' | translate }}</mat-error>
+        }
+      </mat-form-field>
+    </form>
+  }
+
+  <!-- Confirmation for delete -->
+  @if (mode === 'delete') {
+    <p>{{ 'classroom-modal.delete-confirm' | translate }}: "{{ classroom.code }}"?</p>
+    <p>{{ 'classroom-modal.delete-warning' | translate }}</p>
+  }
+</div>
+
+<div mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button (click)="onCancel()">{{ 'classroom-modal.actions.cancel' | translate }}</button>
+
+  @if (mode === 'add' || mode === 'edit') {
+    <button mat-raised-button class="save-button" (click)="onSubmit()">{{ 'classroom-modal.actions.save' | translate }}</button>
+  }
+
+  @if (mode === 'delete') {
+    <button mat-raised-button class="delete-button" (click)="onConfirmDelete()">{{ 'classroom-modal.actions.delete' | translate }}</button>
+  }
+</div>
