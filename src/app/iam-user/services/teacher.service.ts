@@ -33,10 +33,12 @@ export class TeacherService {
 
   //Look at this
   getTeachers(): Observable<UserAccount[]> {
-    return this.http.get<UserAccount[]>(`${this.baseUrl}/teachers`);
+    return this.http.get<UserAccount[]>(`${this.baseUrl}/teachers`).pipe(
+      map((users: UserAccount[]) => users.filter(user => user.role === 'TEACHER'))
+    );
   }
 
-  getTeacherById(id: string): Observable<UserAccount> {
+  getTeacherById(id: number): Observable<UserAccount> {
     return this.http.get<UserAccount>(`${this.baseUrl}/${id}`);
   }
 

@@ -90,6 +90,16 @@ export class AuthenticationService {
           this.signedIn.next(true);
           this.signedInUserId.next(response.user.id);
           this.signedInUsername.next(response.user.username);
+          // Save data in localStorage
+          localStorage.setItem('userData', JSON.stringify({
+            email: response.user.email,
+            role: response.user.role
+          }));
+
+          // Store teacher ID in localStorage if the user is a teacher
+          if (response.user.role === 'TEACHER') {
+            localStorage.setItem('teacherId', response.user.id.toString());
+          }
 
           switch(response.user.role) {
             case 'ADMIN':
