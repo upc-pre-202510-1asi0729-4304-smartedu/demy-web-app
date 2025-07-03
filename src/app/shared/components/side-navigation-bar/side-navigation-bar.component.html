@@ -11,10 +11,11 @@
 
     <mat-divider />
 
-  <a mat-list-item [routerLink]="'/login'">
+  <mat-list-item (click)="onLogout()">
     <mat-icon matListItemIcon>logout</mat-icon>
     <span matListItemLine>Salir</span>
-  </a>
+  </mat-list-item>
+
 
 
 </mat-nav-list>

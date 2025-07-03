@@ -13,6 +13,7 @@ import {UserService} from '../../../iam-user/services/user.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import {AuthenticationService} from '../../../iam-user/authentication/authentication.service';
 
 /**
  * Component representing the application's login page.
@@ -57,7 +58,7 @@ export class LoginComponent {
    * @param router - Router service for handling navigation
    */
 
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private authenticationService: AuthenticationService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(0)]],
@@ -70,49 +71,21 @@ export class LoginComponent {
    * Validates the form and, if valid, navigates to the dashboard.
    * If invalid, marks all fields as touched to display errors.
    */
+  get f() {
+    return this.loginForm.controls;
+  }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const { email, password, remember } = this.loginForm.value;
+      const { email, password } = this.loginForm.value;
 
-      this.userService.getUserByEmail(email).subscribe({
-        next: (users) => {
-          if (users.length === 1 && users[0].passwordHash === password) {
-            const user = users[0];
-
-            if (remember) {
-              localStorage.setItem('userData', JSON.stringify({
-                email: user.email,
-                role: user.role
-              }));
-            }
-
-            switch(user.role) {
-              case 'ADMIN':
-                this.router.navigate(['/organization']);
-                break;
-              case 'TEACHER':
-                this.router.navigate(['/attendance']);
-                break;
-              default:
-                console.error('Unrecognized role:', user.role);
-                alert('You do not have permission to access');
-            }
-          } else {
-            alert('Incorrect credentials');
-          }
-        },
-        error: (error) => {
-          console.error('Login error:', error);
-          alert('Login failed');
-        }
-      });
+      this.authenticationService.signIn({ email, password });
     } else {
       this.loginForm.markAllAsTouched();
     }
   }
-  get f() {
-    return this.loginForm?.controls || {};
-  }
+
+
+
 
 }

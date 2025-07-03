@@ -25,4 +25,8 @@ export class SideNavigationBarComponent {
   ];
 
   @Output() logout = new EventEmitter<void>();
+  onLogout() {
+    this.logout.emit();
+  }
+
 }

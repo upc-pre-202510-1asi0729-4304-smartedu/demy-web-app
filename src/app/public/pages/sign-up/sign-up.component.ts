@@ -16,6 +16,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AuthenticationService } from '../../../iam-user/authentication/authentication.service';
+import { SignUpRequest } from '../../../iam-user/model-authentication/sign-up.request';
 
 /**
  * Component representing the application's sign-up (registration) page.
@@ -59,7 +61,8 @@ export class SignUpComponent {
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private academyService: AcademyService
+    private academyService: AcademyService,
+    private authenticationService: AuthenticationService
   ) {
     this.signUpForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -81,21 +84,22 @@ export class SignUpComponent {
       this.isLoading = true;
       const formData = this.signUpForm.value;
 
-
-      const newUser = new UserAccount({
-        fullName: formData.name,
+      const signUpRequest: SignUpRequest = {
+        firstName: formData.name.split(' ')[0] || '',
+        lastName: formData.name.split(' ').slice(1).join(' ') || '',
         email: formData.email,
-        passwordHash: formData.password,
-        role: 'ADMIN',
-        status: 'ACTIVE'
-      });
+        password: formData.password,
+        academyName: formData.academy_name,
+        ruc: formData.ruc
+      };
 
-      this.userService.registerUser(newUser).subscribe({
-        next: (userResponse: UserAccount) => {
+      this.authenticationService.signUpWithResponse(signUpRequest).subscribe({
+        next: (response) => {
+          const userId = response.user.id;
 
           const newAcademy: Academy = {
             id: 0,
-            userId: userResponse.id.toString(),
+            userId: userId.toString(),
             periods: [],
             academy_name: formData.academy_name,
             ruc: formData.ruc
@@ -107,7 +111,7 @@ export class SignUpComponent {
               this.router.navigate(['/planSelect']);
             },
             error: (academyError) => {
-              this.handlePartialRegistration(userResponse.id.toString(), academyError);
+              this.handlePartialRegistration(userId.toString(), academyError);
             }
           });
         },
@@ -120,6 +124,7 @@ export class SignUpComponent {
       this.signUpForm.markAllAsTouched();
     }
   }
+
 
   /**
    * Handles the scenario where the user is registered but the academy fails to be created.
