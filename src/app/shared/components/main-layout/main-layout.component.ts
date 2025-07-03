@@ -5,7 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {Router, RouterOutlet} from '@angular/router';
 import { ContentWrapperComponent } from '../content-wrapper/content-wrapper.component';
-import { AuthenticationService } from '../../../iam-user/authentication/authentication.service';
+import { AuthenticationService } from '../../../iam-user/services/authentication.service';
 
 /**
  * Main layout component that integrates all structural elements including header,
