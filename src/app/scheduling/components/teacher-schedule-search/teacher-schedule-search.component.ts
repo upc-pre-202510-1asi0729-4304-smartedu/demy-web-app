@@ -101,7 +101,7 @@ export class TeacherScheduleSearchComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = null;
 
-    this.teacherService.getTeacherById(Number(teacherId)).subscribe({
+    this.teacherService.getTeacherById(teacherId).subscribe({
       next: (teacher) => {
         this.currentTeacher = teacher;
         this.fetchTeacherSchedules();

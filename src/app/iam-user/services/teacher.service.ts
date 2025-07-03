@@ -38,7 +38,7 @@ export class TeacherService {
     );
   }
 
-  getTeacherById(id: number): Observable<UserAccount> {
+  getTeacherById(id: string): Observable<UserAccount> {
     return this.http.get<UserAccount>(`${this.baseUrl}/${id}`);
   }
 
