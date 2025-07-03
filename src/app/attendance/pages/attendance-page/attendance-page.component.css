@@ -12,3 +12,11 @@
   justify-content: center;
   margin-top: 2rem;
 }
+
+.custom-snackbar {
+  background-color: #3A7CA5 !important;
+  color: #FFFFFF !important;
+  font-weight: 500;
+  font-size: 15px;
+}
+
