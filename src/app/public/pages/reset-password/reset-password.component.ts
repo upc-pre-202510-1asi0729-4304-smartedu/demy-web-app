@@ -7,9 +7,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
-import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../../iam-user/services/user.service';
-import { ConfirmPasswordChangeDialogComponent } from '../../components/confirm-password-change-dialog/confirm-password-change-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SuccessDialogEmailComponent } from '../../components/success-dialog-email/success-dialog-email.component';
 
 @Component({
   selector: 'app-reset-password',
@@ -27,57 +27,41 @@ import { ConfirmPasswordChangeDialogComponent } from '../../components/confirm-p
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent {
-  newPassword: string = '';
-  confirmPassword: string = '';
   email: string = '';
+  newPassword: string = '';
 
-  constructor(private router: Router,    private userService: UserService, private dialog: MatDialog) {
-    const nav = this.router.getCurrentNavigation();
-    this.email = nav?.extras?.state?.['email'] || '';
-
-  }
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private dialog: MatDialog
+  ) {}
 
   resetPassword(): void {
-    if (!this.newPassword || !this.confirmPassword) {
-      alert('Please fill in both fields.');
+    if (!this.email || !this.newPassword) {
+      this.dialog.open(SuccessDialogEmailComponent, {
+        data: { messageKey: 'reset-password.missing-fields' }
+      });
       return;
     }
 
-    if (this.newPassword !== this.confirmPassword) {
-      alert('Passwords do not match.');
-      return;
-    }
-
-    const dialogRef = this.dialog.open(ConfirmPasswordChangeDialogComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.userService.getUserByEmail(this.email).subscribe(users => {
-          if (users.length > 0) {
-            const user = users[0];
-            this.userService.updatePasswordById(user.id, this.newPassword).subscribe({
-              next: () => {
-                alert('Password has been reset successfully.');
-                this.router.navigate(['/login']);
-              },
-              error: (err) => {
-                console.error('Error updating password:', err);
-                alert('Failed to update password. Please try again.');
-              }
-            });
-          } else {
-            alert('User not found.');
-          }
+    this.userService.resetPassword(this.email, this.newPassword).subscribe({
+      next: () => {
+        this.dialog.open(SuccessDialogEmailComponent, {
+          data: { messageKey: 'reset-password.success' }
+        });
+        this.router.navigate(['/login']);
+      },
+      error: () => {
+        this.dialog.open(SuccessDialogEmailComponent, {
+          data: { messageKey: 'reset-password.error' }
         });
       }
     });
+
   }
-
-
-
-
 
   goBack(): void {
     this.router.navigate(['/login']);
   }
 }
+
