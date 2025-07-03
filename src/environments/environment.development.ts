@@ -6,7 +6,7 @@ export const environment = {
   academicPeriodEndpointPath: "/academic-periods",
   studentsEndpointPath: "/students2",
   enrollmentEndpointPath: "/enrollments",
-  invoicesEndpointPath: "/invoices",
+  //invoicesEndpointPath: "/invoices",
   paymentsEndpointPath: "/payments",
   financialTransactionsEndpointPath: "/financialTransactions",
   classSessionsEndpointPath: "/class-sessions",

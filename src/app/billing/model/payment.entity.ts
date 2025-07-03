@@ -11,7 +11,7 @@ export class Payment {
   /**
    * ID of the associated invoice, or `null` if not linked.
    */
-  invoiceId: string | null;
+  invoiceId: number | null;
 
   /**
    * Date and time when the payment was made.
@@ -33,7 +33,7 @@ export class Payment {
    *
    * @param Payment - An object containing optional payment fields such as `id`, `invoiceId`, `paidAt`, `method`, and `amount`.
    */
-  constructor(Payment: {id?: string, invoiceId?: string, paidAt?: Date, method?: string, amount?: number}) {
+  constructor(Payment: {id?: string, invoiceId?: number, paidAt?: Date, method?: string, amount?: number}) {
     this.id = Payment.id || '';
     this.invoiceId = Payment.invoiceId || null;
     this.paidAt = Payment.paidAt || new Date();
