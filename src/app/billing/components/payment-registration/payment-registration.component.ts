@@ -70,7 +70,7 @@ export class PaymentRegistrationComponent extends BaseFormComponent {
     }
     if (this.paymentForm.valid) {
       this.paymentRegistered.emit({
-        amount: this.invoice.amount,
+        amount: this.invoice.amount.amount,
         paidAt: this.paidAt
       });
       this.paymentForm.resetForm({

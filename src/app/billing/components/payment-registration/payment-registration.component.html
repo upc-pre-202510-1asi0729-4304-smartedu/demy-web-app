@@ -20,7 +20,7 @@
 
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>{{ 'payments.amount' | translate }}</mat-label>
-      <input matInput type="number" [value]="invoice.amount" disabled />
+      <input matInput [value]="invoice.amount.format('es-PE')" disabled />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="form-field">

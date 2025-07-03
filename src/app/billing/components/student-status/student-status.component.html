@@ -13,7 +13,7 @@
 
     <ng-container matColumnDef="amount">
       <th mat-header-cell *matHeaderCellDef>{{ 'payments.amount' | translate }}</th>
-      <td mat-cell *matCellDef="let el">S/ {{ el.amount }}</td>
+      <td mat-cell *matCellDef="let el">{{ el.amount.format('es-PE') }}</td>
     </ng-container>
 
     <ng-container matColumnDef="status">
@@ -23,7 +23,7 @@
 
     <ng-container matColumnDef="dueDate">
       <th mat-header-cell *matHeaderCellDef>{{ 'payments.due-date' | translate }}</th>
-      <td mat-cell *matCellDef="let el">{{ el.dueDate | date }}</td>
+      <td mat-cell *matCellDef="let el">{{ el.dueDate.format('es-PE') }}</td>
     </ng-container>
 
     <ng-container matColumnDef="action">

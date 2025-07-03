@@ -65,7 +65,7 @@ export class PaymentsComponent {
       next: students => {
         if (students.length > 0) {
           const student = students[0];
-          this.invoiceService.getByStudentId(student.id).subscribe({
+          this.invoiceService.getByDni(student.dni).subscribe({
             next: invoices => {
               this.studentPaymentStatus.set({ student, invoices });
             }
@@ -128,14 +128,15 @@ export class PaymentsComponent {
           error: err => console.error('Error al registrar transacción', err)
         });
 
-        const updatedInvoice: Invoice = {
+        const updatedInvoice = new Invoice({
           id: invoice.id,
-          subscriptionId: invoice.subscriptionId,
-          amount: invoice.amount,
-          dueDate: invoice.dueDate,
-          status: PaymentStatus.PAID,
-          studentId: invoice.studentId,
-        };
+          dni: invoice.dni,
+          name: invoice.name,
+          amount: invoice.amount.amount,
+          currency: invoice.amount.currency.code,
+          dueDate: invoice.dueDate.toString(),
+          status: PaymentStatus.PAID
+        });
 
         this.invoiceService.update(invoice.id, updatedInvoice).subscribe(() => {
           this.studentPaymentStatus.set({
