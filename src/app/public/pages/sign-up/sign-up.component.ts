@@ -16,8 +16,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { AuthenticationService } from '../../../iam-user/authentication/authentication.service';
-import { SignUpRequest } from '../../../iam-user/model-authentication/sign-up.request';
+import { AuthenticationService } from '../../../iam-user/services/authentication.service';
+import { SignUpRequest } from '../../../iam-user/model/sign-up.request';
 
 /**
  * Component representing the application's sign-up (registration) page.
@@ -94,26 +94,9 @@ export class SignUpComponent {
       };
 
       this.authenticationService.signUpWithResponse(signUpRequest).subscribe({
-        next: (response) => {
-          const userId = response.user.id;
-
-          const newAcademy: Academy = {
-            id: 0,
-            userId: userId.toString(),
-            periods: [],
-            academy_name: formData.academy_name,
-            ruc: formData.ruc
-          };
-
-          this.academyService.createAcademy(newAcademy).subscribe({
-            next: () => {
-              this.isLoading = false;
-              this.router.navigate(['/planSelect']);
-            },
-            error: (academyError) => {
-              this.handlePartialRegistration(userId.toString(), academyError);
-            }
-          });
+        next: () => {
+          this.isLoading = false;
+          this.router.navigate(['/planSelect']);
         },
         error: (userError) => {
           this.isLoading = false;
