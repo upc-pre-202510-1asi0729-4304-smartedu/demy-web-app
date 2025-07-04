@@ -48,7 +48,8 @@ export class StudentListComponent implements OnInit {
    * Event emitted when attendance data is updated.
    * Emits an array of objects containing each student's ID and attendance status.
    */
-  @Output() attendanceChanged = new EventEmitter<{ studentId: string, attended: boolean }[]>();
+  @Output() attendanceChanged = new EventEmitter<{ dni: string; attended: boolean }[]>();
+
 
   /**
    * List of column identifiers used in the Material table.
@@ -97,9 +98,10 @@ export class StudentListComponent implements OnInit {
    */
   toggleAttendance() {
     const updated = this.students.data.map(s => ({
-      studentId: s.id,
+      dni: s.dni,
       attended: s.attended
     }));
+
     this.attendanceChanged.emit(updated);
   }
 
