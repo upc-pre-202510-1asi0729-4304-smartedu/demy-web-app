@@ -6,9 +6,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import {MatNativeDateModule, MatOption} from '@angular/material/core';
 import { BaseFormComponent } from '../../../shared/components/base-form/base-form.component';
 import { Invoice } from '../../model/invoice.entity';
+import {MatSelect} from '@angular/material/select';
+import {NgForOf} from '@angular/common';
 
 /**
  * Standalone form component used to register a payment for a given invoice and student.
@@ -17,6 +19,7 @@ import { Invoice } from '../../model/invoice.entity';
  */
 @Component({
   selector: 'app-payment-registration',
+  standalone: true,
   imports: [
     TranslatePipe,
     FormsModule,
@@ -24,7 +27,10 @@ import { Invoice } from '../../model/invoice.entity';
     MatInputModule,
     MatButtonModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatOption,
+    MatSelect,
+    NgForOf,
   ],
   templateUrl: './payment-registration.component.html',
   styleUrl: './payment-registration.component.css'
@@ -44,20 +50,15 @@ export class PaymentRegistrationComponent extends BaseFormComponent {
    * Event emitted when a payment is successfully registered.
    * Emits an object containing the payment amount and date.
    */
-  @Output() paymentRegistered = new EventEmitter<{
-    amount: number;
-    paidAt: Date;
-  }>();
+  @Output() paymentRegistered = new EventEmitter<string>();
 
   /**
    * Template reference to the payment form for validation and reset operations.
    */
-  @ViewChild('paymentForm', { static: false}) paymentForm!: NgForm;
+  @ViewChild('paymentForm', { static: false }) paymentForm!: NgForm;
 
-  /**
-   * The date selected as the payment date. Defaults to the current date.
-   */
-  paidAt: Date = new Date();
+  methods = ['CASH', 'CARD', 'TRANSFER', 'WALLET', 'OTHER'];
+  selectedMethod = 'CASH';
 
   /**
    * Handles form submission. Emits the payment data if the form is valid,
@@ -68,15 +69,11 @@ export class PaymentRegistrationComponent extends BaseFormComponent {
       console.warn('Invalid form');
       return;
     }
-    if (this.paymentForm.valid) {
-      this.paymentRegistered.emit({
-        amount: this.invoice.amount.amount,
-        paidAt: this.paidAt
-      });
-      this.paymentForm.resetForm({
-        amount: 0,
-        paidAt: new Date()
-      })
-    }
+
+    this.paymentRegistered.emit(this.selectedMethod);
+
+    this.paymentForm.resetForm({
+      method: 'CASH'
+    });
   }
 }
