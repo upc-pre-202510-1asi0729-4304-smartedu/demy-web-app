@@ -133,6 +133,21 @@
     "select": "Seleccionar Plan"
   },
   "payments": {
+    "section-title": "Gestión de Pagos",
+    "nav": {
+      "list": "Ver Pagos",
+      "assign": "Asignar Factura"
+    },
+    "assign-title": "Asignar nueva factura",
+    "dni-label": "DNI del Estudiante",
+    "amount-label": "Monto",
+    "currency-label": "Moneda",
+    "due-date-label": "Fecha de Vencimiento",
+    "create-button": "Crear Factura",
+    "assign": {
+      "success": "¡Factura creada exitosamente!",
+      "error": "Error al crear la factura."
+    },
     "title": "Pagos",
     "subtitle": "Buscar el estado de pago de un alumno",
     "dni-input": "Ingresar DNI",
@@ -479,7 +494,9 @@
     "cancel": "Cancelar",
     "confirm": "Confirmar",
     "edit": "Editar",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "required-dni": "El DNI es obligatorio.",
+    "student-not-found": "No se encontró un estudiante con ese DNI."
   },
   "recover-password": {
     "title": "Recuperar Contraseña",

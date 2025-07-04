@@ -133,6 +133,21 @@
     "select": "Select Plan"
   },
   "payments": {
+    "section-title": "Payments Management",
+    "nav": {
+      "list": "View Payments",
+      "assign": "Assign Invoice"
+    },
+    "assign-title": "Assign new invoice",
+    "dni-label": "Student DNI",
+    "amount-label": "Amount",
+    "currency-label": "Currency",
+    "due-date-label": "Due Date",
+    "create-button": "Create Invoice",
+    "assign": {
+      "success": "Invoice successfully created!",
+      "error": "Error creating invoice."
+    },
     "title": "Payments",
     "subtitle": "Check a student's payment status",
     "dni-input": "Enter DNI",
@@ -479,7 +494,9 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "required-dni": "DNI is required.",
+    "student-not-found": "A student with that ID was not found."
   },
   "recover-password": {
     "title": "Recover Password",
