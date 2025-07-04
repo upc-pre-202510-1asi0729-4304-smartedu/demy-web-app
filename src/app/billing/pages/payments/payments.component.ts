@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {StudentSearchComponent} from '../../components/student-search/student-search.component';
 import {StudentPaymentStatus, StudentStatusComponent} from '../../components/student-status/student-status.component';
 import {StudentService} from '../../../enrollments/services/student.service';
@@ -9,6 +9,9 @@ import {PaymentService} from '../../services/payment.service';
 import {Invoice, PaymentStatus} from '../../model/invoice.entity';
 import {FinancialTransactionService} from '../../services/financial-transaction.service';
 import {FinancialTransaction, PartyType} from '../../model/financial-transaction.entity';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {NotificationService} from '../../../shared/services/notification.service';
+import {TranslateService} from '@ngx-translate/core';
 
 /**
  * Page component responsible for managing student payments.
@@ -23,12 +26,15 @@ import {FinancialTransaction, PartyType} from '../../model/financial-transaction
     StudentSearchComponent,
     StudentStatusComponent,
     TranslatePipe,
-    PaymentRegistrationComponent
+    PaymentRegistrationComponent,
+    MatSnackBarModule
   ],
   templateUrl: './payments.component.html',
   styleUrl: './payments.component.css'
 })
 export class PaymentsComponent {
+  private notification = inject(NotificationService);
+  private translate = inject(TranslateService);
   /**
    * Signal holding the current student and their associated invoices.
    * Set after a successful search.
@@ -63,14 +69,21 @@ export class PaymentsComponent {
   onSearch(dni: string) {
     this.studentService.getByDni(dni).subscribe({
       next: students => {
-        if (students.length > 0) {
-          const student = students[0];
-          this.invoiceService.getByDni(student.dni).subscribe({
-            next: invoices => {
-              this.studentPaymentStatus.set({ student, invoices });
-            }
-          });
+        console.log('Student search result:', students);
+
+        // Filtra para encontrar solo el que coincida exacto
+        const student = students.find(s => s.dni === dni);
+
+        if (!student) {
+          this.notification.showError(this.translate.instant('common.student-not-found'));
+          return;
         }
+
+        this.invoiceService.getByDni(student.dni).subscribe({
+          next: invoices => {
+            this.studentPaymentStatus.set({ student, invoices });
+          }
+        });
       },
       error: err => console.error('Error en búsqueda', err)
     });
