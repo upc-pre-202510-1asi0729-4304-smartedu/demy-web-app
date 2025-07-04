@@ -125,7 +125,7 @@ export class WeeklySchedulesOverviewComponent implements OnInit, AfterViewInit {
       width: '600px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       // Always refresh the list when modal is closed
       this.getAllWeeklySchedules();
     });
@@ -150,7 +150,7 @@ export class WeeklySchedulesOverviewComponent implements OnInit, AfterViewInit {
       width: '600px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(()=> {
       this.getAllWeeklySchedules();
     });
   }
