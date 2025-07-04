@@ -1,61 +1,99 @@
 <div class="expense-form-component">
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="expense-form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="expense-form">
 
-  <div class="form-grid">
-  <mat-form-field class="full-width" appearance="outline">
-    <mat-label>{{ 'finance.fields.category' | translate }}</mat-label>
-    <mat-select formControlName="category">
-      @for (cat of categories; track cat.value) {
-        <mat-option [value]="cat.value">
-          {{ cat.labelKey | translate }}
-        </mat-option>
-      }
-    </mat-select>
-    @if (isInvalidControl(form, 'category')) {
-      <mat-error>
-        {{ errorMessagesForControl(form, 'category') }}
-      </mat-error>
-    }
-  </mat-form-field>
+    <div class="form-grid">
+      <!-- CATEGORY -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ 'finance.fields.category' | translate }}</mat-label>
+        <mat-select formControlName="category">
+          @for (cat of categories; track cat.value) {
+            <mat-option [value]="cat.value">
+              {{ cat.labelKey | translate }}
+            </mat-option>
+          }
+        </mat-select>
+        @if (isInvalidControl(form, 'category')) {
+          <mat-error>
+            {{ errorMessagesForControl(form, 'category') }}
+          </mat-error>
+        }
+      </mat-form-field>
 
-  <mat-form-field class="full-width" appearance="outline">
-    <mat-label>{{ 'finance.fields.amount' | translate }}</mat-label>
-    <input matInput type="number" formControlName="amount" />
-    @if (isInvalidControl(form, 'amount')) {
-      <mat-error>
-        {{ errorMessagesForControl(form, 'amount') }}
-      </mat-error>
-    }
-  </mat-form-field>
+      <!-- AMOUNT -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ 'finance.fields.amount' | translate }}</mat-label>
+        <input matInput type="number" formControlName="amount" />
+        @if (isInvalidControl(form, 'amount')) {
+          <mat-error>
+            {{ errorMessagesForControl(form, 'amount') }}
+          </mat-error>
+        }
+      </mat-form-field>
 
-  <mat-form-field class="full-width" appearance="outline">
-    <mat-label>{{ 'finance.fields.concept' | translate }}</mat-label>
-    <input matInput formControlName="concept" />
-    @if (isInvalidControl(form, 'concept')) {
-      <mat-error>
-        {{ errorMessagesForControl(form, 'concept') }}
-      </mat-error>
-    }
-  </mat-form-field>
+      <!-- CONCEPT -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ 'finance.fields.concept' | translate }}</mat-label>
+        <input matInput formControlName="concept" />
+        @if (isInvalidControl(form, 'concept')) {
+          <mat-error>
+            {{ errorMessagesForControl(form, 'concept') }}
+          </mat-error>
+        }
+      </mat-form-field>
 
-  <mat-form-field class="full-width" appearance="outline">
-    <mat-label>{{ 'finance.fields.date' | translate }}</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="date" />
-    <mat-datepicker-toggle matSuffix [for]="picker" />
-    <mat-datepicker #picker />
-    @if (isInvalidControl(form, 'date')) {
-      <mat-error>
-        {{ errorMessagesForControl(form, 'date') }}
-      </mat-error>
-    }
-  </mat-form-field>
-  </div>
+      <!-- DATE -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ 'finance.fields.date' | translate }}</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" />
+        <mat-datepicker-toggle matSuffix [for]="picker" />
+        <mat-datepicker #picker />
+        @if (isInvalidControl(form, 'date')) {
+          <mat-error>
+            {{ errorMessagesForControl(form, 'date') }}
+          </mat-error>
+        }
+      </mat-form-field>
 
-  <div class="submit-button">
-  <button mat-flat-button color="primary" type="submit">
-    {{ 'finance.actions.confirm' | translate }}
-  </button>
-  </div>
+      <!-- METHOD -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ 'finance.fields.method' | translate }}</mat-label>
+        <mat-select formControlName="method">
+          @for (m of methods; track m.value) {
+            <mat-option [value]="m.value">
+              {{ m.labelKey | translate }}
+            </mat-option>
+          }
+        </mat-select>
+        @if (isInvalidControl(form, 'method')) {
+          <mat-error>
+            {{ errorMessagesForControl(form, 'method') }}
+          </mat-error>
+        }
+      </mat-form-field>
 
-</form>
+      <!-- CURRENCY -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ 'finance.fields.currency' | translate }}</mat-label>
+        <mat-select formControlName="currency">
+          @for (c of currencies; track c.value) {
+            <mat-option [value]="c.value">
+              {{ c.value }}
+            </mat-option>
+          }
+        </mat-select>
+        @if (isInvalidControl(form, 'currency')) {
+          <mat-error>
+            {{ errorMessagesForControl(form, 'currency') }}
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="submit-button">
+      <button mat-flat-button color="primary" type="submit">
+        {{ 'finance.actions.confirm' | translate }}
+      </button>
+    </div>
+
+  </form>
 </div>
