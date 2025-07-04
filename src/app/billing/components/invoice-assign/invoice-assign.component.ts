@@ -45,7 +45,7 @@ export class InvoiceAssignComponent {
   currency = 'PEN';
   dueDate: Date = new Date();
 
-  currencies = ['PEN', 'USD', 'EUR'];
+  currencies = ['PEN', 'USD'];
 
   message = '';
 
