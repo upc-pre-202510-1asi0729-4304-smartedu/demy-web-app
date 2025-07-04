@@ -20,9 +20,6 @@ export class DateTime {
       }
       this._date = parsedDate;
     }
-    if (this._date > now) {
-      throw new Error("DateTime cannot be in the future");
-    }
   }
 
   /**
@@ -38,17 +35,17 @@ export class DateTime {
    * Formats the date as a human-readable string.
    * @public
    * @param locale - The locale for formatting (defaults to "en-US").
-   * @returns The formatted date (e.g., "April 9, 2025, 10:30 AM PDT").
+   * @param options - Optional Intl.DateTimeFormat options.
+   * @returns The formatted date (e.g., "April 9, 2025").
    */
-  public format(locale: string = "en-US"): string {
-    return this._date.toLocaleString(locale, {
+  public format(locale: string = "en-US", options?: Intl.DateTimeFormatOptions): string {
+    const defaultOptions: Intl.DateTimeFormatOptions = options ?? {
       year: "numeric",
       month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZoneName: "short"
-    });
+      day: "numeric"
+    };
+
+    return this._date.toLocaleDateString(locale, defaultOptions);
   }
 
   /**
