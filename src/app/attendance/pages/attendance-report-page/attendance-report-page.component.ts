@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewChecked, OnInit } from '@angular/core';
+/** import { Component, ViewChild, AfterViewChecked, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AttendanceClassSelectComponent } from '../../components/attendance-class-select/attendance-class-select.component';
 import { AttendanceStudentSelectComponent } from '../../components/attendance-student-select/attendance-student-select.component';
@@ -156,4 +156,4 @@ export class AttendanceReportPageComponent implements AfterViewChecked, OnInit {
 
 
 }
-
+**/
