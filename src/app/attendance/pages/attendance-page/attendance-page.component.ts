@@ -11,7 +11,7 @@ import { ClassSessionService } from '../../services/class-session.service';
 import{AttendanceRecord} from '../../model/attendance-record.entity';
 import { ViewChild } from '@angular/core';
 import { inject } from '@angular/core';
-import { AttendanceRecordService } from '../../services/attendance-record.service';
+//import { AttendanceRecordService } from '../../services/attendance-record.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -47,7 +47,8 @@ export class AttendancePageComponent implements OnInit {
    * May be `null` before session data is loaded.
    */
   classSession: ClassSession | null = null;
-  selectedClassId: string | null = null;
+  selectedCourseId: number | null = null;
+
 
   private snackBar = inject(MatSnackBar);
 
@@ -68,7 +69,8 @@ export class AttendancePageComponent implements OnInit {
   @ViewChild(StudentListComponent)
   studentListComponent!: StudentListComponent;
 
-  private attendanceRecordService = inject(AttendanceRecordService);
+  //private attendanceRecordService = inject(AttendanceRecordService);
+  //private string: any;
 
   /**
    * Injects required services for class session management and attendance saving.
@@ -80,12 +82,12 @@ export class AttendancePageComponent implements OnInit {
    * Loads existing class sessions and selects the first one, or creates a new session if none exist.
    */
   ngOnInit(): void {
-    this.classSessionService.getAll().subscribe({
+   /* this.classSessionService.getAll().subscribe({
       next: sessions => {
         this.classSession = sessions.length > 0 ? sessions[0] : new ClassSession('');
       },
       error: err => console.error('Error al cargar sesiones:', err)
-    });
+    }); */
   }
 
   /**
@@ -97,21 +99,22 @@ export class AttendancePageComponent implements OnInit {
     this.selectedDate = date;
   }
 
-  onClassChanged(classId: string): void {
-    this.selectedClassId = classId;
+  onClassChanged(courseId: number): void {
+    this.selectedCourseId = courseId;
   }
+
 
   onSave(): void {
     console.log('onSave() disparado');
     console.log('selectedDate:', this.selectedDate);
-    console.log('selectedClassId:', this.selectedClassId);
+    console.log('selectedCourseId:', this.selectedCourseId);
     console.log('recordsBuffer:', this.recordsBuffer);
 
-    if (!this.selectedDate || !this.selectedClassId || !this.recordsBuffer.length) {
+    if (!this.selectedDate || !this.selectedCourseId || !this.recordsBuffer.length) {
       const missing = [];
 
       if (!this.selectedDate) missing.push('una fecha');
-      if (!this.selectedClassId) missing.push('una clase');
+      if (!this.selectedCourseId) missing.push('un curso');
       if (!this.recordsBuffer.length) missing.push('al menos un estudiante');
 
       const message = `Debe seleccionar ${missing.join(' y ')} antes de guardar.`;
@@ -124,11 +127,12 @@ export class AttendancePageComponent implements OnInit {
       return;
     }
 
+    const dateStr = this.selectedDate.toISOString().slice(0, 10);
+
     const newSession = new ClassSession(
-      '',
-      this.recordsBuffer,
-      this.selectedDate,
-      this.selectedClassId
+      this.selectedCourseId,
+      dateStr,
+      this.recordsBuffer
     );
 
     this.classSessionService.create(newSession).subscribe({
@@ -156,27 +160,27 @@ export class AttendancePageComponent implements OnInit {
 
 
 
+
   /**
    * Receives updated attendance data from the student list component.
    * Converts raw attendance (boolean) into {@link AttendanceRecord} instances.
    *
    * @param records - Array of objects with `studentId` and `attended` status.
    */
-  onAttendanceChanged(records: { studentId: string; attended: boolean }[]): void {
-    // Convertimos a AttendanceRecord[]
+  onAttendanceChanged(records: { dni: string; attended: boolean }[]): void {
     const rawRecords = records.map(
       r => new AttendanceRecord(
-        r.studentId,
+        r.dni,
         r.attended ? AttendanceStatus.PRESENT : AttendanceStatus.ABSENT
       )
     );
 
-    // Eliminamos duplicados conservando el último por studentId
     const uniqueRecords = Array.from(
-      new Map(rawRecords.map(r => [r.studentId, r])).values()
+      new Map(rawRecords.map(r => [r.dni, r])).values()
     );
 
     this.recordsBuffer = uniqueRecords;
   }
+
 
 }
