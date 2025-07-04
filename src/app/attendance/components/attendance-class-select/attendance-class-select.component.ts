@@ -30,7 +30,8 @@ export class AttendanceClassSelectComponent {
   courses = signal<Course[]>([]);
   selectedCourseId = signal<string>('');
 
-  @Output() classChanged = new EventEmitter<string>();
+  @Output() classChanged = new EventEmitter<number>();
+
 
   constructor(private courseService: CourseService) {}
 
@@ -40,6 +41,7 @@ export class AttendanceClassSelectComponent {
 
   onClassSelect(classId: string): void {
     this.selectedCourseId.set(classId);
-    this.classChanged.emit(classId);
+    this.classChanged.emit(Number(classId));
   }
+
 }
