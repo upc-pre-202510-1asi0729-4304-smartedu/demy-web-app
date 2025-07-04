@@ -6,30 +6,35 @@ import { environment } from '../../../environments/environment';
 
 /**
  * Service responsible for managing academy-related operations.
- * It interacts with the backend API to create, retrieve, and manage academy data.
  *
- * @remarks
- * This service allows the creation of academies, fetching academies for a specific user,
- * and retrieving individual academy details by ID.
+ * @summary
+ * This service interacts with the backend API to perform operations such as creating academies,
+ * retrieving academies associated with a user, and fetching a single academy by ID.
  */
 @Injectable({
   providedIn: 'root'
 })
 export class AcademyService {
+  /**
+   * The base URL for academy-related API endpoints, built from environment variables.
+   */
   private apiUrl = `${environment.apiBaseUrl}${environment.academyEndpointPath}`;
 
   /**
-   * Injects Angular's HttpClient to handle API requests related to academies.
+   * Constructs the AcademyService and injects Angular's HttpClient for making HTTP requests.
    *
-   * @param http - Angular HttpClient for making HTTP requests
+   * @param http - Angular HttpClient used to send requests to the backend
    */
   constructor(private http: HttpClient) { }
 
   /**
-   * Creates a new academy in the backend.
+   * Creates a new academy in the backend system.
    *
-   * @param academy - The Academy object to be created, including academy name, RUC, user ID, and periods
-   * @returns An Observable that emits the newly created Academy object
+   * @summary
+   * Sends a POST request to create an academy with provided name, RUC, associated user ID, and optional periods.
+   *
+   * @param academy - The {@link Academy} object containing the details of the academy to create
+   * @returns An Observable that emits the created {@link Academy} object
    */
   createAcademy(academy: Academy): Observable<Academy> {
     return this.http.post<Academy>(this.apiUrl, {
@@ -43,18 +48,24 @@ export class AcademyService {
   /**
    * Retrieves all academies associated with a specific user ID.
    *
-   * @param userId - The ID of the user whose academies are being retrieved
-   * @returns An Observable that emits an array of Academy objects
+   * @summary
+   * Sends a GET request filtered by user ID to retrieve all academies created by or linked to that user.
+   *
+   * @param userId - The ID of the user whose academies are being fetched
+   * @returns An Observable that emits an array of {@link Academy} objects
    */
   getAcademiesByUserId(userId: string): Observable<Academy[]> {
     return this.http.get<Academy[]>(`${this.apiUrl}?userId=${userId}`);
   }
 
   /**
-   * Retrieves a specific academy by its ID.
+   * Retrieves a specific academy by its unique identifier.
    *
-   * @param id - The ID of the academy to retrieve
-   * @returns An Observable that emits the Academy object corresponding to the given ID
+   * @summary
+   * Sends a GET request to fetch a single academy by its ID.
+   *
+   * @param id - The unique identifier of the academy
+   * @returns An Observable that emits the corresponding {@link Academy} object
    */
   getAcademyById(id: number): Observable<Academy> {
     return this.http.get<Academy>(`${this.apiUrl}/${id}`);

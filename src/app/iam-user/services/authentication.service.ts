@@ -10,56 +10,58 @@ import {SignInResponse} from "../model/sign-in.response";
 
 /**
  * Service for handling authentication operations.
+ *
  * @summary
- * This service is responsible for handling authentication operations like sign-up, sign-in, and sign-out.
+ * This service is responsible for managing user authentication, including sign-up, sign-in,
+ * token management, user session state, and routing based on user roles.
  */
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
+  /** Base path for API requests */
   basePath: string = `${environment.apiBaseUrl}`;
+
+  /** Default HTTP headers for JSON content */
   httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
+  /** Reactive state for signed-in status */
   private signedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  /** Reactive state for current signed-in user ID */
   private signedInUserId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  /** Reactive state for current signed-in username */
   private signedInUsername: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   /**
    * Constructor for the AuthenticationService.
-   * @param router The router service.
-   * @param http The HttpClient service.
+   *
+   * @param router - Angular Router used for navigation
+   * @param http - Angular HttpClient for performing HTTP requests
    */
   constructor(private router: Router, private http: HttpClient) {
     const token = localStorage.getItem('token');
     this.signedIn.next(!!token);
   }
-
+  /** Observable for monitoring sign-in state */
   get isSignedIn() {
     return this.signedIn.asObservable();
   }
-
+  /** Observable for retrieving the signed-in user ID */
   get currentUserId() {
     return this.signedInUserId.asObservable();
   }
-
+  /** Observable for retrieving the signed-in username */
   get currentUsername() {
     return this.signedInUsername.asObservable();
   }
-
-
-
-
-
   /**
-   * Sign in a user.
+   * Signs in a user with the provided credentials.
+   *
    * @summary
-   * This method sends a POST request to the server with the user's username and password.
-   * If the request is successful, the signedIn, signedInUserId, and signedInUsername are set to true,
-   * the user's id, and the user's username respectively.
-   * The token is stored in the local storage and the user is navigated to the home page.
-   * If the request fails, the signedIn, signedInUserId, and signedInUsername are set to false, 0, and
-   * an empty string respectively.
-   * An error message is logged and the user is navigated to the sign-in page.
-   * @param signInRequest The {@link SignInRequest} object containing the user's username and password.
-   * @returns The {@link SignInResponse} object containing the user's id, username, and token.
+   * Sends a POST request with the user's credentials. On success, stores the token and user data,
+   * updates local state, and redirects to the appropriate page based on role. On failure, shows
+   * an error message and redirects to the sign-in page.
+   *
+   * @param signInRequest - The {@link SignInRequest} object containing the username and password
+   * @returns A subscription that handles login logic on response
    */
   signIn(signInRequest: SignInRequest) {
     return this.http.post<SignInResponse>(`${this.basePath}/users/sign-in`, signInRequest, this.httpOptions)
@@ -104,13 +106,11 @@ export class AuthenticationService {
       });
   }
 
-
-
   /**
-   * Sign out the user.
+   * Signs out the current user.
+   *
    * @summary
-   * This method sets the signedIn, signedInUserId, and signedInUsername to their default values,
-   * removes the token from the local storage, and navigates to the sign-in page.
+   * Clears session-related data (token, ID, username) and navigates to the login page.
    */
   signOut() {
     this.signedIn.next(false);
@@ -120,6 +120,15 @@ export class AuthenticationService {
     this.router.navigate(['/login']).then();
   }
 
+  /**
+   * Registers a new user and returns the full server response.
+   *
+   * @summary
+   * Sends a POST request to register a new admin user with the provided sign-up data.
+   *
+   * @param signUpRequest - The {@link SignUpRequest} object containing registration info
+   * @returns An Observable that emits a {@link SignUpResponse} object on success
+   */
   signUpWithResponse(signUpRequest: SignUpRequest): Observable<SignUpResponse> {
     return this.http.post<SignUpResponse>(
       `${this.basePath}/users/admins/sign-up`,

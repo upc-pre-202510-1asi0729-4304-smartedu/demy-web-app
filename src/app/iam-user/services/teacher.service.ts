@@ -17,6 +17,7 @@ import { Role } from '../model/role.model';
   providedIn: 'root'
 })
 export class TeacherService {
+  /** Base URL for user-related endpoints */
   private baseUrl = `${environment.apiBaseUrl}${environment.usersEndpointPath}`; // Usar las variables de entorno
 
 
@@ -26,23 +27,35 @@ export class TeacherService {
    * @param http - Angular HttpClient for handling HTTP requests
    */
   constructor(private http: HttpClient) { }
-  /**
-   * Retrieves all teachers from the backend.
-   *
-   * @returns An Observable that emits an array of UserAccount objects, each representing a teacher
-   */
 
-  //Look at this
+
+  /**
+   * Retrieves all users with the teacher role from the backend.
+   *
+   * @returns An Observable that emits an array of {@link UserAccount} objects representing teachers
+   */
   getTeachers(): Observable<UserAccount[]> {
     return this.http.get<UserAccount[]>(`${this.baseUrl}/teachers`).pipe(
       map((users: UserAccount[]) => users.filter(user => user.role === 'TEACHER'))
     );
   }
 
+  /**
+   * Retrieves a teacher's information by their ID.
+   *
+   * @param id - The ID of the teacher to retrieve
+   * @returns An Observable that emits a {@link UserAccount} object representing the teacher
+   */
   getTeacherById(id: string): Observable<UserAccount> {
     return this.http.get<UserAccount>(`${this.baseUrl}/${id}`);
   }
 
+  /**
+   * Creates a new teacher account.
+   *
+   * @param teacher - An object containing the new teacher's information (first name, last name, email, and password)
+   * @returns An Observable that emits the created {@link UserAccount} object
+   */
   createTeacher(teacher: {
     firstName: string;
     lastName: string;
@@ -56,8 +69,8 @@ export class TeacherService {
    * Updates an existing teacher's information.
    *
    * @param id - The ID of the teacher to update
-   * @param teacherData - The updated teacher data to send (partial UserAccount object)
-   * @returns An Observable that emits the updated UserAccount object representing the teacher
+   * @param teacherData - A partial object containing the updated teacher fields
+   * @returns An Observable that emits the updated {@link UserAccount} object
    */
   updateTeacher(id: number, teacherData: Partial<UserAccount>): Observable<UserAccount> {
     return this.http.put<UserAccount>(`${this.baseUrl}/${id}`, teacherData);
@@ -67,7 +80,7 @@ export class TeacherService {
    * Deletes a teacher from the backend.
    *
    * @param id - The ID of the teacher to delete
-   * @returns An Observable that completes when the teacher has been successfully deleted
+   * @returns An Observable that completes when the deletion is successful
    */
   deleteTeacher(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);

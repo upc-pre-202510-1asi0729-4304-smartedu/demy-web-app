@@ -1,6 +1,9 @@
 /**
  * Represents a user account within the system.
- * Includes authentication credentials, user role, and account status.
+ *
+ * @summary
+ * Encapsulates user information including credentials, role, and account status.
+ * Provides methods to manage user state such as activation, blocking, and updating credentials.
  */
 export class UserAccount {
   /**
@@ -29,14 +32,15 @@ export class UserAccount {
   role: string;
 
   /**
-   * Current status of the user account (e.g., ACTIVE, BLOCKED).
+   * Current status of the user account (e.g., ACTIVE, BLOCKED, INACTIVE).
    */
   status: string;
 
   /**
-   * Creates a new {@link UserAccount} instance from a partial user object.
+   * Creates a new {@link UserAccount} instance.
    *
-   * @param user - Object containing optional user account fields.
+   * @param user - A partial object containing user account properties.
+   * If a property is missing, a default value is assigned.
    */
   constructor(user: {id?: number, fullName?: string, email?: string, passwordHash?: string, role?: string, status?: string}) {
     this.id = user.id || 0;
@@ -69,9 +73,9 @@ export class UserAccount {
   }
 
   /**
-   * Updates the hashed password of the account.
+   * Updates the password hash for the account.
    *
-   * @param newHash - The new password hash.
+   * @param newHash - The new hashed password to assign.
    */
   changePassword(newHash: string): void {
     this.passwordHash = newHash;
@@ -80,7 +84,7 @@ export class UserAccount {
   /**
    * Updates the email address associated with the account.
    *
-   * @param newEmail - The new email address.
+   * @param newEmail - The new email to assign.
    */
   updateEmail(newEmail: string): void {
     this.email = newEmail;
@@ -103,7 +107,7 @@ export enum Role {
 }
 
 /**
- * Enum representing the possible statuses of a user account.
+ * Enum representing the possible account status values.
  */
 export enum AccountStatus {
   /**

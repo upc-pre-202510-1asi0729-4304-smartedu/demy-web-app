@@ -11,6 +11,13 @@ import { UserService } from '../../../iam-user/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogEmailComponent } from '../../components/success-dialog-email/success-dialog-email.component';
 
+/**
+ * Component for resetting a user's password.
+ *
+ * @summary
+ * Allows users to reset their password by providing an email and a new password.
+ * Validates required fields and displays success or error messages using a dialog.
+ */
 @Component({
   selector: 'app-reset-password',
   standalone: true,
@@ -27,15 +34,33 @@ import { SuccessDialogEmailComponent } from '../../components/success-dialog-ema
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent {
+  /**
+   * User's email address input.
+   */
   email: string = '';
+
+  /**
+   * New password input to be set for the account.
+   */
   newPassword: string = '';
 
+  /**
+   * Initializes the component with injected services.
+   *
+   * @param router - Router service for navigation.
+   * @param userService - Service handling user-related API requests.
+   * @param dialog - Angular Material dialog service for feedback modals.
+   */
   constructor(
     private router: Router,
     private userService: UserService,
     private dialog: MatDialog
   ) {}
 
+  /**
+   * Handles password reset operation.
+   * Validates input, calls the service, and shows feedback to the user.
+   */
   resetPassword(): void {
     if (!this.email || !this.newPassword) {
       this.dialog.open(SuccessDialogEmailComponent, {
@@ -60,6 +85,9 @@ export class ResetPasswordComponent {
 
   }
 
+  /**
+   * Navigates the user back to the login page.
+   */
   goBack(): void {
     this.router.navigate(['/login']);
   }

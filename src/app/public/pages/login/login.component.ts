@@ -17,15 +17,14 @@ import {AuthenticationService} from '../../../iam-user/services/authentication.s
 
 /**
  * Component representing the application's login page.
- * Contains a reactive login form with validation, and handles navigation
- * to the dashboard page after successful login.
+ *
+ * @summary
+ * Provides a reactive login form with validation and Material Design styling.
+ * Upon successful authentication, the user is redirected to the appropriate route based on their role.
  *
  * @remarks
- * This component also includes a language switcher for the app,
- * and is designed with Material Design.
- *
+ * Includes language switching capabilities via {@link LanguageSwitcherComponent}.
  */
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -48,17 +47,24 @@ import {AuthenticationService} from '../../../iam-user/services/authentication.s
 })
 
 export class LoginComponent {
-  loginForm: FormGroup;
-  hidePassword = true;
   /**
-   * Constructor for the LoginComponent. Creates the reactive form with validation
-   * and initializes the FormBuilder and Router services.
-   *
-   * @param fb - FormBuilder service for creating reactive forms
-   * @param router - Router service for handling navigation
-   * @param userService
+   * Reactive form group for the login form.
    */
+  loginForm: FormGroup;
 
+  /**
+   * Controls whether the password input is visible or hidden.
+   */
+  hidePassword = true;
+
+  /**
+   * Constructs the {@link LoginComponent} and initializes the form.
+   *
+   * @param fb - Angular FormBuilder used to build the reactive form
+   * @param router - Angular Router used for navigation
+   * @param userService - Service to interact with user-related backend operations
+   * @param authenticationService - Service for performing authentication actions like sign-in
+   */
   constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private authenticationService: AuthenticationService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -68,11 +74,12 @@ export class LoginComponent {
   }
 
   /**
-   * Method executed when the form is submitted.
-   * Validates the form and, if valid, navigates to the dashboard.
-   * If invalid, marks all fields as touched to display errors.
+   * Handler for login form submission.
+   *
+   * @remarks
+   * If the form is valid, calls the authentication service's `signIn` method.
+   * Otherwise, marks all fields as touched to trigger validation messages.
    */
-
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
@@ -83,6 +90,11 @@ export class LoginComponent {
     }
   }
 
+  /**
+   * Convenience getter to access form controls in the template.
+   *
+   * @returns A dictionary of form controls.
+   */
   get f() {
     return this.loginForm?.controls || {};
   }
