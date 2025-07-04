@@ -23,6 +23,8 @@ import {
   AcademicPeriodManagementComponent
 } from './enrollments/pages/academic-period-management/academic-period-management.component';
 import {EnrollmentsManagementComponent} from './enrollments/pages/enrollment-management/enrollment-management.component';
+import {PaymentsLayoutComponent} from './billing/pages/payments-layout/payments-layout.component';
+import {InvoiceAssignComponent} from './billing/components/invoice-assign/invoice-assign.component';
 
 export const routes: Routes = [
   {
@@ -35,7 +37,15 @@ export const routes: Routes = [
       { path: 'organization/classrooms', component: ClassroomOverviewComponent},
       { path: 'organization/academic-periods', component: AcademicPeriodManagementComponent},
       { path: 'organization/weekly-schedules', component: WeeklySchedulesOverviewComponent},
-      { path: 'payments', component: PaymentsComponent },
+      {
+        path: 'payments',
+        component: PaymentsLayoutComponent,
+        children: [
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: 'list', component: PaymentsComponent },
+          { path: 'assign', component: InvoiceAssignComponent }
+        ]
+      },
       { path: 'attendance', component:AttendancePageComponent},
       { path: 'finance', component: ExpensesPageComponent },
       { path: 'search-schedules', component: SearchSchedulesComponent },
