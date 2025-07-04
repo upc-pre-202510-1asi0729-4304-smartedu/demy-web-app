@@ -32,7 +32,7 @@ export class TeacherService {
 
   //Look at this
   getTeachers(): Observable<UserAccount[]> {
-    return this.http.get<UserAccount[]>(`${this.baseUrl}`).pipe(
+    return this.http.get<UserAccount[]>(`${this.baseUrl}/teachers`).pipe(
       map((users: UserAccount[]) => users.filter(user => user.role === 'TEACHER'))
     );
   }
@@ -41,21 +41,13 @@ export class TeacherService {
     return this.http.get<UserAccount>(`${this.baseUrl}/${id}`);
   }
 
-  /**
-   * Creates a new teacher in the backend.
-   *
-   * @param teacher - The UserAccount object representing the teacher to be created, including full name, email, password hash, and role
-   * @returns An Observable that emits the newly created UserAccount object representing the teacher
-   */
-  createTeacher(teacher: UserAccount): Observable<UserAccount> {
-    const teacherData = {
-      fullName: teacher.fullName,
-      email: teacher.email,
-      passwordHash: teacher.passwordHash,
-      role: 'TEACHER',
-      status: 'ACTIVE'
-    };
-    return this.http.post<UserAccount>(this.baseUrl, teacherData);
+  createTeacher(teacher: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+  }): Observable<UserAccount> {
+    return this.http.post<UserAccount>(`${this.baseUrl}/teachers`, teacher);
   }
 
   /**

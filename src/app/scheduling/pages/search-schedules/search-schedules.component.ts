@@ -8,6 +8,7 @@ import {WeeklyScheduleSearchComponent} from '../../components/weekly-schedule-se
  */
 @Component({
   selector: 'app-search-schedules',
+  standalone:true,
   imports: [
     TranslatePipe,
     WeeklyScheduleSearchComponent
