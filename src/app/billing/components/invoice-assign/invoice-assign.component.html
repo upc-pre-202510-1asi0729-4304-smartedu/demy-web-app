@@ -1,0 +1,35 @@
+<h3>{{ 'payments.assign-title' | translate }}</h3>
+
+<form (ngSubmit)="onSubmit()" class="assign-form">
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>{{ 'payments.dni-label' | translate }}</mat-label>
+    <input matInput type="text" [(ngModel)]="dni" name="dni" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>{{ 'payments.amount-label' | translate }}</mat-label>
+    <input matInput type="number" [(ngModel)]="amount" name="amount" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>{{ 'payments.currency-label' | translate }}</mat-label>
+    <mat-select [(ngModel)]="currency" name="currency" required>
+      <mat-option *ngFor="let curr of currencies" [value]="curr">{{ curr }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>{{ 'payments.due-date-label' | translate }}</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="dueDate" name="dueDate" required />
+    <mat-datepicker-toggle matSuffix [for]="picker" />
+    <mat-datepicker #picker />
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-flat-button color="primary" type="submit">
+      {{ 'payments.create-button' | translate }}
+    </button>
+  </div>
+</form>
+
+<p *ngIf="message">{{ message }}</p>
