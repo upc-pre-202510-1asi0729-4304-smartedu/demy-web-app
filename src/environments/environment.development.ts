@@ -1,10 +1,10 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://6820406072e59f922ef8198b.mockapi.io/api/v1',
-  usersEndpointPath: '/users',
+  apiBaseUrl: 'http://localhost:8080/api/v1',
+  usersEndpointPath: '/user-accounts',
   academyEndpointPath: '/academy',
   academicPeriodEndpointPath: "/academic-periods",
-  studentsEndpointPath: "/students2",
+  studentsEndpointPath: "/students",
   enrollmentEndpointPath: "/enrollments",
   //invoicesEndpointPath: "/invoices",
   paymentsEndpointPath: "/payments",
