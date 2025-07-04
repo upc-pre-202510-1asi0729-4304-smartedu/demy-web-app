@@ -8,7 +8,7 @@ export const environment = {
   enrollmentEndpointPath: "/enrollments",
   invoicesEndpointPath: "/invoices",
   paymentsEndpointPath: "/payments",
-  financialTransactionsEndpointPath: "/financialTransactions",
+  financialTransactionsEndpointPath: "/financial-transactions",
   classSessionsEndpointPath: "/class-sessions",
   coursesEndpointPath: '/courses',
   classroomsEndpointPath: '/classrooms',
