@@ -1,11 +1,13 @@
 import {Component, signal} from '@angular/core';
 import {FinancialTransactionService} from '../../services/financial-transaction.service';
-import {FinancialTransaction, PartyType} from '../../model/financial-transaction.entity';
+import {FinancialTransaction} from '../../model/financial-transaction.entity';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {ExpenseFormComponent} from '../../components/expense-form/expense-form.component';
 import {ExpenseTableComponent} from '../../components/expense-table/expense-table.component';
+import { NotificationService } from '../../../shared/services/notification.service';
+
 
 /**
  * Page component responsible for managing and displaying monthly expenses.
@@ -20,7 +22,7 @@ import {ExpenseTableComponent} from '../../components/expense-table/expense-tabl
     MatDividerModule,
     TranslatePipe,
     ExpenseFormComponent,
-    ExpenseTableComponent
+    ExpenseTableComponent,
   ],
   templateUrl: './expenses-page.component.html',
   styleUrl: './expenses-page.component.css'
@@ -32,13 +34,67 @@ export class ExpensesPageComponent {
    */
   readonly expenses = signal<FinancialTransaction[]>([]);
 
+  /** All transactions loaded from backend (not filtered) */
+  allTransactions: FinancialTransaction[] = [];
+
+  /** Currently selected month (0-11) */
+  selectedMonth: number;
+
+  /** Currently selected year (e.g. 2024) */
+  selectedYear: number;
+
+  /** Convenience Date object for datepicker input */
+  selectedDate: Date;
+
   /**
-   * Initializes the component and loads the current month's expenses.
-   *
-   * @param transactionService - Service used to retrieve and create transactions.
+   * Initializes the component with current month/year.
+   * Loads all financial transactions from the backend.
    */
-  constructor(private transactionService: FinancialTransactionService) {
-    this.loadCurrentMonthExpenses()
+  constructor(private transactionService: FinancialTransactionService,
+              private notificationService: NotificationService,
+              private translate: TranslateService) {
+    const now = new Date();
+    this.selectedMonth = now.getMonth();
+    this.selectedYear = now.getFullYear();
+    this.selectedDate = new Date(this.selectedYear, this.selectedMonth, 1);
+
+    this.loadAllTransactions();
+  }
+
+  /**
+   * Loads all transactions from the backend and filters them to the selected month/year.
+   */
+  loadAllTransactions() {
+    this.transactionService.getAll().subscribe((transactions) => {
+      this.allTransactions = transactions;
+      this.applyDateFilter();
+    });
+  }
+
+  /**
+   * Filters all loaded transactions to the selected month and year.
+   */
+  applyDateFilter() {
+    const filtered = this.allTransactions.filter(tx => {
+      const txDate = new Date(tx.date);
+      return txDate.getMonth() === this.selectedMonth && txDate.getFullYear() === this.selectedYear;
+    });
+    this.expenses.set(filtered);
+  }
+
+  /**
+   * Handles the selection of month and year from the datepicker.
+   *
+   * @param normalizedDate - The selected month and year
+   * @param datepicker - Reference to the datepicker to close it
+   */
+  setMonthAndYear(normalizedDate: Date, datepicker: any) {
+    this.selectedMonth = normalizedDate.getMonth();
+    this.selectedYear = normalizedDate.getFullYear();
+    this.selectedDate = new Date(this.selectedYear, this.selectedMonth, 1);
+    datepicker.close();
+
+    this.applyDateFilter();
   }
 
   /**
@@ -50,40 +106,43 @@ export class ExpensesPageComponent {
       const currentMonth = new Date().getMonth();
       const currentYear = new Date().getFullYear();
 
-      const expensesOfTheMonth = transactions.filter(tx =>
-        tx.type === ('EXPENSE') &&
+      const transactionsOfTheMonth = transactions.filter(tx =>
         new Date(tx.date).getMonth() === currentMonth &&
         new Date(tx.date).getFullYear() === currentYear
       );
 
-      this.expenses.set(expensesOfTheMonth);
+      this.expenses.set(transactionsOfTheMonth);
     });
   }
 
   /**
-   * Handles the registration of a new expense.
-   * Constructs a transaction payload based on the form data,
-   * sends it to the backend, and reloads the list of expenses.
+   * Handles the registration of a new expense from the form.
+   * Posts to backend and reloads all transactions.
    *
-   * @param expenseData - Object containing `amount`, `category`, `concept`, and `date`.
+   * @param expenseData - Data emitted from ExpenseFormComponent
    */
   handleRegister(expenseData: any) {
-    const payload: FinancialTransaction = {
-      id: '',
-      type: 'EXPENSE',
-      source: PartyType.ACADEMY,
-      target: PartyType.EXTERNAL,
+    const payload = {
       category: expenseData.category,
       concept: expenseData.concept,
-      date: expenseData.date,
-      reference: `TX-${Date.now()}`,
-      method: 'CASH',
-      amount: expenseData.amount
+      method: expenseData.method,
+      currency: expenseData.currency,
+      amount: expenseData.amount,
+      paidAt: expenseData.date
     };
 
-    this.transactionService.create(payload).subscribe(() => {
-      this.loadCurrentMonthExpenses();
+    this.transactionService.registerExpense(payload).subscribe({
+      next: () => {
+        this.notificationService.showSuccess(
+          this.translate.instant('finance.notifications.expenseRegistered')
+        );
+        this.loadAllTransactions();
+      },
+      error: () => {
+        this.notificationService.showError(
+          this.translate.instant('finance.notifications.errorRegistering')
+        );
+      }
     });
   }
-
 }
