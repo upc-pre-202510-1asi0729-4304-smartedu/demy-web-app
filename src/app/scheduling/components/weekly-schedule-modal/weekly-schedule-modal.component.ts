@@ -24,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ClassroomService } from '../../services/classroom.service';
 import { TeacherService } from '../../../iam-user/services/teacher.service';
 import {TranslatePipe} from '@ngx-translate/core';
+import {WeeklyScheduleService} from '../../services/weekly-schedule.service';
 
 /**
  * Component for displaying a modal to add, edit, or delete a weekly schedule.
@@ -32,6 +33,7 @@ import {TranslatePipe} from '@ngx-translate/core';
  */
 @Component({
   selector: 'app-weekly-schedule-modal',
+  standalone: true,
   imports: [
     MatFormField,
     FormsModule,
@@ -101,6 +103,7 @@ export class WeeklyScheduleModalComponent {
    * Initializes the component based on the dialog data
    * @param dialogRef - Reference to the dialog used to close the dialog when done
    * @param data - The data passed to the dialog, containing mode and weekly schedule information
+   * @param weeklyScheduleService
    * @param teacherService - Service used to load available teachers
    * @param classroomService - Service used to load available classrooms
    * @param courseService - Service used to load available courses
@@ -108,6 +111,7 @@ export class WeeklyScheduleModalComponent {
   constructor(
     public dialogRef: MatDialogRef<WeeklyScheduleModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private weeklyScheduleService: WeeklyScheduleService,
     private teacherService: TeacherService,
     private classroomService: ClassroomService,
     private courseService: CourseService
@@ -115,11 +119,23 @@ export class WeeklyScheduleModalComponent {
     this.mode = data.mode;
     this.weeklySchedule = data.weeklySchedule || new ScheduleWeekly({});
 
+    // Ensure weekSchedule is always initialized as an array
+    if (!this.weeklySchedule.weekSchedule) {
+      this.weeklySchedule.weekSchedule = [];
+    }
+
+    // Ensure currentSchedule is properly initialized
+    this.currentSchedule = new Schedule({});
+
     // Set the dialog title based on the mode
     if (this.mode === 'add') {
       this.dialogTitle = 'Add New Weekly Schedule';
     } else if (this.mode === 'edit') {
       this.dialogTitle = 'Edit Weekly Schedule';
+      // Load the complete weekly schedule with schedules if we have an ID
+      if (this.weeklySchedule.id) {
+        this.loadWeeklyScheduleWithSchedules();
+      }
     } else if (this.mode === 'delete') {
       this.dialogTitle = 'Confirm Deletion';
     }
@@ -157,8 +173,97 @@ export class WeeklyScheduleModalComponent {
     });
   }
 
+  /**
+   * Loads the complete weekly schedule with all its schedules from the backend
+   */
+  loadWeeklyScheduleWithSchedules() {
+    if (this.weeklySchedule.id) {
+      console.log('Loading weekly schedule with ID:', this.weeklySchedule.id);
+      this.weeklyScheduleService.getById(this.weeklySchedule.id).subscribe({
+        next: (completeWeeklySchedule) => {
+          console.log('Received complete weekly schedule:', completeWeeklySchedule);
+          this.weeklySchedule = completeWeeklySchedule;
 
+          // Map backend structure to frontend structure
+          if ((this.weeklySchedule as any).schedules && !this.weeklySchedule.weekSchedule) {
+            this.weeklySchedule.weekSchedule = (this.weeklySchedule as any).schedules;
+          }
 
+          // Ensure weekSchedule is always initialized as an array
+          if (!this.weeklySchedule.weekSchedule) {
+            this.weeklySchedule.weekSchedule = [];
+          }
+
+          console.log('Final weekly schedule after mapping:', this.weeklySchedule);
+          console.log('Schedules array:', this.getSchedulesArray());
+
+          // Load complete data for schedules (course, classroom, teacher details)
+          this.loadCompleteScheduleData();
+        },
+        error: (error) => {
+          console.error('Error loading weekly schedule:', error);
+        }
+      });
+    }
+  }
+
+  /**
+   * Gets the schedules array safely, handling both property names
+   */
+  private getSchedulesArray(): any[] {
+    return this.weeklySchedule.weekSchedule || (this.weeklySchedule as any).schedules || [];
+  }
+
+  /**
+   * Gets the schedules array for template use
+   */
+  get schedules(): any[] {
+    return this.getSchedulesArray();
+  }
+
+  /**
+   * Checks if there are any schedules to display
+   */
+  get hasSchedules(): boolean {
+    const schedules = this.getSchedulesArray();
+    return schedules && schedules.length > 0;
+  }
+
+  /**
+   * Loads complete data for schedules (course, classroom, teacher details)
+   */
+  private loadCompleteScheduleData() {
+    const schedules = this.getSchedulesArray();
+
+    schedules.forEach((schedule: any) => {
+      // Load course details if we only have courseId
+      if (schedule.courseId && (!schedule.course || !schedule.course.name)) {
+        this.courseService.getById(schedule.courseId).subscribe(course => {
+          schedule.course = course;
+          // Trigger change detection
+          this.weeklySchedule = { ...this.weeklySchedule };
+        });
+      }
+
+      // Load classroom details if we only have classroomId
+      if (schedule.classroomId && (!schedule.classroom || !schedule.classroom.code)) {
+        this.classroomService.getById(schedule.classroomId).subscribe(classroom => {
+          schedule.classroom = classroom;
+          // Trigger change detection
+          this.weeklySchedule = { ...this.weeklySchedule };
+        });
+      }
+
+      // Load teacher details if we only have teacherId
+      if (schedule.teacherId && (!schedule.teacher || !schedule.teacher.fullName)) {
+        this.teacherService.getTeacherById(schedule.teacherId.toString()).subscribe(teacher => {
+          schedule.teacher = teacher;
+          // Trigger change detection
+          this.weeklySchedule = { ...this.weeklySchedule };
+        });
+      }
+    });
+  }
 
   /**
    * Handles the cancellation of the dialog and closes it
@@ -169,55 +274,138 @@ export class WeeklyScheduleModalComponent {
 
   /**
    * Handles the form submission for creating or updating the weekly schedule
-   * Closes the dialog and passes the updated weekly schedule
    */
   onSubmit(): void {
-    this.dialogRef.close(this.weeklySchedule);
+    if (this.mode === 'add') {
+      // Primero crear el weekly schedule
+      this.createWeeklySchedule();
+    } else if (this.mode === 'edit') {
+      // Actualizar el weekly schedule existente
+      this.updateWeeklySchedule();
+    }
   }
-
-  /**
-   * Confirms the deletion of the weekly schedule and closes the dialog with a true value
-   */
   onConfirmDelete(): void {
     this.dialogRef.close(true);
   }
 
   /**
-   * Adds a schedule to the weekly schedule
-   * Validates that the schedule has necessary fields before adding it to the weekly schedule
+   * Creates a new weekly schedule
+   */
+  private createWeeklySchedule(): void {
+    this.dialogRef.close({
+      name: this.weeklySchedule.name
+    });
+  }
+
+  /**
+   * Updates an existing weekly schedule
+   */
+  private updateWeeklySchedule(): void {
+    const updateData = { name: this.weeklySchedule.name };
+    this.weeklyScheduleService.updateName(this.weeklySchedule.id, updateData).subscribe({
+      next: (updatedWeeklySchedule) => {
+        this.dialogRef.close(updatedWeeklySchedule);
+      },
+      error: (error) => {
+        alert('Error al actualizar el horario semanal. Intenta de nuevo.');
+        console.error('Error updating weekly schedule:', error);
+      }
+    });
+  }
+
+  /**
+   * Add a new schedule to the weekly schedule
    */
   addSchedule(): void {
-    if (
-      this.currentSchedule.dayOfWeek &&
-      this.currentSchedule.timeRange.start &&
-      this.currentSchedule.timeRange.end &&
-      this.currentSchedule.course.id &&
-      this.currentSchedule.teacher.id &&    // Uncomment when the Teacher entity is available
-      this.currentSchedule.classroom.id
-    ) {
-      // Find the full Course and Classroom objects based on IDs
-      const course = this.availableCourses.find(c => c.id === this.currentSchedule.course.id);
-      const classroom = this.availableClassrooms.find(c => c.id === this.currentSchedule.classroom.id);
-      const teacher = this.availableTeachers.find(t => t.id === this.currentSchedule.teacher.id);   // Uncomment when the Teacher entity is available
+    if (!this.isValidSchedule()) {
+      console.warn('Invalid schedule data');
+      return;
+    }
 
-      // Ensure course and classroom exist before proceeding
-      if (course && classroom) {
-        // Create a new Schedule object with full references
-        const scheduleToAdd = new Schedule({
-          id: Date.now(), // Temporary ID
-          dayOfWeek: this.currentSchedule.dayOfWeek,
-          timeRange: { ...this.currentSchedule.timeRange },
-          course: course,
-          classroom: classroom,
-          teacher: teacher
-        });
+    // Si estamos en modo 'add' y no tenemos ID, primero crear el weekly schedule
+    if (this.mode === 'add' && !this.weeklySchedule.id) {
+      this.createWeeklyScheduleAndAddSchedule();
+      return;
+    }
 
-        // Add the schedule to the weekly schedule
-        this.weeklySchedule.weekSchedule.push(scheduleToAdd);
+    // Si ya tenemos un weekly schedule, agregar el schedule directamente
+    this.addScheduleToExistingWeeklySchedule();
+  }
 
-        // Reset current schedule
-        this.currentSchedule = new Schedule({});
+  /**
+   * Creates weekly schedule first, then adds the schedule
+   */
+  private createWeeklyScheduleAndAddSchedule(): void {
+    const weeklyScheduleData = new ScheduleWeekly({
+      name: this.weeklySchedule.name
+    });
+
+    this.weeklyScheduleService.create(weeklyScheduleData).subscribe({
+      next: (createdWeeklySchedule) => {
+        this.weeklySchedule = createdWeeklySchedule;
+        this.addScheduleToExistingWeeklySchedule();
+      },
+      error: (error) => {
+        console.error('Error creating weekly schedule:', error);
       }
+    });
+  }
+
+  /**
+   * Adds schedule to existing weekly schedule
+   */
+  private addScheduleToExistingWeeklySchedule(): void {
+    const selectedTeacher = this.availableTeachers.find(t => t.id === this.currentSchedule.teacher.id);
+    const selectedCourse = this.availableCourses.find(c => c.id === this.currentSchedule.course.id);
+    const selectedClassroom = this.availableClassrooms.find(c => c.id === this.currentSchedule.classroom.id);
+
+    if (selectedTeacher && selectedCourse && selectedClassroom) {
+      const firstName = selectedTeacher.fullName.split(' ')[0] || '';
+      const lastName = selectedTeacher.fullName.split(' ').slice(1).join(' ') || '';
+
+      const scheduleData = {
+        startTime: this.currentSchedule.timeRange.start,
+        endTime: this.currentSchedule.timeRange.end,
+        dayOfWeek: this.currentSchedule.dayOfWeek,
+        courseId: selectedCourse.id,
+        classroomId: selectedClassroom.id,
+        teacherFirstName: firstName,
+        teacherLastName: lastName
+      };
+
+      this.weeklyScheduleService.addScheduleToWeeklySchedule(this.weeklySchedule.id, scheduleData).subscribe({
+        next: (response) => {
+          console.log('Schedule added successfully:', response);
+          // Add the schedule locally for immediate feedback
+          const newSchedule = {
+            id: response.id || Date.now(),
+            dayOfWeek: this.currentSchedule.dayOfWeek,
+            timeRange: {
+              start: this.currentSchedule.timeRange.start,
+              end: this.currentSchedule.timeRange.end
+            },
+            course: selectedCourse,
+            classroom: selectedClassroom,
+            teacher: selectedTeacher
+          };
+          // weekSchedule
+          if (!this.weeklySchedule.weekSchedule) {
+            this.weeklySchedule.weekSchedule = [];
+          }
+          this.weeklySchedule.weekSchedule = [...this.weeklySchedule.weekSchedule, newSchedule];
+          // schedules (backend)
+          if ((this.weeklySchedule as any).schedules) {
+            (this.weeklySchedule as any).schedules = [...((this.weeklySchedule as any).schedules), newSchedule];
+          }
+          // Refresh the complete weekly schedule to get updated data from backend
+          this.loadWeeklyScheduleWithSchedules();
+          // Limpiar el formulario de schedule actual
+          this.currentSchedule = new Schedule({});
+        },
+        error: (error) => {
+          console.error('Error adding schedule:', error);
+        }
+      });
     }
   }
 
@@ -226,6 +414,41 @@ export class WeeklyScheduleModalComponent {
    * @param index - The index of the schedule to remove
    */
   removeSchedule(index: number): void {
-    this.weeklySchedule.weekSchedule.splice(index, 1);
+    const schedules = this.getSchedulesArray();
+    const schedule = schedules[index];
+
+    if (schedule && schedule.id) {
+      this.weeklyScheduleService.removeScheduleFromWeeklySchedule(this.weeklySchedule.id, schedule.id).subscribe({
+        next: (response) => {
+          console.log('Schedule removed successfully:', response);
+          this.loadWeeklyScheduleWithSchedules();
+        },
+        error: (error) => {
+          console.error('Error removing schedule:', error);
+        }
+      });
+    } else {
+      // Si no tiene ID, solo remover del array local
+      if (this.weeklySchedule.weekSchedule) {
+        this.weeklySchedule.weekSchedule = this.weeklySchedule.weekSchedule.filter((_, i) => i !== index);
+      } else if ((this.weeklySchedule as any).schedules) {
+        (this.weeklySchedule as any).schedules = ((this.weeklySchedule as any).schedules).filter((_: any, i: number) => i !== index);
+      }
+    }
+  }
+
+  /**
+   * Validates if the current schedule has all required fields
+   */
+  private isValidSchedule(): boolean {
+    return !!(
+      this.currentSchedule.dayOfWeek &&
+      this.currentSchedule.timeRange.start &&
+      this.currentSchedule.timeRange.end &&
+      this.currentSchedule.course.id &&
+      this.currentSchedule.teacher.id &&
+      this.currentSchedule.classroom.id &&
+      this.weeklySchedule.name
+    );
   }
 }

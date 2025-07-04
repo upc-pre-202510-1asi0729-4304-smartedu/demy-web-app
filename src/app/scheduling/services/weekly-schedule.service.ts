@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from "../../shared/services/base.service";
 import { ScheduleWeekly } from "../model/weekly-schedule.entity";
 import { environment } from '../../../environments/environment';
+import {Observable} from 'rxjs';
 
 /**
  * API endpoint path for weekly schedules obtained from environment configuration.
@@ -40,4 +41,49 @@ export class WeeklyScheduleService extends BaseService<ScheduleWeekly> {
     super();
     this.resourceEndpoint = weeklyScheduleResourceEndpointPath;
   }
+
+  /**
+   * Adds a schedule to a specific WeeklySchedule
+   * POST /api/v1/weekly-schedules/{weeklyScheduleId}/schedules
+   * @param weeklyScheduleId The ID of the WeeklySchedule
+   * @param scheduleData The schedule data to be added
+   * @returns Observable of the updated weekly schedule
+   */
+  addScheduleToWeeklySchedule(weeklyScheduleId: number, scheduleData: any): Observable<ScheduleWeekly> {
+    return this.http.post<ScheduleWeekly>(
+      `${this.resourcePath()}/${weeklyScheduleId}/schedules`,
+      scheduleData,
+      this.httpOptions
+    );
+  }
+
+  /**
+   * Removes a schedule from a weekly schedule
+   * DELETE /api/v1/weekly-schedules/{weeklyScheduleId}/schedules/{scheduleId}
+   * @param weeklyScheduleId - The ID of the weekly schedule
+   * @param scheduleId - The ID of the schedule to remove
+   * @returns Observable of the operation result
+   */
+  removeScheduleFromWeeklySchedule(weeklyScheduleId: number, scheduleId: number): Observable<any> {
+    return this.http.delete<any>(
+      `${this.resourcePath()}/${weeklyScheduleId}/schedules/${scheduleId}`,
+      this.httpOptions
+    );
+  }
+
+  /**
+   * Updates only the name of an existing weekly schedule
+   * PUT /api/v1/weekly-schedules/{weeklyScheduleId}
+   * @param weeklyScheduleId - The ID of the weekly schedule to update
+   * @param data - The updated name
+   * @returns Observable of the updated weekly schedule
+   */
+  updateName(weeklyScheduleId: number, data: { name: string }): Observable<any> {
+    return this.http.put<any>(
+      `${this.resourcePath()}/${weeklyScheduleId}`,
+      data,
+      this.httpOptions
+    );
+  }
+
 }
