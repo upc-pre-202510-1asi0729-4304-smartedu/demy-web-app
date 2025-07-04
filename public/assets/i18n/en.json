@@ -21,6 +21,18 @@
       "description": "Manage your teaching staff"
     }
   },
+  "sidebar": {
+    "categories": "Categories",
+    "organization": "My Organization",
+    "enrollment": "Enrollment",
+    "students": "Students",
+    "payments": "Payments",
+    "schedules": "Schedules",
+    "my-schedule": "My Schedule",
+    "attendance": "Attendance",
+    "finance": "Finance",
+    "logout": "Log out"
+  },
   "login": {
     "sign-up": "Sign Up",
     "title": "Log In",
@@ -468,5 +480,31 @@
     "confirm": "Confirm",
     "edit": "Edit",
     "delete": "Delete"
+  },
+  "recover-password": {
+    "title": "Recover Password",
+    "subtitle": "Enter your email",
+    "send": "Send",
+    "back": "Back",
+    "dialog-title": "Password Recovery",
+    "dialog-button": "OK",
+    "success": "We sent you an email with reset instructions.",
+    "not-registered": "This email is not registered.",
+    "check-error": "An error occurred. Please try again later.",
+    "empty-email": "Please enter your email."
+  },
+  "reset-password": {
+    "title": "Reset Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "button": "Reset Password",
+    "back": "Back to Login",
+    "confirm-title": "Confirm Password Change",
+    "confirm-message": "Are you sure you want to change your password?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "missing-fields": "Please fill in both email and password.",
+    "success": "Your password has been reset successfully.",
+    "error": "Failed to reset password. Please try again."
   }
 }

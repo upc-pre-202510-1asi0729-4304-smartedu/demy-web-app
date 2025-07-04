@@ -5,9 +5,18 @@ import { Router } from '@angular/router';
 import { TranslatePipe}  from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import {LanguageSwitcherComponent} from '../../../shared/components/language-switcher/language-switcher.component';
+
+
 /**
  * Component for displaying and selecting a subscription plan.
- * Uses translation keys to render plan information.
+ *
+ * @summary
+ * This component presents a list of predefined subscription plans, each with translated
+ * titles, pricing, and benefits. The user can select a plan and proceed with the application flow.
+ *
+ * @remarks
+ * Translations are handled using ngx-translate. The actual values are resolved in the template
+ * using the translation keys.
  */
 @Component({
   selector: 'app-plan-select',
@@ -21,19 +30,26 @@ import {LanguageSwitcherComponent} from '../../../shared/components/language-swi
   styleUrls: ['./plan-select.component.css']
 })
 export class PlanSelectComponent {
-  /** List of available plans using translation keys */
-  plans: any[] = [];
+
   /**
-  * Initializes the component and loads available plans.
-  *
-  * @param translate - Service to handle i18n translations
-  * @param router - Router for navigation
-  */
+   * List of available plans using translation keys.
+   * Each plan includes a title, subtitle, price, and a list of benefits.
+   */
+  plans: any[] = [];
+
+  /**
+   * Constructs the PlanSelectComponent.
+   *
+   * @param translate - The translation service used to load localized content.
+   * @param router - The Angular Router used for navigation.
+   */
   constructor(private translate: TranslateService,private router: Router) {
     this.loadPlans();
   }
+
   /**
-   * Loads the available plans with translation keys.
+   * Loads the available subscription plans using translation keys.
+   * This ensures the UI is language-agnostic and fully translatable.
    */
   loadPlans() {
     this.translate.get(['plan1', 'plan2', 'plan3']).subscribe(translations => {
@@ -79,7 +95,8 @@ export class PlanSelectComponent {
   }
 
   /**
-   * Handles plan selection and navigates to the organization route.
+   * Handles the user’s plan selection.
+   * Navigates the user to the organization setup route.
    */
   selectPlan() {
     this.router.navigate(['/organization']);

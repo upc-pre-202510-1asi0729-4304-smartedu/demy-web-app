@@ -16,17 +16,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AuthenticationService } from '../../../iam-user/services/authentication.service';
+import { SignUpRequest } from '../../../iam-user/model/sign-up.request';
 
 /**
  * Component representing the application's sign-up (registration) page.
- * Contains a reactive registration form with validation, and handles navigation
- * to the login page after successful account and academy creation.
  *
- * @remarks
- * This component also includes a language switcher for the app,
- * and is designed with Material Design.
+ * @summary
+ * Provides a form for registering new users along with their associated academy.
+ * Includes validation, error handling, and navigation after success.
  */
-
 @Component({
   selector: 'app-sign-up',
   standalone: true,
@@ -47,19 +46,32 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent {
+
+  /**
+   * Reactive form group for sign-up input fields.
+   */
   signUpForm: FormGroup;
+
+  /**
+   * Indicates whether a registration request is in progress.
+   */
   isLoading: boolean = false;
 
   /**
-   * Constructor initializes the form and injects required services.
-   * It sets up form controls and validation rules.
+   * Initializes the component with form controls and services.
+   *
+   * @param fb - FormBuilder for building reactive forms.
+   * @param router - Router for navigation.
+   * @param userService - Service for user-related operations.
+   * @param academyService - Service for academy-related operations.
+   * @param authenticationService - Service for authentication operations.
    */
-
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private academyService: AcademyService
+    private academyService: AcademyService,
+    private authenticationService: AuthenticationService
   ) {
     this.signUpForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -72,44 +84,27 @@ export class SignUpComponent {
   }
 
   /**
-   * Handles form submission when the user attempts to register.
-   * If valid, it registers the user and creates the associated academy.
+   * Handles form submission for user registration.
+   * If valid, creates a user account and academy, otherwise marks form fields as touched.
    */
-
   onSubmit() {
     if (this.signUpForm.valid && !this.isLoading) {
       this.isLoading = true;
       const formData = this.signUpForm.value;
 
-
-      const newUser = new UserAccount({
-        fullName: formData.name,
+      const signUpRequest: SignUpRequest = {
+        firstName: formData.name.split(' ')[0] || '',
+        lastName: formData.name.split(' ').slice(1).join(' ') || '',
         email: formData.email,
-        passwordHash: formData.password,
-        role: 'ADMIN',
-        status: 'ACTIVE'
-      });
+        password: formData.password,
+        academyName: formData.academy_name,
+        ruc: formData.ruc
+      };
 
-      this.userService.registerUser(newUser).subscribe({
-        next: (userResponse: UserAccount) => {
-
-          const newAcademy: Academy = {
-            id: 0,
-            userId: userResponse.id.toString(),
-            periods: [],
-            academy_name: formData.academy_name,
-            ruc: formData.ruc
-          };
-
-          this.academyService.createAcademy(newAcademy).subscribe({
-            next: () => {
-              this.isLoading = false;
-              this.router.navigate(['/planSelect']);
-            },
-            error: (academyError) => {
-              this.handlePartialRegistration(userResponse.id.toString(), academyError);
-            }
-          });
+      this.authenticationService.signUpWithResponse(signUpRequest).subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.router.navigate(['/planSelect']);
         },
         error: (userError) => {
           this.isLoading = false;
@@ -121,14 +116,14 @@ export class SignUpComponent {
     }
   }
 
-  /**
-   * Handles the scenario where the user is registered but the academy fails to be created.
-   * Deletes the user to maintain consistency and not leave orphaned records.
-   *
-   * @param userId - The ID of the user to delete
-   * @param error - The error object from the failed academy creation
-   */
 
+  /**
+   * Handles cleanup if the user was created but the academy failed.
+   * Deletes the user account to avoid orphaned records.
+   *
+   * @param userId - ID of the user to be deleted.
+   * @param error - Error object from the failed academy creation.
+   */
   private handlePartialRegistration(userId: string, error: any) {
     this.isLoading = false;
 
@@ -144,11 +139,10 @@ export class SignUpComponent {
   }
 
   /**
-   * Displays an appropriate error message to the user if registration fails.
+   * Handles and displays error messages during registration failure.
    *
-   * @param error - The error response from the registration service
+   * @param error - Error object returned by the authentication service.
    */
-
   private handleRegistrationError(error: any) {
     this.isLoading = false;
     console.error('Registration error:', error);
@@ -164,6 +158,9 @@ export class SignUpComponent {
     alert(errorMessage);
   }
 
+  /**
+   * Getter for easy access to form controls in templates.
+   */
   get f() {
     return this.signUpForm.controls;
   }

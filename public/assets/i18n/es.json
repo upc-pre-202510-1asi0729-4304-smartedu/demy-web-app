@@ -21,6 +21,18 @@
       "description": "Gestiona el personal docente"
     }
   },
+  "sidebar": {
+    "categories": "Categorías",
+    "organization": "Mi organización",
+    "enrollment": "Matrícula",
+    "students": "Alumnos",
+    "payments": "Pagos",
+    "schedules": "Horarios",
+    "my-schedule": "Mi Horario",
+    "attendance": "Asistencia",
+    "finance": "Finanzas",
+    "logout": "Salir"
+  },
   "login": {
     "sign-up": "Crear Cuenta",
     "title": "Iniciar sesión",
@@ -468,5 +480,31 @@
     "confirm": "Confirmar",
     "edit": "Editar",
     "delete": "Eliminar"
+  },
+  "recover-password": {
+    "title": "Recuperar Contraseña",
+    "subtitle": "Ingresa tu correo",
+    "send": "Enviar",
+    "back": "Volver",
+    "dialog-title": "Recuperación de Contraseña",
+    "dialog-button": "Aceptar",
+    "success": "Te hemos enviado un correo con instrucciones para restablecer tu contraseña.",
+    "not-registered": "Este correo no está registrado.",
+    "check-error": "Ocurrió un error. Por favor, intenta de nuevo más tarde.",
+    "empty-email": "Por favor, ingresa tu correo electrónico."
+  },
+  "reset-password": {
+    "title": "Restablecer Contraseña",
+    "newPassword": "Nueva Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "button": "Restablecer Contraseña",
+    "back": "Volver al inicio de sesión",
+    "confirm-title": "Confirmar cambio de contraseña",
+    "confirm-message": "¿Estás seguro de que quieres cambiar tu contraseña?",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "missing-fields": "Por favor, completa el correo y la nueva contraseña.",
+    "success": "Tu contraseña ha sido actualizada correctamente.",
+    "error": "Error al actualizar la contraseña. Inténtalo nuevamente."
   }
 }

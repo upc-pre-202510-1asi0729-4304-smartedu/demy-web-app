@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:8080/api/v1',
   usersEndpointPath: '/users',
-  academyEndpointPath: '/academy',
+  academyEndpointPath: '/academies',
   academicPeriodEndpointPath: "/academic-periods",
   studentsEndpointPath: "/students2",
   enrollmentEndpointPath: "/enrollments",
@@ -14,4 +14,5 @@ export const environment = {
   classroomsEndpointPath: '/classrooms',
   weeklyScheduleEndpointPath: '/weekly-schedules',
   attendancesEndpointPath: '/attendance-record'
+
 };

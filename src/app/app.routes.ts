@@ -10,6 +10,10 @@ import { SearchSchedulesComponent } from './scheduling/pages/search-schedules/se
 import {TeacherScheduleComponent} from './scheduling/pages/teacher-schedule/teacher-schedule.component';
 
 import { SignUpComponent } from './public/pages/sign-up/sign-up.component';
+import { ResetPasswordComponent} from './public/pages/reset-password/reset-password.component';
+import {AuthenticationSectionComponent} from './iam-user/components/authentication-section/authentication-section.component';
+
+
 import { PlanSelectComponent } from './public/pages/plan-select/plan-select.component';
 import { TeacherOverviewComponent } from './iam-user/pages/teacher-overview/teacher-overview.component';
 import { ExpensesPageComponent} from './billing/pages/expenses-page/expenses-page.component';
@@ -19,10 +23,12 @@ import {
   AcademicPeriodManagementComponent
 } from './enrollments/pages/academic-period-management/academic-period-management.component';
 import {EnrollmentsManagementComponent} from './enrollments/pages/enrollment-management/enrollment-management.component';
+import {authenticationGuard} from './iam-user/services/authentication.guard';
 
 export const routes: Routes = [
   {
     path: '',
+    canActivate: [authenticationGuard],
     component: MainLayoutComponent,
     children: [
       { path: 'organization', component: OrganizationLayoutComponent },
@@ -49,5 +55,11 @@ export const routes: Routes = [
   },
   { path: 'planSelect',
     component: PlanSelectComponent
-  }
+  },
+  { path: 'reset-password',
+    component: ResetPasswordComponent
+  },
+
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' }
 ];
