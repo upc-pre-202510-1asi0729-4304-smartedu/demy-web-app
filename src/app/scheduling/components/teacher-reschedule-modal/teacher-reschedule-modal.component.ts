@@ -117,17 +117,14 @@ export class TeacherRescheduleModalComponent implements OnInit {
     const startTimeInMinutes = startHour * 60 + startMinute;
     const endTimeInMinutes = endHour * 60 + endMinute;
 
-    // Verificar que la hora de inicio sea después de las 7:00 AM
     if (startTimeInMinutes < 7 * 60) {
       return false;
     }
 
-    // Verificar que la hora de fin sea antes de las 9:00 PM
     if (endTimeInMinutes > 21 * 60) {
       return false;
     }
 
-    // Verificar que la duración sea de al menos 30 minutos
     return endTimeInMinutes - startTimeInMinutes >= 30;
   }
 
@@ -136,7 +133,6 @@ export class TeacherRescheduleModalComponent implements OnInit {
       const formValue = this.rescheduleForm.value;
 
       if (!this.validateTimeRange(formValue.startTime, formValue.endTime)) {
-        this.error = 'El horario debe estar entre las 7:00 AM y las 9:00 PM, con una duración mínima de 30 minutos';
         return;
       }
 
@@ -181,7 +177,7 @@ export class TeacherRescheduleModalComponent implements OnInit {
   }
 
   /**
-   * Normaliza el formato del día de la semana para que coincida con los valores esperados
+   * Normalizes the day of the week format to match expected values
    */
   private normalizeDayOfWeek(dayOfWeek: string): string {
     if (!dayOfWeek) return '';

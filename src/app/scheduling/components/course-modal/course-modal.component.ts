@@ -60,7 +60,6 @@ export class CourseModalComponent {
     this.mode = data.mode;
     this.course = data.course || new Course({});
 
-    // Set the dialog title based on the mode
     if (this.mode === 'add') {
       this.dialogTitle = 'Add New Course';
     } else if (this.mode === 'edit') {

@@ -127,20 +127,26 @@ export class WeeklyScheduleModalComponent {
     this.mode = data.mode;
     this.weeklySchedule = data.weeklySchedule || new ScheduleWeekly({});
 
-    // Ensure weekSchedule is always initialized as an array
+    /**
+     *  Ensure weekSchedule is always initialized as an array
+     */
     if (!this.weeklySchedule.weekSchedule) {
       this.weeklySchedule.weekSchedule = [];
     }
 
-    // Ensure currentSchedule is properly initialized
+    /**
+     *  Ensure currentSchedule is properly initialized
+     */
     this.currentSchedule = new Schedule({});
 
-    // Set the dialog title based on the mode
+    /**
+     *  Set the dialog title based on the mode
+     */
     if (this.mode === 'add') {
       this.dialogTitle = 'Add New Weekly Schedule';
     } else if (this.mode === 'edit') {
       this.dialogTitle = 'Edit Weekly Schedule';
-      // Load the complete weekly schedule with schedules if we have an ID
+
       if (this.weeklySchedule.id) {
         this.loadWeeklyScheduleWithSchedules();
       }
@@ -148,10 +154,9 @@ export class WeeklyScheduleModalComponent {
       this.dialogTitle = 'Confirm Deletion';
     }
 
-    // Load available courses and classrooms
     this.loadAvailableCourses();
     this.loadAvailableClassrooms();
-    this.loadAvailableTeachers(); // Uncomment when the Teacher entity is available
+    this.loadAvailableTeachers();
   }
 
   /**

@@ -185,34 +185,6 @@ export class CoursesOverviewComponent {
   }
 
   /**
-   * Creates a new course using the CourseService.
-   * Updates the table's data source with the newly created course.
-
-  private createCourse() {
-    this.courseService.create(this.courseData).subscribe((response: Course) => {
-      this.dataSource.data.push(response);
-      this.dataSource.data = this.dataSource.data;
-    });
-  }
-   */
-
-
-  /**
-   * Updates an existing course using the CourseService.
-   * Updates the corresponding course in the table's data source.
-
-  private updateCourse() {
-    let courseToUpdate = this.courseData;
-    this.courseService.update(courseToUpdate.id, courseToUpdate).subscribe((response: Course) => {
-      let index = this.dataSource.data.findIndex((course: Course) => course.id === response.id);
-      this.dataSource.data[index] = response;
-      this.dataSource.data = this.dataSource.data;
-    });
-  }
-   */
-
-
-  /**
    * Deletes a course using the CourseService.
    * Removes the course from the table's data source.
    * @param id - The ID of the course to delete
