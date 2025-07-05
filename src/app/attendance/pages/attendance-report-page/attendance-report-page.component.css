@@ -11,20 +11,13 @@
   flex: 0 0 auto; /* No crecer ni contraerse, solo usar su ancho natural */
 }
 
-.filters-row button {
+ .filters-row button {
   flex: 0 0 auto;
-  height: 56px; /* mismo alto que los selects */
+  /*height: 56px; /* mismo alto que los selects */
   padding: 0 1.5rem;
-  font-weight: 600;
-  background-color: #0C519E !important;
-  color: white !important;
-  border: none !important;
+
   box-shadow: none !important;
-  border-radius: 4px;
   margin-bottom: 20px; /* ya no debería requerir 20.3px si alineaste bien */
-  display: flex;
-  align-items: center;
-  justify-content: center; /* centra horizontalmente si sobra espacio */
 }
 
 .filters-row button:hover {
@@ -34,6 +27,8 @@
 .table-wrapper {
   overflow-x: auto;
   max-width: 100%;
+  margin-top: 16px;
+  box-sizing: border-box;
 }
 
 .full-width-table {
@@ -80,8 +75,52 @@
   text-align: center;
 }
 
+th.mat-header-cell {
+  background-color: #3A7CA5 !important;
+  color: white !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+.mat-header-row {
+  background-color: #3A7CA5 !important;
+}
+
+.mat-header-cell {
+  color: white;
+  font-weight: bold;
+}
+
+.table-header-blue {
+  background-color: #3A7CA5;
+  color: white;
+}
+/* */
+.mat-header-cell {
+  font-weight: bold;
+}
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
 
 
+.mat-table-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
 
+.full-width-table {
+  width: 100%;
+  table-layout: auto;
+}
 
+mat-paginator {
+  align-self: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
 

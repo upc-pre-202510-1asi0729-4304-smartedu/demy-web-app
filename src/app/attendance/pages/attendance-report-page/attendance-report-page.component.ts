@@ -1,4 +1,4 @@
-/** import { Component, ViewChild, AfterViewChecked, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterViewChecked, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AttendanceClassSelectComponent } from '../../components/attendance-class-select/attendance-class-select.component';
 import { AttendanceStudentSelectComponent } from '../../components/attendance-student-select/attendance-student-select.component';
@@ -12,7 +12,17 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ClassSessionService } from '../../services/class-session.service';
 import { AttendanceStudentService } from '../../services/attendance-student.service';
 import { ClassSession } from '../../model/class-session.entity';
-
+import {AttendanceReport} from '../../model/attendance-report.entity';
+import {AttendanceReportService} from '../../services/attendance-report.service';
+import {MatButton} from '@angular/material/button';
+/**
+ * Component for displaying the attendance report page.
+ * Allows filtering by class, student, and date range,
+ * and shows a table of attendance records.
+ *
+ * @example
+ * <app-attendance-report-page></app-attendance-report-page>
+ */
 @Component({
   selector: 'app-attendance-report-page',
   standalone: true,
@@ -24,136 +34,79 @@ import { ClassSession } from '../../model/class-session.entity';
     AttendanceStudentSelectComponent,
     AttendanceDateRangePickerComponent,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatButton
   ],
   templateUrl: './attendance-report-page.component.html',
   styleUrl: './attendance-report-page.component.css'
 })
-export class AttendanceReportPageComponent implements AfterViewChecked, OnInit {
-  private paginatorInitialized = false;
-
+export class AttendanceReportPageComponent {
+  /** Paginator for the attendance records table */
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  dataSource = new MatTableDataSource<any>();
-  selectedClassId: string = '';
-  selectedStudentId: string = '';
-  selectedDateRange: { start: Date; end: Date } | null = null;
+  /** Data source for the attendance records table */
+  dataSource = new MatTableDataSource<AttendanceReport>();
+
+  /** Columns displayed in the attendance table */
+  columns: string[] = ['dni', 'studentName', 'status', 'date'];
+
+  /** Flag indicating if the search has been performed */
   hasSearched = false;
 
-  columns: string[] = ['name'];
-  dateColumns: { key: string, label: string }[] = [];
-  studentsMap: { [id: string]: string } = {};
-  allSessions: ClassSession[] = [];
+  selectedClassId: number | null = null;
+  selectedStudentId: string = '';
+  selectedDateRange: { start: Date; end: Date } | null = null;
 
-  constructor(
-    private classSessionService: ClassSessionService,
-    private studentService: AttendanceStudentService
-  ) {}
+  constructor(private attendanceReportService: AttendanceReportService) {}
 
-  ngOnInit(): void {
-    this.studentService.getForAttendance().subscribe(students => {
-      this.studentsMap = Object.fromEntries(
-        students.map(s => [s.id, s.name])
-      );
-    });
-  }
-
-  ngAfterViewChecked(): void {
-    if (!this.paginatorInitialized && this.paginator) {
-      this.dataSource.paginator = this.paginator;
-      this.paginatorInitialized = true;
-    }
-  }
-
-  onClassChanged(classId: string): void {
+  onClassChanged(classId: number): void {
     this.selectedClassId = classId;
   }
 
   onStudentChanged(studentId: string): void {
-    this.selectedStudentId = studentId;
+    this.selectedStudentId = String(studentId);
   }
 
   onDateRangeChanged(range: { start: Date; end: Date }): void {
     this.selectedDateRange = range;
   }
 
+  /**
+   * Executes the search for the attendance report based on selected filters.
+   * Validates the filters before sending the request.
+   */
   onSearchReport(): void {
-    console.log('Buscar reporte con filtros actuales:');
-    console.log('Clase:', this.selectedClassId);
-    console.log('Estudiante:', this.selectedStudentId);
-    console.log('Rango de fechas:', this.selectedDateRange);
-    this.hasSearched = true;
-
-    if (!this.selectedDateRange) return;
-
-    const { start, end } = this.selectedDateRange;
-    const dates: { key: string, label: string }[] = [];
-    const current = new Date(start);
-
-    while (current <= end) {
-      const key = current.toISOString().split('T')[0]; // YYYY-MM-DD
-      const label = current.toLocaleDateString('es-PE', { day: '2-digit', month: '2-digit' });
-      dates.push({ key, label });
-      current.setDate(current.getDate() + 1);
+    if (!this.selectedDateRange || !this.selectedClassId || !this.selectedStudentId) {
+      console.warn('All filters must be selected');
+      return;
+    }
+    if (!this.selectedStudentId || this.selectedStudentId.length !== 8) {
+      console.error('DNI inválido');
+      return;
     }
 
-    this.classSessionService.getAll().subscribe(sessions => {
-      // Filtrar por rango de fechas y clase (si aplica)
-      let filteredSessions = sessions.filter(s => {
-        const date = s.createdAt ? new Date(s.createdAt).toISOString().split('T')[0] : '';
-        return (
-          date &&
-          date >= dates[0].key &&
-          date <= dates[dates.length - 1].key &&
-          (!this.selectedClassId || s.classId === this.selectedClassId)
-        );
-      });
 
-      // Obtener los studentIds válidos (que están en el mapa y cumplen filtro)
-      const validStudentIds = new Set<string>();
+    this.hasSearched = true;
 
-      for (const session of filteredSessions) {
-        for (const att of session.attendance) {
-          const sid = String(att.studentId);
-          const isValid = !!this.studentsMap[sid];
+    const startDate = this.selectedDateRange.start.toISOString().split('T')[0];
+    const endDate = this.selectedDateRange.end.toISOString().split('T')[0];
 
-          if (!isValid) continue;
-
-          if (this.selectedStudentId) {
-            if (sid === String(this.selectedStudentId)) {
-              validStudentIds.add(sid);
-            }
-          } else {
-            validStudentIds.add(sid);
-          }
-        }
+    this.attendanceReportService.getReport(
+      this.selectedStudentId,
+      +this.selectedClassId,
+      startDate,
+      endDate
+    ).subscribe({
+      next: report => {
+        this.dataSource.data = report.attendance;
+        this.dataSource.paginator = this.paginator;
+      },
+      error: () => {
+        console.error('Error loading report');
+        this.dataSource.data = [];
       }
-
-      const data = Array.from(validStudentIds).map(studentId => {
-        const row: any = {
-          name: this.studentsMap[studentId] ?? studentId
-        };
-
-        for (const { key } of dates) {
-          const session = filteredSessions.find(s =>
-            s.createdAt &&
-            new Date(s.createdAt).toISOString().startsWith(key) &&
-            s.attendance.some(a => String(a.studentId) === studentId)
-          );
-
-          const status = session?.attendance.find(a => String(a.studentId) === studentId)?.status;
-          row[key] = status === 'PRESENT' ? '✔️' : status === 'ABSENT' ? '❌' : '';
-        }
-
-        return row;
-      });
-
-      this.dateColumns = dates;
-      this.columns = ['name', ...dates.map(d => d.key)];
-      this.dataSource.data = data;
     });
   }
-
-
 }
-**/
+
+
