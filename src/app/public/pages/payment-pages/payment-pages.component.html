@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="left-side">
+    <img class=logo src="/assets/img/payment-image.jpg" alt="Payment Image" />
+  </div>
+
+  <div class="right-side">
+    <div class="payment-box">
+      <div class="top-bar">
+        <app-language-switcher class="custom-color"></app-language-switcher>
+      </div>
+
+      <h2>{{'pay.tittle' | translate }}</h2>
+
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label> {{'pay.cardholderName' | translate }} </mat-label>
+        <mat-icon matPrefix>person</mat-icon>
+
+        <input matInput [(ngModel)]="cardholderName" placeholder="Name on the card" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label> {{'pay.direction' | translate }} </mat-label>
+        <mat-icon matPrefix>address</mat-icon>
+        <input matInput [(ngModel)]="address" placeholder="Name on the card" required>
+      </mat-form-field>
+
+
+      <div id="card-element" class="stripe-box"></div>
+
+      <button (click)="pay()">
+        {{ 'pay.button' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
