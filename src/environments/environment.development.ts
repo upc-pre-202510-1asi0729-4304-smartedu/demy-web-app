@@ -16,4 +16,6 @@ export const environment = {
   attendancesEndpointPath: '/attendance-record',
 
   classSessionsEndpointPath: 'http://localhost:8080/api/v1/class-sessions',
+  attendanceReportEndpointPath: 'http://localhost:8080/api/v1/class-sessions/report'
+
 };
