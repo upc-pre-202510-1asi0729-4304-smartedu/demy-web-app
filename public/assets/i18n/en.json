@@ -232,7 +232,9 @@
     "table-students": "Students",
     "date-start": "Start",
     "date-end": "End",
-    "no-search-message": "No search has been made yet. Please select filters and click Search."
+    "no-search-message": "No search has been made yet. Please select filters and click Search.",
+    "attendance-status": "Status",
+    "attendance-date": "Date"
 
   },
 

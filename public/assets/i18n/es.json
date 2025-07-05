@@ -233,7 +233,9 @@
     "table-students": "Estudiantes",
     "date-start": "Inicio",
     "date-end": "Fin",
-    "no-search-message": "Aún no se ha realizado ninguna búsqueda. Por favor seleccione los filtros y presione Buscar."
+    "no-search-message": "Aún no se ha realizado ninguna búsqueda. Por favor seleccione los filtros y presione Buscar.",
+    "attendance-status": "Estado",
+    "attendance-date": "Fecha"
 
   },
 
