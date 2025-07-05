@@ -1,9 +1,9 @@
 <mat-form-field appearance="outline" class="form-field">
   <mat-label>{{ 'attendance.attendance-student' | translate }}</mat-label>
   <mat-select [value]="selectedStudentId()" (selectionChange)="onSelect($event.value)">
-    <mat-option value="">
+    <!-- <mat-option value="">
       {{ 'attendance.all-students' | translate }}
-    </mat-option>
+    </mat-option> .-->
     @for (student of students(); track student.value) {
       <mat-option [value]="student.value">
         {{ student.label }}
