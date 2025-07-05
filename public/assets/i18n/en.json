@@ -196,6 +196,17 @@
       "total": "Monthly total"
     }
   },
+  "schedule": {
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    }
+  },
   "form": {
     "field": {
       "amount": "Amount",
@@ -462,7 +473,16 @@
       "dayRequired": "Day is required",
       "startTimeRequired": "Start time is required",
       "endTimeRequired": "End time is required",
-      "classroomRequired": "Classroom is required"
+      "classroomRequired": "Classroom is required",
+      "days": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      }
     }
   },
   "teacher-schedule": {

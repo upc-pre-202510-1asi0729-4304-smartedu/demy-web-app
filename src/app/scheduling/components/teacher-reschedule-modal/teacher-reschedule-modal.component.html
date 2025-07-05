@@ -20,7 +20,7 @@
       <mat-select formControlName="dayOfWeek">
         @for (day of dayOptions; track day.value) {
           <mat-option [value]="day.value">
-            {{ day.label }}
+            {{ day.label | translate }}
           </mat-option>
         }
       </mat-select>

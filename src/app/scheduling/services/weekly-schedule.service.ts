@@ -3,6 +3,7 @@ import { BaseService } from "../../shared/services/base.service";
 import { ScheduleWeekly } from "../model/weekly-schedule.entity";
 import { environment } from '../../../environments/environment';
 import {Observable} from 'rxjs';
+import {Schedule} from '../model/schedule.entity';
 
 /**
  * API endpoint path for weekly schedules obtained from environment configuration.
@@ -84,6 +85,36 @@ export class WeeklyScheduleService extends BaseService<ScheduleWeekly> {
       data,
       this.httpOptions
     );
+  }
+
+  /**
+   * Updates a specific schedule
+   * PUT /api/v1/weekly-schedules/schedules/{scheduleId}
+   * @param scheduleId - The ID of the schedule to update
+   * @param scheduleData - The schedule data to update
+   * @returns Observable of the updated schedule
+   */
+  updateSchedule(scheduleId: number, scheduleData: {
+    classroomId: number;
+    startTime: string;
+    endTime: string;
+    dayOfWeek: string;
+  }): Observable<any> {
+    return this.http.put<any>(
+      `${this.serverBaseUrl}/weekly-schedules/schedules/${scheduleId}`,
+      scheduleData,
+      this.httpOptions
+    );
+  }
+
+  /**
+   * Retrieves weekly schedules for a specific teacher.
+   *
+   * @param teacherId - The ID of the teacher to get schedules for
+   * @returns An Observable that emits an array of weekly schedules for the teacher
+   */
+  getSchedulesByTeacherId(teacherId: number): Observable<any[]> {
+    return this.http.get<Schedule[]>(`${environment.apiBaseUrl}/weekly-schedules/by-teacher/${teacherId}`);
   }
 
 }

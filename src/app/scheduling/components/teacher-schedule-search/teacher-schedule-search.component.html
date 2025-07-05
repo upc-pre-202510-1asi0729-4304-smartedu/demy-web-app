@@ -64,7 +64,7 @@
           <div class="time-header"></div>
           @for (day of daysOfWeek; track day.key) {
             <div class="day-header">
-              {{ day.value }}
+              {{ day.value | translate }}
             </div>
           }
 

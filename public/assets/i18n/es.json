@@ -196,6 +196,17 @@
       "total": "Total mensual"
     }
   },
+  "schedule": {
+    "days": {
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
+    }
+  },
   "form": {
     "field": {
       "amount": "Monto",
@@ -462,7 +473,16 @@
       "dayRequired": "El día es requerido",
       "startTimeRequired": "La hora de inicio es requerida",
       "endTimeRequired": "La hora de fin es requerida",
-      "classroomRequired": "El aula es requerida"
+      "classroomRequired": "El aula es requerida",
+      "days": {
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado",
+        "sunday": "Domingo"
+      }
     }
   },
   "teacher-schedule": {

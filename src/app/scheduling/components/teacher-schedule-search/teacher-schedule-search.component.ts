@@ -12,12 +12,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule} from '@angular/material/chips';
 import { FormsModule } from '@angular/forms';
 import { WeeklyScheduleService } from '../../services/weekly-schedule.service';
-import { ScheduleWeekly } from '../../model/weekly-schedule.entity';
 import { Schedule } from '../../model/schedule.entity';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TeacherRescheduleModalComponent } from '../teacher-reschedule-modal/teacher-reschedule-modal.component';
 import { TeacherService } from '../../../iam-user/services/teacher.service';
 import { UserAccount } from '../../../iam-user/model/user.entity';
+import { CourseService } from '../../services/course.service';
+import { ClassroomService } from '../../services/classroom.service';
 
 interface DayOfWeek {
   key: string;
@@ -50,8 +51,6 @@ interface DayOfWeek {
   styleUrls: ['./teacher-schedule-search.component.css']
 })
 export class TeacherScheduleSearchComponent implements OnInit {
-  /** List of all available weekly schedules */
-  allSchedules: ScheduleWeekly[] = [];
   /** Teacher's individual schedules */
   teacherSchedules: Schedule[] = [];
   /** State of loading */
@@ -63,13 +62,13 @@ export class TeacherScheduleSearchComponent implements OnInit {
 
   /** Days of the week configuration */
   daysOfWeek: DayOfWeek[] = [
-    { key: 'monday', value: 'Monday' },
-    { key: 'tuesday', value: 'Tuesday' },
-    { key: 'wednesday', value: 'Wednesday' },
-    { key: 'thursday', value: 'Thursday' },
-    { key: 'friday', value: 'Friday' },
-    { key: 'saturday', value: 'Saturday' },
-    { key: 'sunday', value: 'Sunday' }
+    { key: 'monday', value: 'schedule.days.monday' },
+    { key: 'tuesday', value: 'schedule.days.tuesday' },
+    { key: 'wednesday', value: 'schedule.days.wednesday' },
+    { key: 'thursday', value: 'schedule.days.thursday' },
+    { key: 'friday', value: 'schedule.days.friday' },
+    { key: 'saturday', value: 'schedule.days.saturday' },
+    { key: 'sunday', value: 'schedule.days.sunday' }
   ];
 
   /** Time slots from 7:00 AM to 9:00 PM in 30-minute intervals */
@@ -84,6 +83,8 @@ export class TeacherScheduleSearchComponent implements OnInit {
   constructor(
     private weeklyScheduleService: WeeklyScheduleService,
     private teacherService: TeacherService,
+    private courseService: CourseService,
+    private classroomService: ClassroomService,
     private dialog: MatDialog
   ) {}
 
@@ -92,7 +93,7 @@ export class TeacherScheduleSearchComponent implements OnInit {
   }
 
   private loadTeacherFromLocalStorage(): void {
-    const teacherId = localStorage.getItem('teacherId');
+    const teacherId = Number(localStorage.getItem('teacherId'));
     if (!teacherId) {
       this.errorMessage = 'No se encontró el ID del profesor en el almacenamiento local';
       return;
@@ -115,7 +116,7 @@ export class TeacherScheduleSearchComponent implements OnInit {
   }
 
   /**
-   * Fetches all teacher schedules from the backend
+   * Fetches teacher schedules from the backend using the specific teacher endpoint
    */
   private fetchTeacherSchedules(): void {
     if (!this.currentTeacher) {
@@ -126,11 +127,13 @@ export class TeacherScheduleSearchComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = null;
 
-    this.weeklyScheduleService.getAll().subscribe({
-      next: (weeklySchedules) => {
-        this.allSchedules = weeklySchedules;
-        this.extractTeacherSchedules(weeklySchedules);
-        this.isLoading = false;
+    this.weeklyScheduleService.getSchedulesByTeacherId(this.currentTeacher.id).subscribe({
+      next: (schedulesData) => {
+        // Convert backend data to Schedule instances
+        this.teacherSchedules = schedulesData.map(scheduleData => new Schedule(scheduleData));
+
+        // Load course and classroom details for each schedule
+        this.loadScheduleDetails();
       },
       error: (err) => {
         console.error('Error fetching teacher schedules:', err);
@@ -140,53 +143,28 @@ export class TeacherScheduleSearchComponent implements OnInit {
     });
   }
 
-  /**
-   * Extracts individual schedules for the current teacher from weekly schedules
-   */
-  private extractTeacherSchedules(weeklySchedules: ScheduleWeekly[]): void {
-    const allIndividualSchedules: Schedule[] = [];
 
-    weeklySchedules.forEach(weeklySchedule => {
-      if (weeklySchedule.weekSchedule && Array.isArray(weeklySchedule.weekSchedule)) {
-        weeklySchedule.weekSchedule.forEach(schedule => {
-          if (schedule.teacher) {
-            allIndividualSchedules.push({
-              ...schedule,
-              weeklyScheduleId: weeklySchedule.id,
-              weeklyScheduleName: weeklySchedule.name
-            } as any);
-          }
-        });
-      }
-    });
-
-    const teacherId = this.currentTeacher?.id;
-    this.teacherSchedules = allIndividualSchedules.filter(schedule => {
-      const scheduleTeacherId = schedule.teacher?.id;
-      return scheduleTeacherId === teacherId;
-    });
-  }
 
   /**
    * Gets the schedule for a specific day and time slot
    */
   getScheduleForSlot(day: string, timeSlot: string): Schedule | null {
     const dayMapping: { [key: string]: string } = {
-      'monday': 'Monday',
-      'tuesday': 'Tuesday',
-      'wednesday': 'Wednesday',
-      'thursday': 'Thursday',
-      'friday': 'Friday',
-      'saturday': 'Saturday',
-      'sunday': 'Sunday'
+      'monday': 'MONDAY',
+      'tuesday': 'TUESDAY',
+      'wednesday': 'WEDNESDAY',
+      'thursday': 'THURSDAY',
+      'friday': 'FRIDAY',
+      'saturday': 'SATURDAY',
+      'sunday': 'SUNDAY'
     };
 
     const mappedDay = dayMapping[day];
 
     return this.teacherSchedules.find(schedule => {
       const scheduleDayOfWeek = schedule.dayOfWeek;
-      const scheduleStartTime = schedule.timeRange?.start;
-      const scheduleEndTime = schedule.timeRange?.end;
+      const scheduleStartTime = schedule.timeRange.start;
+      const scheduleEndTime = schedule.timeRange.end;
 
       // Check if day matches
       if (scheduleDayOfWeek !== mappedDay) {
@@ -220,7 +198,7 @@ export class TeacherScheduleSearchComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.updateSchedule(result);
+          this.updateSchedule();
         }
       });
     }
@@ -234,50 +212,63 @@ export class TeacherScheduleSearchComponent implements OnInit {
   }
 
   /**
-   * Gets display text for a schedule block
+   * Loads course and classroom details for each schedule
    */
-  getScheduleDisplayText(schedule: Schedule): string {
-    return `${schedule.course.name} - ${schedule.classroom.code}`;
-  }
+  private loadScheduleDetails(): void {
+    let completedRequests = 0;
+    const totalRequests = this.teacherSchedules.length * 2; // course + classroom for each schedule
 
-  /**
-   * Gets the time range text for a schedule
-   */
-  getTimeRangeText(schedule: Schedule): string {
-    return `${schedule.timeRange.start} - ${schedule.timeRange.end}`;
-  }
+    if (totalRequests === 0) {
+      this.isLoading = false;
+      return;
+    }
 
-  /**
-   * Gets the classroom info text
-   */
-  getClassroomInfo(schedule: Schedule): string {
-    return `${schedule.classroom.code} - ${schedule.classroom.campus}`;
-  }
-
-  private updateSchedule(updatedSchedule: Schedule): void {
-    // Find the weekly schedule that contains this schedule
-    const weeklySchedule = this.allSchedules.find(ws =>
-      ws.weekSchedule.some(s => s.id === updatedSchedule.id)
-    );
-
-    if (weeklySchedule) {
-      // Update the schedule in the weekly schedule
-      const scheduleIndex = weeklySchedule.weekSchedule.findIndex(s => s.id === updatedSchedule.id);
-      if (scheduleIndex !== -1) {
-        weeklySchedule.weekSchedule[scheduleIndex] = updatedSchedule;
-
-        // Update the schedule in the backend
-        this.weeklyScheduleService.update(weeklySchedule.id, weeklySchedule).subscribe({
-          next: () => {
-            // Refresh the schedules
-            this.fetchTeacherSchedules();
+    this.teacherSchedules.forEach(schedule => {
+      // Load course details
+      if (schedule.course?.id) {
+        this.courseService.getById(schedule.course.id).subscribe({
+          next: (course) => {
+            schedule.course = course;
+            completedRequests++;
+            if (completedRequests === totalRequests) {
+              this.isLoading = false;
+            }
           },
-          error: (error) => {
-            console.error('Error updating schedule:', error);
-            this.errorMessage = 'Error al actualizar el horario';
+          error: () => {
+            completedRequests++;
+            if (completedRequests === totalRequests) {
+              this.isLoading = false;
+            }
           }
         });
+      } else {
+        completedRequests++;
       }
-    }
+
+      // Load classroom details
+      if (schedule.classroom?.id) {
+        this.classroomService.getById(schedule.classroom.id).subscribe({
+          next: (classroom) => {
+            schedule.classroom = classroom;
+            completedRequests++;
+            if (completedRequests === totalRequests) {
+              this.isLoading = false;
+            }
+          },
+          error: () => {
+            completedRequests++;
+            if (completedRequests === totalRequests) {
+              this.isLoading = false;
+            }
+          }
+        });
+      } else {
+        completedRequests++;
+      }
+    });
+  }
+
+  private updateSchedule(): void {
+    this.fetchTeacherSchedules();
   }
 }

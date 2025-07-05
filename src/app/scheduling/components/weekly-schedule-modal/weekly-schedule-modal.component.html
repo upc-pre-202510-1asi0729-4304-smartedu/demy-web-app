@@ -22,7 +22,7 @@
             <mat-label>{{ 'weekly-schedule-modal.form.day-of-week' | translate }}</mat-label>
             <mat-select [(ngModel)]="currentSchedule.dayOfWeek" name="dayOfWeek" required>
               @for (day of dayOptions; track day) {
-                <mat-option [value]="day">{{ day }}</mat-option>
+                <mat-option [value]="day.value">{{ day.label | translate }}</mat-option>
               }
             </mat-select>
           </mat-form-field>

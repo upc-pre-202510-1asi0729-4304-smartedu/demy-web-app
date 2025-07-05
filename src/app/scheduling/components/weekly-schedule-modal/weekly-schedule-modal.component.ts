@@ -75,7 +75,15 @@ export class WeeklyScheduleModalComponent {
   availableTeachers: UserAccount[] = []; // Uncomment when the Teacher entity is available
 
   /** Available day options for the schedule */
-  dayOptions: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  dayOptions = [
+    { label: 'scheduling.reschedule.days.monday', value: 'Monday' },
+    { label: 'scheduling.reschedule.days.tuesday', value: 'Tuesday' },
+    { label: 'scheduling.reschedule.days.wednesday', value: 'Wednesday' },
+    { label: 'scheduling.reschedule.days.thursday', value: 'Thursday' },
+    { label: 'scheduling.reschedule.days.friday', value: 'Friday' },
+    { label: 'scheduling.reschedule.days.saturday', value: 'Saturday' },
+    { label: 'scheduling.reschedule.days.sunday', value: 'Sunday' }
+  ];
 
   /** Schedules already added to the weekly schedule */
   currentSchedule: Schedule = new Schedule({});
