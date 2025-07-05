@@ -506,5 +506,11 @@
     "missing-fields": "Please fill in both email and password.",
     "success": "Your password has been reset successfully.",
     "error": "Failed to reset password. Please try again."
+  },
+  "pay": {
+    "tittle": "Payment Form",
+    "cardholderName": "CardHolder Name",
+    "direction": "Address",
+    "button": "Pay"
   }
 }

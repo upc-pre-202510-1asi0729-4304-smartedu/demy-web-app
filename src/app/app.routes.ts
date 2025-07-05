@@ -12,7 +12,7 @@ import {TeacherScheduleComponent} from './scheduling/pages/teacher-schedule/teac
 import { SignUpComponent } from './public/pages/sign-up/sign-up.component';
 import { ResetPasswordComponent} from './public/pages/reset-password/reset-password.component';
 import {AuthenticationSectionComponent} from './iam-user/components/authentication-section/authentication-section.component';
-
+import { PaymentPagesComponent } from './public/pages/payment-pages/payment-pages.component'
 
 import { PlanSelectComponent } from './public/pages/plan-select/plan-select.component';
 import { TeacherOverviewComponent } from './iam-user/pages/teacher-overview/teacher-overview.component';
@@ -58,6 +58,9 @@ export const routes: Routes = [
   },
   { path: 'reset-password',
     component: ResetPasswordComponent
+  },
+  { path: 'payment',
+    component: PaymentPagesComponent
   },
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },

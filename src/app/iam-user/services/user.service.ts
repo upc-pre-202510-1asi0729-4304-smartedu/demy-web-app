@@ -19,6 +19,7 @@ export class UserService {
   /** API base URL for user endpoints */
 
   private apiUrl = `${environment.apiBaseUrl}${environment.usersEndpointPath}`;
+  private resetPasswordUrl = `${environment.apiBaseUrl}${environment.usersEndpointPath}${environment.resetPasswordPath}`;
 
   /**
    * Initializes the service with Angular's HttpClient.
@@ -120,9 +121,10 @@ export class UserService {
    * @param newPassword - The new password to set for the user
    * @returns An Observable that completes once the password is successfully reset
    */
+
   resetPassword(email: string, newPassword: string): Observable<void> {
     const body = { email, newPassword };
-    return this.http.put<void>(`${environment.apiBaseUrl}/users/reset-password`, body);
+    return this.http.put<void>(this.resetPasswordUrl, body);
   }
 
 }

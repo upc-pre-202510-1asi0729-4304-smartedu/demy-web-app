@@ -31,6 +31,7 @@ import {LanguageSwitcherComponent} from '../../../shared/components/language-swi
 })
 export class PlanSelectComponent {
 
+
   /**
    * List of available plans using translation keys.
    * Each plan includes a title, subtitle, price, and a list of benefits.
@@ -58,6 +59,8 @@ export class PlanSelectComponent {
           subtitle: 'plan1.subtitle',
           title: 'plan1.title',
           price: 'plan1.price',
+          priceValue: 1990 ,
+          planName: 'Essentials - Basic Plan',
           benefits: [
             'plan1.benefit1',
             'plan1.benefit2',
@@ -69,6 +72,8 @@ export class PlanSelectComponent {
           subtitle: 'plan2.subtitle',
           title: 'plan2.title',
           price: 'plan2.price',
+          priceValue: 7000,
+          planName: 'Pro - Intermediate Plan',
           benefits: [
             'plan2.benefit1',
             'plan2.benefit2',
@@ -81,6 +86,9 @@ export class PlanSelectComponent {
           subtitle: 'plan3.subtitle',
           title: 'plan3.title',
           price: 'plan3.price',
+          priceValue: 16000,
+          planName: 'Elite -Premium Plan',
+
           benefits: [
             'plan3.benefit1',
             'plan3.benefit2',
@@ -93,12 +101,15 @@ export class PlanSelectComponent {
       ];
     });
   }
-
+  selectedPlan: any = null;
   /**
    * Handles the user’s plan selection.
    * Navigates the user to the organization setup route.
    */
-  selectPlan() {
-    this.router.navigate(['/organization']);
+  selectPlan(plan: any) {
+    this.selectedPlan = plan;
+    localStorage.setItem('selectedPlanAmount', plan.priceValue.toString());
+    localStorage.setItem('selectedPlanName', plan.planName);
+    this.router.navigate(['/payment']);
   }
 }

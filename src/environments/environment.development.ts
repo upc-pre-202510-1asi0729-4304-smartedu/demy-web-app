@@ -2,6 +2,11 @@ export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:8080/api/v1',
   usersEndpointPath: '/users',
+  adminsEndpointPath: '/admins',
+  teachersPath: '/teachers',
+  signInPath: '/sign-in',
+  adminSignUpPath: '/sign-up',
+  resetPasswordPath: '/reset-password',
   academyEndpointPath: '/academies',
   academicPeriodEndpointPath: "/academic-periods",
   studentsEndpointPath: "/students2",
@@ -13,6 +18,8 @@ export const environment = {
   coursesEndpointPath: '/courses',
   classroomsEndpointPath: '/classrooms',
   weeklyScheduleEndpointPath: '/weekly-schedules',
-  attendancesEndpointPath: '/attendance-record'
+  attendancesEndpointPath: '/attendance-record',
+  payEndpointPath: '/payments',
+  intentEndpointPath: '/create-intent',
 
 };

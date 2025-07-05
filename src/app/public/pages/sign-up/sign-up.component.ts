@@ -104,7 +104,11 @@ export class SignUpComponent {
       this.authenticationService.signUpWithResponse(signUpRequest).subscribe({
         next: () => {
           this.isLoading = false;
+          localStorage.setItem('user_name', formData.name);
+          localStorage.setItem('user_email', formData.email);
+
           this.router.navigate(['/planSelect']);
+
         },
         error: (userError) => {
           this.isLoading = false;

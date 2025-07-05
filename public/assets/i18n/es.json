@@ -506,5 +506,11 @@
     "missing-fields": "Por favor, completa el correo y la nueva contraseña.",
     "success": "Tu contraseña ha sido actualizada correctamente.",
     "error": "Error al actualizar la contraseña. Inténtalo nuevamente."
+  },
+  "pay": {
+    "tittle": "Formulario de pago",
+    "cardholderName": "Nombre del Propietario",
+    "direction": "Direccion",
+    "button": "Pagar"
   }
 }

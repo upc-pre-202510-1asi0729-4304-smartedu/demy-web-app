@@ -18,7 +18,8 @@ import { Role } from '../model/role.model';
 })
 export class TeacherService {
   /** Base URL for user-related endpoints */
-  private baseUrl = `${environment.apiBaseUrl}${environment.usersEndpointPath}`; // Usar las variables de entorno
+  private baseUrl = `${environment.apiBaseUrl}${environment.usersEndpointPath}`;
+  private teachersUrl = `${this.baseUrl}${environment.teachersPath}`;
 
 
   /**
@@ -35,7 +36,7 @@ export class TeacherService {
    * @returns An Observable that emits an array of {@link UserAccount} objects representing teachers
    */
   getTeachers(): Observable<UserAccount[]> {
-    return this.http.get<UserAccount[]>(`${this.baseUrl}/teachers`).pipe(
+    return this.http.get<UserAccount[]>(this.teachersUrl).pipe(
       map((users: UserAccount[]) => users.filter(user => user.role === 'TEACHER'))
     );
   }
@@ -62,7 +63,7 @@ export class TeacherService {
     email: string;
     password: string;
   }): Observable<UserAccount> {
-    return this.http.post<UserAccount>(`${this.baseUrl}/teachers`, teacher);
+    return this.http.post<UserAccount>(this.teachersUrl, teacher);
   }
 
   /**

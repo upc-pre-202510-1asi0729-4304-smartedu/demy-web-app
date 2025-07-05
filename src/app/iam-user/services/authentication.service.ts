@@ -17,8 +17,11 @@ import {SignInResponse} from "../model/sign-in.response";
  */
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
-  /** Base path for API requests */
+  /** path for API requests */
   basePath: string = `${environment.apiBaseUrl}`;
+  private adminSignUpUrl = `${environment.apiBaseUrl}${environment.usersEndpointPath}${environment.adminsEndpointPath}${environment.adminSignUpPath}`;
+  private signInUrl = `${environment.apiBaseUrl}${environment.usersEndpointPath}${environment.signInPath}`;
+
 
   /** Default HTTP headers for JSON content */
   httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
@@ -29,6 +32,8 @@ export class AuthenticationService {
   private signedInUserId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   /** Reactive state for current signed-in username */
   private signedInUsername: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+
 
   /**
    * Constructor for the AuthenticationService.
@@ -63,8 +68,10 @@ export class AuthenticationService {
    * @param signInRequest - The {@link SignInRequest} object containing the username and password
    * @returns A subscription that handles login logic on response
    */
+
   signIn(signInRequest: SignInRequest) {
-    return this.http.post<SignInResponse>(`${this.basePath}/users/sign-in`, signInRequest, this.httpOptions)
+
+    return this.http.post<SignInResponse>(this.signInUrl, signInRequest, this.httpOptions)
       .subscribe({
         next: (response) => {
           localStorage.setItem('token', response.token);
@@ -72,13 +79,12 @@ export class AuthenticationService {
           this.signedIn.next(true);
           this.signedInUserId.next(response.user.id);
           this.signedInUsername.next(response.user.username);
-          // Save data in localStorage
+
           localStorage.setItem('userData', JSON.stringify({
             email: response.user.email,
             role: response.user.role
           }));
 
-          // Store teacher ID in localStorage if the user is a teacher
           if (response.user.role === 'TEACHER') {
             localStorage.setItem('teacherId', response.user.id.toString());
           }
@@ -91,13 +97,13 @@ export class AuthenticationService {
               this.router.navigate(['/attendance']).then();
               break;
             default:
-              alert('No tienes permiso para acceder');
+              alert('You do not have permission to access');
               this.router.navigate(['/sign-in']).then();
           }
         },
         error: (error) => {
           console.error(`Error while signing in: ${error}`);
-          alert('Credenciales incorrectas o error del servidor');
+          alert('Incorrect credentials or server error');
           this.signedIn.next(false);
           this.signedInUserId.next(0);
           this.signedInUsername.next('');
@@ -130,10 +136,9 @@ export class AuthenticationService {
    * @returns An Observable that emits a {@link SignUpResponse} object on success
    */
   signUpWithResponse(signUpRequest: SignUpRequest): Observable<SignUpResponse> {
-    return this.http.post<SignUpResponse>(
-      `${this.basePath}/users/admins/sign-up`,
-      signUpRequest,
-      this.httpOptions
-    );
+    const url = `${environment.apiBaseUrl}${environment.usersEndpointPath}${environment.adminsEndpointPath}${environment.adminSignUpPath}`;
+
+    return this.http.post<SignUpResponse>(this.adminSignUpUrl, signUpRequest, this.httpOptions);
+
   }
 }
