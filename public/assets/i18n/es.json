@@ -46,8 +46,12 @@
       "required": "Este campo es obligatorio",
       "email": "Ingresa un correo válido",
       "minlength": "Mínimo 8 caracteres"
-    }
+    },
+    "success": "Has iniciado sesión correctamente.",
+    "error": "Correo o contraseña incorrectos. Intenta nuevamente.",
+    "no-permission": "No tienes permiso para acceder a esta sección."
   },
+
   "sign-up": {
     "login": "Inicar Sesion",
     "title": "Crear Cuenta",
@@ -59,12 +63,19 @@
     "password": "Contraseña",
     "terms-me": "Acepta los terminos y condiciones",
     "register": "Registrarse",
+    "success": "Cuenta creada exitosamente.",
+    "error": "Ocurrió un error durante el registro. Verifica tu información e inténtalo nuevamente.",
+    "email-exists": "Este correo ya está registrado. Por favor usa otro.",
+    "invalid-data": "Datos inválidos. Verifica la información ingresada.",
+    "academy-creation-failed": "La academia no se pudo crear. Tu cuenta fue eliminada. Por favor, intenta nuevamente.",
+    "partial-registration-error": "Tu cuenta fue creada, pero la academia no. Contacta con soporte técnico.",
+
     "errors": {
       "required": "Este campo es obligatorio",
-      "invalid-email": "Ingrese un correo válido",
+      "invalid-email": "Ingresa un correo válido",
       "minlength": "Mínimo {requiredLength} caracteres",
       "maxlength": "Máximo {requiredLength} caracteres",
-      "accept-terms": "Debe aceptar los términos"
+      "accept-terms": "Debes aceptar los términos"
     }
   },
   "view-teachers": {
@@ -77,6 +88,18 @@
     },
     "button": {
       "new-teacher": "Nuevo Profesor"
+    }
+  },
+  "teachers": {
+    "notifications": {
+      "created": "Profesor creado correctamente.",
+      "create-error": "Error al crear el profesor.",
+      "updated": "Profesor actualizado correctamente.",
+      "update-error": "Error al actualizar el profesor.",
+      "deleted": "Profesor eliminado correctamente.",
+      "delete-error": "Error al eliminar el profesor.",
+      "load-success": "Profesores cargados correctamente.",
+      "load-error": "Error al cargar los profesores."
     }
   },
   "teacher-modal": {
@@ -98,40 +121,44 @@
       "delete": "Eliminar"
     }
   },
-  "title": "Selecciona tu Plan",
-  "plan1": {
-    "subtitle": "Essentials",
-    "title": "Plan Básico",
-    "price": "S/. 19.90",
-    "benefit1": "1 sede",
-    "benefit2": "100 alumnos",
-    "benefit3": "10 profesores",
-    "benefit4": "Gestión de matrícula y pagos"
+  "plan-select": {
+    "title": "Selecciona tu plan",
+    "selected-message": "Has seleccionado el plan: {{planName}}",
+    "plan1": {
+      "subtitle": "Esenciales",
+      "title": "Plan Básico",
+      "price": "$19.90",
+      "benefit1": "1 sede",
+      "benefit2": "100 estudiantes",
+      "benefit3": "10 profesores",
+      "benefit4": "Gestión de matrículas y pagos"
+    },
+    "plan2": {
+      "subtitle": "Pro",
+      "title": "Plan Intermedio",
+      "price": "$70.00",
+      "benefit1": "500 estudiantes",
+      "benefit2": "50 profesores",
+      "benefit3": "2 sedes",
+      "benefit4": "Gestión de inventario y préstamos",
+      "benefit5": "Gestión de matrículas y pagos"
+    },
+    "plan3": {
+      "subtitle": "Élite",
+      "title": "Plan Premium",
+      "price": "$160.00",
+      "benefit1": "2000 estudiantes",
+      "benefit2": "200 profesores",
+      "benefit3": "2 o más sedes",
+      "benefit4": "Soporte prioritario",
+      "benefit5": "Gestión de inventario y préstamos",
+      "benefit6": "Gestión de matrículas y pagos"
+    },
+    "button": {
+      "select": "Seleccionar Plan"
+    }
   },
-  "plan2": {
-    "subtitle": "Pro",
-    "title": "Plan Intermedio",
-    "price": "S/. 70.00",
-    "benefit1": "500 alumnos",
-    "benefit2": "50 profesores",
-    "benefit3": "2 sedes",
-    "benefit4": "Gestión de inventario y préstamos",
-    "benefit5": "Gestión de matrícula y pagos"
-  },
-  "plan3": {
-    "subtitle": "Elite",
-    "title": "Plan Premium",
-    "price": "S/. 160.00",
-    "benefit1": "2000 alumnos",
-    "benefit2": "200 profesores",
-    "benefit3": "2 o más sedes",
-    "benefit4": "Soporte prioritario",
-    "benefit5": "Gestión de inventario y préstamos",
-    "benefit6": "Gestión de matrícula y pagos"
-  },
-  "button": {
-    "select": "Seleccionar Plan"
-  },
+
   "payments": {
     "title": "Pagos",
     "subtitle": "Buscar el estado de pago de un alumno",
@@ -511,6 +538,12 @@
     "tittle": "Formulario de pago",
     "cardholderName": "Nombre del Propietario",
     "direction": "Direccion",
-    "button": "Pagar"
+    "button": "Pagar",
+    "success": "✅ ¡Gracias! Tu pago de ${{amount}} USD fue procesado con éxito.",
+    "error": "❌ Error: {{message}}",
+    "unexpected-error": "❌ Ocurrió un error inesperado durante el proceso de pago.",
+    "common": {
+      "student-not-found": "Estudiante no encontrado."
+    }
   }
 }

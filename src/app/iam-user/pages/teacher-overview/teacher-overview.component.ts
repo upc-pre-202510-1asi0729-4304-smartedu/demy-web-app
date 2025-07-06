@@ -8,8 +8,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { TeacherModalComponent } from '../../components/teacher-modal/teacher-modal.component';
 import { UserAccount } from '../../model/user.entity';
 import { TeacherService } from '../../services/teacher.service';
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 
 /**
@@ -60,6 +61,9 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
   /** Injected service for opening dialogs. */
   private dialog = inject(MatDialog);
 
+  private notification = inject(NotificationService);
+  private translate = inject(TranslateService);
+
   /**
    * Lifecycle hook that is called after component initialization.
    *
@@ -96,8 +100,14 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.teacherService.createTeacher(result).subscribe({
-          next: () => this.getAllTeachers(),
-          error: (err) => console.error('Error creating teacher:', err)
+          next: () => {
+            this.notification.showSuccess(this.translate.instant('teachers.notifications.created'));
+            this.getAllTeachers();
+          },
+          error: (err) => {
+            this.notification.showError(this.translate.instant('teachers.notifications.create-error'));
+            console.error('Error creating teacher:', err);
+          }
         });
       }
     });
@@ -122,8 +132,14 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.teacherService.updateTeacher(result.id, result).subscribe({
-          next: () => this.getAllTeachers(),
-          error: (err) => console.error('Error updating teacher:', err)
+          next: () => {
+            this.notification.showSuccess(this.translate.instant('teachers.notifications.updated'));
+            this.getAllTeachers();
+          },
+          error: (err) => {
+            this.notification.showError(this.translate.instant('teachers.notifications.update-error'));
+            console.error('Error updating teacher:', err);
+          }
         });
       }
     });
@@ -149,9 +165,13 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
       if (confirmed) {
         this.teacherService.deleteTeacher(teacher.id).subscribe({
           next: () => {
+            this.notification.showSuccess(this.translate.instant('teachers.notifications.deleted'));
             this.dataSource.data = this.dataSource.data.filter(t => t.id !== teacher.id);
           },
-          error: (err) => console.error('Error deleting teacher:', err)
+          error: (err) => {
+            this.notification.showError(this.translate.instant('teachers.notifications.delete-error'));
+            console.error('Error deleting teacher:', err);
+          }
         });
       }
     });
@@ -169,12 +189,12 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
       next: (teachers: any[]) => {
         const profesores = teachers.filter(t => t.role === 'TEACHER');
         this.dataSource.data = profesores;
-        console.log("Datos cargados:", profesores);
+        this.notification.showSuccess(this.translate.instant('teachers.notifications.load-success'));
       },
-      error: (err) => console.error("Error cargando datos:", err)
+      error: (err) => {
+        this.notification.showError(this.translate.instant('teachers.notifications.load-error'));
+        console.error("Error cargando datos:", err);
+      }
     });
   }
-
-
-
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { UserService } from '../../../iam-user/services/user.service';
@@ -14,6 +14,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import {AuthenticationService} from '../../../iam-user/services/authentication.service';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 /**
  * Component representing the application's login page.
@@ -57,6 +58,8 @@ export class LoginComponent {
    */
   hidePassword = true;
 
+  private notification = inject(NotificationService);
+  private translate = inject(TranslateService);
   /**
    * Constructs the {@link LoginComponent} and initializes the form.
    *

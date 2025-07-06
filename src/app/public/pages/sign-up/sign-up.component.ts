@@ -13,11 +13,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AuthenticationService } from '../../../iam-user/services/authentication.service';
 import { SignUpRequest } from '../../../iam-user/model/sign-up.request';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 /**
  * Component representing the application's sign-up (registration) page.
@@ -65,13 +66,20 @@ export class SignUpComponent {
    * @param userService - Service for user-related operations.
    * @param academyService - Service for academy-related operations.
    * @param authenticationService - Service for authentication operations.
+   * @param notification
+   * @param translate
    */
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
     private academyService: AcademyService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private notification: NotificationService,
+    private translate: TranslateService
+
+
+
   ) {
     this.signUpForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -101,14 +109,14 @@ export class SignUpComponent {
         ruc: formData.ruc
       };
 
+
       this.authenticationService.signUpWithResponse(signUpRequest).subscribe({
         next: () => {
           this.isLoading = false;
           localStorage.setItem('user_name', formData.name);
           localStorage.setItem('user_email', formData.email);
-
+          this.notification.showSuccess(this.translate.instant('sign-up.success'));
           this.router.navigate(['/planSelect']);
-
         },
         error: (userError) => {
           this.isLoading = false;
@@ -130,14 +138,13 @@ export class SignUpComponent {
    */
   private handlePartialRegistration(userId: string, error: any) {
     this.isLoading = false;
-
     this.userService.deleteUser(userId).subscribe({
       next: () => {
-        alert('Error: The academy could not be created. Your user account has been deleted. Please try again.');
+        this.notification.showError(this.translate.instant('sign-up.academy-creation-failed'));
       },
       error: (deleteError) => {
         console.error('Error deleting user:', deleteError);
-        alert(`Error partial: Your account (ID: ${userId}) was created, but the academy hasn't. Contact technical support.`);
+        this.notification.showError(this.translate.instant('sign-up.partial-registration-error'));
       }
     });
   }
@@ -151,15 +158,13 @@ export class SignUpComponent {
     this.isLoading = false;
     console.error('Registration error:', error);
 
-    let errorMessage = 'An error occurred during registration. Please verify your information and try again.';
-
     if (error.status === 409) {
-      errorMessage = 'This email address is already registered. Please use another one.';
+      this.notification.showError(this.translate.instant('sign-up.email-exists'));
     } else if (error.status === 400) {
-      errorMessage = 'Invalid data. Please verify the information entered.';
+      this.notification.showError(this.translate.instant('sign-up.invalid-data'));
+    } else {
+      this.notification.showError(this.translate.instant('sign-up.error'));
     }
-
-    alert(errorMessage);
   }
 
   /**

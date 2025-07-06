@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,6 +10,9 @@ import { LanguageSwitcherComponent } from '../../../shared/components/language-s
 import { TranslateModule } from '@ngx-translate/core';
 import {environment} from '../../../../environments/environment';
 import { Router } from '@angular/router';
+import {NotificationService} from '../../../shared/services/notification.service';
+import { TranslateService } from '@ngx-translate/core';
+
 
 /**
  * Component representing the payment page using Stripe integration.
@@ -36,6 +39,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./payment-pages.component.css']
 })
 export class PaymentPagesComponent implements OnInit {
+  private notification = inject(NotificationService);
+  private translate = inject(TranslateService);
 
   /**
    * Stripe instance used to handle the payment process.
@@ -125,13 +130,25 @@ export class PaymentPagesComponent implements OnInit {
       }
     });
 
+
     if (result.error) {
-      alert('❌ Error: ' + result.error.message);
+      this.notification.showError(
+        this.translate.instant('pay.error', { message: result.error.message })
+      );
     } else if (result.paymentIntent?.status === 'succeeded') {
-      const amountInCents = result.paymentIntent.amount;
-      const amountInDollars = (amountInCents / 100).toFixed(2);
-      alert(`✅ ¡Gracias! Tu pago de $${amountInDollars} USD fue procesado con éxito.`);
+      const amountInDollars = (result.paymentIntent.amount / 100).toFixed(2);
+      this.notification.showSuccess(
+        this.translate.instant('pay.success', { amount: amountInDollars })
+      );
       this.router.navigate(['/login']);
+    }
+  }  catch (error: unknown) {
+    if (error instanceof Error) {
+      this.notification.showError(
+        this.translate.instant('pay.unexpected-error') + ': ' + error.message
+      );
+    } else {
+      this.notification.showError(this.translate.instant('pay.unexpected-error'));
     }
   }
 }

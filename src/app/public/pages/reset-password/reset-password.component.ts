@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { TranslatePipe } from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 import { UserService } from '../../../iam-user/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogEmailComponent } from '../../components/success-dialog-email/success-dialog-email.component';
+import { NotificationService } from '../../../shared/services/notification.service';
+
 
 /**
  * Component for resetting a user's password.
@@ -44,6 +46,9 @@ export class ResetPasswordComponent {
    */
   newPassword: string = '';
 
+  private notification = inject(NotificationService);
+  private translate = inject(TranslateService);
+
   /**
    * Initializes the component with injected services.
    *
@@ -63,26 +68,21 @@ export class ResetPasswordComponent {
    */
   resetPassword(): void {
     if (!this.email || !this.newPassword) {
-      this.dialog.open(SuccessDialogEmailComponent, {
-        data: { messageKey: 'reset-password.missing-fields' }
-      });
+      this.notification.showError(this.translate.instant('reset-password.missing-fields'));
       return;
     }
 
     this.userService.resetPassword(this.email, this.newPassword).subscribe({
       next: () => {
-        this.dialog.open(SuccessDialogEmailComponent, {
-          data: { messageKey: 'reset-password.success' }
-        });
+        this.notification.showSuccess(this.translate.instant('reset-password.success'));
         this.router.navigate(['/login']);
       },
-      error: () => {
-        this.dialog.open(SuccessDialogEmailComponent, {
-          data: { messageKey: 'reset-password.error' }
-        });
+      error: (err) => {
+        const fallback = this.translate.instant('reset-password.error');
+        const msg = err?.error?.message ?? fallback;
+        this.notification.showError(msg);
       }
     });
-
   }
 
   /**

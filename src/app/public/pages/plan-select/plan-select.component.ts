@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TranslatePipe}  from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import {LanguageSwitcherComponent} from '../../../shared/components/language-switcher/language-switcher.component';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 
 /**
@@ -38,6 +39,8 @@ export class PlanSelectComponent {
    */
   plans: any[] = [];
 
+  private notification = inject(NotificationService);
+
   /**
    * Constructs the PlanSelectComponent.
    *
@@ -53,7 +56,11 @@ export class PlanSelectComponent {
    * This ensures the UI is language-agnostic and fully translatable.
    */
   loadPlans() {
-    this.translate.get(['plan1', 'plan2', 'plan3']).subscribe(translations => {
+    this.translate.get([
+      'plan-select.plan1',
+      'plan-select.plan2',
+      'plan-select.plan3'
+    ]).subscribe(translations => {
       this.plans = [
         {
           subtitle: 'plan1.subtitle',
@@ -102,6 +109,8 @@ export class PlanSelectComponent {
     });
   }
   selectedPlan: any = null;
+  selectedPlanName: string | null = null;
+
   /**
    * Handles the user’s plan selection.
    * Navigates the user to the organization setup route.
@@ -110,6 +119,11 @@ export class PlanSelectComponent {
     this.selectedPlan = plan;
     localStorage.setItem('selectedPlanAmount', plan.priceValue.toString());
     localStorage.setItem('selectedPlanName', plan.planName);
+
+    this.translate.get('plan-select.selected-message', { planName: plan.planName }).subscribe(message => {
+      this.notification.showSuccess(message);
+    });
+
     this.router.navigate(['/payment']);
   }
 }

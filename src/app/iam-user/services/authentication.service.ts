@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
@@ -7,6 +7,8 @@ import {SignUpRequest} from "../model/sign-up.request";
 import {SignUpResponse} from "../model/sign-up.response";
 import {SignInRequest} from "../model/sign-in.request";
 import {SignInResponse} from "../model/sign-in.response";
+import { NotificationService } from '../../shared/services/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Service for handling authentication operations.
@@ -33,6 +35,8 @@ export class AuthenticationService {
   /** Reactive state for current signed-in username */
   private signedInUsername: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
+  private notification = inject(NotificationService);
+  private translate = inject(TranslateService);
 
 
   /**
@@ -89,6 +93,10 @@ export class AuthenticationService {
             localStorage.setItem('teacherId', response.user.id.toString());
           }
 
+          this.translate.get('login.success').subscribe(message => {
+            this.notification.showSuccess(message);
+          });
+
           switch(response.user.role) {
             case 'ADMIN':
               this.router.navigate(['/organization']).then();
@@ -97,16 +105,23 @@ export class AuthenticationService {
               this.router.navigate(['/attendance']).then();
               break;
             default:
-              alert('You do not have permission to access');
+              this.translate.get('login.no-permission').subscribe(message => {
+                this.notification.showError(message);
+              });
               this.router.navigate(['/sign-in']).then();
           }
         },
         error: (error) => {
-          console.error(`Error while signing in: ${error}`);
-          alert('Incorrect credentials or server error');
+          console.error('Sign-in error:', error);
+
           this.signedIn.next(false);
           this.signedInUserId.next(0);
           this.signedInUsername.next('');
+
+          this.translate.get('login.error').subscribe(message => {
+            this.notification.showError(message);
+          });
+
           this.router.navigate(['/sign-in']).then();
         }
       });
