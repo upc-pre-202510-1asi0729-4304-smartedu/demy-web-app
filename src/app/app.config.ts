@@ -1,10 +1,11 @@
 import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from '@angular/core';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import {authenticationInterceptor} from "./iam-user/services/authentication.interceptor";
 
 const httpLoaderFactory: (http: HttpClient) =>
   TranslateLoader = (http: HttpClient) =>
@@ -12,8 +13,8 @@ const httpLoaderFactory: (http: HttpClient) =>
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(withInterceptors([authenticationInterceptor])),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(),
     provideRouter(routes),
     provideNativeDateAdapter(),
     provideTranslateService({

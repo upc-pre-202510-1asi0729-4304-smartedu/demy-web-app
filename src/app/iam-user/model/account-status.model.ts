@@ -1,20 +1,24 @@
 /**
  * Enum representing the possible statuses of a user account.
- * Used to control authentication, access, and lifecycle behavior.
+ *
+ * @summary
+ * Defines the authentication and access state of a user's account throughout its lifecycle.
  */
 export enum AccountStatus {
   /**
-   * Account is active and the user can access the system.
+   * The account is active and the user is allowed to access the system.
    */
   ACTIVE = 'ACTIVE',
 
   /**
-   * Account is inactive and temporarily disabled from access.
+   * The account is inactive and temporarily restricted from accessing the system.
+   * Typically used for unverified or deactivated users.
    */
   INACTIVE = 'INACTIVE',
 
   /**
-   * Account is blocked, typically due to security or policy violations.
+   * The account is blocked due to violations, security issues, or administrative actions.
+   * Access is completely denied until further action is taken.
    */
   BLOCKED = 'BLOCKED'
 }

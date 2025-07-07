@@ -53,10 +53,10 @@ export class SideNavigationBarComponent {
    * Emits when the logout action is triggered.
    */
   @Output() logout = new EventEmitter<void>();
-
-  handleLogout(): void {
+  onLogout() {
     this.userService.clearUserData();
     this.logout.emit();
     this.router.navigate(['/login']);
   }
+
 }

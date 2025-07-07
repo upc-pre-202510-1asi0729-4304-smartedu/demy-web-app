@@ -160,9 +160,9 @@ export class TeacherScheduleSearchComponent implements OnInit {
       }
     });
 
-    const teacherId = String(this.currentTeacher?.id);
+    const teacherId = this.currentTeacher?.id;
     this.teacherSchedules = allIndividualSchedules.filter(schedule => {
-      const scheduleTeacherId = String(schedule.teacher?.id);
+      const scheduleTeacherId = schedule.teacher?.id;
       return scheduleTeacherId === teacherId;
     });
   }
