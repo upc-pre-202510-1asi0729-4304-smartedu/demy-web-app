@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class ClassSessionService {
-  private readonly apiUrl = environment.classSessionsEndpointPath;
+  private readonly apiUrl = `${environment.apiBaseUrl}${environment.classSessionsEndpointPath}`;
 
   constructor(private http: HttpClient) {}
 

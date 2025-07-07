@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Course } from '../model/course.entity';
 import { map, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+
 /**
  * Service responsible for retrieving course data from the backend API.
  * Used by components that require a list of available courses, such as dropdowns or selection forms.
@@ -11,7 +13,7 @@ export class CourseService {
   /**
    * Base URL for the courses endpoint in the MockAPI backend.
    */
-  private readonly apiUrl = 'https://6820406072e59f922ef8198b.mockapi.io/api/v1/courses';
+  private readonly apiUrl = `${environment.apiBaseUrl}${environment.coursesEndpointPath}`;
   /**
    * Constructs the service and injects Angular's HttpClient.
    *

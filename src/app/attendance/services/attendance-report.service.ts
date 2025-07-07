@@ -20,7 +20,7 @@ import { environment } from '../../../environments/environment';
 })
 export class AttendanceReportService {
 
-  private readonly apiUrl = environment.attendanceReportEndpointPath;
+  private readonly apiUrl = `${environment.apiBaseUrl}${environment.attendanceReportEndpointPath}`;
 
   constructor(private http: HttpClient) { }
   /**
