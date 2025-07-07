@@ -14,11 +14,12 @@ export const environment = {
   //invoicesEndpointPath: "/invoices",
   paymentsEndpointPath: "/payments",
   financialTransactionsEndpointPath: "/financial-transactions",
-  classSessionsEndpointPath: "/class-sessions",
   coursesEndpointPath: '/courses',
   classroomsEndpointPath: '/classrooms',
   weeklyScheduleEndpointPath: '/weekly-schedules',
   attendancesEndpointPath: '/attendance-record',
+  classSessionsEndpointPath: '/class-sessions',
+  attendanceReportEndpointPath: '/class-sessions/report',
   payEndpointPath: '/payments',
   intentEndpointPath: '/create-intent',
 

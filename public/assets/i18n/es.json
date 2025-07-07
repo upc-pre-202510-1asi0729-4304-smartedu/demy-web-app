@@ -30,6 +30,7 @@
     "schedules": "Horarios",
     "my-schedule": "Mi Horario",
     "attendance": "Asistencia",
+    "attendance-reports": "Reportes de Asistencia",
     "finance": "Finanzas",
     "logout": "Salir"
   },
@@ -305,16 +306,36 @@
       "invalid": "El campo {{field}} no es válido"
     }
   },
+
   "attendance": {
     "title": "Asistencia",
     "subtitle": "Mis clases",
     "subtitle2": "Lista de alumnos-Salon01",
     "button": "Guardar asistencia",
-    "class-select": "Clase",
-    "date-select": "Fecha",
+    "class-select": "Seleccione Clase",
+    "selectPlaceholder": "Selecciona una clase",
+    "classRequired": "Debe seleccionar una clase para continuar",
+    "date-select": "Seleccione Fecha",
+    "student-select": "Seleccione Estudiante",
     "list-student": "Estudiante",
-    "list-attendance": "Asistió"
+    "list-attendance": "Asistió",
+    "attendance-student": "Alumno",
+    "report-title": "Reportes de asistencia",
+    "report-subtitle1": "Seleccione los filtros para ver la asistencia de los estudiantes",
+    "report-subtitle2": "Resultados de sesiones encontradas",
+    "all-students": "Todos los estudiantes",
+    "search": "Buscar",
+    "table-date": "Fecha",
+    "table-class": "Clase",
+    "table-students": "Estudiantes",
+    "date-start": "Inicio",
+    "date-end": "Fin",
+    "no-search-message": "Aún no se ha realizado ninguna búsqueda. Por favor seleccione los filtros y presione Buscar.",
+    "attendance-status": "Estado",
+    "attendance-date": "Fecha"
+
   },
+
   "view-courses": {
     "title": "Cursos",
     "table": {

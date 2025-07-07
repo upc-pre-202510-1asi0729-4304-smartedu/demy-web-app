@@ -17,6 +17,8 @@ import { PlanSelectComponent } from './public/pages/plan-select/plan-select.comp
 import { TeacherOverviewComponent } from './iam-user/pages/teacher-overview/teacher-overview.component';
 import { ExpensesPageComponent} from './billing/pages/expenses-page/expenses-page.component';
 import {AttendancePageComponent} from './attendance/pages/attendance-page/attendance-page.component';
+import {AttendanceReportPageComponent} from './attendance/pages/attendance-report-page/attendance-report-page.component';
+
 import {StudentManagementComponent} from './enrollments/pages/student-management/student-management.component';
 import {
   AcademicPeriodManagementComponent
@@ -48,6 +50,7 @@ export const routes: Routes = [
         ]
       },
       { path: 'attendance', component:AttendancePageComponent},
+      { path: 'attendance-reports', component:AttendanceReportPageComponent},
       { path: 'finance', component: ExpensesPageComponent },
       { path: 'search-schedules', component: SearchSchedulesComponent },
       { path: 'my-schedule', component: TeacherScheduleComponent },

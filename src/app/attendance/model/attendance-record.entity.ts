@@ -8,11 +8,11 @@ export class AttendanceRecord {
   /**
    * Creates an instance of AttendanceRecord.
    *
-   * @param studentId - The unique identifier of the student
+   * @param dni
    * @param status - The attendance status (e.g., PRESENT, ABSENT). Defaults to {@link AttendanceStatus.ABSENT}.
    */
   constructor(
-    public readonly studentId: string,
+    public readonly dni: string,
     public status: AttendanceStatus = AttendanceStatus.ABSENT
   ) {}
   /**
@@ -24,7 +24,7 @@ export class AttendanceRecord {
 
   toJSON(): any {
     return {
-      studentId: this.studentId,
+      dni: this.dni,
       status: this.status
     };
   }
