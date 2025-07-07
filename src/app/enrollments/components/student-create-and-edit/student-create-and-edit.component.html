@@ -1,5 +1,5 @@
 <form #studentForm="ngForm" (ngSubmit)="onSubmit()" class="student-form">
-    <h2>{{(editMode ? 'student.form.title-edit' : 'student.form.title-new') | translate }}</h2>
+    <h1>{{(editMode ? 'student.form.title-edit' : 'student.form.title-new') | translate }}</h1>
 
     <div class="form-row">
         <mat-form-field appearance="outline" class="form-field">
@@ -31,31 +31,39 @@
         </mat-form-field>
     </div>
 
-    <div class="form-row">
-        <mat-form-field appearance="outline" class="form-field">
-            <mat-label>{{ 'student.form.sex' | translate }}</mat-label>
-            <mat-select required [(ngModel)]="student.sex" name="sex" #sex="ngModel">
-                @for (option of sexOptions; track option.value) {
-                    <mat-option [value]="option.value">
-                        {{ option.viewValue }}
-                    </mat-option>
-                }
-            </mat-select>
-            @if (sex.invalid && (sex.dirty || sex.touched)) {
-                <mat-error>{{ 'student.form.sex-required' | translate }}</mat-error>
-            }
-        </mat-form-field>
-    </div>
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>{{ 'student.form.sex' | translate }}</mat-label>
+      <mat-select required [(ngModel)]="student.sex" name="sex" #sex="ngModel">
+        @for (option of sexOptions; track option.value) {
+          <mat-option [value]="option.value">
+            {{ option.viewValue }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (sex.invalid && (sex.dirty || sex.touched)) {
+        <mat-error>{{ 'student.form.sex-required' | translate }}</mat-error>
+      }
+    </mat-form-field>
+  </div>
 
-    <div class="form-row">
-        <mat-form-field appearance="outline" class="form-field">
-            <mat-label>{{ 'student.form.birth-date' | translate }}</mat-label>
-            <input matInput required [(ngModel)]="student.birthDate" name="birth_date" #birthDate="ngModel" type="date">
-            @if (birthDate.invalid && (birthDate.dirty || birthDate.touched)) {
-                <mat-error>{{ 'student.form.birth-date-required' | translate }}</mat-error>
-            }
-        </mat-form-field>
-    </div>
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>{{ 'student.form.birth-date' | translate }}</mat-label>
+      <input matInput [matDatepicker]="birthDatePicker"
+             required
+             [(ngModel)]="student.birthDate"
+             name="birth_date"
+             #birthDate="ngModel"
+             >
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #birthDatePicker></mat-datepicker>
+      @if (birthDate.invalid && (birthDate.dirty || birthDate.touched)) {
+        <mat-error>{{ 'student.form.birth-date-required' | translate }}</mat-error>
+      }
+    </mat-form-field>
+  </div>
 
     <div class="form-row">
         <mat-form-field appearance="outline" class="form-field">
@@ -70,7 +78,7 @@
     <div class="form-row">
         <mat-form-field appearance="outline" class="form-field">
             <mat-label>{{ 'student.form.phone' | translate }}</mat-label>
-            <input matInput required [(ngModel)]="student.phoneNumber" name="phone_number" #phoneNumber="ngModel" pattern="[0-9]{9}">
+            <input matInput required [(ngModel)]="student.phoneNumber" name="phone_number" #phoneNumber="ngModel" maxlength="9" pattern="[0-9]{9}">
             @if (phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)) {
                 <mat-error>{{ 'student.form.phone-error' | translate }}</mat-error>
             }
