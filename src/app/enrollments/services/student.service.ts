@@ -48,9 +48,9 @@ export class StudentService extends BaseService<Student> {
    * @param dni - The DNI of the student(s) to retrieve.
    * @returns An observable with a list of matching students.
    */
-  public getByDni(dni: string): Observable<Student[]> {
-    const url = `${this.resourcePath()}?dni=${dni}`;
-    return this.http.get<Student[]>(url, this.httpOptions)
+  public getByDni(dni: string): Observable<Student> {
+    const url = `${this.resourcePath()}/dni/${encodeURIComponent(dni)}`;
+    return this.http.get<Student>(url, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 }
