@@ -3,7 +3,7 @@
  */
 export class Student {
   /** Student ID */
-  id: string;
+  id: number;
 
   /** First name */
   firstName: string;
@@ -32,7 +32,7 @@ export class Student {
    * @param student - Partial data to initialize the entity
    */
   constructor(student: {
-    id?: string;
+    id?: number;
     firstName?: string;
     lastName?: string;
     dni?: string;
@@ -41,7 +41,7 @@ export class Student {
     address?: string;
     phoneNumber?: string;
   }) {
-    this.id = student.id || '';
+    this.id = student.id ?? 0; // Use studentId for backward compatibility
     this.firstName = student.firstName || '';
     this.lastName = student.lastName || '';
     this.dni = student.dni || '';

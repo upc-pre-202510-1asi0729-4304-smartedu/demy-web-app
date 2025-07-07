@@ -3,16 +3,22 @@
  */
 export class Enrollment {
   /** Enrollment ID */
-  id: string;
+  id: number;
 
   /** ID of the student */
-  studentId: string;
+  studentId: number;
 
   /** ID of the academic period */
-  periodId: string;
+  academicPeriodId: number;
+
+  /** Name of the weeklyScheduleName */
+  weeklyScheduleName: string;
 
   /** Payment amount */
   amount: number;
+
+  /** Currency of the payment */
+  currency: string;
 
   /** Enrollment status */
   enrollmentStatus: EnrollmentStatus;
@@ -21,7 +27,7 @@ export class Enrollment {
   paymentStatus: PaymentStatus;
 
   /** Creation date */
-  createdAt: Date;
+  // createdAt: Date;
 
   /**
    * Creates an Enrollment instance.
@@ -29,21 +35,23 @@ export class Enrollment {
    * @param enrollment - Partial data to initialize the entity
    */
   constructor(enrollment: {
-    id?: string;
-    studentId?: string;
-    periodId?: string;
+    id?: number;
+    studentId?: number;
+    academicPeriodId?: number;
+    weeklyScheduleName?: string;
     amount?: number;
-    enrollmentStatus?: EnrollmentStatus;
-    paymentStatus?: PaymentStatus;
-    createdAt?: Date;
+    currency?: string;
+    enrollmentStatus?: string;
+    paymentStatus?: string;
   }) {
-    this.id = enrollment.id || '';
-    this.studentId = enrollment.studentId || '';
-    this.periodId = enrollment.periodId || '';
+    this.id = enrollment.id || 0;
+    this.studentId = enrollment.studentId || 0;
+    this.academicPeriodId = enrollment.academicPeriodId || 0;
+    this.weeklyScheduleName = enrollment.weeklyScheduleName  ?? "";
     this.amount = enrollment.amount || 0;
-    this.enrollmentStatus = enrollment.enrollmentStatus ?? EnrollmentStatus.ACTIVE;
-    this.paymentStatus = enrollment.paymentStatus || PaymentStatus.PENDING;
-    this.createdAt = enrollment.createdAt || new Date();
+    this.currency = enrollment.currency ?? 'PEN';
+    this.enrollmentStatus = (enrollment.enrollmentStatus as EnrollmentStatus) ?? EnrollmentStatus.ACTIVE;
+    this.paymentStatus = (enrollment.paymentStatus as PaymentStatus) ?? PaymentStatus.PAID;
   }
 }
 
