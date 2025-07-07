@@ -10,6 +10,13 @@
   border-radius: 0.75rem;
 }
 
+h1 {
+  font-size: 2rem;
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
 .academic-period-form h4 {
   text-align: center;
   margin-bottom: 0.5rem;
@@ -17,7 +24,6 @@
   font-weight: 500;
 }
 
-/* Contenedor de campos del formulario */
 .form-row {
   display: flex;
   justify-content: center;
@@ -54,6 +60,6 @@
   }
 
   .form-row {
-    padding: 0; /* Elimina padding horizontal en pantallas grandes */
+    padding: 0;
   }
 }

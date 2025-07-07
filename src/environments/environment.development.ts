@@ -22,5 +22,4 @@ export const environment = {
   attendanceReportEndpointPath: '/class-sessions/report',
   payEndpointPath: '/payments',
   intentEndpointPath: '/create-intent',
-
 };

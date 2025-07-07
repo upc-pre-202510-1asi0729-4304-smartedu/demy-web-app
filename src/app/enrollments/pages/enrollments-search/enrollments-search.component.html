@@ -1,0 +1,11 @@
+<h3>{{ 'enrollment.search.title' | translate }}</h3>
+
+<app-enrollment-search-by-dni (search)="onSearch($event)" />
+
+@if (enrollments().length > 0) {
+  <app-enrollments-table
+    [enrollmentsData]="enrollments()"
+    [studentsData]="students()"
+    [periodsData]="periods()"
+    (requestedEnrollmentStatus)="onRequestedEnrollmentStatus($event)" />
+}

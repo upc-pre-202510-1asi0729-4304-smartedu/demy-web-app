@@ -18,12 +18,13 @@ import { TeacherOverviewComponent } from './iam-user/pages/teacher-overview/teac
 import { ExpensesPageComponent} from './billing/pages/expenses-page/expenses-page.component';
 import {AttendancePageComponent} from './attendance/pages/attendance-page/attendance-page.component';
 import {AttendanceReportPageComponent} from './attendance/pages/attendance-report-page/attendance-report-page.component';
-
 import {StudentManagementComponent} from './enrollments/pages/student-management/student-management.component';
 import {
   AcademicPeriodManagementComponent
 } from './enrollments/pages/academic-period-management/academic-period-management.component';
 import {EnrollmentsManagementComponent} from './enrollments/pages/enrollment-management/enrollment-management.component';
+import {EnrollmentsSearchComponent} from './enrollments/pages/enrollments-search/enrollments-search.component';
+import {EnrollmentPageComponent} from './enrollments/pages/enrollment-page/enrollment-page.component';
 import {PaymentsLayoutComponent} from './billing/pages/payments-layout/payments-layout.component';
 import {InvoiceAssignComponent} from './billing/components/invoice-assign/invoice-assign.component';
 import {authenticationGuard} from './iam-user/services/authentication.guard';
@@ -55,7 +56,7 @@ export const routes: Routes = [
       { path: 'search-schedules', component: SearchSchedulesComponent },
       { path: 'my-schedule', component: TeacherScheduleComponent },
       { path: 'students',component: StudentManagementComponent},
-      {path: 'enrollment', component: EnrollmentsManagementComponent},
+      { path: 'enrollment', component: EnrollmentPageComponent },
       { path: '', redirectTo: 'organization', pathMatch: 'full' }
     ]
   },

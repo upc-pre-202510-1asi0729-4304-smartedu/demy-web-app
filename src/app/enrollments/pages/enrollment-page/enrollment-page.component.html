@@ -1,0 +1,15 @@
+<div class="toggle-wrapper">
+  <app-contextual-toggle-nav
+    [options]="options"
+    [selected]="selectedPage"
+    (select)="onPageSelected($event)">
+  </app-contextual-toggle-nav>
+</div>
+
+<div class="page-content">
+  @if (selectedPage === 'register') {
+    <app-enrollments-management></app-enrollments-management>
+  } @else if (selectedPage === 'search') {
+    <app-enrollments-search></app-enrollments-search>
+  }
+</div>

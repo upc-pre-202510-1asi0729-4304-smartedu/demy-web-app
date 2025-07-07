@@ -481,6 +481,12 @@
     }
   },
   "enrollment": {
+    "search": {
+      "title": "Busca una Matrícula",
+      "input": "Ingresa el DNI",
+      "search-button": "Buscar",
+      "no-results": "No enrollments found for the given criteria"
+    },
     "form": {
       "title-edit": "Editar Matrícula",
       "title-new": "Registrar Matrícula",
@@ -488,6 +494,8 @@
       "student-required": "Estudiante es requerido",
       "period": "Periodo Académico",
       "period-required": "Periodo académico es requerido",
+      "weekly-schedule": "Horario",
+      "weekly-schedule-required": "Horario es requerido",
       "date": "Fecha de Matrícula",
       "date-required": "Fecha de matrícula es requerida",
       "amount": "Monto",
@@ -517,11 +525,13 @@
     },
     "status": {
       "active": "Activo",
-      "inactive": "Inactivo"
+      "cancelled": "Cancelado",
+      "completed": "Completado"
     },
     "payment": {
       "paid": "Pagado",
-      "unpaid": "No Pagado"
+      "pending": "Pendiente",
+      "refunded": "Reembolsado"
     },
     "paginator": {
       "label": "Seleccionar página de matrículas"
@@ -530,7 +540,7 @@
   "student": {
     "form": {
       "title-edit": "Editar Estudiante",
-      "title-new": "Nuevo Estudiante",
+      "title-new": "Registrar Estudiante",
       "dni": "DNI",
       "dni-error": "DNI debe tener 8 dígitos numéricos",
       "first-name": "Nombres",
