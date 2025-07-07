@@ -8,18 +8,10 @@ import {PaymentRegistrationComponent} from '../../components/payment-registratio
 import {PaymentService} from '../../services/payment.service';
 import {Invoice, PaymentStatus} from '../../model/invoice.entity';
 import {FinancialTransactionService} from '../../services/financial-transaction.service';
-import {FinancialTransaction} from '../../model/financial-transaction.entity';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {NotificationService} from '../../../shared/services/notification.service';
 import {TranslateService} from '@ngx-translate/core';
 
-/**
- * Page component responsible for managing student payments.
- *
- * Handles student search, invoice selection, payment registration,
- * and automatic transaction creation. It coordinates all subcomponents
- * involved in the payment workflow.
- */
 @Component({
   selector: 'app-payments',
   imports: [
@@ -35,37 +27,17 @@ import {TranslateService} from '@ngx-translate/core';
 export class PaymentsComponent {
   private notification = inject(NotificationService);
   private translate = inject(TranslateService);
-  /**
-   * Signal holding the current student and their associated invoices.
-   * Set after a successful search.
-   */
   studentPaymentStatus = signal<StudentPaymentStatus | null>(null);
 
-  /**
-   * Signal holding the invoice selected for payment.
-   */
   selectedInvoice = signal<Invoice | null>(null);
 
-  /**
-   * Signal indicating whether the payment registration form should be shown.
-   */
   showPaymentForm = signal(false);
 
-  /**
-   * Injects all necessary services for handling students, invoices,
-   * payments, and financial transactions.
-   */
   constructor(private studentService: StudentService,
               private invoiceService: InvoiceService,
               private paymentService: PaymentService,
               private transactionService: FinancialTransactionService
   ) {}
-
-  /**
-   * Handles student search by DNI. If found, retrieves and displays their invoices.
-   *
-   * @param dni - The national ID of the student.
-   */
   onSearch(dni: string) {
     this.studentService.getByDni(dni).subscribe({
       next: students => {
@@ -89,31 +61,10 @@ export class PaymentsComponent {
     });
   }
 
-  /**
-   * Handles the request to register a payment for a given invoice.
-   * Sets the selected invoice and displays the payment form.
-   *
-   * @param invoice - The invoice selected for payment.
-   */
   onRegisterPaymentRequest(invoice: Invoice) {
     this.selectedInvoice.set(invoice);
     this.showPaymentForm.set(true);
   }
-
-  /**
-   * Handles the completion of a payment registration.
-   * Registers the payment, updates the invoice status locally,
-   * and updates the view state.
-   *
-   * @param paymentData - Object containing the amount and payment date.
-   */
-  /**
-   * Handles the completion of a payment registration.
-   * Registers the payment, updates the invoice status locally,
-   * and updates the view state.
-   *
-   * @param method - Selected payment method.
-   */
   onPaymentRegistered(method: string) {
     const invoice = this.selectedInvoice();
     const status = this.studentPaymentStatus();
