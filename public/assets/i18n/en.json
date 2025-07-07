@@ -370,6 +370,8 @@
       "student-required": "Student is required",
       "period": "Academic Period",
       "period-required": "Academic period is required",
+      "weekly-schedule": "Weekly Schedule",
+      "weekly-schedule-required": "Weekly schedule is required",
       "date": "Enrollment Date",
       "date-required": "Enrollment date is required",
       "amount": "Amount",
@@ -397,13 +399,21 @@
       "edit": "Edit enrollment",
       "delete": "Delete enrollment"
     },
+    "search": {
+      "title": "Search Enrollment",
+      "input": "Enter student DNI",
+      "search-button": "Search",
+      "no-results": "No enrollments found for the given criteria"
+    },
     "status": {
       "active": "Active",
-      "inactive": "Inactive"
+      "cancelled": "Cancelled",
+      "completed": "Completed"
     },
     "payment": {
       "paid": "Paid",
-      "unpaid": "Unpaid"
+      "pending": "Pending",
+      "refunded": "Refunded"
     },
     "paginator": {
       "label": "Select enrollment page"
