@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { BaseFormComponent } from '../../../shared/components/base-form/base-form.component';
 import { AcademicPeriod } from '../../model/academic-period.entity';
 import { TranslatePipe } from '@ngx-translate/core';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 
 /**
  * Component for creating and editing academic periods.
@@ -20,7 +21,10 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatButton,
     MatInput,
     MatSelectModule,
-    TranslatePipe
+    TranslatePipe,
+    MatDatepicker,
+    MatDatepickerInput,
+    MatDatepickerToggle
   ],
   templateUrl: './academic-period-create-and-edit.component.html',
   styleUrl: './academic-period-create-and-edit.component.css'
@@ -59,7 +63,7 @@ export class AcademicPeriodCreateFormComponent extends BaseFormComponent {
   protected resetEditState() {
     this.academicPeriod = new AcademicPeriod({});
     this.editMode = false;
-    this.academicPeriodForm.reset();
+    this.academicPeriodForm.resetForm();
   }
 
   /**
