@@ -23,6 +23,8 @@ import {
   AcademicPeriodManagementComponent
 } from './enrollments/pages/academic-period-management/academic-period-management.component';
 import {EnrollmentsManagementComponent} from './enrollments/pages/enrollment-management/enrollment-management.component';
+import {EnrollmentsSearchComponent} from './enrollments/pages/enrollments-search/enrollments-search.component';
+import {EnrollmentPageComponent} from './enrollments/pages/enrollment-page/enrollment-page.component';
 
 export const routes: Routes = [
   {
@@ -41,7 +43,7 @@ export const routes: Routes = [
       { path: 'search-schedules', component: SearchSchedulesComponent },
       { path: 'my-schedule', component: TeacherScheduleComponent },
       { path: 'students',component: StudentManagementComponent},
-      {path: 'enrollment', component: EnrollmentsManagementComponent},
+      { path: 'enrollment', component: EnrollmentPageComponent },
       { path: '', redirectTo: 'organization', pathMatch: 'full' }
     ]
   },
