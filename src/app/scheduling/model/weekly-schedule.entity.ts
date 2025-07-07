@@ -22,11 +22,13 @@ export class ScheduleWeekly {
    * @param scheduleWeekly.id - The schedule ID (defaults to 0 if not provided)
    * @param scheduleWeekly.name - The name of the weekly schedule (defaults to an empty string if not provided)
    * @param scheduleWeekly.weekSchedule - The list of schedules for each day of the week (defaults to an empty array if not provided)
+   * @param scheduleWeekly.schedules - Alternative property name from backend response
    */
-  constructor(scheduleWeekly: { id?: number, name?: string, weekSchedule?: Schedule[] }) {
+  constructor(scheduleWeekly: { id?: number, name?: string, schedules?: Schedule[] }) {
     this.id = scheduleWeekly.id || 0;
     // this.academyId = scheduleWeekly.academyId || 0;  // Uncomment and define when the academy ID is available
     this.name = scheduleWeekly.name || '';
-    this.weekSchedule = scheduleWeekly.weekSchedule || [];
+    // Handle both property names: weekSchedule (frontend) and schedules (backend)
+    this.weekSchedule = scheduleWeekly.schedules || [];
   }
 }

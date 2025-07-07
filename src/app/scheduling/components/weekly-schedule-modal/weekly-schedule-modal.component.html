@@ -1,126 +1,145 @@
 <h2 mat-dialog-title class="dialog-title">{{ 'weekly-schedule-modal.' + mode | translate }}</h2>
-
 <div mat-dialog-content>
   <!-- Form for add/edit -->
   @if (mode === 'add' || mode === 'edit') {
-    <form #scheduleForm="ngForm" class="form-row">
-
-      <!-- Nombre del horario semanal -->
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'weekly-schedule-modal.form.name' | translate }}</mat-label>
-        <input [(ngModel)]="weeklySchedule.name" matInput name="name" [placeholder]="'weekly-schedule-modal.form.name' | translate" required #nameInput="ngModel">
-        @if (nameInput.invalid && (nameInput.dirty || nameInput.touched)) {
-          <mat-error>{{ 'weekly-schedule-modal.form.required' | translate }}</mat-error>
-        }
-      </mat-form-field>
-
-      <!-- Section for adding schedules -->
-      <div class="schedule-section">
-        <h3>{{ 'weekly-schedule-modal.form.add-schedule' | translate }}</h3>
-
-        <!-- Day of Week -->
+    <div>
+      <form #scheduleForm="ngForm" class="form-row">
+        <!-- Nombre del horario semanal -->
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'weekly-schedule-modal.form.day-of-week' | translate }}</mat-label>
-          <mat-select [(ngModel)]="currentSchedule.dayOfWeek" name="dayOfWeek" required>
-            @for (day of dayOptions; track day) {
-              <mat-option [value]="day">{{ day }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <!-- Time Range - Start -->
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'weekly-schedule-modal.form.start-time' | translate }}</mat-label>
-          <mat-select [(ngModel)]="currentSchedule.timeRange.start" name="startTime" required>
-            @for (time of timeSlots; track time) {
-              <mat-option [value]="time">{{ time }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <!-- Time Range - End -->
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'weekly-schedule-modal.form.end-time' | translate }}</mat-label>
-          <mat-select [(ngModel)]="currentSchedule.timeRange.end" name="endTime" required>
-            @for (time of timeSlots; track time) {
-              <mat-option [value]="time">{{ time }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <!-- Course Selection -->
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'weekly-schedule-modal.form.course' | translate }}</mat-label>
-          <mat-select [(ngModel)]="currentSchedule.course.id" name="course" required>
-            @for (course of availableCourses; track course.id) {
-              <mat-option [value]="course.id">{{ course.name }} ({{ course.code }})</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <!-- Teacher Selection -->
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'weekly-schedule-modal.form.teacher' | translate }}</mat-label>
-          <mat-select [(ngModel)]="currentSchedule.teacher.id" name="teacher" required>
-            @for (teacher of availableTeachers; track teacher.id) {
-              <mat-option [value]="teacher.id">{{ teacher.fullName }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <!-- Classroom Selection -->
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'weekly-schedule-modal.form.classroom' | translate }}</mat-label>
-          <mat-select [(ngModel)]="currentSchedule.classroom.id" name="classroom" required>
-            @for (classroom of availableClassrooms; track classroom.id) {
-              <mat-option [value]="classroom.id">{{ classroom.code }} ({{ 'weekly-schedule-modal.form.capacity' | translate }}: {{ classroom.capacity }})</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <button mat-raised-button color="primary" (click)="addSchedule()">{{ 'weekly-schedule-modal.actions.add' | translate }}</button>
-      </div>
-
-      <!-- Mostrar Shedules creados -->
-      @if (weeklySchedule.weekSchedule.length > 0) {
-        <div class="schedules-list">
-          <h3>{{ 'weekly-schedule-modal.form.current-schedules' | translate }}</h3>
-          @for (schedule of weeklySchedule.weekSchedule; track $index) {
-            <div class="schedule-item">
-              <div>
-                <strong>{{ schedule.dayOfWeek }}</strong>: {{ schedule.timeRange.start }} - {{ schedule.timeRange.end }}
-                <br>
-                {{ 'weekly-schedule-modal.form.course' | translate }}: {{ schedule.course.name }} ({{ schedule.course.code }})
-                <br>
-                {{ 'weekly-schedule-modal.form.classroom' | translate }}: {{ schedule.classroom.code }} ({{ schedule.classroom.campus }})
-                <br>
-                {{ 'weekly-schedule-modal.form.teacher' | translate }}: {{ schedule.teacher.fullName }}
-              </div>
-              <button mat-icon-button color="warn" (click)="removeSchedule($index)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
+          <mat-label>{{ 'weekly-schedule-modal.form.name' | translate }}</mat-label>
+          <input [(ngModel)]="weeklySchedule.name" matInput name="name" [placeholder]="'weekly-schedule-modal.form.name' | translate" required #nameInput="ngModel">
+          @if (nameInput.invalid && (nameInput.dirty || nameInput.touched)) {
+            <mat-error>
+              {{ 'weekly-schedule-modal.form.required' | translate }}
+            </mat-error>
           }
+        </mat-form-field>
+        <!-- Section for adding schedules -->
+        <div class="schedule-section">
+          <h3>{{ 'weekly-schedule-modal.form.add-schedule' | translate }}</h3>
+          <!-- Day of Week -->
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'weekly-schedule-modal.form.day-of-week' | translate }}</mat-label>
+            <mat-select [(ngModel)]="currentSchedule.dayOfWeek" name="dayOfWeek" required>
+              @for (day of dayOptions; track day) {
+                <mat-option [value]="day.value">{{ day.label | translate }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <!-- Time Range - Start -->
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'weekly-schedule-modal.form.start-time' | translate }}</mat-label>
+            <mat-select [(ngModel)]="currentSchedule.timeRange.start" name="startTime" required>
+              @for (time of timeSlots; track time) {
+                <mat-option [value]="time">{{ time }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <!-- Time Range - End -->
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'weekly-schedule-modal.form.end-time' | translate }}</mat-label>
+            <mat-select [(ngModel)]="currentSchedule.timeRange.end" name="endTime" required>
+              @for (time of timeSlots; track time) {
+                <mat-option [value]="time">{{ time }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <!-- Course Selection -->
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'weekly-schedule-modal.form.course' | translate }}</mat-label>
+            <mat-select [(ngModel)]="currentSchedule.course.id" name="course" required>
+              @for (course of availableCourses; track course.id) {
+                <mat-option [value]="course.id">{{ course.name }} ({{ course.code }})</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <!-- Teacher Selection -->
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'weekly-schedule-modal.form.teacher' | translate }}</mat-label>
+            <mat-select [(ngModel)]="currentSchedule.teacher.id" name="teacher" required>
+              @for (teacher of availableTeachers; track teacher.id) {
+                <mat-option [value]="teacher.id">{{ teacher.fullName }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <!-- Classroom Selection -->
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'weekly-schedule-modal.form.classroom' | translate }}</mat-label>
+            <mat-select [(ngModel)]="currentSchedule.classroom.id" name="classroom" required>
+              @for (classroom of availableClassrooms; track classroom.id) {
+                <mat-option [value]="classroom.id">
+                  {{ classroom.code }} ({{ 'weekly-schedule-modal.form.capacity' | translate }}: {{ classroom.capacity }})
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="addSchedule()">
+            {{ 'weekly-schedule-modal.actions.add' | translate }}
+          </button>
         </div>
-      }
-    </form>
+                 <!-- Mostrar Schedules creados -->
+         @if (hasSchedules) {
+           <div class="schedules-list">
+             <h3>{{ 'weekly-schedule-modal.form.current-schedules' | translate }}</h3>
+             @for (schedule of schedules; track $index) {
+               <div class="schedule-item">
+                 <div>
+                   <strong>{{ schedule.dayOfWeek }}</strong>: 
+                   @if (schedule.timeRange) {
+                     {{ schedule.timeRange.start }} - {{ schedule.timeRange.end }}
+                   } @else if (schedule.startTime && schedule.endTime) {
+                     {{ schedule.startTime }} - {{ schedule.endTime }}
+                   }
+                   <br>
+                   {{ 'weekly-schedule-modal.form.course' | translate }}: 
+                   @if (schedule.course && schedule.course.name) {
+                     {{ schedule.course.name }} ({{ schedule.course.code }})
+                   } @else if (schedule.courseId) {
+                     Course ID: {{ schedule.courseId }}
+                   }
+                   <br>
+                   {{ 'weekly-schedule-modal.form.classroom' | translate }}: 
+                   @if (schedule.classroom && schedule.classroom.code) {
+                     {{ schedule.classroom.code }} ({{ schedule.classroom.campus }})
+                   } @else if (schedule.classroomId) {
+                     Classroom ID: {{ schedule.classroomId }}
+                   }
+                   <br>
+                   {{ 'weekly-schedule-modal.form.teacher' | translate }}: 
+                   @if (schedule.teacher && schedule.teacher.fullName) {
+                     {{ schedule.teacher.fullName }}
+                   } @else if (schedule.teacherId) {
+                     Teacher ID: {{ schedule.teacherId }}
+                   }
+                 </div>
+                 <button mat-icon-button color="warn" (click)="removeSchedule($index)">
+                   <mat-icon>delete</mat-icon>
+                 </button>
+               </div>
+             }
+           </div>
+         }
+      </form>
+    </div>
   }
-
   <!-- Confirmation for delete -->
   @if (mode === 'delete') {
-    <p>{{ 'weekly-schedule-modal.delete-confirm' | translate }} "{{ weeklySchedule.name }}"?</p>
-    <p>{{ 'weekly-schedule-modal.delete-warning' | translate }}</p>
+    <div>
+      <p>{{ 'weekly-schedule-modal.delete-confirm' | translate }} "{{ weeklySchedule.name }}"?</p>
+      <p>{{ 'weekly-schedule-modal.delete-warning' | translate }}</p>
+    </div>
   }
 </div>
-
 <div mat-dialog-actions align="end" class="dialog-actions">
   <button mat-button (click)="onCancel()">{{ 'weekly-schedule-modal.actions.cancel' | translate }}</button>
-
   @if (mode === 'add' || mode === 'edit') {
-    <button mat-raised-button class="save-button" (click)="onSubmit()">{{ 'weekly-schedule-modal.actions.save' | translate }}</button>
+    <button mat-raised-button class="save-button" (click)="onSubmit()">
+      {{ 'weekly-schedule-modal.actions.save' | translate }}
+    </button>
   }
-
   @if (mode === 'delete') {
-    <button mat-raised-button class="delete-button" (click)="onConfirmDelete()">{{ 'weekly-schedule-modal.actions.delete' | translate }}</button>
+    <button mat-raised-button class="delete-button" (click)="onConfirmDelete()">
+      {{ 'weekly-schedule-modal.actions.delete' | translate }}
+    </button>
   }
 </div>

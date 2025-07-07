@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import { UserAccount } from '../model/user.entity';
 import { environment } from '../../../environments/environment';
-import { Role } from '../model/role.model';
 
 /**
  * Service responsible for managing teacher-related operations.
@@ -47,8 +46,10 @@ export class TeacherService {
    * @param id - The ID of the teacher to retrieve
    * @returns An Observable that emits a {@link UserAccount} object representing the teacher
    */
-  getTeacherById(id: string): Observable<UserAccount> {
-    return this.http.get<UserAccount>(`${this.baseUrl}/${id}`);
+  getTeacherById(id: number): Observable<UserAccount> {
+    return this.http.get<{ message: string; user: UserAccount }>(`${this.baseUrl}/${id}`).pipe(
+      map(response => response.user)
+    );
   }
 
   /**

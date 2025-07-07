@@ -42,21 +42,63 @@ export class Schedule {
    * @param schedule.timeRange - The time range for the schedule (defaults to an empty time range if not provided)
    * @param schedule.course - The course for the schedule (defaults to a new Course instance if not provided)
    * @param schedule.classroom - The classroom for the schedule (defaults to a new Classroom instance if not provided)
+   * @param schedule.startTime - Backend format start time
+   * @param schedule.endTime - Backend format end time
+   * @param schedule.courseId - Backend format course ID
+   * @param schedule.classroomId - Backend format classroom ID
+   * @param schedule.teacherId - Backend format teacher ID
    */
   constructor(schedule: {
     id?: number,
     dayOfWeek?: string, //DayOfWeek
     timeRange?: TimeRange,
     course?: Course,
-    classroom?: Classroom
-    teacher?: UserAccount  // To be added once the Teacher entity is included
+    classroom?: Classroom,
+    teacher?: UserAccount,  // To be added once the Teacher entity is included
+    startTime?: string,
+    endTime?: string,
+    courseId?: number,
+    classroomId?: number,
+    teacherId?: number
   }) {
     this.id = schedule.id || 0;
     this.dayOfWeek = schedule.dayOfWeek || '';
-    this.timeRange = schedule.timeRange || { start: '', end: '' };
-    this.course = schedule.course || new Course({});
-    this.teacher = schedule.teacher || new UserAccount({});
-    this.classroom = schedule.classroom || new Classroom({});
+
+    // Handle both frontend and backend time formats
+    if (schedule.timeRange) {
+      this.timeRange = schedule.timeRange;
+    } else if (schedule.startTime && schedule.endTime) {
+      this.timeRange = { start: schedule.startTime, end: schedule.endTime };
+    } else {
+      this.timeRange = { start: '', end: '' };
+    }
+
+    // Handle both frontend and backend course formats
+    if (schedule.course) {
+      this.course = schedule.course;
+    } else if (schedule.courseId) {
+      this.course = new Course({ id: schedule.courseId });
+    } else {
+      this.course = new Course({});
+    }
+
+    // Handle both frontend and backend teacher formats
+    if (schedule.teacher) {
+      this.teacher = schedule.teacher;
+    } else if (schedule.teacherId) {
+      this.teacher = new UserAccount({ id: schedule.teacherId });
+    } else {
+      this.teacher = new UserAccount({});
+    }
+
+    // Handle both frontend and backend classroom formats
+    if (schedule.classroom) {
+      this.classroom = schedule.classroom;
+    } else if (schedule.classroomId) {
+      this.classroom = new Classroom({ id: schedule.classroomId });
+    } else {
+      this.classroom = new Classroom({});
+    }
   }
 }
 

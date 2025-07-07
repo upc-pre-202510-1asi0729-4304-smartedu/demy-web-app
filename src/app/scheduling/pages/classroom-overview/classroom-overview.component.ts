@@ -29,6 +29,7 @@ import {TranslatePipe} from '@ngx-translate/core';
  */
 @Component({
   selector: 'app-classroom-overview',
+  standalone: true,
   imports: [
     MatTable,
     MatSort,
