@@ -1,0 +1,28 @@
+.enrollment-search-by-dni-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.enrollment-form-field {
+  min-width: 200px;
+}
+
+.search-button {
+  margin-bottom: 1.7rem;
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 600px) {
+  .enrollment-form-field {
+    min-width: 20%;
+  }
+
+  .enrollment-search-by-dni-form {
+    align-items: stretch;
+  }
+
+  .search-button {
+    margin-top: 0.5rem;
+  }
+}

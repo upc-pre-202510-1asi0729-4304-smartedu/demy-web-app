@@ -1,0 +1,17 @@
+<div class = "enrollment-search-by-dni">
+  <form class="enrollment-search-by-dni-form" (ngSubmit)="onSearchClick()">
+    <mat-form-field class="enrollment-form-field" appearance="outline">
+      <mat-label>{{ 'enrollment.search.input' | translate }}</mat-label>
+      <input matInput type="text" name="dni" (keyup.enter)="onSearchClick()" class="dni-input" [(ngModel)]="value" required maxlength="8" pattern="[0-9]{8}"/>
+      @if (value) {
+        <button matSuffix mat-icon-button aria-label="Clear" type="button" (click)="value=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+
+    <button mat-flat-button type="submit" color="primary" class="search-button">
+      {{ 'enrollment.search.search-button' | translate }}
+    </button>
+  </form>
+</div>

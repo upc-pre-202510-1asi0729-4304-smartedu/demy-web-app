@@ -95,14 +95,13 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
   /** Service for handling enrollment-related API operations */
   private enrollmentService: EnrollmentService = inject(EnrollmentService);
 
-  protected studentMap = new Map<string, string>();
-  protected periodMap = new Map<string, string>();
+  /** Maps for storing student and period data */
+  protected studentMap = new Map<number, string>();
+  protected periodMap = new Map<number, string>();
+
+  /** Services for students and academic periods */
   private studentService = inject(StudentService);
   private academicPeriodService = inject(AcademicPeriodService);
-
-  //#endregion
-
-  //#region Methods
 
   /**
    * Initializes the component with default values and creates a new data source
@@ -111,8 +110,6 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
     this.editMode = false;
     this.enrollmentData = new Enrollment({});
     this.dataSource = new MatTableDataSource();
-    console.log(this.enrollmentData);
-
   }
 
   /**
@@ -132,6 +129,24 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
     this.getAllEnrollments();
     this.loadStudents();
     this.loadPeriods();
+  }
+
+  getEnrollmentStatusLabel(status: string): string {
+    const statusMap: { [key: string]: string } = {
+      'ACTIVE': 'enrollment.status.active',
+      'CANCELLED': 'enrollment.status.cancelled',
+      'COMPLETED': 'enrollment.status.completed'
+    };
+    return statusMap[status] || status;
+  }
+
+  getPaymentStatusLabel(status: string): string {
+    const statusMap: { [key: string]: string } = {
+      'PENDING': 'enrollment.payment.pending',
+      'PAID': 'enrollment.payment.paid',
+      'REFUNDED': 'enrollment.payment.refunded'
+    };
+    return statusMap[status] || status;
   }
 
   /**
@@ -194,9 +209,11 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    * Uses EnrollmentService to fetch the data via HTTP.
    */
   private getAllEnrollments() {
-    this.enrollmentService.getAll().subscribe((response: Array<Enrollment>) => {
-      this.dataSource.data = response;
-    });
+    this.enrollmentService.getAll()
+      .subscribe((response: Enrollment[]) => {
+        this.dataSource.data = response
+          .filter(e => e.studentId  > 0 && e.academicPeriodId  > 0);
+      });
   }
 
   private loadStudents(): void {
@@ -207,7 +224,7 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
 
   private loadPeriods(): void {
     this.academicPeriodService.getAll().subscribe(periods => {
-      this.periodMap = new Map(periods.map(p => [p.id, p.name]));
+      this.periodMap = new Map(periods.map(p => [p.id, p.periodName]));
     });
   }
 
@@ -236,11 +253,10 @@ export class EnrollmentsManagementComponent implements OnInit, AfterViewInit {
    * Removes the enrollment from the table's data source.
    * @param id - The ID part of the enrollment to be deleted
    */
-  private deleteEnrollment(id: string) {
+  private deleteEnrollment(id: number) {
     this.enrollmentService.delete(id).subscribe(() => {
       this.dataSource.data = this.dataSource.data.filter(item => item.id !== id);
     });
   }
-
   //#endregion
 }
