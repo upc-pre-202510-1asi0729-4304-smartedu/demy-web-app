@@ -133,6 +133,33 @@
     "select": "Select Plan"
   },
   "payments": {
+    "section-title": "Payments Management",
+    "nav": {
+      "list": "View Payments",
+      "assign": "Assign Invoice"
+    },
+    "assign-title": "Assign new invoice",
+    "dni-label": "Student DNI",
+    "amount-label": "Amount",
+    "currency-label": "Currency",
+    "due-date-label": "Due Date",
+    "create-button": "Create Invoice",
+    "assign": {
+      "success": "Invoice successfully created!",
+      "error": "Error creating invoice."
+    },
+    "method": "Method",
+    "methods": {
+      "CASH": "Cash",
+      "CARD": "Card",
+      "TRANSFER": "Transfer",
+      "WALLET": "Wallet",
+      "OTHER": "Other"
+    },
+    "register": {
+      "success": "Payment successfully recorded",
+      "error": "There was an error recording the payment"
+    },
     "title": "Payments",
     "subtitle": "Check a student's payment status",
     "dni-input": "Enter DNI",
@@ -172,18 +199,38 @@
     },
     "fields": {
       "category": "Category",
-      "amount": "Amount (S/)",
+      "amount": "Amount",
       "concept": "Concept",
-      "date": "Date"
+      "date": "Date",
+      "method": "Payment Method",
+      "currency": "Currency"
+    },
+    "method": {
+      "cash": "Cash",
+      "card": "Card",
+      "transfer": "Transfer",
+      "wallet": "Wallet",
+      "others": "Other",
+      "other": "Other"
+    },
+    "currency": {
+      "pen": "Peruvian Sol (PEN)",
+      "usd": "US Dollar (USD)"
     },
     "category": {
-      "teachers": "Payment to teachers",
+      "students": "Students",
+      "personals": "Payment to personal",
+      "personal": "Personal",
       "materials": "Materials",
       "services": "Services",
       "taxes": "Taxes",
       "maintenance": "Maintenance",
       "technology": "Technology",
-      "others": "Other"
+      "others": "Other",
+      "other": "Other"
+    },
+    "concept": {
+      "paidStudentInvoice": "Payment from a student"
     },
     "actions": {
       "confirm": "Confirm"
@@ -193,7 +240,19 @@
       "category": "Category",
       "concept": "Concept",
       "amount": "Amount",
-      "total": "Monthly total"
+      "total": "Monthly total",
+      "type": "Type",
+      "paymentMethod": "Payment Method",
+      "totalIncome": "Total Income",
+      "totalExpense": "Total Expense"
+    },
+    "type": {
+      "income": "Income",
+      "expense": "Expense"
+    },
+    "notifications": {
+      "expenseRegistered": "Expense recorded correctly.",
+      "errorRegistering": "An error occurred while recording the expense."
     }
   },
   "form": {
@@ -479,7 +538,9 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "required-dni": "DNI is required.",
+    "student-not-found": "A student with that ID was not found."
   },
   "recover-password": {
     "title": "Recover Password",

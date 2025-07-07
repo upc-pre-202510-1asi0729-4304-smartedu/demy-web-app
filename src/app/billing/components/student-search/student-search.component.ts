@@ -34,7 +34,7 @@ export class StudentSearchComponent {
 
   /**
    * Event emitted when the user triggers a search.
-   * Sends a trimmed string as the search query to the parent component.
+   * Sends a trimmed DNI string to the parent component.
    */
   @Output() search = new EventEmitter<string>();
 

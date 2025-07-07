@@ -3,33 +3,41 @@
 <div class="payment-registration">
   <form #paymentForm="ngForm" (ngSubmit)="onSubmit()" class="form-section">
 
+    <!-- Nombre del estudiante -->
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>{{ 'payments.first-name' | translate }}</mat-label>
       <input matInput [value]="student.firstName" disabled />
     </mat-form-field>
 
+    <!-- Apellido del estudiante -->
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>{{ 'payments.last-name' | translate }}</mat-label>
       <input matInput [value]="student.lastName" disabled />
     </mat-form-field>
 
+    <!-- DNI del estudiante -->
     <mat-form-field appearance="fill" class="form-field">
-      <mat-label>DNI</mat-label>
+      <mat-label>{{ 'payments.dni-label' | translate }}</mat-label>
       <input matInput [value]="student.dni" disabled />
     </mat-form-field>
 
+    <!-- Monto de la factura (solo lectura) -->
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>{{ 'payments.amount' | translate }}</mat-label>
-      <input matInput type="number" [value]="invoice.amount" disabled />
+      <input matInput [value]="invoice.amount.format('es-PE') + ' ' + invoice.amount.currency.code" disabled />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>{{ 'payments.paid-at' | translate }}</mat-label>
-      <input matInput [matDatepicker]="picker" [(ngModel)]="paidAt" name="paidAt" required />
-      <mat-datepicker-toggle matSuffix [for]="picker" />
-      <mat-datepicker #picker />
+    <!-- Metodo de Pago -->
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>{{ 'payments.method' | translate }}</mat-label>
+      <mat-select [(ngModel)]="selectedMethod" name="method" required>
+        <mat-option *ngFor="let m of methods" [value]="m">
+          {{ 'payments.methods.' + m | translate }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
+    <!-- Botón de acción -->
     <div class="actions">
       <button mat-flat-button color="primary" type="submit">
         {{ 'payments.register-button' | translate }}

@@ -2,9 +2,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {Student} from '../../../enrollments/model/student.entity';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {Invoice} from '../../model/invoice.entity';
-import {DatePipe} from '@angular/common';
 
 /**
  * Displays the list of invoices associated with a specific student,
@@ -15,8 +14,7 @@ import {DatePipe} from '@angular/common';
   imports: [
     MatTableModule,
     MatButtonModule,
-    TranslatePipe,
-    DatePipe
+    TranslatePipe
   ],
   templateUrl: './student-status.component.html',
   styleUrl: './student-status.component.css'
@@ -41,6 +39,12 @@ export class StudentStatusComponent {
    * Defines the columns to be displayed in the Material table.
    */
   displayedColumns = ['dni', 'name', 'amount', 'status', 'dueDate', 'action'];
+
+  constructor(private translate: TranslateService) {}
+
+  get currentLocale(): string {
+    return this.translate.currentLang || 'es-PE';
+  }
 }
 
 /**

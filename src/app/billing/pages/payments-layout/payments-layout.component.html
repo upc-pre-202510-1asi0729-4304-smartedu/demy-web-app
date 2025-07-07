@@ -1,0 +1,8 @@
+<h2>{{ 'payments.section-title' | translate }}</h2>
+
+<app-contextual-toggle-nav
+  [options]="options"
+  [selected]="selected"
+  (select)="onSelect($event)" />
+
+<router-outlet></router-outlet>
