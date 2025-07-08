@@ -105,3 +105,30 @@ h4 { font-size: 20px; font-weight: 600; line-height: 1.4; }
   .label { font-size: 13px; }
   .small-text { font-size: 11px; }
 }
+
+/* ========== OTHER ========== */
+
+/* Success */
+.mat-mdc-snack-bar-container.success-snackbar .mdc-snackbar__surface {
+  background-color: #4caf50 !important;
+  color: #fff;
+}
+
+/* Error */
+.mat-mdc-snack-bar-container.error-snackbar .mdc-snackbar__surface {
+  background-color: #f44336 !important;
+  color: #fff;
+}
+
+/* Info */
+.mat-mdc-snack-bar-container.info-snackbar .mdc-snackbar__surface {
+  background-color: #2196f3 !important;
+  color: #fff;
+}
+
+/* Common tweaks */
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: 500;
+}

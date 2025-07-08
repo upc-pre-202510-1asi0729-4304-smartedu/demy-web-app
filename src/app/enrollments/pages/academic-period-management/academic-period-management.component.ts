@@ -216,7 +216,7 @@ export class AcademicPeriodManagementComponent implements OnInit, AfterViewInit 
    * Removes it from the data table.
    * @param id ID of the academic period to delete.
    */
-  private deleteAcademicPeriod(id: string): void {
+  private deleteAcademicPeriod(id: number): void {
     this.academicPeriodService.delete(id).subscribe(() => {
       this.dataSource.data = this.dataSource.data.filter(period => period.id !== id);
     });

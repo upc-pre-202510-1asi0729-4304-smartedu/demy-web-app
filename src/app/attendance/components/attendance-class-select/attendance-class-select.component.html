@@ -1,12 +1,23 @@
-<p>{{'attendance.class-select'|translate}}</p>
 <mat-form-field appearance="outline" class="form-field">
   <mat-label>Clase</mat-label>
-  <mat-select [(ngModel)]="selectedCourseId">
-    @for(course of courses(); track course.id) {
+  <mat-select
+    [value]="selectedCourseId()"
+    (selectionChange)="onClassSelect($event.value)"
+    required
+  >
+    <mat-option value="">
+      {{ 'attendance.selectPlaceholder' | translate }}
+    </mat-option>
+
+    @for (course of courses(); track course.id) {
       <mat-option [value]="course.id">
         {{ course.name }}
       </mat-option>
     }
   </mat-select>
+  <mat-error *ngIf="selectedCourseId() === ''">
+    {{ 'attendance.classRequired' | translate }}
+  </mat-error>
+
 </mat-form-field>
 

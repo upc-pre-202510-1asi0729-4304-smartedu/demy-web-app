@@ -47,13 +47,32 @@ export class ExpenseFormComponent extends BaseFormComponent {
    * Each category includes a `value` and a translation `labelKey`.
    */
   categories = [
-    { value: 'Teacher Payment', labelKey: 'finance.category.teachers' },
-    { value: 'Materials', labelKey: 'finance.category.materials' },
-    { value: 'Services', labelKey: 'finance.category.services' },
-    { value: 'Taxes', labelKey: 'finance.category.taxes' },
-    { value: 'Maintenance', labelKey: 'finance.category.maintenance' },
-    { value: 'Technology', labelKey: 'finance.category.technology' },
-    { value: 'Other', labelKey: 'finance.category.others' }
+    { value: 'PERSONAL', labelKey: 'finance.category.personals' },
+    { value: 'MATERIALS', labelKey: 'finance.category.materials' },
+    { value: 'SERVICES', labelKey: 'finance.category.services' },
+    { value: 'TAXES', labelKey: 'finance.category.taxes' },
+    { value: 'MAINTENANCE', labelKey: 'finance.category.maintenance' },
+    { value: 'TECHNOLOGY', labelKey: 'finance.category.technology' },
+    { value: 'OTHER', labelKey: 'finance.category.others' }
+  ];
+
+  /**
+   * Predefined payment methods available for selection.
+   */
+  methods = [
+    { value: 'CASH', labelKey: 'finance.method.cash' },
+    { value: 'CARD', labelKey: 'finance.method.card' },
+    { value: 'TRANSFER', labelKey: 'finance.method.transfer' },
+    { value: 'WALLET', labelKey: 'finance.method.wallet' },
+    { value: 'OTHER', labelKey: 'finance.method.others' }
+  ];
+
+  /**
+   * Supported currency options for the transaction.
+   */
+  currencies = [
+    { value: 'PEN', labelKey: 'finance.currency.pen' },
+    { value: 'USD', labelKey: 'finance.currency.usd' }
   ];
 
   /**
@@ -67,7 +86,9 @@ export class ExpenseFormComponent extends BaseFormComponent {
       amount: [null, [Validators.required, Validators.min(0.01)]],
       category: ['', Validators.required],
       concept: ['', Validators.required],
-      date: [new Date(), Validators.required]
+      date: [new Date(), Validators.required],
+      method: ['', Validators.required],
+      currency: ['PEN', Validators.required]
     });
   }
 
@@ -82,7 +103,28 @@ export class ExpenseFormComponent extends BaseFormComponent {
     }
 
     this.confirm.emit(this.form.value);
-    this.form.reset();
+
+    this.form.reset({
+      amount: null,
+      category: '',
+      concept: '',
+      date: new Date(),
+      method: '',
+      currency: 'PEN'
+    });
+
+    this.clearFormState();
+  }
+
+
+  private clearFormState() {
+    Object.keys(this.form.controls).forEach((key) => {
+      const control = this.form.controls[key];
+      control.setErrors(null);
+      control.markAsPristine();
+      control.markAsUntouched();
+    });
+    this.form.updateValueAndValidity();
   }
 }
 

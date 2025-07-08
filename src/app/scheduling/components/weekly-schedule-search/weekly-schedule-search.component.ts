@@ -11,6 +11,12 @@ import { WeeklyScheduleService } from '../../services/weekly-schedule.service';
 import { ScheduleWeekly } from '../../model/weekly-schedule.entity';
 import { Schedule } from '../../model/schedule.entity';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CourseService } from '../../services/course.service';
+import { ClassroomService } from '../../services/classroom.service';
+import { TeacherService } from '../../../iam-user/services/teacher.service';
+import { Course } from '../../model/course.entity';
+import { Classroom } from '../../model/classroom.entity';
+import { UserAccount } from '../../../iam-user/model/user.entity';
 
 /**
  * Component for searching and displaying weekly schedules.
@@ -86,14 +92,24 @@ export class WeeklyScheduleSearchComponent implements OnInit {
     '21:00'
   ];
 
+  courses: Course[] = [];
+  classrooms: Classroom[] = [];
+  teachers: UserAccount[] = [];
+
   /**
    * Initializes the component and loads available weekly schedules
    * @param weeklyScheduleService - Service used to fetch weekly schedules from the backend
    * @param fb - FormBuilder instance used to build the form group
+   * @param courseService - Service used to fetch courses from the backend
+   * @param classroomService - Service used to fetch classrooms from the backend
+   * @param teacherService - Service used to fetch teachers from the backend
    */
   constructor(
     private weeklyScheduleService: WeeklyScheduleService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private courseService: CourseService,
+    private classroomService: ClassroomService,
+    private teacherService: TeacherService
   ) {
     this.searchForm = this.fb.group({
       scheduleSelect: [this.selectedScheduleId]
@@ -101,7 +117,25 @@ export class WeeklyScheduleSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadAvailableSchedules();
+    this.loadCatalogsAndSchedules();
+  }
+
+  loadCatalogsAndSchedules(): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+    Promise.all([
+      this.courseService.getAll().toPromise(),
+      this.classroomService.getAll().toPromise(),
+      this.teacherService.getTeachers().toPromise()
+    ]).then(([courses, classrooms, teachers]) => {
+      this.courses = courses ?? [];
+      this.classrooms = classrooms ?? [];
+      this.teachers = teachers ?? [];
+      this.loadAvailableSchedules();
+    }).catch(error => {
+      this.errorMessage = 'Error loading catalogs: ' + error;
+      this.isLoading = false;
+    });
   }
 
   /**
@@ -113,10 +147,23 @@ export class WeeklyScheduleSearchComponent implements OnInit {
 
     this.weeklyScheduleService.getAll().subscribe({
       next: (schedules) => {
-        this.availableSchedules = schedules;
+        this.availableSchedules = schedules.map((ws: any) => ({
+          ...ws,
+          weekSchedule: ws.schedules.map((s: any) => {
+            const course = this.courses.find(c => c.id === s.courseId);
+            const classroom = this.classrooms.find(c => c.id === s.classroomId);
+            const teacher = this.teachers.find(t => t.id === s.teacherId);
+            return new Schedule({
+              ...s,
+              course,
+              classroom,
+              teacher
+            });
+          })
+        }));
+
         this.isLoading = false;
 
-        // If there's a pre-selected schedule, set it in the form but don't search automatically
         if (this.selectedScheduleId) {
           this.searchForm.patchValue({ scheduleSelect: this.selectedScheduleId });
         }

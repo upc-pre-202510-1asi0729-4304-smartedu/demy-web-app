@@ -11,6 +11,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { Schedule } from '../../model/schedule.entity';
 import { Classroom } from '../../model/classroom.entity';
 import { ClassroomService } from '../../services/classroom.service';
+import { WeeklyScheduleService } from '../../services/weekly-schedule.service';
 
 @Component({
   selector: 'app-teacher-reschedule-modal',
@@ -36,13 +37,13 @@ export class TeacherRescheduleModalComponent implements OnInit {
   error: string | null = null;
 
   dayOptions = [
-    { label: 'Lunes', value: 'Monday' },
-    { label: 'Martes', value: 'Tuesday' },
-    { label: 'Miércoles', value: 'Wednesday' },
-    { label: 'Jueves', value: 'Thursday' },
-    { label: 'Viernes', value: 'Friday' },
-    { label: 'Sábado', value: 'Saturday' },
-    { label: 'Domingo', value: 'Sunday' }
+    { label: 'scheduling.reschedule.days.monday', value: 'Monday' },
+    { label: 'scheduling.reschedule.days.tuesday', value: 'Tuesday' },
+    { label: 'scheduling.reschedule.days.wednesday', value: 'Wednesday' },
+    { label: 'scheduling.reschedule.days.thursday', value: 'Thursday' },
+    { label: 'scheduling.reschedule.days.friday', value: 'Friday' },
+    { label: 'scheduling.reschedule.days.saturday', value: 'Saturday' },
+    { label: 'scheduling.reschedule.days.sunday', value: 'Sunday' }
   ];
 
   timeSlots: string[] = [
@@ -67,17 +68,27 @@ export class TeacherRescheduleModalComponent implements OnInit {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<TeacherRescheduleModalComponent>,
     private classroomService: ClassroomService,
+    private weeklyScheduleService: WeeklyScheduleService,
     @Inject(MAT_DIALOG_DATA) public data: { schedule: Schedule }
   ) {
+    const normalizedDayOfWeek = this.normalizeDayOfWeek(this.data.schedule.dayOfWeek);
     this.rescheduleForm = this.fb.group({
-      dayOfWeek: [data.schedule.dayOfWeek, Validators.required],
-      startTime: [data.schedule.timeRange.start, Validators.required],
-      endTime: [data.schedule.timeRange.end, Validators.required],
-      classroomId: [data.schedule.classroom.id, Validators.required]
+      dayOfWeek: [normalizedDayOfWeek, Validators.required],
+      startTime: [this.data.schedule.timeRange.start, Validators.required],
+      endTime: [this.data.schedule.timeRange.end, Validators.required],
+      classroomId: [this.data.schedule.classroom.id, Validators.required]
     });
   }
 
   ngOnInit(): void {
+    const currentDayValue = this.rescheduleForm.get('dayOfWeek')?.value;
+    const validDayValues = this.dayOptions.map(option => option.value);
+
+    if (currentDayValue && !validDayValues.includes(currentDayValue)) {
+      console.warn('Invalid day of week value:', currentDayValue);
+      console.log('Valid values are:', validDayValues);
+    }
+
     this.loadClassrooms();
   }
 
@@ -106,17 +117,14 @@ export class TeacherRescheduleModalComponent implements OnInit {
     const startTimeInMinutes = startHour * 60 + startMinute;
     const endTimeInMinutes = endHour * 60 + endMinute;
 
-    // Verificar que la hora de inicio sea después de las 7:00 AM
     if (startTimeInMinutes < 7 * 60) {
       return false;
     }
 
-    // Verificar que la hora de fin sea antes de las 9:00 PM
     if (endTimeInMinutes > 21 * 60) {
       return false;
     }
 
-    // Verificar que la duración sea de al menos 30 minutos
     return endTimeInMinutes - startTimeInMinutes >= 30;
   }
 
@@ -125,24 +133,37 @@ export class TeacherRescheduleModalComponent implements OnInit {
       const formValue = this.rescheduleForm.value;
 
       if (!this.validateTimeRange(formValue.startTime, formValue.endTime)) {
-        this.error = 'El horario debe estar entre las 7:00 AM y las 9:00 PM, con una duración mínima de 30 minutos';
         return;
       }
 
       const selectedClassroom = this.availableClassrooms.find(c => c.id === formValue.classroomId);
 
       if (selectedClassroom) {
-        const updatedSchedule: Schedule = {
-          ...this.data.schedule,
-          dayOfWeek: formValue.dayOfWeek,
-          timeRange: {
-            start: formValue.startTime,
-            end: formValue.endTime
-          },
-          classroom: selectedClassroom
+        const scheduleUpdateData = {
+          classroomId: formValue.classroomId,
+          startTime: formValue.startTime,
+          endTime: formValue.endTime,
+          dayOfWeek: formValue.dayOfWeek
         };
 
-        this.dialogRef.close(updatedSchedule);
+        this.weeklyScheduleService.updateSchedule(this.data.schedule.id, scheduleUpdateData).subscribe({
+          next: () => {
+            const updatedSchedule: Schedule = {
+              ...this.data.schedule,
+              dayOfWeek: formValue.dayOfWeek,
+              timeRange: {
+                start: formValue.startTime,
+                end: formValue.endTime
+              },
+              classroom: selectedClassroom
+            };
+
+            this.dialogRef.close(updatedSchedule);
+          },
+          error: (error) => {
+            console.error('Error updating schedule:', error);
+          }
+        });
       }
     }
   }
@@ -153,5 +174,32 @@ export class TeacherRescheduleModalComponent implements OnInit {
 
   get isFormValid(): boolean {
     return this.rescheduleForm.valid;
+  }
+
+  /**
+   * Normalizes the day of the week format to match expected values
+   */
+  private normalizeDayOfWeek(dayOfWeek: string): string {
+    if (!dayOfWeek) return '';
+
+    const dayMapping: { [key: string]: string } = {
+      'MONDAY': 'Monday',
+      'TUESDAY': 'Tuesday',
+      'WEDNESDAY': 'Wednesday',
+      'THURSDAY': 'Thursday',
+      'FRIDAY': 'Friday',
+      'SATURDAY': 'Saturday',
+      'SUNDAY': 'Sunday',
+
+      'Monday': 'Monday',
+      'Tuesday': 'Tuesday',
+      'Wednesday': 'Wednesday',
+      'Thursday': 'Thursday',
+      'Friday': 'Friday',
+      'Saturday': 'Saturday',
+      'Sunday': 'Sunday'
+    };
+
+    return dayMapping[dayOfWeek] || dayOfWeek;
   }
 }

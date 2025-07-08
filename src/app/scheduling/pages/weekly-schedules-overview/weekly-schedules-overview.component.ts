@@ -30,6 +30,7 @@ import { TranslatePipe } from '@ngx-translate/core';
  */
 @Component({
   selector: 'app-weekly-schedules-overview',
+  standalone:true,
   imports: [
     MatTable,
     MatSort,
@@ -119,17 +120,14 @@ export class WeeklySchedulesOverviewComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(WeeklyScheduleModalComponent, {
       data: {
         mode: 'add',
-        weeklySchedule: new ScheduleWeekly({ weekSchedule: [] })
+        weeklySchedule: new ScheduleWeekly({ schedules: [] })
       },
       width: '600px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.weeklyScheduleService.create(result).subscribe(() => {
-          this.getAllWeeklySchedules(); // Refresh the list
-        });
-      }
+    dialogRef.afterClosed().subscribe(() => {
+      // Always refresh the list when modal is closed
+      this.getAllWeeklySchedules();
     });
   }
 
@@ -138,20 +136,22 @@ export class WeeklySchedulesOverviewComponent implements OnInit, AfterViewInit {
    * @param item - The weekly schedule to be edited
    */
   protected onEditItem(item: ScheduleWeekly): void {
+    // Map backend data structure to frontend structure
+    const weeklyScheduleForEdit = {
+      ...item,
+      weekSchedule: (item as any).schedules || item.weekSchedule || []
+    };
+
     const dialogRef = this.dialog.open(WeeklyScheduleModalComponent, {
       data: {
         mode: 'edit',
-        weeklySchedule: { ...item } // Create a copy to avoid modifying the original until submission
+        weeklySchedule: weeklyScheduleForEdit
       },
       width: '600px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.weeklyScheduleService.update(result.id, result).subscribe(() => {
-          this.getAllWeeklySchedules(); // Refresh the list
-        });
-      }
+    dialogRef.afterClosed().subscribe(()=> {
+      this.getAllWeeklySchedules();
     });
   }
 
@@ -180,7 +180,8 @@ export class WeeklySchedulesOverviewComponent implements OnInit, AfterViewInit {
    * @returns The number of schedules for the given weekly schedule
    */
   protected getSchedulesCount(schedule: ScheduleWeekly): number {
-    return schedule.weekSchedule?.length || 0;
+    // Handle both property names: weekSchedule (frontend) and schedules (backend)
+    return (schedule as any).schedules?.length || 0;
   }
 
   /**

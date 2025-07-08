@@ -2,8 +2,9 @@ import { Component, Input, ViewChild, AfterViewInit, WritableSignal, signal } fr
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { FinancialTransaction } from '../../model/financial-transaction.entity';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {DatePipe, DecimalPipe} from '@angular/common';
+
 
 /**
  * Standalone component that displays a paginated table of expense transactions.
@@ -31,8 +32,10 @@ export class ExpenseTableComponent implements AfterViewInit {
    */
   @Input() set expenses(value: FinancialTransaction[]) {
     this.dataSource.data = value;
-    this.total.set(this.calculateTotal(value));
+    this.calculateTotals(value);
   }
+
+  @Input() currency = 'S/';
 
   /**
    * Reference to the Angular Material paginator.
@@ -47,12 +50,22 @@ export class ExpenseTableComponent implements AfterViewInit {
   /**
    * Column identifiers used in the expense table.
    */
-  readonly displayedColumns = ['date', 'category', 'concept', 'amount'];
+  readonly displayedColumns = ['date', 'type', 'category', 'concept', 'amount', 'paymentMethod'];
 
   /**
    * Writable signal holding the total amount of all listed expenses.
    */
   readonly total: WritableSignal<number> = signal(0);
+
+  readonly totalIncomePEN = signal(0);
+
+  readonly totalIncomeUSD = signal(0);
+
+  readonly totalExpensePEN = signal(0);
+
+  readonly totalExpenseUSD = signal(0);
+
+  constructor(private translate: TranslateService) {}
 
   /**
    * Lifecycle hook called after the view has been initialized.
@@ -68,7 +81,40 @@ export class ExpenseTableComponent implements AfterViewInit {
    * @param data - Array of {@link FinancialTransaction} items.
    * @returns The total sum of `amount` fields.
    */
-  private calculateTotal(data: FinancialTransaction[]): number {
-    return data.reduce((sum, tx) => sum + (tx.amount || 0), 0);
+  private calculateTotals(data: FinancialTransaction[]): void {
+    let incomePEN = 0;
+    let incomeUSD = 0;
+    let expensePEN = 0;
+    let expenseUSD = 0;
+
+    data.forEach(tx => {
+      const amount = tx.payment?.amount ?? 0;
+      const currency = tx.payment?.currency ?? 'PEN';
+
+      if (tx.type === 'INCOME') {
+        if (currency === 'USD') incomeUSD += amount;
+        else incomePEN += amount;
+      }
+
+      if (tx.type === 'EXPENSE') {
+        if (currency === 'USD') expenseUSD += amount;
+        else expensePEN += amount;
+      }
+    });
+
+    this.totalIncomePEN.set(incomePEN);
+    this.totalIncomeUSD.set(incomeUSD);
+    this.totalExpensePEN.set(expensePEN);
+    this.totalExpenseUSD.set(expenseUSD);
+  }
+
+  getTranslatedConcept(transaction: FinancialTransaction): string {
+    if (
+      transaction.concept === 'Paid student invoice' &&
+      transaction.category === 'STUDENTS'
+    ) {
+      return this.translate.instant('finance.concept.paidStudentInvoice');
+    }
+    return transaction.concept;
   }
 }

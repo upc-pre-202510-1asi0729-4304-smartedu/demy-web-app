@@ -1,16 +1,25 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { TranslatePipe } from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
-import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../../iam-user/services/user.service';
-import { ConfirmPasswordChangeDialogComponent } from '../../components/confirm-password-change-dialog/confirm-password-change-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SuccessDialogEmailComponent } from '../../components/success-dialog-email/success-dialog-email.component';
+import { NotificationService } from '../../../shared/services/notification.service';
 
+
+/**
+ * Component for resetting a user's password.
+ *
+ * @summary
+ * Allows users to reset their password by providing an email and a new password.
+ * Validates required fields and displays success or error messages using a dialog.
+ */
 @Component({
   selector: 'app-reset-password',
   standalone: true,
@@ -27,57 +36,60 @@ import { ConfirmPasswordChangeDialogComponent } from '../../components/confirm-p
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent {
-  newPassword: string = '';
-  confirmPassword: string = '';
+  /**
+   * User's email address input.
+   */
   email: string = '';
 
-  constructor(private router: Router,    private userService: UserService, private dialog: MatDialog) {
-    const nav = this.router.getCurrentNavigation();
-    this.email = nav?.extras?.state?.['email'] || '';
+  /**
+   * New password input to be set for the account.
+   */
+  newPassword: string = '';
 
-  }
+  private notification = inject(NotificationService);
+  private translate = inject(TranslateService);
 
+  /**
+   * Initializes the component with injected services.
+   *
+   * @param router - Router service for navigation.
+   * @param userService - Service handling user-related API requests.
+   * @param dialog - Angular Material dialog service for feedback modals.
+   */
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private dialog: MatDialog
+  ) {}
+
+  /**
+   * Handles password reset operation.
+   * Validates input, calls the service, and shows feedback to the user.
+   */
   resetPassword(): void {
-    if (!this.newPassword || !this.confirmPassword) {
-      alert('Please fill in both fields.');
+    if (!this.email || !this.newPassword) {
+      this.notification.showError(this.translate.instant('reset-password.missing-fields'));
       return;
     }
 
-    if (this.newPassword !== this.confirmPassword) {
-      alert('Passwords do not match.');
-      return;
-    }
-
-    const dialogRef = this.dialog.open(ConfirmPasswordChangeDialogComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.userService.getUserByEmail(this.email).subscribe(users => {
-          if (users.length > 0) {
-            const user = users[0];
-            this.userService.updatePasswordById(user.id, this.newPassword).subscribe({
-              next: () => {
-                alert('Password has been reset successfully.');
-                this.router.navigate(['/login']);
-              },
-              error: (err) => {
-                console.error('Error updating password:', err);
-                alert('Failed to update password. Please try again.');
-              }
-            });
-          } else {
-            alert('User not found.');
-          }
-        });
+    this.userService.resetPassword(this.email, this.newPassword).subscribe({
+      next: () => {
+        this.notification.showSuccess(this.translate.instant('reset-password.success'));
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        const fallback = this.translate.instant('reset-password.error');
+        const msg = err?.error?.message ?? fallback;
+        this.notification.showError(msg);
       }
     });
   }
 
-
-
-
-
+  /**
+   * Navigates the user back to the login page.
+   */
   goBack(): void {
     this.router.navigate(['/login']);
   }
 }
+

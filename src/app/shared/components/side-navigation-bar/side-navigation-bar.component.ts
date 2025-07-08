@@ -34,6 +34,7 @@ export class SideNavigationBarComponent {
     { icon: 'schedule', label: 'sidebar.schedules', route: '/search-schedules', roles: ['ADMIN'] },
     { icon: 'schedule', label: 'sidebar.my-schedule', route: '/my-schedule', roles: ['TEACHER'] },
     { icon: 'check_circle', label: 'sidebar.attendance', route: '/attendance',roles: ['TEACHER'] },
+    { icon: 'bar_chart', label: 'sidebar.attendance-reports', route: '/attendance-reports',roles: ['TEACHER'] },
     { icon: 'account_balance', label: 'sidebar.finance', route: '/finance', roles: ['ADMIN'] }
   ];
 
@@ -53,10 +54,10 @@ export class SideNavigationBarComponent {
    * Emits when the logout action is triggered.
    */
   @Output() logout = new EventEmitter<void>();
-
-  handleLogout(): void {
+  onLogout() {
     this.userService.clearUserData();
     this.logout.emit();
     this.router.navigate(['/login']);
   }
+
 }

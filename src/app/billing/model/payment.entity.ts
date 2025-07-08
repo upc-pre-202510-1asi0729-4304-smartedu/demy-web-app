@@ -4,14 +4,14 @@
  */
 export class Payment {
   /**
-   * Unique identifier of the payment (optional).
+   * Unique identifier of the payment.
    */
-  id?: string;
+  id: number | null;
 
   /**
-   * ID of the associated invoice, or `null` if not linked.
+   * ID of the associated invoice.
    */
-  invoiceId: string | null;
+  invoiceId: number | null;
 
   /**
    * Date and time when the payment was made.
@@ -29,15 +29,28 @@ export class Payment {
   amount: number;
 
   /**
+   * Currency code (e.g., USD, PEN, EUR).
+   */
+  currency: string;
+
+  /**
    * Creates a new {@link Payment} instance from a partial object.
    *
-   * @param Payment - An object containing optional payment fields such as `id`, `invoiceId`, `paidAt`, `method`, and `amount`.
+   * @param Payment - An object containing payment fields such as `id`, `invoiceId`, `paidAt`, `method`, `amount`, `currency`.
    */
-  constructor(Payment: {id?: string, invoiceId?: string, paidAt?: Date, method?: string, amount?: number}) {
-    this.id = Payment.id || '';
-    this.invoiceId = Payment.invoiceId || null;
-    this.paidAt = Payment.paidAt || new Date();
-    this.method = Payment.method || '';
-    this.amount = Payment.amount || 0;
+  constructor(Payment: {
+    id?: number,
+    invoiceId?: number,
+    paidAt?: Date,
+    method?: string,
+    amount?: number,
+    currency?: string
+  }) {
+    this.id = Payment.id ?? null;
+    this.invoiceId = Payment.invoiceId ?? null;
+    this.paidAt = Payment.paidAt ?? new Date();
+    this.method = Payment.method ?? '';
+    this.amount = Payment.amount ?? 0;
+    this.currency = Payment.currency ?? '';
   }
 }

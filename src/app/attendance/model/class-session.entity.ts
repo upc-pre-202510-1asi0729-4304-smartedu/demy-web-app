@@ -1,50 +1,36 @@
 import { AttendanceRecord } from './attendance-record.entity';
 
 /**
- * Represents a class session that holds attendance records for students.
- * Typically used to group attendance data by session date or schedule.
+ * Represents a class session with embedded attendance records.
  */
 export class ClassSession {
   /**
    * Creates a new ClassSession instance.
    *
-   * @param id - The unique identifier for the session
-   * @param attendance - An optional array of attendance records for this session (defaults to an empty array).
-   * @param createdAt - The creation timestamp of the session (defaults to the current date and time).
+   * @param courseId - ID of the course associated with this session.
+   * @param date - Date of the session in ISO string (yyyy-MM-dd).
+   * @param attendance - Array of attendance records.
+   * @param id - Optional unique identifier assigned by backend.
    */
   constructor(
-    public id: string,
+    public courseId: number,
+    public date: string,
     public attendance: AttendanceRecord[] = [],
-    public createdAt: Date = new Date() //
+    public id?: number
   ) {}
-  /**
-   * Replaces the existing attendance records with a new set.
-   *
-   * @param records - The new attendance records to associate with the session
-   */
-  setAttendance(records: AttendanceRecord[]): void {
-    this.attendance = records;
-  }
-  /**
-   * Retrieves the attendance records associated with this session.
-   *
-   * @returns An array of {@link AttendanceRecord} objects.
-   */
-  getAttendance(): AttendanceRecord[] {
-    return this.attendance;
-  }
 
   /**
    * Converts the class session into a plain JSON object.
-   * Useful for serialization when saving or sending data to a backend.
+   * Useful for serialization when sending data to the backend.
    *
-   * @returns An object with `id`, `createdAt` (as ISO string), and `attendance` records
+   * @returns An object with `courseId`, `date`, `attendance` and optional `id`.
    */
   toJSON() {
     return {
-      id: this.id,
-      createdAt: this.createdAt.toISOString(),
-      attendance: this.attendance.map(a => a.toJSON())
+      courseId: this.courseId,
+      date: this.date,
+      attendance: this.attendance.map(a => a.toJSON()),
+      ...(this.id !== undefined && { id: this.id })
     };
   }
 }

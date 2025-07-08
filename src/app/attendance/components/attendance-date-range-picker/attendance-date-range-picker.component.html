@@ -1,0 +1,22 @@
+<mat-form-field appearance="outline" class="form-field" style="width: 100%;">
+  <mat-label>{{ 'attendance.date-select' | translate }}</mat-label>
+
+  <mat-date-range-input [rangePicker]="picker">
+    <input
+      matStartDate
+      [value]="range().start"
+      (dateChange)="onStartChange($event.value)"
+      placeholder="Inicio"
+    >
+    <input
+      matEndDate
+      [value]="range().end"
+      (dateChange)="onEndChange($event.value)"
+      placeholder="Fin"
+    >
+  </mat-date-range-input>
+
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+

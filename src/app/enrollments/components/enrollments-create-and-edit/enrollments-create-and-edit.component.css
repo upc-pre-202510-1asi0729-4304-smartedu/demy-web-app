@@ -9,6 +9,12 @@
   background-color: #fff;
   border-radius: 0.75rem;
 }
+h1 {
+  font-size: 2rem;
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 1rem;
+}
 
 .enrollment-form h2 {
   text-align: center;
@@ -71,8 +77,8 @@
       column-gap: 2rem;
     }
 
-    .form-row:nth-child(2), /* Estudiante */
-    .form-row:nth-child(3), /* Periodo Académico */
+    /*.form-row:nth-child(2), !* Estudiante *!*/
+    /*.form-row:nth-child(3), !* Periodo Académico *!*/
     .form-actions {
       grid-column: 1 / -1;
     }
@@ -89,6 +95,16 @@
       padding: 0.75rem 2rem;
     }
   }
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .form-actions button {

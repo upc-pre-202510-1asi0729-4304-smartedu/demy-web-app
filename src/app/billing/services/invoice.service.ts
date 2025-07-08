@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../../shared/services/base.service';
 import { Invoice } from '../model/invoice.entity';
-import { environment } from '../../../environments/environment';
-import {catchError, Observable, retry} from 'rxjs';
-
-const invoicesResourceEndpointPath = environment.invoicesEndpointPath;
+import { InvoiceAssembler } from './invoice.assembler';
+import { InvoiceResource, CreateInvoiceRequest } from './invoice.response';
+import {catchError, map, Observable, retry} from 'rxjs';
 
 /**
  * Service for managing {@link Invoice} entities via HTTP operations.
@@ -21,22 +20,34 @@ export class InvoiceService extends BaseService<Invoice> {
    */
   constructor() {
     super();
-    this.resourceEndpoint = invoicesResourceEndpointPath;
+    // With our environment set to /api/v1, we don't need further path here
+    this.resourceEndpoint = '';
   }
 
   /**
-   * Retrieves all invoices associated with a specific student.
+   * Retrieves all invoices for a given student's DNI.
    *
-   * Performs a GET request using the `studentId` as a query parameter.
-   * Applies automatic retry and centralized error handling.
-   *
-   * @param studentId - The unique identifier of the student.
-   * @returns An {@link Observable} emitting an array of {@link Invoice} objects.
+   * @param dni - The student's DNI.
    */
-  public getByStudentId(studentId: string): Observable<Invoice[]> {
-    const url = `${this.resourcePath()}?studentId=${studentId}`;
-    return this.http.get<Invoice[]>(url, this.httpOptions).pipe(
+  public getByDni(dni: string): Observable<Invoice[]> {
+    const url = `${this.resourcePath()}/students/${dni}/invoices`;
+    return this.http.get<InvoiceResource[]>(url, this.httpOptions).pipe(
       retry(2),
+      map(resources => InvoiceAssembler.toEntitiesFromResources(resources)),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Creates a new invoice for a student.
+   *
+   * @param dni - The student's DNI.
+   * @param data - The invoice creation payload.
+   */
+  public createInvoice(dni: string, data: CreateInvoiceRequest): Observable<Invoice> {
+    const url = `${this.resourcePath()}/students/${dni}/invoices`;
+    return this.http.post<InvoiceResource>(url, JSON.stringify(data), this.httpOptions).pipe(
+      map(resource => InvoiceAssembler.toEntityFromResource(resource)),
       catchError(this.handleError)
     );
   }

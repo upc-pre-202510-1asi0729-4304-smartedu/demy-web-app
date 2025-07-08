@@ -18,7 +18,7 @@ export class AttendanceStudent {
      * @param name - Full name of the student.
      * @param attended - Attendance status. Defaults to `false`.
      */
-    public id: string,
+    public id: number,
     public dni: string,
     public name: string,
     public attended: boolean = false

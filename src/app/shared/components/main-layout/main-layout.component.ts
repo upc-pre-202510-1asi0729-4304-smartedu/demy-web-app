@@ -3,8 +3,9 @@ import { HeaderContentComponent } from '../header-content/header-content.compone
 import { SideNavigationBarComponent } from '../side-navigation-bar/side-navigation-bar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { RouterOutlet } from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 import { ContentWrapperComponent } from '../content-wrapper/content-wrapper.component';
+import { AuthenticationService } from '../../../iam-user/services/authentication.service';
 
 /**
  * Main layout component that integrates all structural elements including header,
@@ -32,21 +33,16 @@ export class MainLayoutComponent {
    */
   readonly isMobile = signal<boolean>(false);
 
-  /**
-   * Initializes responsive layout detection.
-   */
-  constructor(private observer: BreakpointObserver) {
+  constructor(private observer: BreakpointObserver,
+              private authService: AuthenticationService,
+              private router: Router) {
     this.observer.observe([Breakpoints.Handset]).subscribe(result => {
       this.isMobile.set(result.matches);
     });
   }
 
-  /**
-   * Handles user logout process.
-   * Should clear auth tokens and redirect to login page.
-   *
-   */
-  logout(): void {
-    console.log('Cerrar sesión');
+  logout() {
+    // lógica para cerrar sesión (vaciar token, redirigir, etc.)
+    this.authService.signOut();
   }
 }

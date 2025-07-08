@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from '../../shared/services/base.service';
 import { environment } from '../../../environments/environment';
 import { Enrollment } from '../model/enrollment.entity';
+import {catchError, Observable, retry} from 'rxjs';
 
 /**
  * API endpoint path for enrollment resource, configured via environment.
@@ -39,5 +40,16 @@ export class EnrollmentService extends BaseService<Enrollment> {
   constructor() {
     super();
     this.resourceEndpoint = enrollmentResourceEndpointPath;
+  }
+
+  /**
+   * @param studentId - the DNI of the student to search for enrollments
+   * @returns An observable with the list of enrollments for the student
+   */
+  public getByStudentId(studentId: number): Observable<Enrollment[]> {
+    const url = `${this.resourcePath()}/student/${studentId}`;
+    return this.http
+      .get<Enrollment[]>(url, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
   }
 }

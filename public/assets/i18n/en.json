@@ -30,6 +30,7 @@
     "schedules": "Schedules",
     "my-schedule": "My Schedule",
     "attendance": "Attendance",
+    "attendance-reports": "Attendance Reports",
     "finance": "Finance",
     "logout": "Log out"
   },
@@ -46,7 +47,10 @@
       "required": "This field is required",
       "email": "Please enter a valid email",
       "minlength": "Minimum 8 characters"
-    }
+    },
+    "success": "You have logged in successfully.",
+    "error": "Incorrect email or password. Please try again.",
+    "no-permission": "You do not have permission to access this section."
   },
   "sign-up": {
     "login": "Log In",
@@ -59,6 +63,14 @@
     "password": "Password",
     "terms-me": "Accept the terms and conditions",
     "register": "Register",
+
+    "success": "Account created successfully.",
+    "error": "An error occurred during registration. Please verify your information and try again.",
+    "email-exists": "This email address is already registered. Please use another one.",
+    "invalid-data": "Invalid data. Please verify the information entered.",
+    "academy-creation-failed": "The academy could not be created. Your user account has been deleted. Please try again.",
+    "partial-registration-error": "Your account was created, but the academy wasn't. Contact technical support.",
+
     "errors": {
       "required": "This field is required",
       "invalid-email": "Please enter a valid email",
@@ -77,6 +89,18 @@
     },
     "button": {
       "new-teacher": "New Teacher"
+    }
+  },
+  "teachers": {
+    "notifications": {
+      "created": "Teacher created successfully.",
+      "create-error": "Failed to create teacher.",
+      "updated": "Teacher updated successfully.",
+      "update-error": "Failed to update teacher.",
+      "deleted": "Teacher deleted successfully.",
+      "delete-error": "Failed to delete teacher.",
+      "load-success": "Teachers loaded successfully.",
+      "load-error": "Error loading teachers."
     }
   },
   "teacher-modal": {
@@ -98,41 +122,72 @@
       "delete": "Delete"
     }
   },
-  "title": "Select Your Plan",
-  "plan1": {
-    "subtitle": "Essentials",
-    "title": "Basic Plan",
-    "price": "$19.90",
-    "benefit1": "1 location",
-    "benefit2": "100 students",
-    "benefit3": "10 teachers",
-    "benefit4": "Enrollment and payment management"
+  "plan-select": {
+    "title": "Select Your Plan",
+    "selected-message": "You selected the plan: {{planName}}",
+    "plan1": {
+      "subtitle": "Essentials",
+      "title": "Basic Plan",
+      "price": "$19.90",
+      "benefit1": "1 location",
+      "benefit2": "100 students",
+      "benefit3": "10 teachers",
+      "benefit4": "Enrollment and payment management"
+    },
+    "plan2": {
+      "subtitle": "Pro",
+      "title": "Intermediate Plan",
+      "price": "$70.00",
+      "benefit1": "500 students",
+      "benefit2": "50 teachers",
+      "benefit3": "2 locations",
+      "benefit4": "Inventory and loan management",
+      "benefit5": "Enrollment and payment management"
+    },
+    "plan3": {
+      "subtitle": "Elite",
+      "title": "Premium Plan",
+      "price": "$160.00",
+      "benefit1": "2000 students",
+      "benefit2": "200 teachers",
+      "benefit3": "2 or more locations",
+      "benefit4": "Priority support",
+      "benefit5": "Inventory and loan management",
+      "benefit6": "Enrollment and payment management"
+    },
+    "button": {
+      "select": "Select Plan"
+    }
   },
-  "plan2": {
-    "subtitle": "Pro",
-    "title": "Intermediate Plan",
-    "price": "$70.00",
-    "benefit1": "500 students",
-    "benefit2": "50 teachers",
-    "benefit3": "2 locations",
-    "benefit4": "Inventory and loan management",
-    "benefit5": "Enrollment and payment management"
-  },
-  "plan3": {
-    "subtitle": "Elite",
-    "title": "Premium Plan",
-    "price": "$160.00",
-    "benefit1": "2000 students",
-    "benefit2": "200 teachers",
-    "benefit3": "2 or more locations",
-    "benefit4": "Priority support",
-    "benefit5": "Inventory and loan management",
-    "benefit6": "Enrollment and payment management"
-  },
-  "button": {
-    "select": "Select Plan"
-  },
+
   "payments": {
+    "section-title": "Payments Management",
+    "nav": {
+      "list": "View Payments",
+      "assign": "Assign Invoice"
+    },
+    "assign-title": "Assign new invoice",
+    "dni-label": "Student DNI",
+    "amount-label": "Amount",
+    "currency-label": "Currency",
+    "due-date-label": "Due Date",
+    "create-button": "Create Invoice",
+    "assign": {
+      "success": "Invoice successfully created!",
+      "error": "Error creating invoice."
+    },
+    "method": "Method",
+    "methods": {
+      "CASH": "Cash",
+      "CARD": "Card",
+      "TRANSFER": "Transfer",
+      "WALLET": "Wallet",
+      "OTHER": "Other"
+    },
+    "register": {
+      "success": "Payment successfully recorded",
+      "error": "There was an error recording the payment"
+    },
     "title": "Payments",
     "subtitle": "Check a student's payment status",
     "dni-input": "Enter DNI",
@@ -172,18 +227,38 @@
     },
     "fields": {
       "category": "Category",
-      "amount": "Amount (S/)",
+      "amount": "Amount",
       "concept": "Concept",
-      "date": "Date"
+      "date": "Date",
+      "method": "Payment Method",
+      "currency": "Currency"
+    },
+    "method": {
+      "cash": "Cash",
+      "card": "Card",
+      "transfer": "Transfer",
+      "wallet": "Wallet",
+      "others": "Other",
+      "other": "Other"
+    },
+    "currency": {
+      "pen": "Peruvian Sol (PEN)",
+      "usd": "US Dollar (USD)"
     },
     "category": {
-      "teachers": "Payment to teachers",
+      "students": "Students",
+      "personals": "Payment to personal",
+      "personal": "Personal",
       "materials": "Materials",
       "services": "Services",
       "taxes": "Taxes",
       "maintenance": "Maintenance",
       "technology": "Technology",
-      "others": "Other"
+      "others": "Other",
+      "other": "Other"
+    },
+    "concept": {
+      "paidStudentInvoice": "Payment from a student"
     },
     "actions": {
       "confirm": "Confirm"
@@ -193,7 +268,30 @@
       "category": "Category",
       "concept": "Concept",
       "amount": "Amount",
-      "total": "Monthly total"
+      "total": "Monthly total",
+      "type": "Type",
+      "paymentMethod": "Payment Method",
+      "totalIncome": "Total Income",
+      "totalExpense": "Total Expense"
+    },
+    "type": {
+      "income": "Income",
+      "expense": "Expense"
+    },
+    "notifications": {
+      "expenseRegistered": "Expense recorded correctly.",
+      "errorRegistering": "An error occurred while recording the expense."
+    }
+  },
+  "schedule": {
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
     }
   },
   "form": {
@@ -213,11 +311,30 @@
     "subtitle": "My classes",
     "subtitle2": "List of students-Classroom01",
     "button": "Save attendance",
-    "class-select": "Class",
-    "date-select": "Date",
+    "class-select": "Select Class",
+    "selectPlaceholder": "Select a class",
+    "classRequired": "Please select a class to continue",
+    "date-select": "Select Date",
+    "student-select": "Select Student",
     "list-student": "Student",
-    "list-attendance": "Attended"
+    "list-attendance": "Attended",
+    "attendance-student": "Student",
+    "report-title": "Attendance Reports",
+    "report-subtitle1": "Select filters to view student attendance",
+    "report-subtitle2": "Session results found",
+    "all-students": "All Students",
+    "search": "Search",
+    "table-date": "Date",
+    "table-class": "Class",
+    "table-students": "Students",
+    "date-start": "Start",
+    "date-end": "End",
+    "no-search-message": "No search has been made yet. Please select filters and click Search.",
+    "attendance-status": "Status",
+    "attendance-date": "Date"
+
   },
+
   "view-courses": {
     "title": "Courses",
     "table": {
@@ -370,6 +487,8 @@
       "student-required": "Student is required",
       "period": "Academic Period",
       "period-required": "Academic period is required",
+      "weekly-schedule": "Weekly Schedule",
+      "weekly-schedule-required": "Weekly schedule is required",
       "date": "Enrollment Date",
       "date-required": "Enrollment date is required",
       "amount": "Amount",
@@ -397,13 +516,21 @@
       "edit": "Edit enrollment",
       "delete": "Delete enrollment"
     },
+    "search": {
+      "title": "Search Enrollment",
+      "input": "Enter student DNI",
+      "search-button": "Search",
+      "no-results": "No enrollments found for the given criteria"
+    },
     "status": {
       "active": "Active",
-      "inactive": "Inactive"
+      "cancelled": "Cancelled",
+      "completed": "Completed"
     },
     "payment": {
       "paid": "Paid",
-      "unpaid": "Unpaid"
+      "pending": "Pending",
+      "refunded": "Refunded"
     },
     "paginator": {
       "label": "Select enrollment page"
@@ -462,7 +589,16 @@
       "dayRequired": "Day is required",
       "startTimeRequired": "Start time is required",
       "endTimeRequired": "End time is required",
-      "classroomRequired": "Classroom is required"
+      "classroomRequired": "Classroom is required",
+      "days": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      }
     }
   },
   "teacher-schedule": {
@@ -479,7 +615,9 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "required-dni": "DNI is required.",
+    "student-not-found": "A student with that ID was not found."
   },
   "recover-password": {
     "title": "Recover Password",
@@ -502,6 +640,21 @@
     "confirm-title": "Confirm Password Change",
     "confirm-message": "Are you sure you want to change your password?",
     "cancel": "Cancel",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "missing-fields": "Please fill in both email and password.",
+    "success": "Your password has been reset successfully.",
+    "error": "Failed to reset password. Please try again."
+  },
+  "pay": {
+    "tittle": "Payment Form",
+    "cardholderName": "CardHolder Name",
+    "direction": "Address",
+    "button": "Pay",
+    "success": "✅ Thank you! Your payment of ${{amount}} USD was successfully processed.",
+    "error": "❌ Error: {{message}}",
+    "unexpected-error": "❌ An unexpected error occurred during the payment process.",
+    "common": {
+      "student-not-found": "Student not found."
+    }
   }
 }

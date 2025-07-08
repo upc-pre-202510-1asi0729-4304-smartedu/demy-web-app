@@ -30,6 +30,7 @@
     "schedules": "Horarios",
     "my-schedule": "Mi Horario",
     "attendance": "Asistencia",
+    "attendance-reports": "Reportes de Asistencia",
     "finance": "Finanzas",
     "logout": "Salir"
   },
@@ -46,8 +47,12 @@
       "required": "Este campo es obligatorio",
       "email": "Ingresa un correo válido",
       "minlength": "Mínimo 8 caracteres"
-    }
+    },
+    "success": "Has iniciado sesión correctamente.",
+    "error": "Correo o contraseña incorrectos. Intenta nuevamente.",
+    "no-permission": "No tienes permiso para acceder a esta sección."
   },
+
   "sign-up": {
     "login": "Inicar Sesion",
     "title": "Crear Cuenta",
@@ -59,12 +64,19 @@
     "password": "Contraseña",
     "terms-me": "Acepta los terminos y condiciones",
     "register": "Registrarse",
+    "success": "Cuenta creada exitosamente.",
+    "error": "Ocurrió un error durante el registro. Verifica tu información e inténtalo nuevamente.",
+    "email-exists": "Este correo ya está registrado. Por favor usa otro.",
+    "invalid-data": "Datos inválidos. Verifica la información ingresada.",
+    "academy-creation-failed": "La academia no se pudo crear. Tu cuenta fue eliminada. Por favor, intenta nuevamente.",
+    "partial-registration-error": "Tu cuenta fue creada, pero la academia no. Contacta con soporte técnico.",
+
     "errors": {
       "required": "Este campo es obligatorio",
-      "invalid-email": "Ingrese un correo válido",
+      "invalid-email": "Ingresa un correo válido",
       "minlength": "Mínimo {requiredLength} caracteres",
       "maxlength": "Máximo {requiredLength} caracteres",
-      "accept-terms": "Debe aceptar los términos"
+      "accept-terms": "Debes aceptar los términos"
     }
   },
   "view-teachers": {
@@ -77,6 +89,18 @@
     },
     "button": {
       "new-teacher": "Nuevo Profesor"
+    }
+  },
+  "teachers": {
+    "notifications": {
+      "created": "Profesor creado correctamente.",
+      "create-error": "Error al crear el profesor.",
+      "updated": "Profesor actualizado correctamente.",
+      "update-error": "Error al actualizar el profesor.",
+      "deleted": "Profesor eliminado correctamente.",
+      "delete-error": "Error al eliminar el profesor.",
+      "load-success": "Profesores cargados correctamente.",
+      "load-error": "Error al cargar los profesores."
     }
   },
   "teacher-modal": {
@@ -98,41 +122,72 @@
       "delete": "Eliminar"
     }
   },
-  "title": "Selecciona tu Plan",
-  "plan1": {
-    "subtitle": "Essentials",
-    "title": "Plan Básico",
-    "price": "S/. 19.90",
-    "benefit1": "1 sede",
-    "benefit2": "100 alumnos",
-    "benefit3": "10 profesores",
-    "benefit4": "Gestión de matrícula y pagos"
+  "plan-select": {
+    "title": "Selecciona tu plan",
+    "selected-message": "Has seleccionado el plan: {{planName}}",
+    "plan1": {
+      "subtitle": "Esenciales",
+      "title": "Plan Básico",
+      "price": "$19.90",
+      "benefit1": "1 sede",
+      "benefit2": "100 estudiantes",
+      "benefit3": "10 profesores",
+      "benefit4": "Gestión de matrículas y pagos"
+    },
+    "plan2": {
+      "subtitle": "Pro",
+      "title": "Plan Intermedio",
+      "price": "$70.00",
+      "benefit1": "500 estudiantes",
+      "benefit2": "50 profesores",
+      "benefit3": "2 sedes",
+      "benefit4": "Gestión de inventario y préstamos",
+      "benefit5": "Gestión de matrículas y pagos"
+    },
+    "plan3": {
+      "subtitle": "Élite",
+      "title": "Plan Premium",
+      "price": "$160.00",
+      "benefit1": "2000 estudiantes",
+      "benefit2": "200 profesores",
+      "benefit3": "2 o más sedes",
+      "benefit4": "Soporte prioritario",
+      "benefit5": "Gestión de inventario y préstamos",
+      "benefit6": "Gestión de matrículas y pagos"
+    },
+    "button": {
+      "select": "Seleccionar Plan"
+    }
   },
-  "plan2": {
-    "subtitle": "Pro",
-    "title": "Plan Intermedio",
-    "price": "S/. 70.00",
-    "benefit1": "500 alumnos",
-    "benefit2": "50 profesores",
-    "benefit3": "2 sedes",
-    "benefit4": "Gestión de inventario y préstamos",
-    "benefit5": "Gestión de matrícula y pagos"
-  },
-  "plan3": {
-    "subtitle": "Elite",
-    "title": "Plan Premium",
-    "price": "S/. 160.00",
-    "benefit1": "2000 alumnos",
-    "benefit2": "200 profesores",
-    "benefit3": "2 o más sedes",
-    "benefit4": "Soporte prioritario",
-    "benefit5": "Gestión de inventario y préstamos",
-    "benefit6": "Gestión de matrícula y pagos"
-  },
-  "button": {
-    "select": "Seleccionar Plan"
-  },
+
   "payments": {
+    "section-title": "Gestión de Pagos",
+    "nav": {
+      "list": "Ver Pagos",
+      "assign": "Asignar Factura"
+    },
+    "method": "Método",
+    "methods": {
+      "CASH": "Efectivo",
+      "CARD": "Tarjeta",
+      "TRANSFER": "Transferencia",
+      "WALLET": "Billetera digital",
+      "OTHER": "Otro"
+    },
+    "register": {
+      "success": "Pago registrado correctamente",
+      "error": "Hubo un error al registrar el pago"
+    },
+    "assign-title": "Asignar nueva factura",
+    "dni-label": "DNI del Estudiante",
+    "amount-label": "Monto",
+    "currency-label": "Moneda",
+    "due-date-label": "Fecha de Vencimiento",
+    "create-button": "Crear Factura",
+    "assign": {
+      "success": "¡Factura creada exitosamente!",
+      "error": "Error al crear la factura."
+    },
     "title": "Pagos",
     "subtitle": "Buscar el estado de pago de un alumno",
     "dni-input": "Ingresar DNI",
@@ -172,18 +227,38 @@
     },
     "fields": {
       "category": "Categoría",
-      "amount": "Monto (S/)",
+      "amount": "Monto",
       "concept": "Concepto",
-      "date": "Fecha"
+      "date": "Fecha",
+      "method": "Método de pago",
+      "currency": "Moneda"
+    },
+    "method": {
+      "cash": "Efectivo",
+      "card": "Tarjeta",
+      "transfer": "Transferencia",
+      "wallet": "Billetera digital",
+      "others": "Otro",
+      "other": "Otro"
+    },
+    "currency": {
+      "pen": "Soles (PEN)",
+      "usd": "Dólares (USD)"
     },
     "category": {
-      "teachers": "Pago Docentes",
+      "students": "Estudiantes",
+      "personals": "Pago a personal",
+      "personal": "Personal",
       "materials": "Materiales",
       "services": "Servicios",
       "taxes": "Impuestos",
       "maintenance": "Mantenimiento",
       "technology": "Tecnología",
-      "others": "Otros"
+      "others": "Otros",
+      "other": "Otro"
+    },
+    "concept": {
+      "paidStudentInvoice": "Pago de estudiante"
     },
     "actions": {
       "confirm": "Confirmar"
@@ -193,7 +268,30 @@
       "category": "Categoría",
       "concept": "Concepto",
       "amount": "Monto",
-      "total": "Total mensual"
+      "total": "Total mensual",
+      "type": "Tipo",
+      "paymentMethod": "Método de pago",
+      "totalIncome": "Total de ingresos",
+      "totalExpense": "Total de egresos"
+    },
+    "type": {
+      "income": "Ingreso",
+      "expense": "Gasto"
+    },
+    "notifications": {
+      "expenseRegistered": "Gasto registrado correctamente.",
+      "errorRegistering": "Ocurrió un error al registrar el gasto."
+    }
+  },
+  "schedule": {
+    "days": {
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
     }
   },
   "form": {
@@ -208,16 +306,36 @@
       "invalid": "El campo {{field}} no es válido"
     }
   },
+
   "attendance": {
     "title": "Asistencia",
     "subtitle": "Mis clases",
     "subtitle2": "Lista de alumnos-Salon01",
     "button": "Guardar asistencia",
-    "class-select": "Clase",
-    "date-select": "Fecha",
+    "class-select": "Seleccione Clase",
+    "selectPlaceholder": "Selecciona una clase",
+    "classRequired": "Debe seleccionar una clase para continuar",
+    "date-select": "Seleccione Fecha",
+    "student-select": "Seleccione Estudiante",
     "list-student": "Estudiante",
-    "list-attendance": "Asistió"
+    "list-attendance": "Asistió",
+    "attendance-student": "Alumno",
+    "report-title": "Reportes de asistencia",
+    "report-subtitle1": "Seleccione los filtros para ver la asistencia de los estudiantes",
+    "report-subtitle2": "Resultados de sesiones encontradas",
+    "all-students": "Todos los estudiantes",
+    "search": "Buscar",
+    "table-date": "Fecha",
+    "table-class": "Clase",
+    "table-students": "Estudiantes",
+    "date-start": "Inicio",
+    "date-end": "Fin",
+    "no-search-message": "Aún no se ha realizado ninguna búsqueda. Por favor seleccione los filtros y presione Buscar.",
+    "attendance-status": "Estado",
+    "attendance-date": "Fecha"
+
   },
+
   "view-courses": {
     "title": "Cursos",
     "table": {
@@ -363,6 +481,12 @@
     }
   },
   "enrollment": {
+    "search": {
+      "title": "Busca una Matrícula",
+      "input": "Ingresa el DNI",
+      "search-button": "Buscar",
+      "no-results": "No enrollments found for the given criteria"
+    },
     "form": {
       "title-edit": "Editar Matrícula",
       "title-new": "Registrar Matrícula",
@@ -370,6 +494,8 @@
       "student-required": "Estudiante es requerido",
       "period": "Periodo Académico",
       "period-required": "Periodo académico es requerido",
+      "weekly-schedule": "Horario",
+      "weekly-schedule-required": "Horario es requerido",
       "date": "Fecha de Matrícula",
       "date-required": "Fecha de matrícula es requerida",
       "amount": "Monto",
@@ -399,11 +525,13 @@
     },
     "status": {
       "active": "Activo",
-      "inactive": "Inactivo"
+      "cancelled": "Cancelado",
+      "completed": "Completado"
     },
     "payment": {
       "paid": "Pagado",
-      "unpaid": "No Pagado"
+      "pending": "Pendiente",
+      "refunded": "Reembolsado"
     },
     "paginator": {
       "label": "Seleccionar página de matrículas"
@@ -412,7 +540,7 @@
   "student": {
     "form": {
       "title-edit": "Editar Estudiante",
-      "title-new": "Nuevo Estudiante",
+      "title-new": "Registrar Estudiante",
       "dni": "DNI",
       "dni-error": "DNI debe tener 8 dígitos numéricos",
       "first-name": "Nombres",
@@ -462,7 +590,16 @@
       "dayRequired": "El día es requerido",
       "startTimeRequired": "La hora de inicio es requerida",
       "endTimeRequired": "La hora de fin es requerida",
-      "classroomRequired": "El aula es requerida"
+      "classroomRequired": "El aula es requerida",
+      "days": {
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado",
+        "sunday": "Domingo"
+      }
     }
   },
   "teacher-schedule": {
@@ -479,7 +616,9 @@
     "cancel": "Cancelar",
     "confirm": "Confirmar",
     "edit": "Editar",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "required-dni": "El DNI es obligatorio.",
+    "student-not-found": "No se encontró un estudiante con ese DNI."
   },
   "recover-password": {
     "title": "Recuperar Contraseña",
@@ -502,6 +641,21 @@
     "confirm-title": "Confirmar cambio de contraseña",
     "confirm-message": "¿Estás seguro de que quieres cambiar tu contraseña?",
     "cancel": "Cancelar",
-    "confirm": "Confirmar"
+    "confirm": "Confirmar",
+    "missing-fields": "Por favor, completa el correo y la nueva contraseña.",
+    "success": "Tu contraseña ha sido actualizada correctamente.",
+    "error": "Error al actualizar la contraseña. Inténtalo nuevamente."
+  },
+  "pay": {
+    "tittle": "Formulario de pago",
+    "cardholderName": "Nombre del Propietario",
+    "direction": "Direccion",
+    "button": "Pagar",
+    "success": "✅ ¡Gracias! Tu pago de ${{amount}} USD fue procesado con éxito.",
+    "error": "❌ Error: {{message}}",
+    "unexpected-error": "❌ Ocurrió un error inesperado durante el proceso de pago.",
+    "common": {
+      "student-not-found": "Estudiante no encontrado."
+    }
   }
 }

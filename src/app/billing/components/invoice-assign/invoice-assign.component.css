@@ -1,0 +1,60 @@
+/* Base form grid */
+.assign-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fafafa;
+  border-radius: 8px;
+}
+
+/* Headline */
+h3 {
+  text-align: center;
+  margin-top: 16px;
+  margin-bottom: 12px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+/* Form fields */
+.form-field {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Button container spanning all columns */
+.actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+/* Message styling */
+p {
+  text-align: center;
+  margin-top: 16px;
+  color: #d32f2f;
+  font-weight: 500;
+}
+
+/* Responsive tweaks for narrow screens */
+@media (max-width: 600px) {
+  .assign-form {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  h3 {
+    font-size: 1.3em;
+  }
+
+  .form-field {
+    max-width: 100%;
+  }
+}

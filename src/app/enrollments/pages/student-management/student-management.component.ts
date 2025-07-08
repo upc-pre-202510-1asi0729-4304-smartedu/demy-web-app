@@ -220,7 +220,7 @@ export class StudentManagementComponent implements OnInit, AfterViewInit {
    * @param id ID of the student to delete
    * @private
    */
-  private deleteStudent(id: string): void {
+  private deleteStudent(id: number): void {
     this.studentService.delete(id).subscribe(() => {
       this.dataSource.data = this.dataSource.data.filter(item => item.id !== id);
     });

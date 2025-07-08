@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import {FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { BaseFormComponent } from '../../../shared/components/base-form/base-form.component';
 import { Student } from '../../model/student.entity';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -21,8 +23,11 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatButton,
     MatInput,
     MatSelectModule,
-    TranslatePipe
+    TranslatePipe,
+    MatDatepickerModule,
+    ReactiveFormsModule,
   ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './student-create-and-edit.component.html',
   styleUrl: './student-create-and-edit.component.css'
 })
@@ -44,12 +49,12 @@ export class StudentCreateFormComponent extends BaseFormComponent {
   @Output() protected cancelRequested = new EventEmitter<void>();
 
   /** Reference to the student form */
-  @ViewChild('studentForm', { static: false }) studentForm!: NgForm;
+  @ViewChild('studentForm', {static: false}) studentForm!: NgForm;
 
   /** Options for the student's sex */
   sexOptions = [
-    { value: 'MALE', viewValue: 'Masculino' },
-    { value: 'FEMALE', viewValue: 'Femenino' }
+    {value: 'MALE', viewValue: 'Masculino'},
+    {value: 'FEMALE', viewValue: 'Femenino'}
   ];
 
   /**
@@ -66,7 +71,7 @@ export class StudentCreateFormComponent extends BaseFormComponent {
   protected resetEditState(): void {
     this.student = new Student({});
     this.editMode = false;
-    this.studentForm.reset();
+    this.studentForm.resetForm();
   }
 
   /**

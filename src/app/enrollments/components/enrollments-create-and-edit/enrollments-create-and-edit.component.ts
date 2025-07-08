@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import {FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -11,6 +11,8 @@ import { AcademicPeriod } from '../../model/academic-period.entity';
 import { AcademicPeriodService } from '../../services/academic-period.service';
 import { Student } from '../../model/student.entity';
 import { StudentService } from '../../services/student.service';
+import {WeeklyScheduleService} from '../../../scheduling/services/weekly-schedule.service';
+import {ScheduleWeekly} from '../../../scheduling/model/weekly-schedule.entity';
 import { TranslatePipe } from "@ngx-translate/core";
 
 /**
@@ -27,7 +29,8 @@ import { TranslatePipe } from "@ngx-translate/core";
     MatInput,
     MatButton,
     MatSelectModule,
-    TranslatePipe
+    TranslatePipe,
+    ReactiveFormsModule
   ],
   templateUrl: './enrollments-create-and-edit.component.html',
   styleUrls: ['./enrollments-create-and-edit.component.css']
@@ -54,18 +57,16 @@ export class EnrollmentsCreateFormComponent extends BaseFormComponent implements
 
   /** List of enrollment status options */
   enrollmentStatusOptions = [
-    { value: 'ACTIVE', viewValue: 'Activo' },
-    { value: 'CANCELLED', viewValue: 'Cancelado' },
-    { value: 'COMPLETED', viewValue: 'Completado' },
-    { value: 'DELETED', viewValue: 'Eliminado' }
+    { value: 'ACTIVE', viewValue: 'enrollment.status.active' },
+    { value: 'CANCELLED', viewValue: 'enrollment.status.cancelled' },
+    { value: 'COMPLETED', viewValue: 'enrollment.status.completed' }
   ];
 
   /** List of payment status options */
   paymentStatusOptions = [
-    { value: 'PENDING', viewValue: 'Pendiente' },
-    { value: 'PAID', viewValue: 'Pagado' },
-    { value: 'REFUNDED', viewValue: 'Reembolsado' },
-    { value: 'PARTIAL', viewValue: 'Parcial' }
+    { value: 'PENDING', viewValue: 'enrollment.payment.pending' },
+    { value: 'PAID', viewValue: 'enrollment.payment.paid' },
+    { value: 'REFUNDED', viewValue: 'enrollment.payment.refunded' }
   ];
 
   /** List of students to select from */
@@ -74,14 +75,19 @@ export class EnrollmentsCreateFormComponent extends BaseFormComponent implements
   /** List of academic periods to select from */
   periodOptions: AcademicPeriod[] = [];
 
+  /**  List of weekly schedules to select from */
+  weeklyScheduleOptions: ScheduleWeekly[] = [];
+
   /**
    * Initializes the component and its dependencies.
    * @param academicPeriodService - Service used to fetch academic periods
    * @param studentService - Service used to fetch students
+   * @param  weeklyScheduleService - Service used to fetch students
    */
   constructor(
     private academicPeriodService: AcademicPeriodService,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private weeklyScheduleService: WeeklyScheduleService
   ) {
     super();
     this.enrollment = new Enrollment({});
@@ -94,6 +100,7 @@ export class EnrollmentsCreateFormComponent extends BaseFormComponent implements
   ngOnInit(): void {
     this.loadAcademicPeriods();
     this.loadStudents();
+    this.loadWeeklySchedules();
   }
 
   /**
@@ -116,6 +123,13 @@ export class EnrollmentsCreateFormComponent extends BaseFormComponent implements
     });
   }
 
+  private loadWeeklySchedules(): void {
+    this.weeklyScheduleService.getAll().subscribe({
+      next: (schedules) => this.weeklyScheduleOptions = schedules,
+      error: (err)      => console.error('Error al cargar weekly schedules', err)
+    });
+  }
+
   /**
    * Resets the form and exits edit mode.
    * Clears the current enrollment data.
@@ -123,7 +137,7 @@ export class EnrollmentsCreateFormComponent extends BaseFormComponent implements
   protected resetEditState(): void {
     this.enrollment = new Enrollment({});
     this.editMode = false;
-    this.enrollmentForm.reset();
+    this.enrollmentForm.resetForm();
   }
 
   /**
@@ -144,13 +158,6 @@ export class EnrollmentsCreateFormComponent extends BaseFormComponent implements
   protected onSubmit(): void {
     if (this.isValid()) {
       let emitter = this.isEditMode() ? this.enrollmentUpdateRequested : this.enrollmentAddRequested;
-
-      if (this.enrollment.createdAt) {
-        const dateObj = new Date(this.enrollment.createdAt);
-        if (!isNaN(dateObj.getTime())) {
-          this.enrollment.createdAt = dateObj;
-        }
-      }
 
       emitter.emit(this.enrollment);
       this.resetEditState();

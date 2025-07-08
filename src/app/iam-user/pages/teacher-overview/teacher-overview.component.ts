@@ -8,15 +8,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { TeacherModalComponent } from '../../components/teacher-modal/teacher-modal.component';
 import { UserAccount } from '../../model/user.entity';
 import { TeacherService } from '../../services/teacher.service';
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 
 /**
- * Component that displays a list of teachers in a table with sorting and pagination.
+ * Component that displays a list of teachers in a Material table with sorting, pagination, and actions.
  *
- * Provides actions to add, edit, or delete teachers using a modal dialog.
- * Fetches data from the backend using the {@link TeacherService}.
+ * @summary
+ * Provides functionality to add, edit, and delete teacher accounts through a modal dialog.
+ * Data is retrieved from the backend using the {@link TeacherService}.
  */
 @Component({
   selector: 'app-teacher-overview',
@@ -35,39 +37,48 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 })
 export class TeacherOverviewComponent implements OnInit, AfterViewInit {
   /**
-   * Columns displayed in the teacher table.
+   * The columns displayed in the teacher table.
    */
   protected columnsToDisplay: string[] = ['fullName', 'email', 'actions'];
 
   /**
-   * Data source for the Angular Material table.
+   * Data source for the Material table containing teacher accounts.
    */
   protected dataSource = new MatTableDataSource<UserAccount>();
 
   /**
-   * Reference to the table paginator.
+   * Paginator instance for paginating the table.
    */
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   /**
-   * Reference to the table sorter.
+   * Sort instance for sorting the table.
    */
   @ViewChild(MatSort) sort!: MatSort;
 
+  /** Injected service for managing teacher data. */
   private teacherService = inject(TeacherService);
+  /** Injected service for opening dialogs. */
   private dialog = inject(MatDialog);
 
+  private notification = inject(NotificationService);
+  private translate = inject(TranslateService);
+
   /**
-   * Lifecycle hook that runs on component initialization.
-   * Loads the list of teachers from the backend.
+   * Lifecycle hook that is called after component initialization.
+   *
+   * @summary
+   * Loads all teachers from the backend.
    */
   ngOnInit(): void {
     this.getAllTeachers();
   }
 
   /**
-   * Lifecycle hook that runs after the view is fully initialized.
-   * Assigns the paginator and sorter to the data table.
+   * Lifecycle hook that is called after the view has been fully initialized.
+   *
+   * @summary
+   * Binds the paginator and sorter to the Material data table.
    */
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -75,8 +86,10 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Opens the teacher modal in 'add' mode.
-   * If a new teacher is successfully added, the table is refreshed.
+   * Opens the modal dialog for creating a new teacher.
+   *
+   * @summary
+   * If the creation is successful, reloads the teacher table.
    */
   onNewTeacher(): void {
     const dialogRef = this.dialog.open(TeacherModalComponent, {
@@ -87,18 +100,26 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.teacherService.createTeacher(result).subscribe({
-          next: () => this.getAllTeachers(),
-          error: (err) => console.error('Error creating teacher:', err)
+          next: () => {
+            this.notification.showSuccess(this.translate.instant('teachers.notifications.created'));
+            this.getAllTeachers();
+          },
+          error: (err) => {
+            this.notification.showError(this.translate.instant('teachers.notifications.create-error'));
+            console.error('Error creating teacher:', err);
+          }
         });
       }
     });
   }
 
   /**
-   * Opens the teacher modal in 'edit' mode with pre-filled teacher data.
-   * If edited successfully, the table is refreshed.
+   * Opens the modal dialog for editing a teacher.
    *
-   * @param teacher - The teacher to be edited.
+   * @summary
+   * Pre-fills the dialog with the selected teacher's data. Reloads the table on successful update.
+   *
+   * @param teacher - The {@link UserAccount} object representing the teacher to edit
    */
   protected onEditItem(teacher: UserAccount): void {
     const dialogRef = this.dialog.open(TeacherModalComponent, {
@@ -111,18 +132,26 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.teacherService.updateTeacher(result.id, result).subscribe({
-          next: () => this.getAllTeachers(),
-          error: (err) => console.error('Error updating teacher:', err)
+          next: () => {
+            this.notification.showSuccess(this.translate.instant('teachers.notifications.updated'));
+            this.getAllTeachers();
+          },
+          error: (err) => {
+            this.notification.showError(this.translate.instant('teachers.notifications.update-error'));
+            console.error('Error updating teacher:', err);
+          }
         });
       }
     });
   }
 
   /**
-   * Opens the teacher modal in 'delete' mode to confirm deletion.
-   * If confirmed, deletes the teacher and updates the table.
+   * Opens the modal dialog for deleting a teacher.
    *
-   * @param teacher - The teacher to be deleted.
+   * @summary
+   * Prompts the user for confirmation. If confirmed, deletes the teacher and updates the table.
+   *
+   * @param teacher - The {@link UserAccount} object representing the teacher to delete
    */
   protected onDeleteItem(teacher: UserAccount): void {
     const dialogRef = this.dialog.open(TeacherModalComponent, {
@@ -136,32 +165,36 @@ export class TeacherOverviewComponent implements OnInit, AfterViewInit {
       if (confirmed) {
         this.teacherService.deleteTeacher(teacher.id).subscribe({
           next: () => {
+            this.notification.showSuccess(this.translate.instant('teachers.notifications.deleted'));
             this.dataSource.data = this.dataSource.data.filter(t => t.id !== teacher.id);
           },
-          error: (err) => console.error('Error deleting teacher:', err)
+          error: (err) => {
+            this.notification.showError(this.translate.instant('teachers.notifications.delete-error'));
+            console.error('Error deleting teacher:', err);
+          }
         });
       }
     });
   }
 
   /**
-   * Fetches all teacher accounts from the backend and filters those with role `TEACHER`.
-   * Updates the data source with the filtered list.
+   * Fetches all teachers from the backend.
+   *
+   * @summary
+   * Calls {@link TeacherService.getTeachers} and filters by role `TEACHER`.
+   * Updates the table data source.
    */
   private getAllTeachers() {
     this.teacherService.getTeachers().subscribe({
       next: (teachers: any[]) => {
-
-        const profesores = [];
-        for (let i = 0; i < teachers.length; i++) {
-          if (teachers[i].role === 1 || teachers[i].role === 'TEACHER') {
-            profesores.push(teachers[i]);
-          }
-        }
+        const profesores = teachers.filter(t => t.role === 'TEACHER');
         this.dataSource.data = profesores;
-        console.log("Datos cargados:", profesores);
+        this.notification.showSuccess(this.translate.instant('teachers.notifications.load-success'));
       },
-      error: (err) => console.error("Error cargando datos:", err)
+      error: (err) => {
+        this.notification.showError(this.translate.instant('teachers.notifications.load-error'));
+        console.error("Error cargando datos:", err);
+      }
     });
   }
 }

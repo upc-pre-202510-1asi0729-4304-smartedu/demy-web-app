@@ -2,9 +2,8 @@
  * Academic period entity.
  */
 export class AcademicPeriod {
-  id: string;
-  name: string;
-  academyId: string;
+  id: number;
+  periodName: string;
   startDate: Date;
   endDate: Date;
   isActive: boolean;
@@ -15,16 +14,14 @@ export class AcademicPeriod {
    * @param academicPeriod - Partial data to initialize the entity
    */
   constructor(academicPeriod: {
-    id?: string;
-    name?: string;
-    academyId?: string;
+    id?: number;
+    periodName?: string;
     startDate?: Date;
     endDate?: Date;
     isActive?: boolean;
   }) {
-    this.id = academicPeriod.id || '';
-    this.name = academicPeriod.name || '';
-    this.academyId = academicPeriod.academyId || '';
+    this.id = academicPeriod.id || 0;
+    this.periodName = academicPeriod.periodName || '';
     this.startDate = academicPeriod.startDate || new Date();
     this.endDate = academicPeriod.endDate || new Date();
     this.isActive = academicPeriod.isActive ?? true;

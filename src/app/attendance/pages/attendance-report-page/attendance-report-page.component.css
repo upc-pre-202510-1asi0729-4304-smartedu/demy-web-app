@@ -1,0 +1,126 @@
+.filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem; /* un poco menos de separación horizontal */
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
+.filters-row > * {
+  width: auto;
+  flex: 0 0 auto; /* No crecer ni contraerse, solo usar su ancho natural */
+}
+
+ .filters-row button {
+  flex: 0 0 auto;
+  /*height: 56px; /* mismo alto que los selects */
+  padding: 0 1.5rem;
+
+  box-shadow: none !important;
+  margin-bottom: 20px; /* ya no debería requerir 20.3px si alineaste bien */
+}
+
+.filters-row button:hover {
+  background-color: #0A468A !important;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  max-width: 100%;
+  margin-top: 16px;
+  box-sizing: border-box;
+}
+
+.full-width-table {
+  min-width: 600px;
+  width: max-content;
+  border-collapse: collapse;
+}
+
+.mat-header-cell,
+.mat-cell {
+  white-space: nowrap;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Columna fija a la izquierda */
+.sticky-column {
+  position: sticky;
+  left: 0;
+  background-color: white;
+  z-index: 1;
+}
+
+.mat-header-cell.sticky-column {
+  background-color: #f1f1f1;
+  z-index: 2;
+  font-weight: 600;
+}
+
+
+
+.mat-column-name {
+  min-width: 150px;
+}
+
+.mat-cell,
+.mat-header-cell {
+  min-width: 80px;
+  text-align: center;
+}
+
+.date-column {
+  min-width: 100px;
+  text-align: center;
+}
+
+th.mat-header-cell {
+  background-color: #3A7CA5 !important;
+  color: white !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+.mat-header-row {
+  background-color: #3A7CA5 !important;
+}
+
+.mat-header-cell {
+  color: white;
+  font-weight: bold;
+}
+
+.table-header-blue {
+  background-color: #3A7CA5;
+  color: white;
+}
+/* */
+.mat-header-cell {
+  font-weight: bold;
+}
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+
+.mat-table-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.full-width-table {
+  width: 100%;
+  table-layout: auto;
+}
+
+mat-paginator {
+  align-self: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
