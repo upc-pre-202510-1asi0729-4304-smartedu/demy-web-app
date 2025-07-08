@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:8080/api/v1',
+  apiBaseUrl: 'https://demy-web-service-production.up.railway.app/api/v1',
   usersEndpointPath: '/users',
   adminsEndpointPath: '/admins',
   teachersPath: '/teachers',
@@ -11,7 +11,7 @@ export const environment = {
   academicPeriodEndpointPath: "/academic-periods",
   studentsEndpointPath: "/students",
   enrollmentEndpointPath: "/enrollments",
-  //invoicesEndpointPath: "/invoices",
+  invoicesEndpointPath: "/invoices",
   paymentsEndpointPath: "/payments",
   financialTransactionsEndpointPath: "/financial-transactions",
   coursesEndpointPath: '/courses',
