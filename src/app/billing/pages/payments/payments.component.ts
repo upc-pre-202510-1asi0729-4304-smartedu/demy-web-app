@@ -40,16 +40,8 @@ export class PaymentsComponent {
   ) {}
   onSearch(dni: string) {
     this.studentService.getByDni(dni).subscribe({
-      next: students => {
-        console.log('Student search result:', students);
-
-        // Filtra para encontrar solo el que coincida exacto
-        const student = students.find(s => s.dni === dni);
-
-        if (!student) {
-          this.notification.showError(this.translate.instant('common.student-not-found'));
-          return;
-        }
+      next: student => {
+        console.log('Student search result:', student);
 
         this.invoiceService.getByDni(student.dni).subscribe({
           next: invoices => {
@@ -57,7 +49,10 @@ export class PaymentsComponent {
           }
         });
       },
-      error: err => console.error('Error en búsqueda', err)
+      error: err => {
+        console.error('Error en búsqueda', err);
+        this.notification.showError(this.translate.instant('common.student-not-found'));
+      }
     });
   }
 
